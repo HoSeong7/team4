@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/index/*")
 public class IndexController {
 
-    @GetMapping("/main")
-    public void main(){
-        log.info("IndexController main");
+    @GetMapping("/index")
+    public void index(){
+        log.info("IndexController index");
     }
 }
