@@ -22,13 +22,13 @@ public class Message extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk, nn, ai
-	private int messageNum; //쪽지번호
+	private Integer messageNum; //쪽지번호
 	
 	@Column(nullable = false) //fk, nn | 회원번호(멤버):받은사람 = 1:n
-	private int memberGet; //받은사람
+	private Integer memberGet; //받은사람
 
 	@Column(nullable = false) //fk, nn | 회원번호(멤버):보낸사람 = 1:n
-	private int memberGive; //보낸사람
+	private Integer memberGive; //보낸사람
 	
 	@Column(length = 100, nullable = false) //nn
 	private String title; //제목
@@ -37,7 +37,7 @@ public class Message extends BaseEntity {
 	private String content; //내용
 	
 	@Column
-	private int view; //보기권한
+	private Integer view; //보기권한
 	
 	@Column(length = 100)
 	private String url; //사진

@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +21,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 public class Coupon {
 
 	@Id
@@ -25,7 +29,7 @@ public class Coupon {
 	/** coupon 고유번호 pk */
 	private Integer couponNum;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0")
 	/** coupon 쿠폰금액 */
 	private Integer couponPoint;
 	
@@ -33,7 +37,7 @@ public class Coupon {
 	/** coupon 쿠폰번호(사용되는 쿠폰의 번호임) */
 	private String couponNumber;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0")
 	/** coupon 0사용가능 1사용불능 */
 	private Integer booleanNum;
 	
