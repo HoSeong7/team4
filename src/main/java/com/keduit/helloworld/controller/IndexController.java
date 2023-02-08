@@ -16,4 +16,9 @@ public class IndexController {
     public void index(){
         log.info("IndexController index");
     }
+    
+    @GetMapping("/index")
+    public void indexpage(){
+    	
+    }
 }

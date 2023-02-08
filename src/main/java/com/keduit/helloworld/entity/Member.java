@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 public class Member extends BaseEntity{
 
 	@Id
@@ -38,11 +41,11 @@ public class Member extends BaseEntity{
 	/** member 이름 */
 	private String memberName;
 	
-	@Column(columnDefinition = "INT DEFAULT 0") //columnDefinition = "DATE DEFAULT SYSDATE"
+	@ColumnDefault("0") 
 	/** member 현재 가지고있는 포인트 */
 	private Long point;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0") 
 	/** 권한 0 : 일반  1 : 관리자 */
 	private Integer purview;
 	
@@ -58,9 +61,9 @@ public class Member extends BaseEntity{
 	/** member 이메일 */
 	private String email;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0") 
 	/** member 경험치(높을수록 티어가오름) */
-	private Long value;
+	private Long exvalue;
 	
 	@Column(length = 100)
 	/** member 사진 */

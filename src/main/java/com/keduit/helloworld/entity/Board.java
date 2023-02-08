@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +21,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 public class Board extends BaseEntity{
 
 	@Id
@@ -40,11 +44,11 @@ public class Board extends BaseEntity{
 	/** Board 사진 */
 	private String url;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0")
 	/** Board 조회수 */
 	private Integer views;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0")
 	/** Board 댓글수 */
 	private Integer cnt;
 	
@@ -52,4 +56,6 @@ public class Board extends BaseEntity{
 	/** Board 해시태그 */
 	private String tag;
 	
+	/** 0: 공지사항  1: 무료게시판   2: QnA*/
+	private Integer boardCase;
 }

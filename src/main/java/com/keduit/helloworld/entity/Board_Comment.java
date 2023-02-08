@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +21,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 public class Board_Comment extends BaseEntity{
 
 	@Id
@@ -36,12 +40,14 @@ public class Board_Comment extends BaseEntity{
 	/** Board_comment 미리보기 사진 */
 	private String viewUrl;
 	
-	@Column(columnDefinition = "INT DEFAULT 0")
+	@ColumnDefault("0")
 	/** Board_comment 가격 */
 	private Integer price;
 	
 	@Column(length = 100)
 	/** Board_comment 사진 */
 	private String url;
+	
+	
 	
 }
