@@ -22,15 +22,15 @@ public class Account extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk,nn,ai
-	private int accountNum; //거래내역번호
+	private Integer accountNum; //거래내역번호
 	
 	@Column(nullable = false) //fk,nn | 회원번호(멤버):구매회원(질문자) = 1:n
-	private int memberBuyer; //구매회원(질문자)
+	private Integer memberBuyer; //구매회원(질문자)
 	
 	@Column(nullable = false) //fk,nn | 회원번호(멤버):판매회원(답변자) = 1:n
-	private int memberSeller; //판매회원(답변자)
+	private Integer memberSeller; //판매회원(답변자)
 	
 	@Column(nullable = false) //nn
-	private int cash; //거래금액
+	private Integer cash; //거래금액
 	
 }
