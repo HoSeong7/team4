@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <script>
+    var sock = new SockJS("ws/chat");
+    var stomp = webstomp.over(sock);
+
+    stomp.connect({},function(frame){
+
+    });
+
+    var webSocket = new WebSocket("ws/chat");
+    var stomp = webstomp.over(webSocket);
+
+    stomp.connect({}, function(frame){
+
+    });
+  </script>
+</body>
+</html>
