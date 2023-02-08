@@ -1,0 +1,258 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/*상단 바*/
+.innerHeader {
+    max-width: 1720px;
+    height: 30px;
+    line-height: 30px;
+    margin: auto;
+    background-color: rgb(34, 34, 34);
+}
+
+.innerHeader .logo {
+    float: left;
+}
+
+.innerHeader .logo a {
+    display: block;
+    padding-left: 10px;
+}
+
+/*상단 바 왼쪽*/
+.innerHeader .mainmenu-left {
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+
+.innerHeader .mainmenu-left .navbar {
+    float: left;
+}
+
+.innerHeader .mainmenu-left .navbar li {
+    float: left;
+    margin: 2px 15px;
+}
+
+.innerHeader .mainmenu-left .navbar li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+.innerHeader .mainmenu-left .navbar li a:hover {
+    font-size: 14px;
+}
+
+/*상단 바 오른쪽*/
+.innerHeader .mainmenu-right {
+    float: right;
+    overflow: hidden;
+    position: relative;
+}
+
+.innerHeader .mainmenu-right .navbar {
+    float: left;
+}
+
+.innerHeader .mainmenu-right .navbar li {
+    float: left;
+}
+
+.innerHeader .mainmenu-right .navbar li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 2px 15px;
+    font-size: 13px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.innerHeader .mainmenu-right .navbar li a:hover {
+    font-size: 14px;
+}
+
+.innerHeader .mainmenu-right .navbar li img {
+    display: block;
+    margin: 2px 10px 0px;
+}
+
+
+/*바디*/
+.content-body {
+    margin-top: 70px;
+    max-width: 1920px;
+    max-height: 1080px;
+    border: 1px solid green;
+
+}
+
+.content-body .content-header-box {
+    width: 1200px;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-body .content-body-left {
+    width: 37%;
+    height: 700px;
+    border: 1px solid blue;
+    float: left;
+    margin-right: 5px;
+    overflow-y: scroll;
+}
+
+.content-body .content-body-left .content-body-left-header {
+    border: 1px solid rgb(20, 145, 167);
+    width: 350px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.content-body .content-body-left .content-body-left-header h1 {
+    float: left;
+}
+
+.content-body .content-body-left .content-body-left-header #registration {
+    float: right;
+    margin-top: 10px;
+}
+
+.content-body .content-body-left .content-body-left-body {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid red;
+}
+.content-body .content-body-left .content-body-left-body .content-box{
+    width: 400px;
+    height: 50px;
+    border: 1px solid rgb(12, 68, 221);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.content-body .content-body-left .content-body-left-body .content-box .content-userimg {
+    width: 42px;
+    height: 42px;
+    border: 1px solid green;
+    float: left;
+    
+}
+.content-body .content-body-left .content-body-left-body .content-box .content-userimg{
+    background-color: black;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.content-body .content-body-left .content-body-left-body .content-box .content-username {
+    width: 150px;
+    height: 30px;
+    border: 1px solid green;
+    float: left;
+    margin-left: 50px;
+    margin-top: 15px;
+}
+
+.content-body .content-body-left .content-body-left-body .content-box .content-time {
+    width: 50px;
+    height: 30px;
+    border: 1px solid green;
+    float: left;
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.content-body .content-body-left .content-body-left-body .content-box .content-delete {
+    width: 35px;
+    height: 25px;
+    border: 1px solid green;
+    float: left;
+    margin-left: 20px;
+    margin-top: 16px;
+}
+
+
+/*오른쪽*/
+.content-body .content-body-right {
+    width: 60%;
+    height: 700px;
+    border: 1px solid purple;
+    float: left;
+}
+
+.content-body .content-body-right .content-body-right-box {
+    width: 600px;
+    height: 450px;
+    border: 1px solid blue;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.content-body .content-body-right .content-body-right-box h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.content-body .content-body-right .content-body-right-box .box-top{
+    width: 400px;
+    height: 50px;
+    border: 1px solid red;
+    margin: auto;
+}
+.content-body .content-body-right .content-body-right-box .box-top .user-title{
+    float: left;
+}
+.content-body .content-body-right .content-body-right-box .box-top .user-content{
+    float: left;
+    margin-left: 100px;
+    margin-top: 7px;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom{
+    width: 400px;
+    height: 200px;
+    border: 1px solid red;
+    margin: auto;
+    margin-top: 10px;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-title{
+    float: left;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-content{
+    float: right;
+    width: 300px;
+    height: 180px;
+    border: 1px solid purple;
+    border-radius: 15px;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-content p{
+    margin: 5px;
+}
+.content-body .content-body-right .content-body-right-box .box-post{
+    width: 50px;
+    height: 30px;
+    border: 1px solid green;
+    float: right;
+    margin-right: 100px;
+    margin-top: 40px;
+}
