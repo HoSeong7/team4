@@ -4,5 +4,5 @@ import com.keduit.helloworld.service.MessageService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NoteServiceImpl implements MessageService {
+public class MessageServiceImpl implements MessageService {
 }

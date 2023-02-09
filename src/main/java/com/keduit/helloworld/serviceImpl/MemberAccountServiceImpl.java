@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.keduit.helloworld.dto.AccountDTO;
-import com.keduit.helloworld.entity.Account;
-import com.keduit.helloworld.repository.AccountRepository;
-import com.keduit.helloworld.service.AccountService;
+import com.keduit.helloworld.dto.MemberAccountDTO;
+import com.keduit.helloworld.entity.MemberAccount;
+import com.keduit.helloworld.repository.MemberAccountRepository;
+import com.keduit.helloworld.service.MemberAccountService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,22 +15,22 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class AccountServiceImpl implements AccountService {
+public class MemberAccountServiceImpl implements MemberAccountService {
 
-	private final AccountRepository repository;
+	private final MemberAccountRepository repository;
 	
 	@Override
-	public Integer register(AccountDTO dto) {
+	public Long register(MemberAccountDTO dto) {
 		log.info("AccountServiceImpl register");
 		
-		Account entity = accountDtoToAccountEntity(dto);
+		MemberAccount entity = accountDtoToAccountEntity(dto);
 		
 		repository.save(entity);
 		return entity.getAccountNum();
 	}
 
 	@Override
-	public List<Account> read(Integer accountNum) {
+	public List<MemberAccount> read(Long accountNum) {
 		// TODO Auto-generated method stub
 		return null;
 	}

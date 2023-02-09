@@ -14,13 +14,13 @@ public class ChatRoomRepository {
 
     private Map<String, ChatRoomDTO> chatRoomDTOMap;
 
-    public ChatRoomRepository() {
-        chatRoomDTOMap = Collections.unmodifiableMap(
-                Stream.of(ChatRoomDTO.create("1번방"), ChatRoomDTO.create("2번방"), ChatRoomDTO.create("3번방"))
-                        .collect(Collectors.toMap(ChatRoomDTO::getRoomId, Function.identity())));
-
-        chatRooms = Collections.unmodifiableCollection(chatRoomDTOMap.values());
-    }
+//    public ChatRoomRepository() {
+//        chatRoomDTOMap = Collections.unmodifiableMap(
+//                Stream.of(ChatRoomDTO.create("1번방"), ChatRoomDTO.create("2번방"), ChatRoomDTO.create("3번방"))
+//                        .collect(Collectors.toMap(ChatRoomDTO::getRoomId, Function.identity())));
+//
+//        chatRooms = Collections.unmodifiableCollection(chatRoomDTOMap.values());
+//    }
 
     public List<ChatRoomDTO> findAllRooms(){
         List<ChatRoomDTO> list = new ArrayList<>(chatRoomDTOMap.values());

@@ -34,7 +34,7 @@ public class FavoritesServiceImpl implements FavoritesService {
 	
 	@Override
 	/** 즐겨찾기 추가하기, 리턴값 bookmarked */
-	public Integer register(FavoritesDTO dto) {
+	public Long register(FavoritesDTO dto) {
 		log.info("Favorites ServiceImpl ------------" + dto);
 		
 		Favorites entity = DtoToEntity(dto);
@@ -58,7 +58,7 @@ public class FavoritesServiceImpl implements FavoritesService {
 
 	@Override
 	/** 즐겨찾기 삭제하기 */
-	public void remove(Integer favoritesNum) {
+	public void remove(Long favoritesNum) {
 
 		favoritesRepository.deleteById(favoritesNum);
 	}

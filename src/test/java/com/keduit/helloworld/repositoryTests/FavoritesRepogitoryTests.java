@@ -29,8 +29,8 @@ public class FavoritesRepogitoryTests {
 		
 		IntStream.rangeClosed(1, 30).forEach(i->{
 			
-			int a = (int)(Math.random()*5)+1;
-			int b = (int)(Math.random()*5)+1;
+			long a = (long)(Math.random()*5)+1;
+			long b = (long)(Math.random()*5)+1;
 			
 			Favorites entity = Favorites.builder().bookmarked(a)
 												  .bookmarker(b).build();
@@ -41,7 +41,7 @@ public class FavoritesRepogitoryTests {
 	@Test
 	public void selectTest() {
 		
-		List<Member> member = memberRepository.getMemberMarker(3);
+		List<Member> member = memberRepository.getMemberMarker(3L);
 
 		
 		for(Member i : member) {

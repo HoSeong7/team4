@@ -8,26 +8,26 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.keduit.helloworld.entity.Account;
-import com.keduit.helloworld.repository.AccountRepository;
+import com.keduit.helloworld.entity.MemberAccount;
+import com.keduit.helloworld.repository.MemberAccountRepository;
 
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootTest
 @Log4j2
-public class AccountTests {
+public class MemberAccountTests {
 
 	@Autowired
-	private AccountRepository repository;
+	private MemberAccountRepository repository;
 	
 	@Test
 	public void insertAccount() {
 		
 		IntStream.rangeClosed(1, 10).forEach(i->{
-			Account entity = Account.builder()
-					.memberBuyer(i*2)
-					.memberSeller(i*5)
-					.cash(i*1000)
+			MemberAccount entity = MemberAccount.builder()
+					.memberBuyer(i*2L)
+					.memberSeller(i*5L)
+					.payment(i*1000L)
 					.build();
 			repository.save(entity);
 			

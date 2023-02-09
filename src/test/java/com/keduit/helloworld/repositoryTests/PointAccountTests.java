@@ -7,15 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.keduit.helloworld.entity.Account;
 import com.keduit.helloworld.entity.PointAccount;
-import com.keduit.helloworld.repository.BankRepository;
+import com.keduit.helloworld.repository.PointAccountRepository;
 
 @SpringBootTest
-public class BankTests {
+public class PointAccountTests {
 
 	@Autowired
-	private BankRepository bankRepository;
+	private PointAccountRepository bankRepository;
 	
 	@Test
 	/** 포인트 정보 등록 테스트(충전 or 환전) */
@@ -23,10 +22,10 @@ public class BankTests {
 		
 		IntStream.rangeClosed(1, 100).forEach(i -> {
 			PointAccount entity = PointAccount.builder()
-					.accountNum(i)
-					.bankCashPoint(1000*i)
-					.bankPoint(4000)
-					.bankPointCash(0)
+					.charge(4000L)
+					.balance(1000L*i)
+					.exchange(0L)
+					.memberNum((long)i)
 					.build();
 			bankRepository.save(entity);
 		});
@@ -35,7 +34,7 @@ public class BankTests {
 	@Test
 	/** 포인트 거래 내역 조회 */
 	public void selectPointList() {
-		List<PointAccount> result = bankRepository.getPointAccount(2);
+		List<PointAccount> result = bankRepository.getPointAccount(2L);
 		
 		for(PointAccount i : result) {
 			System.out.println(i.toString());
