@@ -25,7 +25,7 @@ public class MemberTests {
          Member entity = Member.builder()
                           .id("user" + i)
                           .pw("1111")
-                          .memberName(i+"이름")
+                          .name(i+"이름")
                           .nickname(i+"별명")
                           .introduce("저는 " + i + "입니다 !!")
                           .email(i+"@abc.com")
@@ -36,7 +36,7 @@ public class MemberTests {
    
    @Test
    public void selectMemberTest() {
-      Optional<Member> result = repository.findById(2);
+      Optional<Member> result = repository.findById(2L);
       
       System.out.println(result);
    }
@@ -44,10 +44,10 @@ public class MemberTests {
    @Test
    public void updateMemberTest() {
       
-      Member entity = Member.builder().memberNum(2)
+      Member entity = Member.builder().memberNum(2L)
                               .id("수정된아이디")
                               .pw("1234")
-                              .memberName("수정한 이름1")
+                              .name("수정한 이름1")
                               .nickname("수정한별명1")
                               .introduce("저는 동그라미입니다.")
                               .build();
@@ -58,7 +58,7 @@ public class MemberTests {
    
    @Test
    public void deleteMemberTest() {
-      repository.deleteById(1);
+      repository.deleteById(1L);
    }
    
    

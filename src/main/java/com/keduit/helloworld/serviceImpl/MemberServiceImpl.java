@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	/** 회원 정보 입력 받으면 entity에 넣음 */
-	public Integer register(MemberDTO dto) {
+	public Long register(MemberDTO dto) {
 		log.info("member ServiceImpl ------------" + dto);
 		
 		Member entity = memberDtoToMemberEntity(dto);
@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	/** memberNum 하나로 member하나만 불러오기*/
-	public MemberDTO read(Integer memberNum) {
+	public MemberDTO read(Long memberNum) {
 		
 		Optional<Member> result = repository.findById(memberNum);
 		
@@ -44,7 +44,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	/** 맴버pk값을 받아서 삭제하기*/
-	public void remove(Integer memberNum) {
+	public void remove(Long memberNum) {
 		repository.deleteById(memberNum);
 		
 	}

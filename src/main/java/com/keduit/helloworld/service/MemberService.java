@@ -8,13 +8,13 @@ import com.keduit.helloworld.entity.Member;
 public interface MemberService {
 	
 	/** member 회원가입*/
-	Integer register(MemberDTO dto);	
+	Long register(MemberDTO dto);	
 	
 	/** member 읽기 */
-	MemberDTO read(Integer memberNum);
+	MemberDTO read(Long memberNum);
 	
 	/** member 삭제 */
-	void remove(Integer memberNum);
+	void remove(Long memberNum);
 	
 	/** member 정보수정 */
 	void modify(MemberDTO dto);
@@ -25,10 +25,10 @@ public interface MemberService {
 		MemberDTO dto = MemberDTO.builder().memberNum(entity.getMemberNum())
 										   .id(entity.getId())
 										   .pw(entity.getPw())
-										   .memberName(entity.getMemberName())
+										   .name(entity.getName())
 										   .point(entity.getPoint())
 										   .purview(entity.getPurview())
-										   .nickName(entity.getNickname())
+										   .nickname(entity.getNickname())
 										   .introduce(entity.getIntroduce())
 										   .email(entity.getEmail())
 										   .exvalue(entity.getExvalue())
@@ -44,10 +44,10 @@ public interface MemberService {
 		Member entity = Member.builder().memberNum(dto.getMemberNum())
 										.id(dto.getId())
 										.pw(dto.getPw())
-										.memberName(dto.getMemberName())
+										.name(dto.getName())
 										.point(dto.getPoint())
 										.purview(dto.getPurview())
-										.nickname(dto.getNickName())
+										.nickname(dto.getNickname())
 										.introduce(dto.getIntroduce())
 										.email(dto.getEmail())
 										.exvalue(dto.getExvalue())
