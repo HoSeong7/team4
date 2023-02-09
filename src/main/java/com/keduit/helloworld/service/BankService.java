@@ -3,7 +3,7 @@ package com.keduit.helloworld.service;
 import java.util.List;
 
 import com.keduit.helloworld.dto.BankDTO;
-import com.keduit.helloworld.entity.Bank;
+import com.keduit.helloworld.entity.PointAccount;
 
 public interface BankService {
 	
@@ -11,10 +11,10 @@ public interface BankService {
 	Integer register(BankDTO dto); 
 	
 	/** 포인트 충전 or 환전 내역 조회(read) */
-	List<Bank>read(Integer bankNum);
+	List<PointAccount>read(Integer bankNum);
 	
 	/** BankEntity에 있는 정보를 BankDTO로 옮기기 */
-	default BankDTO bankEntityToBankDto(Bank entity) {
+	default BankDTO bankEntityToBankDto(PointAccount entity) {
 		
 		BankDTO dto = BankDTO.builder()
 				.bankNum(entity.getBankNum())
@@ -29,9 +29,9 @@ public interface BankService {
 	}
 	
 	/** BankDTO에 있는 정보를 BankEntity로 옮기기 */
-	default Bank bankDtoToBankEntity(BankDTO dto) {
+	default PointAccount bankDtoToBankEntity(BankDTO dto) {
 		
-		Bank entity = Bank.builder()
+		PointAccount entity = PointAccount.builder()
 				.bankNum(dto.getBankNum())
 				.accountNum(dto.getAccountNum())
 				.bankCashPoint(dto.getBankCashPoint())

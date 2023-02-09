@@ -25,18 +25,18 @@ public class Account extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** Account 거래내역번호 pk,nn,ai */
-	private Integer accountNum;
+	private Long accountNum;
 	
 	@Column(nullable = false) 
 	/** Account 구매회원(질문자) fk,nn */
-	private Integer memberBuyer; //회원번호(멤버):구매회원(질문자) = 1:n
+	private Long memberBuyer; //회원번호(멤버):구매회원(질문자) = 1:n
 	
 	@Column(nullable = false) 
 	/** Account 판매회원(답변자) fk,nn */
-	private Integer memberSeller; //회원번호(멤버):판매회원(답변자) = 1:n
+	private Long memberSeller; //회원번호(멤버):판매회원(답변자) = 1:n
 	
 	@Column(nullable = false)
 	/** Account 거래금액 nn */
-	private Integer cash;
-	
+	private Long payment;
+
 }

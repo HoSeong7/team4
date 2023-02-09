@@ -18,27 +18,28 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class Bank extends BaseEntity {
+public class PointAccount extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/** Bank 포인트 충전번호 pk,nn,ai */
-	private Integer bankNum;
+	/** 시스템 거래내역 충전번호 pk,nn,ai */
+	private Long pointNum;
 	
 	@Column(nullable = false) 
-	/** Bank 포인트 거래내역번호 fk */
-	private Integer accountNum; //회원번호(멤버):거래내역 = 1:n
+	/** 시스템 거래내역  fk nn */
+	private Long memberNum; //회원번호(멤버):거래내역 = 1:n
 	
 	@Column
-	/** Bank 포인트 충전금액 */
-	private Integer bankCashPoint;
+	/** 시스템 거래내역 충전금액 */
+	private Long charge;
 	
 	@Column(nullable = false)
-	/** Bank 포인트 잔액 nn */
-	private Integer bankPoint;
+	/** 시스템 거래내역 잔액 nn */
+	private Long balance;
 	
 	@Column
-	/** Bank 포인트 환전금액 */
-	private Integer bankPointCash;
+	/** 시스템 거래내역 환전금액 */
+	private Long exchange;
+
 	
 }

@@ -27,7 +27,7 @@ public class Board extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** Board 고유 pk */
-	private Integer boardNum;
+	private Long boardNum;
 	
 	@Column(length = 100, nullable = false)
 	/** Board 제목 */
@@ -38,7 +38,7 @@ public class Board extends BaseEntity{
 	private String content;
 	
 	/** member테이블과 fk */
-	private Integer memberNum;	// 맴버테이블과 fk
+	private Long memberNum;	// 맴버테이블과 fk
 	
 	@Column(length = 100)
 	/** Board 사진 */
@@ -46,16 +46,17 @@ public class Board extends BaseEntity{
 	
 	@ColumnDefault("0")
 	/** Board 조회수 */
-	private Integer views;
+	private Long views;
 	
 	@ColumnDefault("0")
 	/** Board 댓글수 */
-	private Integer cnt;
+	private Long cnt;
 	
 	@Column(length = 100)
 	/** Board 해시태그 */
 	private String tag;
 	
 	/** 0: 공지사항  1: 무료게시판   2: QnA*/
-	private Integer boardCase;
+	private Long boardcase;
+	
 }

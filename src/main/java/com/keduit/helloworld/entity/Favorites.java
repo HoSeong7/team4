@@ -27,13 +27,14 @@ public class Favorites {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk, nn, ai
-	private Integer favoritesNum; //즐겨찾기번호
+	private Long favoritesNum; //즐겨찾기번호
 	
 	@Column(nullable = false, name = "bookmarker") //fk, nn | 회원번호(멤버):즐찾 누른사람 = 1:n
-	private Integer bookmarker; //즐겨찾기 누른 사람
+	private Long bookmarker; //즐겨찾기 누른 사람
 	
 	
 	@Column(nullable = false, name = "bookmarked") //fk, nn | 회원번호(멤버):즐찾 추가된사람 = 1:n
-	private Integer bookmarked; //즐겨찾기 추가된 사람
+	private Long bookmarked; //즐겨찾기 추가된 사람
 	
+
 }

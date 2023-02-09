@@ -27,10 +27,10 @@ public class Board_Comment extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** Board_comment 고유번호 pk */
-	private Integer boardCommentNum;
+	private Long boardCommentNum;
 	
 	/** member 테이블과 fk  */
-	private Integer boardNum;    // 맴버 테이블과 fk
+	private Long boardNum;    // 맴버 테이블과 fk
 	
 	@Column(length = 1000, nullable = false)
 	/** Board_comment 내용 */
@@ -38,16 +38,15 @@ public class Board_Comment extends BaseEntity{
 	
 	@Column(length = 100, nullable = false)
 	/** Board_comment 미리보기 사진 */
-	private String viewUrl;
+	private String viewpicture;
 	
 	@ColumnDefault("0")
 	/** Board_comment 가격 */
-	private Integer price;
+	private Long price;
 	
 	@Column(length = 100)
 	/** Board_comment 사진 */
 	private String url;
 	
-	
-	
+
 }

@@ -27,7 +27,7 @@ public class Member extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** member 테이블 고유 pk */
-	private Integer memberNum;
+	private Long memberNum;
 	
 	@Column(length =30, nullable = false, unique = true)
 	/** member ID */
@@ -39,7 +39,7 @@ public class Member extends BaseEntity{
 	
 	@Column(length = 10, nullable = false)
 	/** member 이름 */
-	private String memberName;
+	private String name;
 	
 	@ColumnDefault("0") 
 	/** member 현재 가지고있는 포인트 */
@@ -47,7 +47,7 @@ public class Member extends BaseEntity{
 	
 	@ColumnDefault("0") 
 	/** 권한 0 : 일반  1 : 관리자 */
-	private Integer purview;
+	private Long purview;
 	
 	@Column(length = 30, nullable = false, unique = true)
 	/** member 닉네임 */
@@ -68,6 +68,5 @@ public class Member extends BaseEntity{
 	@Column(length = 100)
 	/** member 사진 */
 	private String url;
-	
 	
 }

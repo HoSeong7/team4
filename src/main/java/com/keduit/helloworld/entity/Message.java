@@ -23,15 +23,15 @@ public class Message extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** Message 쪽지번호 pk, nn, ai */
-	private Integer messageNum;
+	private Long messageNum;
 	
 	@Column(nullable = false) 
 	/** Message 받은사람 fk, nn */
-	private Integer memberGet; //회원번호(멤버):받은사람 = 1:n
+	private Long memberGet; //회원번호(멤버):받은사람 = 1:n
 
 	@Column(nullable = false)
 	/** Message 보낸사람 fk, nn */
-	private Integer memberGive; //회원번호(멤버):보낸사람 = 1:n
+	private Long memberGive; //회원번호(멤버):보낸사람 = 1:n
 	
 	@Column(length = 100, nullable = false)
 	/** Message 제목 nn */
@@ -43,10 +43,10 @@ public class Message extends BaseEntity {
 	
 	@Column
 	/** Message 보기권한 */
-	private Integer view;
+	private Long view;
 	
 	@Column(length = 100)
 	/** Message 사진 */
 	private String url;
-	
+
 }

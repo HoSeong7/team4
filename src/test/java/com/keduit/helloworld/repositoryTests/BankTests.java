@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.keduit.helloworld.entity.Account;
-import com.keduit.helloworld.entity.Bank;
+import com.keduit.helloworld.entity.PointAccount;
 import com.keduit.helloworld.repository.BankRepository;
 
 @SpringBootTest
@@ -22,7 +22,7 @@ public class BankTests {
 	public void insertPoint() {
 		
 		IntStream.rangeClosed(1, 100).forEach(i -> {
-			Bank entity = Bank.builder()
+			PointAccount entity = PointAccount.builder()
 					.accountNum(i)
 					.bankCashPoint(1000*i)
 					.bankPoint(4000)
@@ -35,9 +35,9 @@ public class BankTests {
 	@Test
 	/** 포인트 거래 내역 조회 */
 	public void selectPointList() {
-		List<Bank> result = bankRepository.getPointAccount(2);
+		List<PointAccount> result = bankRepository.getPointAccount(2);
 		
-		for(Bank i : result) {
+		for(PointAccount i : result) {
 			System.out.println(i.toString());
 			
 		}

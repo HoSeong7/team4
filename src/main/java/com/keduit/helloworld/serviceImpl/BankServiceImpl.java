@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.BankDTO;
 import com.keduit.helloworld.entity.Account;
-import com.keduit.helloworld.entity.Bank;
+import com.keduit.helloworld.entity.PointAccount;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BankRepository;
 import com.keduit.helloworld.service.BankService;
@@ -27,7 +27,7 @@ public class BankServiceImpl implements BankService {
 	public Integer register(BankDTO dto) {
 		log.info("Bank ServiceImpl ---------- : " + dto);
 		
-		Bank entity = bankDtoToBankEntity(dto);
+		PointAccount entity = bankDtoToBankEntity(dto);
 		log.info("Bank DTO 에서 Entity로 값 넣기 : " + entity);
 		
 		bankRepository.save(entity);
@@ -36,9 +36,9 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	/** Entity 정보로 포인트 거래내역 조회 */
-	public List<Bank> read(Integer memberNum) {
+	public List<PointAccount> read(Integer memberNum) {
 		
-		List<Bank> result = bankRepository.getPointAccount(memberNum);
+		List<PointAccount> result = bankRepository.getPointAccount(memberNum);
 		
 		return result;
 	}
