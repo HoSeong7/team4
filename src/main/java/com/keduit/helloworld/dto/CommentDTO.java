@@ -30,6 +30,8 @@ public class CommentDTO {
 	
 	/** Board_comment 사진 */
 	private String url;
+
+	private Long clikes;
 	
 	/** Board_comment 작성,수정 날짜 */
 	private LocalDateTime regdate, updatedate; 

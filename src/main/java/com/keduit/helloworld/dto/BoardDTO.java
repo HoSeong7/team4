@@ -44,6 +44,9 @@ public class BoardDTO {
 	
 	/** Board 게시판구분 0: 공지사항  1: 무료게시판  2: QnA */
 	private Long boardcase;
+
+	/** Board 좋아요 */
+	private Long blikes;
 	
 	/** Board_comment 작성,수정 날짜 */
 	/** Board_comment 작성,수정 날짜 */

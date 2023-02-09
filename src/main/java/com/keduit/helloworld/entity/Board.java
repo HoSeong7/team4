@@ -51,6 +51,9 @@ public class Board extends BaseEntity{
 	@ColumnDefault("0")
 	/** Board 댓글수 */
 	private Long cnt;
+
+	@ColumnDefault("0")
+	private Long blikes;
 	
 	@Column(length = 100)
 	/** Board 해시태그 */
