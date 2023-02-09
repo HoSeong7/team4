@@ -5,15 +5,21 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class ChatRoomRepository {
 
     private Map<String, ChatRoomDTO> chatRoomDTOMap;
 
-    @PostConstruct
-    private void init(){
-        chatRoomDTOMap = new LinkedHashMap<>();
+    public ChatRoomRepository() {
+        chatRoomDTOMap = Collections.unmodifiableMap(
+                Stream.of(ChatRoomDTO.create("1번방"), ChatRoomDTO.create("2번방"), ChatRoomDTO.create("3번방"))
+                        .collect(Collectors.toMap(ChatRoomDTO::getRoomId, Function.identity())));
+
+        chatRooms = Collections.unmodifiableCollection(chatRoomDTOMap.values());
     }
 
     public List<ChatRoomDTO> findAllRooms(){
@@ -31,4 +37,5 @@ public class ChatRoomRepository {
         chatRoomDTOMap.put(room.getRoomId(), room);
         return room;
     }
+
 }
