@@ -27,19 +27,19 @@ public class Coupon {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/** coupon 고유번호 pk */
+	/** Coupon 고유번호 pk,nn,ai */
 	private Integer couponNum;
 	
 	@ColumnDefault("0")
-	/** coupon 쿠폰금액 */
+	/** Coupon 쿠폰금액 */
 	private Integer couponPoint;
 	
 	@Column(length = 20, unique = true, nullable = false)
-	/** coupon 쿠폰번호(사용되는 쿠폰의 번호임) */
+	/** Coupon 쿠폰번호(사용되는 쿠폰의 번호) */
 	private String couponNumber;
 	
 	@ColumnDefault("0")
-	/** coupon 0사용가능 1사용불능 */
+	/** Coupon 0사용가능 1사용불가 */
 	private Integer booleanNum;
 	
 }

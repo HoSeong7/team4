@@ -21,19 +21,24 @@ import lombok.ToString;
 public class Bank extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk, nn, ai
-	private Integer bankNum; //충전번호
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/** Bank 포인트 충전번호 pk,nn,ai */
+	private Integer bankNum;
 	
-	@Column(nullable = false) //fk | 회원번호(멤버):거래내역 = 1:n
-	private Integer accountNum; //거래번호
-	
-	@Column
-	private Integer bankCashPoint; //충전금액
-	
-	@Column(nullable = false) //nn
-	private Integer bankPoint; //잔액
+	@Column(nullable = false) 
+	/** Bank 포인트 거래내역번호 fk */
+	private Integer accountNum; //회원번호(멤버):거래내역 = 1:n
 	
 	@Column
-	private Integer bankPointCash; //환전금액
+	/** Bank 포인트 충전금액 */
+	private Integer bankCashPoint;
+	
+	@Column(nullable = false)
+	/** Bank 포인트 잔액 nn */
+	private Integer bankPoint;
+	
+	@Column
+	/** Bank 포인트 환전금액 */
+	private Integer bankPointCash;
 	
 }
