@@ -2,6 +2,8 @@ package com.keduit.helloworld.dto;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,22 +13,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BankDTO {
+public class PointAccountDTO {
 
 	/** BankDTO 포인트 충전번호 pk */
-	private Integer bankNum;
+	private Long pointNum;
 	
 	/** BankDTO 포인트 거래내역번호 */
-	private Integer accountNum;
+	private Long memberNum;
 	
 	/** BankDTO 포인트 충전금액 */
-	private Integer bankCashPoint;
+	private Long charge;
 	
 	/** BankDTO 포인트 잔액 */
-	private Integer bankPoint;
+	private Long balance;
 	
 	/** BankDTO 포인트 환전금액 */
-	private Integer bankPointCash;
+	private Long exchange;
 	
 	/** BankDTO 등록날짜 */
 	protected LocalDateTime regDate;

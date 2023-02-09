@@ -14,19 +14,19 @@ import lombok.NoArgsConstructor;
 public class CommentDTO {
 
 	/** Board_comment 고유번호 pk */
-	private Integer boardCommentNum;
+	private Long boardCommentNum;
 	
 	/** member 테이블과 fk  */
-	private Integer boardNum;    // 맴버 테이블과 fk
+	private Long boardNum;    // 맴버 테이블과 fk
 	
 	/** Board_comment 내용 */
-	private String commentContent;  
+	private String commentContent; 
 	
 	/** Board_comment 미리보기 사진 */
-	private String viewUrl;
+	private String viewpicture;
 	
 	/** Board_comment 가격 */
-	private Integer price;
+	private Long price;
 	
 	/** Board_comment 사진 */
 	private String url;

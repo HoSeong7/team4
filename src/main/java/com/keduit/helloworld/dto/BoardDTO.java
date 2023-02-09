@@ -2,6 +2,10 @@ package com.keduit.helloworld.dto;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +19,7 @@ public class BoardDTO {
 
 	
 	/** Board 고유 pk */
-	private Integer boardNum;
+	private Long boardNum;
 	
 	/** Board 제목 */
 	private String title;
@@ -24,19 +28,22 @@ public class BoardDTO {
 	private String content;
 	
 	/** member테이블과 fk */
-	private Integer memberNum;
+	private Long memberNum;
 	
 	/** Board 사진 */
 	private String url;
 	
 	/** Board 조회수 */
-	private Integer views;
+	private Long views;
 	
 	/** Board 댓글수 */
-	private Integer cnt;
+	private Long cnt;
 	
 	/** Board 해시태그 */
 	private String tag;
+	
+	/** Board 게시판구분 0: 공지사항  1: 무료게시판  2: QnA */
+	private Long boardcase;
 	
 	/** Board_comment 작성,수정 날짜 */
 	/** Board_comment 작성,수정 날짜 */

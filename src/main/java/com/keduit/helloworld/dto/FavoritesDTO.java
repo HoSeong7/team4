@@ -15,18 +15,21 @@ import lombok.ToString;
 public class FavoritesDTO {
 	
 	/**즐겨찾기 pk*/
-	private Integer favoritesNum;
+	private Long favoritesNum;
+	
 	/**즐겨찾기 member fk*/
-	private Integer bookmarker;
+	private Long bookmarker;
+	
 	/**즐겨찾기 member fk*/
-	private Integer bookmarked;
+	private Long bookmarked;
 	
 	/** 즐겨찾기 한 사람이 메인 */
-	public void bookmarker(Integer bookmarker) {
+	public void bookmarker(Long bookmarker) {
 		this.bookmarker = bookmarker;
 	}
+	
 	/** 즐겨찾기 당한 사람이 메인 */
-	public void bookmarked(Integer bookmarked) {
+	public void bookmarked(Long bookmarked) {
 		this.bookmarked = bookmarked;
 	}
 	

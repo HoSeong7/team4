@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,16 +20,21 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ViewMember { //보기권한
+public class CheckLike {
 
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk, nn, ai	
-	private Long viewMemberNum; //보기권한번호
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/** 좋아요 확인 고유넘버 */
+	private Long checklikeId;
 	
-	@Column(nullable = false) //fk, nn | 회원번호(멤버):권한회원 = 1:n
-	private Long memberNum; //보기권한 회원번호
+	@Column(nullable = false)
+	/** 좋아요 확인 좋아요 누른 댓글 */
+	private Long commentId;
+	
+	@ColumnDefault("0")
+	@Column(nullable = false)
+	/** 좋아요 확인 좋아요 누른 여부 */
+	private Long likebool;
 
-	@Column(length = 30)
-	private String viewid; //보기권한 아이디
-	
 }

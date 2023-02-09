@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 public class MessageDTO {
 
 	/** MessageDTO 쪽지번호 pk */
-	private Integer messageNum; //
+	private Long messageNum; //
 	
 	/** MessageDTO 받은사람 */
-	private Integer memberGet; //
+	private Long memberGet; //
 	
 	/** MessageDTO 보낸사람 */
-	private Integer memberGive; //
+	private Long memberGive; //
 	
 	/** MessageDTO 제목 */
 	private String title;
@@ -31,7 +31,7 @@ public class MessageDTO {
 	private String content;
 
 	/** MessageDTO 보기권한 */
-	private Integer view;
+	private Long view;
 
 	/** MessageDTO 사진 */
 	private String url;
