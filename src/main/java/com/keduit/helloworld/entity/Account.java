@@ -23,16 +23,20 @@ import lombok.ToString;
 public class Account extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk,nn,ai
-	private Integer accountNum; //거래내역번호
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/** Account 거래내역번호 pk,nn,ai */
+	private Integer accountNum;
 	
-	@Column(nullable = false) //fk,nn | 회원번호(멤버):구매회원(질문자) = 1:n
-	private Integer memberBuyer; //구매회원(질문자)
+	@Column(nullable = false) 
+	/** Account 구매회원(질문자) fk,nn */
+	private Integer memberBuyer; //회원번호(멤버):구매회원(질문자) = 1:n
 	
-	@Column(nullable = false) //fk,nn | 회원번호(멤버):판매회원(답변자) = 1:n
-	private Integer memberSeller; //판매회원(답변자)
+	@Column(nullable = false) 
+	/** Account 판매회원(답변자) fk,nn */
+	private Integer memberSeller; //회원번호(멤버):판매회원(답변자) = 1:n
 	
-	@Column(nullable = false) //nn
-	private Integer cash; //거래금액
+	@Column(nullable = false)
+	/** Account 거래금액 nn */
+	private Integer cash;
 	
 }

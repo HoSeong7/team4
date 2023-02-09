@@ -21,25 +21,32 @@ import lombok.ToString;
 public class Message extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //pk, nn, ai
-	private Integer messageNum; //쪽지번호
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/** Message 쪽지번호 pk, nn, ai */
+	private Integer messageNum;
 	
-	@Column(nullable = false) //fk, nn | 회원번호(멤버):받은사람 = 1:n
-	private Integer memberGet; //받은사람
+	@Column(nullable = false) 
+	/** Message 받은사람 fk, nn */
+	private Integer memberGet; //회원번호(멤버):받은사람 = 1:n
 
-	@Column(nullable = false) //fk, nn | 회원번호(멤버):보낸사람 = 1:n
-	private Integer memberGive; //보낸사람
+	@Column(nullable = false)
+	/** Message 보낸사람 fk, nn */
+	private Integer memberGive; //회원번호(멤버):보낸사람 = 1:n
 	
-	@Column(length = 100, nullable = false) //nn
-	private String title; //제목
+	@Column(length = 100, nullable = false)
+	/** Message 제목 nn */
+	private String title;
 	
-	@Column(length = 3000, nullable = false) //nn
-	private String content; //내용
+	@Column(length = 3000, nullable = false)
+	/** Message 내용 nn */
+	private String content;
 	
 	@Column
-	private Integer view; //보기권한
+	/** Message 보기권한 */
+	private Integer view;
 	
 	@Column(length = 100)
-	private String url; //사진
+	/** Message 사진 */
+	private String url;
 	
 }
