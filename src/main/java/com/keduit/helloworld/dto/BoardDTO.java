@@ -39,5 +39,6 @@ public class BoardDTO {
 	private String tag;
 	
 	/** Board_comment 작성,수정 날짜 */
+	/** Board_comment 작성,수정 날짜 */
 	private LocalDateTime regdate, updatedate; 
 }
