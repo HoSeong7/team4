@@ -2,25 +2,25 @@ package com.keduit.helloworld.service;
 
 import java.util.List;
 
-import com.keduit.helloworld.dto.AccountDTO;
-import com.keduit.helloworld.entity.Account;
+import com.keduit.helloworld.dto.MemberAccountDTO;
+import com.keduit.helloworld.entity.MemberAccount;
 
-public interface AccountService {
+public interface MemberAccountService {
 
 	/** 거래 내역 등록(create) */
-	Integer register(AccountDTO dto);
+	Long register(MemberAccountDTO dto);
 	
 	/** 거래 내역 조회(read) */
-	List<Account> read(Integer accountNum);
+	List<MemberAccount> read(Long accountNum);
 	
 	/** AccountEntity에 있는 정보를 AccountDTO로 옮기기 */
-	default AccountDTO accountEntityToAccountDto(Account entity) {
+	default MemberAccountDTO memberAccountEntityToDto(MemberAccount entity) {
 		
-		AccountDTO dto = AccountDTO.builder()
+		MemberAccountDTO dto = MemberAccountDTO.builder()
 				.accountNum(entity.getAccountNum())
 				.memberBuyer(entity.getMemberBuyer())
 				.memberSeller(entity.getMemberSeller())
-				.cash(entity.getCash())
+				.payment(entity.getPayment())
 				.regDate(entity.getRegDate())
 				.updateDate(entity.getUpdateDate())
 				.build();
@@ -28,13 +28,13 @@ public interface AccountService {
 	}
 	
 	/** AccountDTO에 있는 정보를 AccountEntity로 옮기기 */
-	default Account accountDtoToAccountEntity(AccountDTO dto) {
+	default MemberAccount memberAccountDtoToEntity(MemberAccountDTO dto) {
 		
-		Account entity = Account.builder()
+		MemberAccount entity = MemberAccount.builder()
 				.accountNum(dto.getAccountNum())
 				.memberBuyer(dto.getMemberBuyer())
 				.memberSeller(dto.getMemberSeller())
-				.cash(dto.getCash())
+				.payment(dto.getPayment())
 				.build();
 		return entity;
 	}

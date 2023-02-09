@@ -15,25 +15,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PointAccountDTO {
 
-	/** BankDTO 포인트 충전번호 pk */
+	/** 포인트 거래내역 pk,nn,ai */
 	private Long pointNum;
 	
-	/** BankDTO 포인트 거래내역번호 */
+	/** 포인트 회원번호 fk nn */
 	private Long memberNum;
 	
-	/** BankDTO 포인트 충전금액 */
+	/** 포인트 충전금액 */
 	private Long charge;
 	
-	/** BankDTO 포인트 잔액 */
+	/** 포인트 잔액 */
 	private Long balance;
 	
-	/** BankDTO 포인트 환전금액 */
+	/** 포인트 환전금액 */
 	private Long exchange;
 	
-	/** BankDTO 등록날짜 */
+	/** 등록날짜 */
 	protected LocalDateTime regDate;
 	
-	/** BankDTO 수정날짜 */
+	/** 수정날짜 */
 	protected LocalDateTime updateDate;
 	
 }

@@ -21,7 +21,7 @@ public class CouponServiceImpl implements CouponService{
 
 	@Override
 	/** 쿠폰 번호 등록 */
-	public Integer register(CouponDTO dto) {
+	public Long register(CouponDTO dto) {
 		Coupon entity = DtoToEntity(dto);
 		
 		couponRepository.save(entity);
