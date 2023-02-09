@@ -41,25 +41,15 @@ public class FavoritesRepogitoryTests {
 	@Test
 	public void selectTest() {
 		
-		Member member = Member.builder().memberNum(2).build();llll
-		List<Favorites> result = favoritesRepository.getFavoritesMarker(2);
+		List<Member> member = memberRepository.getMemberMarker(3);
+
 		
-		for(Favorites i : result) {
-		System.out.println(i.toString());
+		for(Member i : member) {
+			System.out.println(i.getId()+ " , " + i.getIntroduce());
 			
 		}
-		
-		
 	}
 	
-	@Test
-	public void Test() {
-		List<Favorites> result = favoritesRepository.getMarker(1);
-		
-		for(Favorites i : result) {
-			System.out.println(i.toString());
-				
-			}
-	}
+
 	
 }

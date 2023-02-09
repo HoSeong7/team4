@@ -18,7 +18,7 @@ public interface FavoritesService {
 	Integer register(FavoritesDTO dto);
 	
 	/** 즐겨찾기 읽어오기(bookmarker를 읽어와서 bookmarked 출력해야함 */
-	List<Favorites> read(FavoritesDTO dto);
+	List<Member> read(FavoritesDTO dto);
 	
 	/** 즐겨찾기 삭제 */
 	void remove(Integer favoritesNum);

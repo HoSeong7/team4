@@ -22,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	private final MemberRepository repository;
 	
 	@Override
+	/** 회원 정보 입력 받으면 entity에 넣음 */
 	public Integer register(MemberDTO dto) {
 		log.info("member ServiceImpl ------------" + dto);
 		
@@ -42,15 +43,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	/** 맴버pk값을 받아서 삭제하기*/
 	public void remove(Integer memberNum) {
-		// TODO Auto-generated method stub
+		repository.deleteById(memberNum);
 		
 	}
 
 	@Override
+	/** 회원정보 받아서 수정 */
 	public void modify(MemberDTO dto) {
-		// TODO Auto-generated method stub
+
+		Member member = repository.getById(dto.getMemberNum());
 		
+		repository.save(member);
 	}
 
 	@Override

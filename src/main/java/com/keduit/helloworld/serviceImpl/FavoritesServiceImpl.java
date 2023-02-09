@@ -16,7 +16,9 @@ import com.keduit.helloworld.dto.FavoritesDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Favorites;
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.FavoritesRepository;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.FavoritesService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,8 +30,10 @@ import lombok.extern.log4j.Log4j2;
 public class FavoritesServiceImpl implements FavoritesService {
 
 	private final FavoritesRepository favoritesRepository;
+	private final MemberRepository memberRepository;
 	
 	@Override
+	/** 즐겨찾기 추가하기, 리턴값 bookmarked */
 	public Integer register(FavoritesDTO dto) {
 		log.info("Favorites ServiceImpl ------------" + dto);
 		
@@ -37,22 +41,26 @@ public class FavoritesServiceImpl implements FavoritesService {
 		log.info("Favorites DTO 에서 Entity로 값 넣기 " + entity);
 		favoritesRepository.save(entity);
 		
-		return entity.getFavoritesNum();
+		return entity.getBookmarked();
 	}
 
 	@Override
 	/** bookmarker를 입력받으면 현재 즐겨찾기 추가한 사람을 볼 수 있음*/
-	public List<Favorites> read(FavoritesDTO dto) {
+	public List<Member> read(FavoritesDTO dto) {
 		
-		List<Favorites> result = favoritesRepository.getFavoritesMarker(dto.getBookmarker());
+		List<Member> result = memberRepository.getMemberMarker(dto.getBookmarker());
 				
-		return result;
+		
+			
+			
+			return result;
 	}
 
 	@Override
+	/** 즐겨찾기 삭제하기 */
 	public void remove(Integer favoritesNum) {
-		// TODO Auto-generated method stub
 
+		favoritesRepository.deleteById(favoritesNum);
 	}
 
 	@Override
