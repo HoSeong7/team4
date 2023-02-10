@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
+
+
 *{
     padding: 0;
     margin: 0;
@@ -5,7 +8,8 @@
 }
 body{
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Gowun Batang', serif;
+    background-color: #f3f4f5;
 }
 
 
@@ -105,22 +109,32 @@ a {
     padding-top: 10px;
     width: 1200px;
     height: 50px;
-    border: 1px solid red;
+   
     margin: auto;
+    margin-top: 20px;
 }
 .subnavbar div{
     width: 200px;
     height: 50px;
-    border: 1px solid purple;
+   
     float: left;
 }
-.subnavbar .box{
-    margin-right: 297px;
+.subnavbar .box1{
+    margin-left: 300px;
 }
 .subnavbar div h1{
     text-align: center;
     font-size: 30px;
-    color: rgb(19, 165, 19);
+    color: rgb(19, 165, 165);
+}
+.subnavbar .box2{
+    float: right;
+    width: 100px;
+}
+.subnavbar .box3{
+    float: right;
+    width: 100px;
+    margin-right: 10px;
 }
 .subnavbar div h4{
     text-align: center;
@@ -149,31 +163,63 @@ a {
 
 
 .line{
+    margin-top: 20px;
     max-width: 1920px;
-    height: 20px;
+    height: 2px;
     background-color: rgb(226, 225, 225);
 }
 .content{
-    max-width: 1200px;
+    width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
     max-height: 2000px;
-    border-left: 1px solid rgb(39, 41, 182);
-    border-right: 1px solid rgb(39, 41, 182);
-    border-top: 1px solid rgb(39, 41, 182);
+    border-left: 1px solid rgb(19, 165, 165);
+    border-right: 1px solid rgb(19, 165, 165);
+    border-top: 1px solid rgb(19, 165, 165);
 }
 .content .div-content{
     max-width: 1320px;
     height: 250px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #e2e3e4;
 }
 .content div h1{
     margin-left: 50px;
     margin-top: 20px;
     font-size: 15px;
 }
-.content .div-content div{
-    border: 1px solid green;
+.content .div-content .content-introduce{
+    border: 1px solid #a3a3a3;
+    border-radius: 15px;
+    width: 900px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.content .div-content .content-introduce .introduce-button{
+    width: 70px;
+    height: 30px;
+    float: right;
+    margin-top: 15px;
+    margin-right: 15px;
+}
+.content .div-content .content-introduce .introduce-button button{
+    border: 1px solid rgb(138, 138, 138);
+    border-radius: 5px;
+    background-color: #cfcfcf;
+    padding: 1px 2px;
+}
+.content .div-content .content-board{
+    border: 1px solid #a3a3a3;
+    border-radius: 15px;
+    width: 900px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.content .div-content .content-chat{
+    border: 1px solid #a3a3a3;
+    border-radius: 15px;
     width: 900px;
     height: 200px;
     margin-left: auto;
