@@ -14,7 +14,7 @@ public interface CouponService {
 	List<Coupon> read();
 	
 	/** 쿠폰 삭제*/
-	void remove(Integer couponNum);
+	void remove(Long couponNum);
 	
 	/**쿠폰 entity -> 쿠폰 DTO*/
 	default CouponDTO EntityToDto(Coupon entity) {

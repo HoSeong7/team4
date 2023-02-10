@@ -39,7 +39,7 @@ public class CouponServiceImpl implements CouponService{
 
 	@Override
 	/** 쿠폰 삭제 */
-	public void remove(Integer couponNum) {
+	public void remove(Long couponNum) {
 
 		couponRepository.deleteById(couponNum);
 	}

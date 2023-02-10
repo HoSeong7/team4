@@ -14,6 +14,7 @@ public interface MemberAccountService {
 	List<MemberAccount> read(Long accountNum);
 	
 	/** AccountEntity에 있는 정보를 AccountDTO로 옮기기 */
+<<<<<<< HEAD
 	default MemberAccountDTO memberAccountEntityToDto(MemberAccount entity) {
 		
 		MemberAccountDTO dto = MemberAccountDTO.builder()
@@ -29,6 +30,23 @@ public interface MemberAccountService {
 	
 	/** AccountDTO에 있는 정보를 AccountEntity로 옮기기 */
 	default MemberAccount memberAccountDtoToEntity(MemberAccountDTO dto) {
+=======
+	default MemberAccountDTO accountEntityToAccountDto(MemberAccount entity) {
+		
+		MemberAccountDTO dto = MemberAccountDTO.builder()
+				.accountNum(entity.getAccountNum())
+				.memberBuyer(entity.getMemberBuyer())
+				.memberSeller(entity.getMemberSeller())
+				.payment(entity.getPayment())
+				.regDate(entity.getRegDate())
+				.updateDate(entity.getUpdateDate())
+				.build();
+		return dto;
+	}
+	
+	/** AccountDTO에 있는 정보를 AccountEntity로 옮기기 */
+	default MemberAccount accountDtoToAccountEntity(MemberAccountDTO dto) {
+>>>>>>> branch 'HW_HS' of https://github.com/HoSeong7/team4.git
 		
 		MemberAccount entity = MemberAccount.builder()
 				.accountNum(dto.getAccountNum())

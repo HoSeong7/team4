@@ -19,7 +19,7 @@ public class ViewAuthDTO {
 	private Long viewMemberNum; //보기권한번호
 	
 	/** 보기권한 회원번호 */
-	private Long memberNum; //보기권한 회원번호
+	private Long boardCommentNum; //보기권한 회원번호
 
 	/** 보기권한 볼수있는 아이디 */
 	private String viewid; //보기권한 아이디

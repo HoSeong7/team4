@@ -12,7 +12,7 @@ import com.keduit.helloworld.entity.Member;
 
 @Repository
 
-public interface FavoritesRepository extends JpaRepository<Favorites, Integer>{
+public interface FavoritesRepository extends JpaRepository<Favorites, Long>{
 
 
 	

@@ -25,7 +25,7 @@ public class ViewAuth { //보기권한
 	private Long viewMemberNum; //보기권한번호
 	
 	@Column(nullable = false) //fk, nn | 회원번호(멤버):권한회원 = 1:n
-	private Long memberNum; //보기권한 회원번호
+	private Long boardCommentNum; //보기권한 회원번호
 
 	@Column(length = 30)
 	private String viewid; //보기권한 아이디

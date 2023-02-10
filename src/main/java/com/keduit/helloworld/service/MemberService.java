@@ -11,10 +11,10 @@ public interface MemberService {
 	Long register(MemberDTO dto);	
 	
 	/** member 읽기 */
-	MemberDTO read(Integer memberNum);
+	MemberDTO read(Long memberNum);
 	
 	/** member 삭제 */
-	void remove(Integer memberNum);
+	void remove(Long memberNum);
 	
 	/** member 정보수정 */
 	void modify(MemberDTO dto);

@@ -25,9 +25,15 @@ public class MemberAccountTests {
 		
 		IntStream.rangeClosed(1, 10).forEach(i->{
 			MemberAccount entity = MemberAccount.builder()
+<<<<<<< HEAD
 					.memberBuyer(i + 0L)
 					.memberSeller(i + 0L)
 					.payment(500L)
+=======
+					.memberBuyer(i*2L)
+					.memberSeller(i*5L)
+					.payment(i*1000L)
+>>>>>>> branch 'HW_HS' of https://github.com/HoSeong7/team4.git
 					.build();
 			repository.save(entity);
 			
