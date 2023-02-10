@@ -21,7 +21,7 @@ public class MemberTests {
    @Test
    public void insertMemberTest() {
       
-      IntStream.rangeClosed(1, 10).forEach(i->{
+      IntStream.rangeClosed(1, 30).forEach(i->{
          Member entity = Member.builder()
                           .id("user" + i)
                           .pw("1111")

@@ -62,4 +62,8 @@ public class Board extends BaseEntity{
 	/** 0: 공지사항  1: 무료게시판   2: QnA*/
 	private Long boardcase;
 	
+	public void change(String title, String content) {
+		this.title = title;
+		this.content = content;
+	}
 }

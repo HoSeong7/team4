@@ -1,5 +1,6 @@
 package com.keduit.helloworld.repositoryTests;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -38,6 +39,7 @@ public class BoardRepositoryTests {
 	@Test
 	/** 읽기 */
 	public void selectBoardTest() {
+		System.out.println("타냐");
 		Optional<Board> result = boardRepository.findById(2L);
 		
 		System.out.println(result);
@@ -58,8 +60,17 @@ public class BoardRepositoryTests {
 	@Test
 	/** 삭제 */
 	public void deleteBoard() {
-		boardRepository.deleteById(101L);
+		boardRepository.deleteById(2L);
 	}
 	
+	@Test
+	public void testReadOne() {
+		Object result = boardRepository.getBoardByBno(47L);
+		
+		Object[] arr = (Object[])result;
+		
+		System.out.println(Arrays.toString(arr));
+		
+	}
 
 }

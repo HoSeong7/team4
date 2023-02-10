@@ -1,9 +1,8 @@
 package com.keduit.helloworld.service;
 
-import java.util.List;
-
 import com.keduit.helloworld.dto.BoardDTO;
-import com.keduit.helloworld.dto.MemberDTO;
+import com.keduit.helloworld.dto.PageRequestDTO;
+import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
 
@@ -13,48 +12,55 @@ public interface BoardService {
 	Long register(BoardDTO boardDTO);
 
 	/** 읽기 */
-	List<Board> list(BoardDTO boardDTO);
+	PageResultDTO<BoardDTO, Object[]>getList(PageRequestDTO pageRequestDTO);
 
 	/** 수정 */
-	void modify(Long boardNum);
+	void modify(BoardDTO boardDTO);
 
 	/** 삭제 */
 	void remove(Long boardNum);
+	
+	/** 하나 읽어오기 */
+	BoardDTO get(Long boardNum);
+	
 
-	default BoardDTO entityToDTO(Board entity) {
+	default Board dtoToEntity(BoardDTO dto) {
+		
+		Board board = Board.builder()
+							.boardNum(dto.getBoardNum())
+							.title(dto.getTitle())
+							.content(dto.getContent())
+							.memberNum(dto.getMemberNum())
+							.url(dto.getUrl())
+							.views(dto.getViews())
+							.cnt(dto.getCnt())
+							.tag(dto.getTag())
+							.boardcase(dto.getBoardcase())
+							.build();
+		
+		return board;
+	}
+	
+	
+	default BoardDTO entityToDTO(Board entity, Member member , Long cnt) {
 		
 		BoardDTO boardDTO = BoardDTO.builder()
 							.boardNum(entity.getBoardNum())
 							.title(entity.getTitle())
 							.content(entity.getContent())
-							.memberNum(entity.getMemberNum())
+							.id(member.getId())
 							.url(entity.getUrl())
 							.views(entity.getViews())
-							.cnt(entity.getCnt())
+							.cnt(cnt.longValue())
 							.tag(entity.getTag())
 							.boardcase(entity.getBoardcase())
 							.regdate(entity.getRegDate())
 							.updatedate(entity.getUpdateDate())
+							.memberNum(entity.getMemberNum())
 							.build();
 		
 		return boardDTO;
 	}
 
-	default Board dtoToEntity(BoardDTO dto) {
-
-		Board board = Board.builder()
-						.boardNum(dto.getBoardNum())
-						.title(dto.getTitle())
-						.content(dto.getContent())
-						.memberNum(dto.getMemberNum())
-						.url(dto.getUrl())
-						.views(dto.getViews())
-						.cnt(dto.getCnt())
-						.tag(dto.getTag())
-						.boardcase(dto.getBoardcase())
-						.build();
-		
-		return board;
-	}
 
 }
