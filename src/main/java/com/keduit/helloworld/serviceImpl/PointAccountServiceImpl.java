@@ -37,8 +37,8 @@ public class PointAccountServiceImpl implements PointAccountService {
 	/** (Entity 정보로) 포인트 거래내역 리스트 조회(read) */
 	public List<PointAccount> read(Long Num) {
 		
-//		List<PointAccount> result = repository.getPointAccount(Num);
+		List<PointAccount> result = repository.getPointAccount(Num);
 		
-		return null;
+		return result;
 	}
 }

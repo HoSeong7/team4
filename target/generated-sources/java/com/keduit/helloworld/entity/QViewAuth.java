@@ -19,7 +19,7 @@ public class QViewAuth extends EntityPathBase<ViewAuth> {
 
     public static final QViewAuth viewAuth = new QViewAuth("viewAuth");
 
-    public final NumberPath<Long> memberNum = createNumber("memberNum", Long.class);
+    public final NumberPath<Long> boardCommentNum = createNumber("boardCommentNum", Long.class);
 
     public final StringPath viewid = createString("viewid");
 

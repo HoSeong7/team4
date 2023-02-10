@@ -37,12 +37,11 @@ public class PointAccountTests {
 	public void selectPointList() {
 		List<PointAccount> result = repository.getPointAccount(2L);
 		
-		
 		for(PointAccount i : result) {
 			System.out.println(i);
 		}
-		
-		
-
 	}
+	
+	
+	
 }
