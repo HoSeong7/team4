@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDTO {
-
 	
 	/** Board 고유 pk */
 	private Long boardNum;
@@ -47,6 +46,9 @@ public class BoardDTO {
 
 	/** Board 좋아요 */
 	private Long blikes;
+	
+	/** member 아이디*/
+	private String id;
 	
 	/** Board_comment 작성,수정 날짜 */
 	/** Board_comment 작성,수정 날짜 */
