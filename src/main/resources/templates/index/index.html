@@ -11,26 +11,21 @@
 
 <body>
     <div class="innerHeader">
-        <h1 class="logo"><a href="index.html"><img src="../img/icon-ga9dcd7e34_640.png" alt="apple" width="30px"
+        <h1 class="logo"><a href="/index/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="apple" width="30px"
                     height="30px"></a></h1>
         <!--왼쪽바 공통-->
         <nav class="mainmenu-left">
             <ul class="navbar">
-                <li><a href="/board/board">게시판</a></li>
-                <li><a href="../board/Q&A.html">Q&A</a></li>
-                <li><a href="../board/A&Q.html">공지사항</a></li>
-                <li><a href="../mypage/myspace.html">내공간</a></li>
                 <li><a id="open-point">포인트충전</a></li>
-                <li><a href="../note/message.html">쪽지</a></li>
+                <li><a href="#" onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a></li>
             </ul>
         </nav>
-         <!-- <li><a href="#" onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">쪽지</a></li> -->
         <!--오른쪽바 공통-->
         <nav class="mainmenu-right">
             <ul class="navbar">
-                <li><img src="../img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="../img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="../img/siri.png" alt="" width="20px" height="25px"></li>
+                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
+                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
+                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
                 <li><a id="open-login">로그인</a></li>
                 <li><a id="open-signup">회원가입</a></li>
             </ul>
@@ -48,6 +43,10 @@
                     <input type="password" name="userPassword" placeholder="Password">
                     <input type="submit" value="Login">
                 </form>
+                <div class="login-api">
+                    <div class="kakaoimg"><img src="/img/kakao.png" alt="" height="40px" ></div>
+                    <div class="googleimg"><img src="/img/google.png" alt="" height="40px"></div>
+                </div>
                 <div class="login-wrapper-bottom">
                     <ul>
                         <li><a id="open-signup">회원가입</a></li>
@@ -71,9 +70,10 @@
                             아이디 <span class="identify">*</span>
                         </label>
 
-                        <div>
-                            <input type="text" name="user_id" id="user_id" />
+                        <div class="input-box">
+                            <input type="text" name="user_nick" id="user_nick" />
                         </div>
+                        
                     </div>
                     <br>
                     <div class="form-group">
@@ -92,6 +92,7 @@
                         <div>
                             <input type="password" name="user_pw_re" id="user_pw_re" />
                         </div>
+                        
                     </div>
                     <br>
                     <div class="form-group">
@@ -104,6 +105,18 @@
                             <input type="text" name="user_name" id="user_name" />
                         </div>
 
+                    </div>
+                    <br>
+                    <div class="form-group">
+
+                        <label for="user_name">
+                            닉네임 <span class="identify">*</span>
+                        </label>
+
+                        <div class="input-box">
+                            <input type="text" name="user_nick" id="user_nick" />
+                        </div>
+                       
                     </div>
                     <br>
                     <div class="form-group">
@@ -129,25 +142,7 @@
                         </div>
 
                     </div>
-                    <br>
-                    <div class="form-group">
-
-                        <label for="gender1">
-                            권한 <span class="identify">*</span>
-                        </label>
-
-                        <div>
-                            <label>
-                                <input type="radio" name="gender" id="gender1" value="M" />
-                                관리자
-                                <input type="radio" name="gender" id="gender2" value="F" />
-                                일반
-                                <input type="radio" name="gender" id="gender2" value="F" />
-                                선생
-                            </label>
-                        </div>
-
-                    </div>
+                    
                     <br>
                     <div class="form-group">
                         <div class="form-button">
@@ -209,31 +204,31 @@
     <div class="bar">
         <div class="mainbar">
             <ul>
-                <li class="media"><a href="board.html"><img src="../img/1board.png" alt="" width="48px"
+                <li class="media"><a href="board/board"><img src="/img/1board.png" alt="" width="48px"
                             height="48px"></a></li>
-                <li class="media"><a href="Q&A.html"><img src="../img/2Q&A.png" alt="" width="48px" height="48px"></a>
+                <li class="media"><a href="board/Q&A"><img src="/img/2Q&A.png" alt="" width="48px" height="48px"></a>
                 </li>
-                <li class="media"><a href="A&Q.html"><img src="../img/4notice.png" alt="" width="48px"
+                <li class="media"><a href="board/A&Q"><img src="/img/4notice.png" alt="" width="48px"
                     height="48px"></a></li>
-                <li class="media"><a href="myspace.html"><img src="../img/3my.png" alt="" width="48px"
+                <li class="media"><a href="board/myspace"><img src="/img/3my.png" alt="" width="48px"
                             height="48px"></a></li>
-                <li><a href="#" id="open-point"><img src="../img/5point.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="message.html"><img src="../img/6message.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="" onclick="window.open('../icon.html/icon7.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="../img/7.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="" onclick="window.open('../icon.html/icon8.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="../img/8.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="" onclick="window.open('../icon.html/icon9.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="../img/9.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/10.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="" onclick="window.open('../icon.html/icon11.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="../img/11.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="" onclick="window.open('../icon.html/icon12.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="../img/12.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/13.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/14.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/15.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/16.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/17.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/18.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/19.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="../img/20.png" alt="" width="48px" height="48px"></a></li>
-                <li class="media"><a href=""><img src="../img/21.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="#" id="open-point"><img src="/img/5point.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="board/message"><img src="/img/6message.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="" onclick="window.open('../icon.html/icon7.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="/img/7.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="" onclick="window.open('../icon.html/icon8.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="/img/8.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="" onclick="window.open('../icon.html/icon9.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="/img/9.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/10.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="" onclick="window.open('../icon.html/icon11.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="/img/11.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="" onclick="window.open('../icon.html/icon12.html','blank','width=250 , height=400, top=200, left=700', true)"><img src="/img/12.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/13.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/14.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/15.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/16.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/17.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/18.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/19.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/20.png" alt="" width="48px" height="48px"></a></li>
+                <li class="media"><a href=""><img src="/img/21.png" alt="" width="48px" height="48px"></a></li>
             </ul>
         </div>
     </div>
@@ -285,20 +280,7 @@
         
         </script>
 
-    <footer>
-        <div class="footer-bar">
-            <ul>
-                <li class="icon-left"><a href="board.html" ><img src="../img/1board.png" alt="" width="70px"
-                            height="70px"></a></li>
-                <li class="icon-left"><a href=""><img src="../img/2Q&A.png" alt="" width="70px"
-                            height="70px"></a></li>
-                <li class="icon-left"><a href=""><img src="../img/3my.png" alt="" width="70px"
-                            height="70px"></a></li>
-                <li><a href=""><img src="../img/4notice.png" alt="" width="70px"
-                            height="70px"></a></li>
-            </ul>
-        </div>
-    </footer>
+    
 </body>
 
 </html>
