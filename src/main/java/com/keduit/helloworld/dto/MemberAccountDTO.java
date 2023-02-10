@@ -15,22 +15,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberAccountDTO {
 	
-	/** AccountDTO 거래내역번호 pk */
+	/** 회원간 거래내역 고유번호 pk,nn,ai */
 	private Long accountNum;
 	
-	/** AccountDTO 구매회원(질문자) */
+	/** 회원간 거래내역 구매회원(질문자) */
 	private Long memberBuyer;
 	
-	/** AccountDTO 판매회원(답변자) */
+	/** 회원간 거래내역 판매회원(답변자) */
 	private Long memberSeller;
 	
-	/** AccountDTO 거래금액 */
+	/** 회원간 거래내역 거래금액 */
 	private Long payment;
 	
-	/** AccountDTO 등록날짜 */
+	/** 회원간 거래내역 등록날짜 */
 	protected LocalDateTime regDate;
 	
-	/** AccountDTO 수정날짜 */
+	/** 회원간 거래내역 수정날짜 */
 	protected LocalDateTime updateDate;
 	
 }

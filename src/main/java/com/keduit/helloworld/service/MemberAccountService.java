@@ -7,14 +7,26 @@ import com.keduit.helloworld.entity.MemberAccount;
 
 public interface MemberAccountService {
 
-	/** 거래 내역 등록(create) */
+	/** 회원간 거래내역 등록(create) */
 	Long register(MemberAccountDTO dto);
 	
-	/** 거래 내역 조회(read) */
+	/** 회원간 거래내역 리스트 조회(read) */
 	List<MemberAccount> read(Long accountNum);
 	
-	/** AccountEntity에 있는 정보를 AccountDTO로 옮기기 */
-	default MemberAccountDTO accountEntityToAccountDto(MemberAccount entity) {
+	/** DTO에 있는 정보를 Entity로 옮기기 */
+	default MemberAccount memberAccountDtoToEntity(MemberAccountDTO dto) {
+
+		MemberAccount entity = MemberAccount.builder()
+				.accountNum(dto.getAccountNum())
+				.memberBuyer(dto.getMemberBuyer())
+				.memberSeller(dto.getMemberSeller())
+				.payment(dto.getPayment())
+				.build();
+		return entity;
+	}
+	
+	/** Entity에 있는 정보를 DTO로 옮기기 */
+	default MemberAccountDTO memberAccountEntityToDto(MemberAccount entity) {
 		
 		MemberAccountDTO dto = MemberAccountDTO.builder()
 				.accountNum(entity.getAccountNum())
@@ -27,15 +39,5 @@ public interface MemberAccountService {
 		return dto;
 	}
 	
-	/** AccountDTO에 있는 정보를 AccountEntity로 옮기기 */
-	default MemberAccount accountDtoToAccountEntity(MemberAccountDTO dto) {
-		
-		MemberAccount entity = MemberAccount.builder()
-				.accountNum(dto.getAccountNum())
-				.memberBuyer(dto.getMemberBuyer())
-				.memberSeller(dto.getMemberSeller())
-				.payment(dto.getPayment())
-				.build();
-		return entity;
-	}
+
 }
