@@ -15,18 +15,10 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class MemberAccountServiceImpl implements MemberAccountService {
-
-	private final MemberAccountRepository repository;
-	
-	@Override
+public class MemberAccountServiceImpl implements MemberAccountService {@Override
 	public Long register(MemberAccountDTO dto) {
-		log.info("AccountServiceImpl register");
-		
-		MemberAccount entity = accountDtoToAccountEntity(dto);
-		
-		repository.save(entity);
-		return entity.getAccountNum();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -34,6 +26,24 @@ public class MemberAccountServiceImpl implements MemberAccountService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	private final MemberAccountRepository repository;
+//	
+//	@Override
+//	public Long register(MemberAccountDTO dto) {
+//		log.info("AccountServiceImpl register");
+//		
+//		MemberAccount entity = accountDtoToAccountEntity(dto);
+//		
+//		repository.save(entity);
+//		return entity.getAccountNum();
+//	}
+//
+//	@Override
+//	public List<MemberAccount> read(Long accountNum) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 //	public List<Object> list(){
 //		
