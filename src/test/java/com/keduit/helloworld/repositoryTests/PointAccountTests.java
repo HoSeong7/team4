@@ -17,35 +17,8 @@ public class PointAccountTests {
 	private PointAccountRepository repository;
 	
 	@Test
-<<<<<<< HEAD
 	/** 포인트 거래내역 등록 테스트(충전 or 환전) */ 
 	public void insertPoint() {
-		IntStream.rangeClosed(1, 50).forEach(i -> {
-			
-			PointAccount entity = PointAccount.builder()
-					.memberNum(i + 0L)
-					.charge(1000L *i)
-					.balance(500L * i)
-					.exchange(0L)
-					.build();
-			repository.save(entity);
-		});
-	}
-		
-	@Test
-	/** 포인트 거래내역 조회 */
-	public void selectPointList() {
-		List<PointAccount> result = repository.getPointAccount(2L);
-		
-		for(PointAccount i : result) {
-			System.out.println(i.toString());
-			
-		}
-		
-=======
-	/** 포인트 정보 등록 테스트(충전 or 환전) */
-	public void insertPoint() {
-		
 		IntStream.rangeClosed(1, 10).forEach(i -> {
 			PointAccount entity = PointAccount.builder()
 					.charge(4000L)
@@ -58,16 +31,12 @@ public class PointAccountTests {
 	}
 		
 	@Test
-	/** 포인트 거래 내역 조회 */
+	/** 포인트 거래내역 리스트 조회(read)  */
 	public void selectPointList() {
-		List<PointAccount> result = repository.getPointAccount(2L);
-		
-		for(PointAccount i : result) {
-			System.out.println(i);
-		}
-		
-		
-
->>>>>>> branch 'HW_HS' of https://github.com/HoSeong7/team4.git
+//		List<PointAccount> result = repository.getPointAccount(3L);
+//		
+//		for(PointAccount i : result) {
+//			System.out.println(i);
+//		}
 	}
 }

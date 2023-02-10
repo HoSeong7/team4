@@ -1,6 +1,5 @@
 package com.keduit.helloworld.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

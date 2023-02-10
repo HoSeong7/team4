@@ -1,6 +1,5 @@
 package com.keduit.helloworld.repositoryTests;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -8,48 +7,52 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.MemberAccount;
 import com.keduit.helloworld.repository.MemberAccountRepository;
-
-import lombok.extern.log4j.Log4j2;
+import com.keduit.helloworld.repository.MemberRepository;
 
 @SpringBootTest
-@Log4j2
 public class MemberAccountTests {
 
 	@Autowired
-	private MemberAccountRepository repository;
+	private MemberAccountRepository memberAccountRepository;
+	
+	@Autowired
+	private MemberRepository memberRepository;
 	
 	@Test
 	public void insertAccount() {
 		
-		IntStream.rangeClosed(1, 10).forEach(i->{
+		IntStream.rangeClosed(6, 106).forEach(i->{
+			
+			Long a = (long)(Math.random()*10)+1;
+			Long b = (long)(Math.random()*10)+1;
+			
 			MemberAccount entity = MemberAccount.builder()
-<<<<<<< HEAD
-					.memberBuyer(i + 0L)
-					.memberSeller(i + 0L)
-					.payment(500L)
-=======
-					.memberBuyer(i*2L)
-					.memberSeller(i*5L)
+					.memberBuyer(a)
+					.memberSeller(b)
 					.payment(i*1000L)
->>>>>>> branch 'HW_HS' of https://github.com/HoSeong7/team4.git
 					.build();
-			repository.save(entity);
+			memberAccountRepository.save(entity);
 			
 		});
 	}
 	
-//	@Test
-//	public void insertAccount3() {
-//		
-//		List<Object> list = repository.list();
-//		
-//		for (int i = 0; i < 10; i++) {
-//			
-//			log.info(list.get(i).toString());
-//		}
-//	}
+	@Test
+	public void selectAccountList() {
+		
+		long memNum = 5;
+		List<MemberAccount> result1 = memberAccountRepository.getPayListAsBuyer(memNum);
+		List<Member> result2 = memberRepository.getMemNum(memNum);
+		
+		for(int i = 0; i <= result1.size()-1; i++) {
+			System.out.println(result1.get(i).getRegDate() + ", " + 
+								result1.get(i).getPayment() + ", " + 
+								result2.get(i).getId()
+								);
+		}
+	}
 	
 	
 }

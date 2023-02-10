@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PointAccountDTO {
 
-	/** 포인트 거래내역 pk,nn,ai */
+	/** 포인트 거래내역 고유번호 pk,nn,ai */
 	private Long pointNum;
 	
 	/** 포인트 회원번호 fk nn */
@@ -30,10 +30,10 @@ public class PointAccountDTO {
 	/** 포인트 환전금액 */
 	private Long exchange;
 	
-	/** 등록날짜 */
+	/** 포인트 등록날짜 */
 	protected LocalDateTime regDate;
 	
-	/** 수정날짜 */
+	/** 포인트 수정날짜 */
 	protected LocalDateTime updateDate;
 	
 }

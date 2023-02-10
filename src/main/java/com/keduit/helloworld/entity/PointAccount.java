@@ -22,7 +22,7 @@ public class PointAccount extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/** 포인트 거래내역 충전번호 pk,nn,ai */
+	/** 포인트 거래내역 고유번호 pk,nn,ai */
 	private Long pointNum;
 	
 	@Column(nullable = false) 

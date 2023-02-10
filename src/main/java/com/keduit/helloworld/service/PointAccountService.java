@@ -10,8 +10,21 @@ public interface PointAccountService {
 	/** 포인트 거래내역 등록(create) */
 	Long register(PointAccountDTO dto); 
 	
-	/** 포인트 거래내역 조회(read) */
-	List<PointAccount>read(Long bankNum);
+	/** 포인트 거래내역 리스트 조회(read) */
+	List<PointAccount>read(Long pointNum);
+	
+	/** DTO에 있는 정보를 Entity로 옮기기 */
+	default PointAccount pointAccountDtoToEntity(PointAccountDTO dto) {
+		
+		PointAccount entity = PointAccount.builder()
+				.pointNum(dto.getPointNum())
+				.memberNum(dto.getMemberNum())
+				.charge(dto.getCharge())
+				.balance(dto.getBalance())
+				.exchange(dto.getExchange())
+				.build();
+		return entity;
+	}
 	
 	/** Entity에 있는 정보를 DTO로 옮기기 */
 	default PointAccountDTO pointAccountEntityToDto(PointAccount entity) {
@@ -28,18 +41,6 @@ public interface PointAccountService {
 		return dto;
 	}
 	
-	/** DTO에 있는 정보를 Entity로 옮기기 */
-	default PointAccount pointAccountDtoToEntity(PointAccountDTO dto) {
-		
-		PointAccount entity = PointAccount.builder()
-				.pointNum(dto.getPointNum())
-				.memberNum(dto.getMemberNum())
-				.charge(dto.getCharge())
-				.balance(dto.getBalance())
-				.exchange(dto.getExchange())
-				.build();
-		return entity;
-	}
 	
 }
 
