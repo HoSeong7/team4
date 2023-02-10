@@ -9,9 +9,8 @@ import com.keduit.helloworld.entity.PointAccount;
 
 public interface PointAccountRepository extends JpaRepository<PointAccount, Long>{
 
-	@Query(value="select * from PointAccount p "
-			+ "join Member m on p.member_num = m.member_num "
-			+ "where m.member_num = :num ", nativeQuery = true)
+	@Query(value="select * from Point_Account p "
+			+ "where p.member_num = :num ", nativeQuery = true)
 	public List<PointAccount> getPointAccount(Long num);
 	
 }

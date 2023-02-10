@@ -17,9 +17,10 @@ public class PointAccountTests {
 	private PointAccountRepository repository;
 	
 	@Test
-	/** 포인트 거래내역 등록 테스트(충전 or 환전) */
+	/** 포인트 거래내역 등록 테스트(충전 or 환전) */ 
 	public void insertPoint() {
 		IntStream.rangeClosed(1, 50).forEach(i -> {
+			
 			PointAccount entity = PointAccount.builder()
 					.memberNum(i + 0L)
 					.charge(1000L *i)
