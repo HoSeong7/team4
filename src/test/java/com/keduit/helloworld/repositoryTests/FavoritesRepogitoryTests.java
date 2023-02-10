@@ -41,11 +41,11 @@ public class FavoritesRepogitoryTests {
 	@Test
 	public void selectTest() {
 		
-		List<Member> member = memberRepository.getMemberMarker(3L);
+		List<Member> member = memberRepository.getMemberMarker(1L);
 
 		
 		for(Member i : member) {
-			System.out.println(i.getId()+ " , " + i.getIntroduce());
+			System.out.println(i.getId()+ " , " + i.getNickname());
 			
 		}
 	}

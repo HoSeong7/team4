@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.PointAccount;
 import com.keduit.helloworld.repository.PointAccountRepository;
 
@@ -35,6 +36,7 @@ public class PointAccountTests {
 	/** 포인트 거래 내역 조회 */
 	public void selectPointList() {
 		List<PointAccount> result = repository.getPointAccount(2L);
+		
 		
 		for(PointAccount i : result) {
 			System.out.println(i);
