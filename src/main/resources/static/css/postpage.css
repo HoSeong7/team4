@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
+
 *{
     padding: 0;
     margin: 0;
+}
+body{
+    font-family: 'Gowun Batang', serif;
 }
 li{
     list-style: none;
@@ -91,14 +96,13 @@ a{
 /*content-header*/
 .content-header{
     padding-top: 10px;
-    border: 1px solid red;
+    border-bottom: 1px solid rgb(100, 100, 100);
     max-width: 1920px;
     height: 120px;
 }
 .content-header .content-header-box{
     width: 1500px;
     height: 70px;
-    border: 1px solid blue;
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -113,7 +117,7 @@ a{
     margin-top: 50px;
     width: 1200px;
     max-height: 1020px;
-    border: 1px solid green;
+    border: 1px solid rgb(100, 100, 100);
     margin-left: auto;
     margin-right: auto;
 }

@@ -11,9 +11,9 @@ import com.keduit.helloworld.entity.PointAccount;
 @Repository
 public interface PointAccountRepository extends JpaRepository<PointAccount, Long> {
 
-//	@Query(value = "select * from point_account " 
-//			+ "where member_num = :num ", nativeQuery = true)
-//	/** 포인트 거래내역 리스트 조회(read) */
-//	List<PointAccount> getPointAccount(Long num);
+	@Query(value = "select * from point_account "
+			+ "where member_num = :num ", nativeQuery = true)
+	/** 포인트 거래내역 리스트 조회(read) */
+	List<PointAccount> getPointAccount(Long num);
 	
 }

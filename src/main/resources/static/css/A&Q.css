@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
+
+
 *{
     padding: 0;
     margin: 0;
@@ -5,7 +8,8 @@
 }
 body{
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Gowun Batang', serif;
+
 }
 
 
@@ -103,14 +107,14 @@ a {
 /*content-header*/
 .content-header{
     padding-top: 10px;
-    border: 1px solid red;
+
     max-width: 1920px;
     height: 120px;
 }
 .content-header .content-header-box{
     width: 1500px;
     height: 70px;
-    border: 1px solid blue;
+ 
     margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
@@ -124,9 +128,9 @@ a {
     float: left;
     height: 20px;
     width: 280px;
-    border: 1px solid #1b5ac2;
+    border: 1px solid #575757;
     background: #fff;
-    margin-left: 600px;
+    margin-left: 500px;
     margin-top: 25px;
 }
 .content-header .content-header-box .search select{
@@ -148,7 +152,7 @@ a {
     width: 50px;
     height: 100%;
     border: 0px;
-    background: #1b5ac2;
+    background: #575757;
     outline: none;
     float: right;
     color: #fff;
@@ -157,12 +161,14 @@ a {
     float: left;
     width: 60px;
     height: 22px;
-    border: 1px solid black;
-    background: #1b5ac2;
+    border: 1px solid #575757;
+    border-radius: 5px;
+    background: #575757;
     color: #fff;
     margin-top: 25px;
-    margin-left: 10px;
-    font-size: 8px;
+    margin-left: 40px;
+    font-size: 12px;
+    font-weight: 800;
 }
 .content-header .content-header-box #registration a{
     color: white;
@@ -171,7 +177,8 @@ a {
 .content-body{
     max-width: 1920px;
     max-height: 2000px;
-    border: 1px solid blue;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 .content-body table{
     width: 1100px;
@@ -187,7 +194,7 @@ a {
 }
 .content-body table tbody td{
     border: 1px solid #444444;
-    height: 40px;
+    height: 30px;
     text-align: center;
 }
 /*페이지 번호*/
