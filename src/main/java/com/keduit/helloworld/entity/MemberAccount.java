@@ -24,7 +24,7 @@ public class MemberAccount extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/** 회원간 거래내역 고유번호 pk,nn,ai */
+	/** 회원간 거래내역 고유번호 pk, nn, ai */
 	private Long accountNum;
 	
 	@Column(nullable = false) 

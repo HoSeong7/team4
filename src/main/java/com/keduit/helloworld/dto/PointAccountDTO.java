@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PointAccountDTO {
 
-	/** 포인트 거래내역 고유번호 pk,nn,ai */
+	/** 포인트 거래내역 고유번호 pk, nn, ai */
 	private Long pointNum;
 	
-	/** 포인트 회원번호 fk nn */
+	/** 포인트 회원번호 fk, nn */
 	private Long memberNum;
 	
 	/** 포인트 충전금액 */
