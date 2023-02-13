@@ -22,31 +22,31 @@ public class Message extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/** Message 쪽지번호 pk, nn, ai */
+	/** 쪽지 쪽지번호 pk, nn, ai */
 	private Long messageNum;
 	
 	@Column(nullable = false) 
-	/** Message 받은사람 fk, nn */
+	/** 쪽지 받은사람 fk, nn */
 	private Long memberGet; //회원번호(멤버):받은사람 = 1:n
 
 	@Column(nullable = false)
-	/** Message 보낸사람 fk, nn */
+	/** 쪽지 보낸사람 fk, nn */
 	private Long memberGive; //회원번호(멤버):보낸사람 = 1:n
 	
 	@Column(length = 100, nullable = false)
-	/** Message 제목 nn */
+	/** 쪽지 제목 nn */
 	private String title;
 	
 	@Column(length = 3000, nullable = false)
-	/** Message 내용 nn */
+	/** 쪽지 내용 nn */
 	private String content;
 	
 	@Column
-	/** Message 보기권한 */
+	/** 쪽지 보기권한 */
 	private Long view;
 	
 	@Column(length = 100)
-	/** Message 사진 */
+	/** 쪽지 사진 */
 	private String url;
 
 }
