@@ -3,6 +3,8 @@ package com.keduit.helloworld.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +17,10 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class user_role {
+public class userRole {
 
 	@Id
 	private Long userId;
 	
-	@Id
 	private Long roleId;
 }

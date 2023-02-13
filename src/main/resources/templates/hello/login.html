@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지</title>
+    <title>로그인페이지</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/sign-up.css">
@@ -44,6 +43,35 @@
         <div class="content-box2"></div>
         <div class="content-box3"></div>
         <div class="content-box4"></div>
+    </div>
+        <!-- <a id="open-login">로그인</a> -->
+    <!--로그인-->
+    <div class="login">
+        <div class="login_overlay"></div>
+        <div class="login_content">
+            <button>X</button>
+            <div class="login-wrapper">
+                <h2>로그인</h2>
+                <form method="post" th:action="@{/hello/login}" id="login-form">
+                    <input type="text" name="userID username" placeholder="ID">
+                    <input type="password" name="userPassword password" placeholder="Password">
+                    <input type="submit" value="Login">
+                </form>
+                <div th:if="${param.error}">아이디와 비밀번호를 확인해주세요.</div>
+                <div th:if="${param.logout}">로그아웃 처리 되었습니다.</div>            
+                <div class="login-api">
+                    <div class="kakaoimg"><img src="/img/kakao.png" alt="" height="40px"></div>
+                    <div class="googleimg"><img src="/img/google.png" alt="" height="40px"></div>
+                </div>
+                <div class="login-wrapper-bottom">
+                    <ul>
+                        <li><a id="open-signup">회원가입</a></li>
+                        <li><a href="">비밀번호찾기</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
     <!--메인바 공통-->
     <div class="bar">
@@ -126,6 +154,23 @@
     </script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- <script type="text/javascript" src="/js/ajax/login.js"></script> -->
+    <script>
+        // const loginopenButton = document.getElementById("open-login");
+        const loginmodal = document.querySelector(".login");
+        const loginoverlay = loginmodal.querySelector(".login_overlay");
+        const logincloseBtn = loginmodal.querySelector("button");
+        // const loginopenModal = () => {
+        //     loginmodal.classList.remove("aaa");
+        // }
+        const logincloseModal = () => {
+            loginmodal.classList.add("aaa");
+        }
+        loginoverlay.addEventListener("click", logincloseModal);
+        logincloseBtn.addEventListener("click", logincloseModal);
+        
+        
+        // loginopenButton.addEventListener("click", loginopenModal);
+    </script>
 </body>
 
 </html>

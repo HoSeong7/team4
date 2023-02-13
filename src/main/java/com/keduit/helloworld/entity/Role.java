@@ -1,10 +1,13 @@
 package com.keduit.helloworld.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,5 +29,8 @@ public class Role {
 	
 	@Column(length =50)
 	private String name;
+	
+	@ManyToMany(mappedBy = "roles")
+	private List<Member> members;
 	
 }

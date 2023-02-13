@@ -1,13 +1,20 @@
 package com.keduit.helloworld.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.ManyToAny;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,9 +52,9 @@ public class Member extends BaseEntity{
 	/** member 현재 가지고있는 포인트 */
 	private Long point;
 	
-	@ColumnDefault("0") 
-	/** 권한 0 : 일반  1 : 관리자 */
-	private Long purview;
+	
+	/** 권한*/
+	private Boolean purview;
 	
 	@Column(length = 30, nullable = false, unique = true)
 	/** member 닉네임 */
@@ -69,4 +76,11 @@ public class Member extends BaseEntity{
 	/** member 사진 */
 	private String url;
 	
+	@ManyToMany
+	@JoinTable(
+				name = "userRole",
+				joinColumns = @JoinColumn(name = "userId"),
+				inverseJoinColumns = @JoinColumn(name = "roleId")
+			)
+	private List<Role> roles = new ArrayList<>();
 }

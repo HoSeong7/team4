@@ -1,10 +1,14 @@
 package com.keduit.helloworld.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 
 import org.hibernate.annotations.ColumnDefault;
+
+import com.keduit.helloworld.entity.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,8 +37,8 @@ public class MemberDTO {
 	/** member 가지고있는 포인트*/
 	private Long point;
 	
-	/** member 권한 0 일반  1관리자*/
-	private Long purview;
+	/** member 권한 */
+	private Boolean purview;
 	
 	/** member 닉네임*/
 	private String nickname;
@@ -56,5 +60,8 @@ public class MemberDTO {
 	
 	/** member 수정 날짜*/
 	protected LocalDateTime updateDate;
+	
+	/** 권한 */
+	private List<Role> roles = new ArrayList<>();
 	
 }

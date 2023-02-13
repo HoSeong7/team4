@@ -7,6 +7,8 @@ import com.keduit.helloworld.entity.Member;
 
 public interface MemberService {
 	
+	
+	
 	/** member 회원가입*/
 	Long register(MemberDTO dto);	
 	

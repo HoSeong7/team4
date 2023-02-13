@@ -23,11 +23,11 @@ public class WebSecyrityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.	authorizeHttpRequests()
-						.antMatchers("/", "/hello/index").permitAll()
+						.antMatchers("/hello/index", "/css/**", "/img/**", "/js/**", "/hello/register").permitAll()
 						.anyRequest().authenticated()
 						.and()
 				.formLogin()
-						.loginPage("/modal/log-in")
+						.loginPage("/hello/login")
 						.permitAll()
 						.and()
 				.logout()
@@ -40,12 +40,13 @@ public class WebSecyrityConfig extends WebSecurityConfigurerAdapter{
 	  throws Exception {
 	    auth.jdbcAuthentication()
 	      .dataSource(dataSource)
-	      .passwordEncoder(passwordEncoder())
+//	      .passwordEncoder(passwordEncoder())
 	      .usersByUsernameQuery("select id,pw,purview "
 	        + "from member "
 	        + "where id = ?")
 	      .authoritiesByUsernameQuery("select id,user_role "
-	        + "from user_role "
+	        + "from user_role ur inner join member m on ur.user_id = m.id "
+	        + "inner join role r on ur.role = r.id "
 	        + "where id = ?");
 	}
 	
