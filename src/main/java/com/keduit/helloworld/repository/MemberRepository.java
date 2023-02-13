@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.keduit.helloworld.entity.Favorites;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.MemberAccount;
+import com.keduit.helloworld.entity.Message;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
 
@@ -21,11 +22,33 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	List<Member> getMemberMarker(Long bookmarker);
 	
 	
+//회원간 거래내역	
 	@Query(value = "select * from member m "
 			+ "join member_account ma on ma.member_seller = m.member_num " 
 			+ "where ma.member_buyer = :num", nativeQuery = true)
 	/** 회원간 거래내역 리스트 조회(read, 구매자=질문자 기준) */
-	List<Member> getMemNum(Long num);
+	List<Member> getMemNumAsBuyer(Long num);
+	
+	@Query(value = "select * from member m "
+			+ "join member_account ma on ma.member_buyer = m.member_num " 
+			+ "where ma.member_seller = :num", nativeQuery = true)
+	/** 회원간 거래내역 리스트 조회(read, 판매자=답변자 기준) */
+	List<Member> getMemNumAsSeller(Long num);
+
+//쪽지 내역	
+	@Query(value = "select * from member m "
+			+ "join message ms on ms.member_give = m.member_num "
+			+ "where ms.member_get = :num", nativeQuery = true)
+	/** 받은 쪽지 내역 조회(read, 받은사람 기준) */
+	List<Member> getMemNumAsGetter(Long num);
+
+	@Query(value = "select * from member m "
+			+ "join message ms on ms.member_get = m.member_num "
+			+ "where ms.member_give = :num", nativeQuery = true)
+	/** 보낸 쪽지 내역 조회(read, 보낸사람 기준) */
+	List<Member> getMemNumAsGiver(Long num);
+	
+	
 	
 	
 }

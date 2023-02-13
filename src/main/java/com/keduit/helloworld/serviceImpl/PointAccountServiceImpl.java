@@ -35,9 +35,9 @@ public class PointAccountServiceImpl implements PointAccountService {
 
 	@Override
 	/** (Entity 정보로) 포인트 거래내역 리스트 조회(read) */
-	public List<PointAccount> read(Long Num) {
+	public List<PointAccount> read(Long num) {
 		
-		List<PointAccount> result = repository.getPointAccount(Num);
+		List<PointAccount> result = repository.getPointAccount(num);
 		
 		return result;
 	}

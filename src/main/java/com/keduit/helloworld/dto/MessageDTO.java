@@ -15,31 +15,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageDTO {
 
-	/** MessageDTO 쪽지번호 pk */
-	private Long messageNum; //
+	/** 쪽지 쪽지번호 pk, nn, ai */
+	private Long messageNum;
 	
-	/** MessageDTO 받은사람 */
-	private Long memberGet; //
+	/** 쪽지 받은사람 fk, nn */
+	private Long memberGet;
 	
-	/** MessageDTO 보낸사람 */
-	private Long memberGive; //
+	/** 쪽지 보낸사람 fk, nn */
+	private Long memberGive;
 	
-	/** MessageDTO 제목 */
+	/** 쪽지 제목 */
 	private String title;
 	
-	/** MessageDTO 내용 */
+	/** 쪽지 내용 */
 	private String content;
 
-	/** MessageDTO 보기권한 */
+	/** 쪽지 보기권한 */
 	private Long view;
 
-	/** MessageDTO 사진 */
+	/** 쪽지 사진 */
 	private String url;
 	
-	/** MessageDTO 등록날짜 */
+	/** 쪽지 등록날짜 */
 	protected LocalDateTime regDate;
 	
-	/** MessageDTO 수정날짜 */
+	/** 쪽지 수정날짜 */
 	protected LocalDateTime updateDate;
 	
 }

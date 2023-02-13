@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.keduit.helloworld.dto.MemberAccountDTO;
 import com.keduit.helloworld.entity.MemberAccount;
 import com.keduit.helloworld.repository.MemberAccountRepository;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.MemberAccountService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,9 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MemberAccountServiceImpl implements MemberAccountService {
 
-	private final MemberAccountRepository repository;
+	private final MemberAccountRepository memberAccountRepository;
+	
+	private MemberRepository memberRepository;
 	
 	@Override
 	/** 회원간 거래내역 등록(create) */
@@ -27,16 +30,25 @@ public class MemberAccountServiceImpl implements MemberAccountService {
 		
 		MemberAccount entity = memberAccountDtoToEntity(dto);
 		
-		repository.save(entity);
+		memberAccountRepository.save(entity);
 		
 		return entity.getAccountNum();
 	}
 	
 	@Override
 	/** 회원간 거래내역 리스트 조회(read, 구매자=질문자 기준) */
-	public List<MemberAccount> read(Long accountNum) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MemberAccount> getListAsBuyer(Long buyerNum) {
+		
+		List<MemberAccount> result = memberAccountRepository.getPayListAsBuyer(buyerNum);
+		return result;
+	}
+	
+	@Override
+	/** 회원간 거래내역 리스트 조회(read, 판매자=답변자 기준) */
+	public List<MemberAccount> getListAsSeller(Long sellerNum) {
+		
+		List<MemberAccount> result = memberAccountRepository.getPayListAsSeller(sellerNum);
+		return result;
 	}
 
 
