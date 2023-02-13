@@ -31,8 +31,8 @@
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
                 <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login" onclick="call_login()">로그인</a></li>
-                <li><a id="open-signup" onclick="call_sign_up()">회원가입</a></li>
+                <li><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+                <li><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>
             </ul>
         </nav>
     </div>
