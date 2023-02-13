@@ -106,9 +106,11 @@ a {
 /*content-header*/
 .content-header{
     padding-top: 10px;
+    padding-bottom: 10px;
 
     max-width: 1920px;
     height: 120px;
+    background-color: #f3eded;
 }
 .content-header .content-header-box{
     width: 800px;
@@ -119,11 +121,13 @@ a {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    background-color: #fff;
 }
 .content-header .content-header-box h1{
     float: left;
     font-size: 40px;
     color: #079645;
+    margin-left: 20px;
 }
 .content-header .content-header-box .search{
     width: 480px;
@@ -131,7 +135,7 @@ a {
 	border: 2px solid #03cf5d;
 	float: left;
 	margin-top: 20px;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 .content-header .content-header-box .search select{
     float: left;
@@ -162,6 +166,8 @@ a {
 	padding: 0;
 	border: none;
 	background: #03cf5d;
+    color: white;
+    font-size: 15px;
     float: right;
 }
 .content-header .content-header-box #registration{
@@ -185,8 +191,9 @@ a {
 .content-body{
     max-width: 1920px;
     max-height: 2000px;
-    border-top: 1px solid green;
-    margin-top: 20px;
+    border-top: 3px solid rgb(201, 200, 200);
+    padding-top: 20px;
+    background-color: #f3eded;
 }
 .content-body .board{
     width: 800px;
@@ -197,6 +204,10 @@ a {
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    background-color: #fff;
+}
+.content-body .board:hover{
+    border: 2px solid #03cf5d;
 }
 .content-body .board .board-top{
     width: 700px;

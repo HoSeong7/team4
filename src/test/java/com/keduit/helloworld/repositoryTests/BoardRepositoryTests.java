@@ -3,6 +3,7 @@ package com.keduit.helloworld.repositoryTests;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -10,25 +11,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.keduit.helloworld.entity.Board;
+import com.keduit.helloworld.entity.Comment;
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
+import com.keduit.helloworld.repository.CommentRepository;
+import com.keduit.helloworld.repository.MemberRepository;
 
 @SpringBootTest
 public class BoardRepositoryTests {
 	
 	@Autowired
 	private BoardRepository boardRepository;
+	@Autowired
+	private CommentRepository commentRepository;
+	@Autowired
+	private MemberRepository memberRepository;
 	
 	@Test
 	/** 더미생성 */
 	public void insertBoardTest() { // 더미
 		
-		IntStream.rangeClosed(1, 100).forEach(i ->{
+		IntStream.rangeClosed(1, 50).forEach(i ->{
 			Board board = Board.builder()
 							.title("제목 -- " + i)
 							.content("내용 -- " + i)
 							.tag("JAVA")
-							.boardcase(1L)
-							.memberNum(2L)
+							.boardcase((long) (Math.random()*2))
+							.memberNum((long) (Math.random()*30+1))
 							.build();
 			
 			boardRepository.save(board);
@@ -65,11 +74,20 @@ public class BoardRepositoryTests {
 	
 	@Test
 	public void testReadOne() {
-		Object result = boardRepository.getBoardByBno(47L);
+		Long result = commentRepository.getBoardByBno(47L);
 		
-		Object[] arr = (Object[])result;
 		
-		System.out.println(Arrays.toString(arr));
+		
+		System.out.println(result);
+		
+	}
+	@Test
+	public void testReadOneM() {
+		Member result = memberRepository.getBoardByBno(47L);
+		
+		
+		
+		System.out.println(result);
 		
 	}
 

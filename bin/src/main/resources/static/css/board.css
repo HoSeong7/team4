@@ -204,7 +204,11 @@ body{
 .content .content-body .main-content .content-table .content-box{
     width: 980px;
     height: 120px;
-    border-top: 2px solid rgb(179, 179, 179);
+    border-top: 1px solid rgb(179, 179, 179);
+    border-bottom: 1px solid rgb(179, 179, 179);
+}
+.content .content-body .main-content .content-table .content-box:hover{
+    border-left: 20px solid rgb(179, 179, 179);
 }
 .content .content-body .main-content .content-table .content-box .box-top{
     width: 920px;
