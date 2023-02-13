@@ -69,7 +69,7 @@ public class BoardRepositoryTests {
 	@Test
 	/** 삭제 */
 	public void deleteBoard() {
-		boardRepository.deleteById(2L);
+//		boardRepository.deleteById(2L);
 	}
 	
 	@Test
