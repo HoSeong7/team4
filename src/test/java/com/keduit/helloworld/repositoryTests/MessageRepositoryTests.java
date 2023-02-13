@@ -1,6 +1,7 @@
 package com.keduit.helloworld.repositoryTests;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.repository.MessageRepository;
 
 @SpringBootTest
-public class MessageTests {
+public class MessageRepositoryTests {
 
 	@Autowired
 	private MessageRepository messageRepository;
@@ -23,7 +24,7 @@ public class MessageTests {
 	
 	@Test
 	/** 쪽지 등록 테스트(create) */
-	public void insertMessage() {
+	public void insertMsgTest() {
 		
 		IntStream.rangeClosed(1, 30).forEach(i -> {
 			
@@ -71,9 +72,19 @@ public class MessageTests {
 					);		
 		}
 	}
-
 	
+	@Test
+	/** 쪽지 상세 조회(read) */
+	public void selectMsgTest() {
+		Optional<Message> result = messageRepository.findById(1L);
+		System.out.println(result);
+	}
 	
+	@Test
+	/** 쪽지 삭제(delete) */
+	public void deleteMsgTest() {
+		messageRepository.deleteById(30L);
+	}
 	
 	
 }

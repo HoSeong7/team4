@@ -12,7 +12,7 @@ import com.keduit.helloworld.entity.PointAccount;
 import com.keduit.helloworld.repository.PointAccountRepository;
 
 @SpringBootTest
-public class PointAccountTests {
+public class PointAccountRepositoryTests {
 
 	@Autowired
 	private PointAccountRepository repository;
