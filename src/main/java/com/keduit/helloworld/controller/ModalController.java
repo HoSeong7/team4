@@ -18,4 +18,17 @@ public class ModalController {
     public void signup(){
 
     }
+    @GetMapping("/follower")
+    public void follower(){
+
+    }
+
+    @GetMapping("/following")
+    public void following(){
+
+    }
+    @GetMapping("/pointmodal")
+    public void pointmodal(){
+
+    }
 }

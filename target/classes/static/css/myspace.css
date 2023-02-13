@@ -174,9 +174,9 @@ a {
     margin-right: auto;
     margin-top: 20px;
     max-height: 2000px;
-    border-left: 1px solid rgb(19, 165, 165);
-    border-right: 1px solid rgb(19, 165, 165);
-    border-top: 1px solid rgb(19, 165, 165);
+    border: 2px solid rgb(19, 165, 165);
+    border-radius: 15px;
+    margin-bottom: 100px;
 }
 .content .div-content{
     max-width: 1320px;
@@ -186,11 +186,10 @@ a {
 .content div h1{
     margin-left: 50px;
     margin-top: 20px;
-    font-size: 15px;
+    font-size: 20px;
 }
 .content .div-content .content-introduce{
     border: 1px solid #a3a3a3;
-    border-radius: 15px;
     width: 900px;
     height: 200px;
     margin-left: auto;
@@ -211,17 +210,127 @@ a {
 }
 .content .div-content .content-board{
     border: 1px solid #a3a3a3;
-    border-radius: 15px;
     width: 900px;
-    height: 200px;
+    height: 180px;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px 0;
+    overflow-y: scroll;
 }
+.content .div-content .content-board::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+.content .div-content .content-board::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #949494; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+.content .div-content .content-board::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+.content .div-content .content-board .register-box{
+    width: 800px;
+    height: 25px;
+    border-bottom: 1px dotted #a3a3a3;
+    margin: auto;
+    margin-top: 5px;
+}
+.content .div-content .content-board .register-box .box1{
+    width: 350px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+.content .div-content .content-board .register-box .box2{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+    margin-left: 30px;
+}
+.content .div-content .content-board .register-box .box3{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+.content .div-content .content-board .register-box .box4{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+.content .div-content .content-board .register-box .box5{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+
 .content .div-content .content-chat{
     border: 1px solid #a3a3a3;
-    border-radius: 15px;
     width: 900px;
     height: 200px;
     margin-left: auto;
     margin-right: auto;
+    overflow-y: scroll;
+}
+.content .div-content .content-chat::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+.content .div-content .content-chat::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #949494; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+.content .div-content .content-chat::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+.content .div-content .content-chat .register-box{
+    width: 800px;
+    height: 25px;
+    border-bottom: 1px dotted #a3a3a3;
+    margin: auto;
+    margin-top: 5px;
+}
+.content .div-content .content-chat .register-box .box1{
+    width: 350px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+.content .div-content .content-chat .register-box .box2{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+    margin-left: 30px;
+}
+.content .div-content .content-chat .register-box .box3{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+.content .div-content .content-chat .register-box .box4{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
+}
+.content .div-content .content-chat .register-box .box5{
+    width: 100px;
+    height: 25px;
+    
+    float: left;
+    text-align: center;
 }
