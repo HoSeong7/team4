@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Favorites;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.MemberAccount;
@@ -27,5 +28,11 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	/** 회원간 거래내역 리스트 조회(read, 구매자=질문자 기준) */
 	List<Member> getMemNum(Long num);
 	
+	@Query(value = 
+			"select * from Board b join Member m on m.member_num = b.member_num "
+					+ " left outer join Comment c on c.board_num = b.board_num "
+					+ " where b.board_num = :boardNum"
+			, nativeQuery = true)
+		Member getBoardByBno(Long boardNum); 
 	
 }

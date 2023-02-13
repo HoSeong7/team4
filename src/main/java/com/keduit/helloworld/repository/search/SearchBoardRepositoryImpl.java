@@ -30,17 +30,31 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 	public SearchBoardRepositoryImpl() {
 		super(Board.class);
 	}
-
+	
 	@Override
-	public Board search1() {
-		log.info("search1......");
+	public Page<Object[]> searchBoard1Page(String type, String keyword, Pageable pageable) {
+		Long boardcase = 1L;
 		
-		return null;
+		return searchPage(type,keyword,pageable,boardcase);
+	}
+	
+	@Override
+	public Page<Object[]> searchBoard2Page(String type, String keyword, Pageable pageable) {
+		Long boardcase = 2L;
+		
+		return searchPage(type,keyword,pageable,boardcase);
+	}
+	
+	@Override
+	public Page<Object[]> searchBoard3Page(String type, String keyword, Pageable pageable) {
+		Long boardcase = 3L;
+		
+		return searchPage(type,keyword,pageable,boardcase);
 	}
 
 	@Override
-	public Page<Object[]> searchPage(String type, String keyword, Pageable pageable) {
-		log.info("searchPage ............");
+	public Page<Object[]> searchPage(String type, String keyword, Pageable pageable, Long boardcase) {
+		log.info("위치 : SearchBoardRepository searchPage()");
 		
 		QBoard board = QBoard.board;
 		QComment comment = QComment.comment;
@@ -50,16 +64,15 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 		jpqlQuery.leftJoin(member).on(board.memberNum.eq(member.memberNum));
 		jpqlQuery.leftJoin(comment).on(comment.boardNum.eq(board.boardNum));
 		
-//		jpqlQuery.select(board, member.email, reply.count())
-//						.groupBy(board);
-//		jpqlQuery.select(board).where(board.bno.eq(2L));
-		
 		JPQLQuery<Tuple> tuple = jpqlQuery.select(board,member, comment.count());
 		
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
-		BooleanExpression expression = board.boardNum.gt(0L); //bno가 0보다 클때
+		BooleanExpression expression = board.boardNum.gt(0L); 
+		BooleanExpression caseexpression;
+		caseexpression = board.boardcase.eq(boardcase);
 		
 		booleanBuilder.and(expression);
+		booleanBuilder.and(caseexpression);
 		
 		if(type != null) {
 			
@@ -133,6 +146,33 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 				);
 	}
 
+	@Override
+	public Object getBoardByBno(Long boardNum) {
+		
+		log.info("위치 : SearchBoardRepository getBoardByBno()");
+		
+		QBoard board = QBoard.board;
+		QComment comment = QComment.comment;
+		QMember member = QMember.member;
+		
+		JPQLQuery<Board> jpqlQuery = from(board);
+		jpqlQuery.leftJoin(member).on(board.memberNum.eq(member.memberNum));
+		jpqlQuery.leftJoin(comment).on(comment.boardNum.eq(board.boardNum));
+		
+		JPQLQuery<Tuple> tuple = jpqlQuery.select(board,member, comment.count());
+		
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		BooleanExpression caseexpression;
+		caseexpression = board.boardcase.eq(boardNum);
+		
+		booleanBuilder.and(caseexpression);
+		
+		tuple.where(booleanBuilder);
+		
+		List<Tuple> result = tuple.fetch();
+		
+		return result;
+	}
 
 
 }

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
 *{
     padding: 0;
     margin: 0;
@@ -11,7 +10,7 @@ a{
     text-decoration: none;
 }
 body{
-    font-family: 'Gowun Batang', serif;
+    font-family: 'Gothic A1', sans-serif;
     background-color: aliceblue;
 }
 
@@ -97,19 +96,17 @@ body{
 
 .content{
     max-width: 1920px;
-    height: 2000px;
-
+    max-height: 2000px;
     margin-top: 10px;
 }
 .content .content-body{
     width: 1280px;
-    height: 2000px;
- 
+    max-height: 2000px;
     margin: auto;
 }
 .content .content-body .today-content{
     width: 200px;
-    height: 2000px;
+    max-height: 2000px;
 
     float: left;
 }
@@ -161,9 +158,9 @@ body{
 /*메인 콘텐트*/
 .content .content-body .main-content{
     width: 1050px;
-    height: 1800px;
-
+    max-height: 1800px;
     float: right;
+    margin-bottom: 50px;
 }
 .content .content-body .main-content .content-header{
     width: 920px;
@@ -197,14 +194,18 @@ body{
 }
 .content .content-body .main-content .content-table{
     width: 980px;
-    height: 1700px;
+    max-height: 1700px;
     margin: auto;
     margin-top: 10px;
 }
 .content .content-body .main-content .content-table .content-box{
     width: 980px;
     height: 120px;
-    border-top: 2px solid rgb(179, 179, 179);
+    border-top: 1px solid rgb(179, 179, 179);
+    border-bottom: 1px solid rgb(179, 179, 179);
+}
+.content .content-body .main-content .content-table .content-box:hover{
+    border-left: 20px solid rgb(179, 179, 179);
 }
 .content .content-body .main-content .content-table .content-box .box-top{
     width: 920px;
@@ -221,18 +222,17 @@ body{
     float: left;
 }
 .content .content-body .main-content .content-table .content-box .box-top .username{
-    width: 70px;
+    max-width: 150px;
     height: 20px;
-   
     font-size: 15px;
     float: left;
 }
 .content .content-body .main-content .content-table .content-box .box-top .hits{
     width: 50px;
     height: 20px;
-  
     font-size: 15px;
     float: left;
+    margin-left: 10px;
 }
 .content .content-body .main-content .content-table .content-box .box-top .content-time{
     width: 90px;
