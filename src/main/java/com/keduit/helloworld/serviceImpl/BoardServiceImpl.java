@@ -12,8 +12,11 @@ import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
+import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
+import com.keduit.helloworld.repository.CommentRepository;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,8 @@ import lombok.extern.log4j.Log4j2;
 public class BoardServiceImpl implements BoardService {
 	
 	private final BoardRepository boardRepository;
+	private final MemberRepository memberRepository;
+	private final CommentRepository commentRepository;
 	
 	@Override
 	/** 생성 */
@@ -39,23 +44,58 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	/** 읽기 */
-	public PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
+	public PageResultDTO<BoardDTO, Object[]> getBoard1List(PageRequestDTO pageRequestDTO) {
 		
-		log.info("pageRequestDTO : "+pageRequestDTO);
+		log.info("위치 : BoardServiceImpl getBoard1List() ");
+		log.info("pageRequestDTO : "+ pageRequestDTO);
 		
 		Function<Object[], BoardDTO> fn = (en -> entityToDTO((Board)en[0], (Member)en[1], (Long)en[2]));
 		
-		Page<Object[]> result = boardRepository.searchPage(
+		Page<Object[]> result = boardRepository.searchBoard1Page(
 				pageRequestDTO.getType(),
 				pageRequestDTO.getKeyword(),
 				pageRequestDTO.getPageable(Sort.by("boardNum").descending())
 				);
 		
 		return new PageResultDTO<>(result, fn);
-		
-		
-		
 	}
+	
+	
+	@Override
+	/** 읽기 */
+	public PageResultDTO<BoardDTO, Object[]> getBoard2List(PageRequestDTO pageRequestDTO) {
+		
+		log.info("pageRequestDTO : "+pageRequestDTO);
+		
+		Function<Object[], BoardDTO> fn = (en -> entityToDTO((Board)en[0], (Member)en[1], (Long)en[2]));
+		
+		Page<Object[]> result = boardRepository.searchBoard2Page(
+				pageRequestDTO.getType(),
+				pageRequestDTO.getKeyword(),
+				pageRequestDTO.getPageable(Sort.by("boardNum").descending())
+				);
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	
+	@Override
+	/** 읽기 */
+	public PageResultDTO<BoardDTO, Object[]> getBoard3List(PageRequestDTO pageRequestDTO) {
+		
+		log.info("pageRequestDTO : "+pageRequestDTO);
+		
+		Function<Object[], BoardDTO> fn = (en -> entityToDTO((Board)en[0], (Member)en[1], (Long)en[2]));
+		
+		Page<Object[]> result = boardRepository.searchBoard3Page(
+				pageRequestDTO.getType(),
+				pageRequestDTO.getKeyword(),
+				pageRequestDTO.getPageable(Sort.by("boardNum").descending())
+				);
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
 
 	@Override
 	/** 삭제 */
@@ -79,11 +119,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	/** 하나 읽기 */
 	public BoardDTO get(Long boardNum) {
-		Object result = boardRepository.getBoardByBno(boardNum);
+		Board boardResult = boardRepository.getBoardByBno(boardNum);
+		Member memberResult = memberRepository.getBoardByBno(boardNum);
+		Long commentResult = commentRepository.getBoardByBno(boardNum);
 		
-		Object[] arr = (Object[]) result;
 		
-		return entityToDTO((Board)arr[0], (Member)arr[1], (Long)arr[2]);
+		return entityToDTO(boardResult, memberResult, commentResult);
 	}
 	
 }

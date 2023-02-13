@@ -12,7 +12,9 @@ public interface BoardService {
 	Long register(BoardDTO boardDTO);
 
 	/** 읽기 */
-	PageResultDTO<BoardDTO, Object[]>getList(PageRequestDTO pageRequestDTO);
+	PageResultDTO<BoardDTO, Object[]>getBoard1List(PageRequestDTO pageRequestDTO);
+	PageResultDTO<BoardDTO, Object[]>getBoard2List(PageRequestDTO pageRequestDTO);
+	PageResultDTO<BoardDTO, Object[]>getBoard3List(PageRequestDTO pageRequestDTO);
 
 	/** 수정 */
 	void modify(BoardDTO boardDTO);
@@ -49,10 +51,12 @@ public interface BoardService {
 							.title(entity.getTitle())
 							.content(entity.getContent())
 							.id(member.getId())
+							.nickname(member.getNickname())
 							.url(entity.getUrl())
 							.views(entity.getViews())
 							.cnt(cnt.longValue())
 							.tag(entity.getTag())
+							.blikes(entity.getBlikes())
 							.boardcase(entity.getBoardcase())
 							.regdate(entity.getRegDate())
 							.updatedate(entity.getUpdateDate())
