@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/point.css">
+</head>
+
+<body>
+    <div class="innerHeader">
+        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
+                    height="30px"></a></h1>
+        <!--왼쪽바 공통-->
+        <nav class="mainmenu-left">
+            <ul class="navbar">
+                <li><a id="open-point">포인트</a></li>
+                <li><a href="#"
+                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
+                </li>
+            </ul>
+        </nav>
+        <!--오른쪽바 공통-->
+        <nav class="mainmenu-right">
+            <ul class="navbar">
+                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
+                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
+                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
+                <li><a id="open-login">로그인</a></li>
+                <li><a id="open-signup">회원가입</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content-body">
+        <div class="tabs">
+            <input id="box1" type="radio" name="tab_item" checked>
+            <label class="tab_item tab_item1" for="box1">충전하기</label>
+            <input id="box2" type="radio" name="tab_item">
+            <label class="tab_item" for="box2">환전하기</label>
+            <input id="box3" type="radio" name="tab_item">
+            <label class="tab_item" for="box3">결제내역</label>
+            <input id="box4" type="radio" name="tab_item">
+            <label class="tab_item tab_item4" for="box4">쿠폰</label>
+            <div class="tab_content" id="box1_content">
+                <div class="content-box1">
+                    <div class="box-title"><p>현재 잔액 : 30,000,000포인트</p></div>
+                    <div class="box-top"><input type="text"><img src="/img/pointimg.png" alt="" width="50px"></div>
+                    <div class="box-bottom"><button>충전하기</button></div>
+                </div>
+            </div>
+            <div class="tab_content" id="box2_content">
+                <div class="content-box2">
+                    <div class="box-title"><p>현재 잔액 : 30,000,000포인트</p></div>
+                    <div class="box-top"><input type="text"><img src="/img/pointimg.png" alt="" width="50px"></div>
+                    <div class="box-bottom"><button>환전하기</button></div>
+                </div>
+            </div>
+            <div class="tab_content" id="box3_content">
+                <div class="content-box3">
+                    <div class="box-table-top">
+                        <div class="box1">날짜</div>
+                        <div class="box2">충전액</div>
+                        <div class="box3">환전액</div>
+                        <div class="box4">잔여포인트</div>
+                    </div>
+                    <div class="box-table">
+                        <div class="box1">2023-02-13</div>
+                        <div class="box2">10,000,000</div>
+                        <div class="box3"></div>
+                        <div class="box4">10,000,000</div>
+                    </div>
+                    <div class="box-table">
+                        <div class="box1">2023-02-13</div>
+                        <div class="box2"></div>
+                        <div class="box3">120,000,000</div>
+                        <div class="box4">10,000,000</div>
+                    </div>
+                    <div class="box-table">
+                        <div class="box1">2023-02-13</div>
+                        <div class="box2">10,000,000</div>
+                        <div class="box3"></div>
+                        <div class="box4">10,000,000</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab_content" id="box4_content">
+                <div class="content-box4">
+                    <div class="box-title"><p>현재 잔액 : 30,000,000포인트</p></div>
+                    <div class="box-top"><input type="text">-<input type="text">-<input type="text">-<input type="text"></div>
+                    <div class="box-bottom"><button>쿠폰등록</button></div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

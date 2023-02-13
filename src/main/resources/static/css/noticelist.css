@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
 *{
     padding: 0;
@@ -8,7 +7,7 @@
 }
 body{
     font-size: 14px;
-    font-family: 'Gowun Batang', serif;
+    font-family: 'IBM Plex Sans KR', sans-serif;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;
 }
@@ -130,7 +129,7 @@ a {
     text-transform: uppercase;
 }
 .content-header .header-box .registration-box{
-    width: 200px;
+    width: 100px;
     height: 60px;
     margin-top: 5px;
     margin-left: 50px;
@@ -191,6 +190,17 @@ a {
     margin: auto;
     overflow-y: scroll;
 }
+.content-body .body-box::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+.content-body .body-box::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #c4c4c4; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+.content-body .body-box::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
 .content-body .body-box .table-box{
     width: 980px;
     height: 110px;
@@ -209,7 +219,7 @@ a {
 .content-body .body-box .table-box .user-box .name-box{
     width: 170px;
     height: 40px;
-border-left: 1px solid #d1d1d1;
+
     margin-top: 45px;
 }
 .content-body .body-box .table-box .user-box .name-box h3{
@@ -248,7 +258,7 @@ border-left: 1px solid #d1d1d1;
     margin-left: 15px;
 }
 .content-body .body-box .table-box .content-box .bottom-box .box3{
-    max-width: 150px;
+    max-width: 250px;
     height: 30px;
     float: left;
     margin-top: 10px;
@@ -299,21 +309,13 @@ border-left: 1px solid #d1d1d1;
 .page_nation .arrow {
 	border:1px solid #ccc;
 }
-.page_nation .pprev {
-	background:#f8f8f8 url('img/page_pprev.png') no-repeat center center;
-	margin-left:0;
-}
 .page_nation .prev {
-	background:#f8f8f8 url('img/page_prev.png') no-repeat center center;
+	background:#f8f8f8 url('../img/left.png') no-repeat center center;
 	margin-right:7px;
 }
 .page_nation .next {
-	background:#f8f8f8 url('img/page_next.png') no-repeat center center;
+	background:#f8f8f8 url('../img/right.png') no-repeat center center;
 	margin-left:7px;
-}
-.page_nation .nnext {
-	background:#f8f8f8 url('img/page_nnext.png') no-repeat center center;
-	margin-right:0;
 }
 .page_nation a.active {
 	background-color:#42454c;

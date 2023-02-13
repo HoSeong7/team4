@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 *{
     padding: 0;
     margin: 0;
@@ -6,7 +6,7 @@
 }
 body{
     font-size: 14px;
-    font-family: 'Gowun Batang', serif;
+    font-family: 'Nanum Gothic Coding', monospace;
     background-color: #f6f6f6;
 }
 
@@ -125,7 +125,7 @@ a {
 }
 .content-header .content-header-box h1{
     float: left;
-    font-size: 40px;
+    font-size: 60px;
     color: #079645;
     margin-left: 20px;
 }
@@ -218,13 +218,13 @@ a {
 
 }
 .content-body .board .board-top .board-title{
-    width: 150px;
+    width: 350px;
     height: 30px;
     float: left;
     margin-left: 5px;
     margin-top: 5px;
 }
-.content-body .board .board-top .board-title a{
+.content-body .board .board-top .board-title{
     color: #079645;
 }
 
@@ -232,7 +232,7 @@ a {
     width: 100px;
     height: 30px;
     float: left;
-    margin-left: 340px;
+    margin-left: 100px;
     margin-top: 10px;
     text-align: center;
 }
@@ -255,6 +255,7 @@ a {
     font-size: 10px;
     float: left;
     margin: 0 5px;
+    font-size: 12px;
 }
 /*페이지 번호*/
 .page_wrap {
@@ -285,21 +286,13 @@ a {
 .page_nation .arrow {
 	border:1px solid #ccc;
 }
-.page_nation .pprev {
-	background:#f8f8f8 url('img/page_pprev.png') no-repeat center center;
-	margin-left:0;
-}
 .page_nation .prev {
-	background:#f8f8f8 url('img/page_prev.png') no-repeat center center;
+	background:#f8f8f8 url('../img/left.png') no-repeat center center;
 	margin-right:7px;
 }
 .page_nation .next {
-	background:#f8f8f8 url('img/page_next.png') no-repeat center center;
+	background:#f8f8f8 url('../img/right.png') no-repeat center center;
 	margin-left:7px;
-}
-.page_nation .nnext {
-	background:#f8f8f8 url('img/page_nnext.png') no-repeat center center;
-	margin-right:0;
 }
 .page_nation a.active {
 	background-color:#42454c;

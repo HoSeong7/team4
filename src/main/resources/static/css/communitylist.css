@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
 *{
     padding: 0;
     margin: 0;
@@ -11,8 +10,8 @@ a{
     text-decoration: none;
 }
 body{
-    font-family: 'Gowun Batang', serif;
-    background-color: aliceblue;
+    font-family: 'Gothic A1', sans-serif;
+    background-color: rgb(243, 241, 241);
 }
 
 
@@ -97,19 +96,17 @@ body{
 
 .content{
     max-width: 1920px;
-    height: 2000px;
-
+    max-height: 2000px;
     margin-top: 10px;
 }
 .content .content-body{
     width: 1280px;
-    height: 2000px;
- 
+    max-height: 2000px;
     margin: auto;
 }
 .content .content-body .today-content{
     width: 200px;
-    height: 2000px;
+    max-height: 2000px;
 
     float: left;
 }
@@ -140,9 +137,8 @@ body{
     float: left;
 }
 .content .content-body .today-content .today-box .box-content .username{
-    width: 60px;
+    width: 100px;
     height: 15px;
-
     float: left;
     margin-left: 3px;
     margin-top: 7px;
@@ -161,10 +157,11 @@ body{
 /*메인 콘텐트*/
 .content .content-body .main-content{
     width: 1050px;
-    height: 1800px;
-
+    max-height: 1800px;
     float: right;
+    margin-bottom: 50px;
 }
+
 .content .content-body .main-content .content-header{
     width: 920px;
     height: 65px;
@@ -197,19 +194,20 @@ body{
 }
 .content .content-body .main-content .content-table{
     width: 980px;
-    height: 1700px;
+    max-height: 1700px;
     margin: auto;
     margin-top: 10px;
-}
-.content .content-body .main-content .content-table .content-box{
-    width: 980px;
-    height: 120px;
-    border-top: 1px solid rgb(179, 179, 179);
     border-bottom: 1px solid rgb(179, 179, 179);
 }
 .content .content-body .main-content .content-table .content-box:hover{
     border-left: 20px solid rgb(179, 179, 179);
 }
+.content .content-body .main-content .content-table .content-box{
+    width: 980px;
+    height: 120px;
+    border-top: 1px solid rgb(179, 179, 179);
+}
+
 .content .content-body .main-content .content-table .content-box .box-top{
     width: 920px;
     height: 25px;
@@ -225,18 +223,17 @@ body{
     float: left;
 }
 .content .content-body .main-content .content-table .content-box .box-top .username{
-    width: 70px;
+    max-width: 150px;
     height: 20px;
-   
     font-size: 15px;
     float: left;
 }
 .content .content-body .main-content .content-table .content-box .box-top .hits{
     width: 50px;
     height: 20px;
-  
     font-size: 15px;
     float: left;
+    margin-left: 10px;
 }
 .content .content-body .main-content .content-table .content-box .box-top .content-time{
     width: 90px;
@@ -268,34 +265,34 @@ body{
     float: left;
 }
 .content .content-body .main-content .content-table .content-box .box-bottom .category-box{
-    width: 100px;
+    width: 300px;
     height: 20px;
 
     font-size: 15px;
     float: left;
 }
 .content .content-body .main-content .content-table .content-box .box-bottom .box-right1{
-    width: 50px;
+    width: 130px;
     height: 20px;
-
     font-size: 15px;
     float: right;
+    
 }
-.content .content-body .main-content .content-table .content-box .box-bottom .box-right2{
-    width: 50px;
+.content .content-body .main-content .content-table .content-box .box-bottom .box-right1 div{
+    width: 25px;
     height: 20px;
-
-    font-size: 15px;
-    float: right;
+    float: left;
+    margin-left: 5px;
 }
-
-
+.content .content-body .main-content .content-table .content-box .box-bottom .box-right1 .box{
+    margin-top: 2px;
+}
 
 /*페이지 번호*/
 .page_wrap {
 	text-align:center;
 	font-size:0;
-    margin: 40px 0;
+    margin: 40px 0;  
  }
 .page_nation {
 	display:inline-block;
@@ -320,21 +317,13 @@ body{
 .page_nation .arrow {
 	border:1px solid #ccc;
 }
-.page_nation .pprev {
-	background:#f8f8f8 url('img/page_pprev.png') no-repeat center center;
-	margin-left:0;
-}
 .page_nation .prev {
-	background:#f8f8f8 url('img/page_prev.png') no-repeat center center;
+	background:#f8f8f8 url('../img/left.png') no-repeat center center;
 	margin-right:7px;
 }
 .page_nation .next {
-	background:#f8f8f8 url('img/page_next.png') no-repeat center center;
+	background:#f8f8f8 url('../img/right.png') no-repeat center center;
 	margin-left:7px;
-}
-.page_nation .nnext {
-	background:#f8f8f8 url('img/page_nnext.png') no-repeat center center;
-	margin-right:0;
 }
 .page_nation a.active {
 	background-color:#42454c;
