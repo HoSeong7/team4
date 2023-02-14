@@ -52,13 +52,13 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 		Member member = saveSocialMember(email);
 		
 		AuthMemberDTO authmemberDTO = new AuthMemberDTO(
-											member.getEmail()
-											, member.getId()
-											, member.getName()
+											member.getId()
 											, member.getPw()
-											, member.getNickname()
+//											,member.getEmail()
+//											, member.getName()
+//											, member.getNickname()
 											, true
-											, member.getRoleSet()
+											, member.getRoleset()
 												.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
 												.collect(Collectors.toList())
 											,oAuth2User.getAttributes());
@@ -69,13 +69,13 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 
 	private Member saveSocialMember(String email) {
 
-		Optional<Member> result = memberRepository.findByEmail(email, true);
+		Optional<Member> result = memberRepository.findByEmail(email);
 		if(result.isPresent()) {
 			return result.get();
 		}
 		Member member = Member.builder().id(email)
 										.name(email)
-										.pw("1111")
+										.pw(passwordEncoder.encode("1111"))
 										.nickname(email)
 										.email(email)
 										.purview(true)

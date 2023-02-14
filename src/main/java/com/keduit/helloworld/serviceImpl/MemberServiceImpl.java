@@ -1,5 +1,7 @@
 package com.keduit.helloworld.serviceImpl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		
 		Member entity = memberDtoToMemberEntity(dto);
-		
+		entity.builder().pw(passwordEncoder.encode(dto.getPw())).build();
 		
 		repository.save(entity);
 		return entity.getMemberNum();
@@ -72,4 +74,15 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public Map<String, Object> checkLoginAvailable(Map<String, Object> param) {
+//		Map<String, Object> rs = new HashMap<>();
+//		
+//		String loginId = (String) param.get("id");
+//		Member member = repository.getMemberByLoginId(loginId);
+//		
+//		if()
+//		return null;
+//	}
 }

@@ -79,7 +79,7 @@ public class Member extends BaseEntity{
 	/** member와 memberRole연결 */
 	@ElementCollection(fetch= FetchType.LAZY)
 	@Builder.Default
-	private Set<MemberRole> roleSet = new HashSet<>();
+	private Set<MemberRole> roleset = new HashSet<>();
 	
 	public void changePw(String pw) {
 		this.pw = pw;
@@ -91,7 +91,7 @@ public class Member extends BaseEntity{
 	
 	/** 값 넣어주기*/
 	public void addMemberRole(MemberRole memberRole) {
-		roleSet.add(memberRole);
+		roleset.add(memberRole);
 	}
 	
 	

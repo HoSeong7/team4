@@ -1,5 +1,10 @@
 package com.keduit.helloworld.service;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
@@ -43,6 +48,7 @@ public interface MemberService {
 	/** memberDTO에 있는 정보를 memberEntity로 옮기기*/
 	default Member memberDtoToMemberEntity(MemberDTO dto) {
 		
+	
 		Member entity = Member.builder().memberNum(dto.getMemberNum())
 										.id(dto.getId())
 										.pw(dto.getPw())
@@ -61,4 +67,6 @@ public interface MemberService {
 	
 	/** member 정보 검색하기 */
 	BooleanBuilder getSearch(PageRequestDTO requestDTO);
+
+//	Map<String, Object> checkLoginAvailable(Map<String, Object> param);
 }
