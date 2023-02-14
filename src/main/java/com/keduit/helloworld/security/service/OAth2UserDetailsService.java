@@ -43,8 +43,8 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 		case "kakao":
 			email = getKakaoEmail(paramMap);
 			break;
-		case "google":
-			email = getGoogleEmail(paramMap);
+//		case "google":
+//			email = getGoogleEmail(paramMap);
 		default:
 			break;
 		}
@@ -76,7 +76,7 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 		Member member = Member.builder().id(email)
 										.name(email)
 										.pw(passwordEncoder.encode("1111"))
-										.nickname(email)
+										.nickname(email+"user")
 										.email(email)
 										.purview(true)
 										.build();
@@ -86,10 +86,10 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 		return member;
 	}
 
-	private String getGoogleEmail(Map<String, Object> paramMap) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	private String getGoogleEmail(Map<String, Object> paramMap) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	private String getKakaoEmail(Map<String, Object> paramMap) {
 		log.info("카카오 -----------------------");

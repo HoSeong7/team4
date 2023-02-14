@@ -20,6 +20,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class AuthMemberDTO extends User implements OAuth2User{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String id;
 	private String pw;
 	private String name;

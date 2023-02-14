@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,12 @@ public class IndexController {
     	
     }
     
+    @PostMapping("/index")
+    public String indexpage2() {
+    	
+    	return "redirect:/hello/index";
+    }
+    
     @GetMapping("/login")
     public void loginpage(String err, String logout) {
     }
@@ -46,7 +54,7 @@ public class IndexController {
 
     	direct.addFlashAttribute("user", err);
     	
-    	return "/hello/index";
+    	return "redirect:/hello/index";
     }
     
     @GetMapping("/register")
@@ -63,4 +71,6 @@ public class IndexController {
     	
     	return "redirect:/hello/index";
     }
+    
+  
 }

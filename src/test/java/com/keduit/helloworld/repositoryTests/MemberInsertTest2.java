@@ -22,10 +22,10 @@ public class MemberInsertTest2 {
 	
 	@Test
 	public void insertTest() {
-		IntStream.rangeClosed(11, 20).forEach(i->{
-			Member member = Member.builder().id(i+"임")
+		IntStream.rangeClosed(1, 10).forEach(i->{
+			Member member = Member.builder().id(i+"aa")
 					.name(i+"이름")
-					.pw("1111")
+					.pw(passwordEncoder.encode("1111"))
 					.nickname(i+"email")
 					.email(i + "@abc.com")
 					.purview(false)

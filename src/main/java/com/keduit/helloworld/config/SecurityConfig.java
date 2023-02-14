@@ -1,21 +1,14 @@
 package com.keduit.helloworld.config;
 
 
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.keduit.helloworld.security.service.UserDetailsService;
@@ -35,34 +28,22 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	@Autowired
-	private DataSource dataSource;
-	
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//		auth.jdbcAuthentication()
-//							.dataSource(dataSource)
-//							.passwordEncoder(passwordEncoder())
-//							.usersByUsernameQuery("select id, pw, purview "
-//									+ "from member "
-//									+ "where id = ?")
-//							.authoritiesByUsernameQuery("select id, name "
-//									+ "from member_role_set mr inner join member m on mr.member_member_num = m.member_num "
-//									+ "where m.id = ?");
-//							
-//	}
 	
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
 		log.info("----------- fileterchain -----------");
 		
 		http.authorizeRequests()
-						.antMatchers("/", "/hello/index", "/css/**", "/img/**", "/js/**").permitAll()
+						.antMatchers("/hello/**", "/css/**", "/img/**", "/js/**").permitAll()
 						.anyRequest().authenticated()
 						.and()
 					.formLogin()
 						.loginPage("/hello/login")
+						.defaultSuccessUrl("/hello/index")
+						.failureUrl("/hello/login?error")
+						.usernameParameter("userId") 
+		                .passwordParameter("passwd")
 						.permitAll()
 						.and()
 					.logout()
@@ -78,6 +59,9 @@ public class SecurityConfig {
 		
 		return http.build();
 	}
+
+
+
 
 
 }
