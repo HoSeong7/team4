@@ -36,7 +36,7 @@ public class Comment extends BaseEntity{
 	/** comment 내용 */
 	private String commentContent;  
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100)
 	/** comment 미리보기 사진 */
 	private String viewpicture;
 	
@@ -51,6 +51,9 @@ public class Comment extends BaseEntity{
 	/** comment 사진 */
 	@ColumnDefault("0")
 	private Long clikes;
+	
+	/** member테이블과 fk */
+	private Long commenterNum;	// 맴버테이블과 fk
 
 
 	

@@ -52,7 +52,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	
 	
 	@Query(value = 
-			"select * from Board b join Member m on m.member_num = b.member_num "
+			"select * from Member m join Board b on m.member_num = b.member_num "
 					+ " left outer join Comment c on c.board_num = b.board_num "
 					+ " where b.board_num = :boardNum"
 			, nativeQuery = true)

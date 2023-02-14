@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -69,6 +69,8 @@
                 </div>
             </div>
             <div class="main-content">
+            
+            	<!-- 게시판 상단 -->
                 <div class="content-header">
                     <h1>커뮤니티</h1></span>
                     <p>좋은 질문과 답변으로 동료의 시간을 아껴주세요</p>
@@ -81,153 +83,59 @@
 
                     </div>
                 </div>
+            	<!-- end 게시판 상단 -->
+                
+                
+                            	<!-- 게시판 list -->
                 <div class="content-table">
-                    <div class="content-box">
+                
+                    <div th:each="dto : ${result.dtoList}" class="content-box">
                         <div class="box-top">
+                        	<!-- 유저이미지 -->
                             <div class="userimg"><img src="/img/userimg.png" alt="" width="20px" height="20px"></div>
-                            <div class="username">user123</div>
-                            <div class="hits">132회</div>
+                            <!-- 유저id -->
+                            <div class="username">[[${dto.nickname}]] <small> [[${dto.id}]]</small></div>
+                            <!-- 조회수 -->
+                            <div class="hits">[[${dto.views}]] 회</div>
+                            <!-- 등록일 -->
                             <div class="content-time">5시간전</div>
                         </div>
                         <div class="box-middle">
+                        	<!-- title -->
                             <div class="content-title">
-                                <a href="/hello/communityread">Lorem ipsum dolor sit amet consectetur adipisicing </a>
+                               <a th:href="@{/hello/communityread(boardNum=${dto.boardNum},
+                               page=${result.page},
+                               type=${pageRequestDTO.type},
+							   keyword=${pageRequestDTO.keyword}
+                               )}">[[${dto.title}]]</a>
                             </div>
                         </div>
                         <div class="box-bottom">
+                        	<!-- 카테고리 -->
                             <div class="category">카테고리</div>
-                            <div class="category-box">#java #html</div>
+                            <div class="category-box">#[[${dto.tag}]]</div>
                             <div class="box-right1">
-                                <div><img src="/img/like.png" alt="" width="20px"></div>
-                                <div class="box">5</div>
-                                <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
-                                <div class="box">5</div>
+                            <!-- 추천수 -->
+                            <div><img src="/img/like.png" alt="" width="20px"></div>
+                                <div class="box">[[${dto.blikes}]]</div>
+                            <!-- 댓글수 -->
+                            <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
+                                <div class="box">[[${dto.cnt}]]</div>
                             </div>
-                            
+                            </div>
                         </div>
                     </div>
-                    <div class="content-box">
-                        <div class="box-top">
-                            <div class="userimg"><img src="/img/userimg.png" alt="" width="20px" height="20px"></div>
-                            <div class="username">user123</div>
-                            <div class="hits">132회</div>
-                            <div class="content-time">5시간전</div>
-                        </div>
-                        <div class="box-middle">
-                            <div class="content-title">
-                                <a href="communityread.html">Lorem ipsum dolor sit amet consectetur adipisicing </a>
-                            </div>
-                        </div>
-                        <div class="box-bottom">
-                            <div class="category">카테고리</div>
-                            <div class="category-box">#java #html</div>
-                            <div class="box-right1">
-                                <div><img src="/img/like.png" alt="" width="20px"></div>
-                                <div class="box">5</div>
-                                <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
-                                <div class="box">5</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="content-box">
-                        <div class="box-top">
-                            <div class="userimg"><img src="/img/userimg.png" alt="" width="20px" height="20px"></div>
-                            <div class="username">user123</div>
-                            <div class="hits">132회</div>
-                            <div class="content-time">5시간전</div>
-                        </div>
-                        <div class="box-middle">
-                            <div class="content-title">
-                                <a href="communityread.html">Lorem ipsum dolor sit amet consectetur adipisicing </a>
-                            </div>
-                        </div>
-                        <div class="box-bottom">
-                            <div class="category">카테고리</div>
-                            <div class="category-box">#java #html</div>
-                            <div class="box-right1">
-                                <div><img src="/img/like.png" alt="" width="20px"></div>
-                                <div class="box">5</div>
-                                <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
-                                <div class="box">5</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="content-box">
-                        <div class="box-top">
-                            <div class="userimg"><img src="/img/userimg.png" alt="" width="20px" height="20px"></div>
-                            <div class="username">user123</div>
-                            <div class="hits">132회</div>
-                            <div class="content-time">5시간전</div>
-                        </div>
-                        <div class="box-middle">
-                            <div class="content-title">
-                                <a href="communityread.html">Lorem ipsum dolor sit amet consectetur adipisicing </a>
-                            </div>
-                        </div>
-                        <div class="box-bottom">
-                            <div class="category">카테고리</div>
-                            <div class="category-box">#java #html</div>
-                            <div class="box-right1">
-                                <div><img src="/img/like.png" alt="" width="20px"></div>
-                                <div class="box">5</div>
-                                <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
-                                <div class="box">5</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="content-box">
-                        <div class="box-top">
-                            <div class="userimg"><img src="/img/userimg.png" alt="" width="20px" height="20px"></div>
-                            <div class="username">user123</div>
-                            <div class="hits">132회</div>
-                            <div class="content-time">5시간전</div>
-                        </div>
-                        <div class="box-middle">
-                            <div class="content-title">
-                                <a href="communityread.html">Lorem ipsum dolor sit amet consectetur adipisicing </a>
-                            </div>
-                        </div>
-                        <div class="box-bottom">
-                            <div class="category">카테고리</div>
-                            <div class="category-box">#java #html</div>
-                            <div class="box-right1">
-                                <div><img src="/img/like.png" alt="" width="20px"></div>
-                                <div class="box">5</div>
-                                <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
-                                <div class="box">5</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="content-box">
-                        <div class="box-top">
-                            <div class="userimg"><img src="/img/userimg.png" alt="" width="20px" height="20px"></div>
-                            <div class="username">user123</div>
-                            <div class="hits">132회</div>
-                            <div class="content-time">5시간전</div>
-                        </div>
-                        <div class="box-middle">
-                            <div class="content-title">
-                                <a href="communityread.html">Lorem ipsum dolor sit amet consectetur adipisicing </a>
-                            </div>
-                        </div>
-                        <div class="box-bottom">
-                            <div class="category">카테고리</div>
-                            <div class="category-box">#java #html</div>
-                            <div class="box-right1">
-                                <div><img src="/img/like.png" alt="" width="20px"></div>
-                                <div class="box">5</div>
-                                <div class="box"><img src="/img/message.png" alt="" width="25px"></div>
-                                <div class="box">5</div>
-                            </div>
-                            
-                        </div>
+                    
+                </div>
+            	<!-- end 게시판 list -->
+                        
+                        
+                        
+                        
                     </div>
                 </div>
-            </div>
+            
+            
             <div class="page_wrap">
                 <div class="page_nation">
                     <a class="arrow prev" href="#"></a>
@@ -244,9 +152,6 @@
                     <a class="arrow next" href="#"></a>
                 </div>
             </div>
-        </div>
-
-    </div>
 
 
         
