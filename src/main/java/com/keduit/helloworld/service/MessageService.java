@@ -22,6 +22,7 @@ public interface MessageService {
 	/** 쪽지 삭제(delete) */
 	void remove(Long messageNum);
 	
+	
 	/** DTO에 있는 정보를 Entity로 옮기기 */
 	default Message MessageDtoToEntity(MessageDTO dto) {
 

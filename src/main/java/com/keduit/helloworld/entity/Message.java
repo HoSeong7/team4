@@ -42,7 +42,7 @@ public class Message extends BaseEntity {
 	private String content;
 	
 	@Column
-	/** 쪽지 보기권한 */
+	/** 쪽지 보기권한 0:기본, 1:보낸사람이 삭제, 2:받은사람이 삭제, 3:모두 삭제 */
 	private Long view;
 	
 	@Column(length = 100)

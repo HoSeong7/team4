@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/hello/*")
 public class IndexController {
 
-    @GetMapping("/main")
-    public void index(){
-        log.info("IndexController index");
-    }
+//    @GetMapping("/main")
+//    public void index(){
+//        log.info("IndexController index");
+//    }
     
     @GetMapping("/index")
     public void indexpage(){
-    	
+    	log.info("IndexController index");
     }
 }

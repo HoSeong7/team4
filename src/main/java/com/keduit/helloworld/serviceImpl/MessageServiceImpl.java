@@ -70,7 +70,7 @@ public class MessageServiceImpl implements MessageService {
 //	public void removeAsGiver(Long memberGive) {
 //		messageRepository.deleteMsgAsGiver(memberGive);
 //	}
-//	
+	
 	
 	
 }
