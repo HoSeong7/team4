@@ -30,8 +30,8 @@
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
                 <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login" onclick="call_login()">로그인</a></li>
-                <li><a id="open-signup" onclick="call_sign_up()">회원가입</a></li>
+                <li><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+                <li><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>
             </ul>
         </nav>
     </div>
@@ -182,17 +182,23 @@
         var modal = document.getElementById("myModal");
         var btn = document.getElementById("myBtn");
         var span = document.getElementsByClassName("close");
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        
+        $(".close").on("click", function(){
+        	$(".mymodal").hide();
+        });
+        
+ //       btn.onclick = function () {
+ //           modal.style.display = "block";
+  //      }
+   //     span.onclick = function () {
+            //modal.style.display = "none";
+           //$(".mymodal").hide(); 
+   //     }
+  //      window.onclick = function (event) {
+   //         if (event.target == modal) {
+  //              modal.style.display = "none";
+ //           }
+ //       }
     </script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 

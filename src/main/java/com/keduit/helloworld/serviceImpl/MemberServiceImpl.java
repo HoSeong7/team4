@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.entity.Member;
-import com.keduit.helloworld.entity.Role;
+import com.keduit.helloworld.entity.MemberRole;
 import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.MemberService;
 
@@ -33,14 +33,9 @@ public class MemberServiceImpl implements MemberService {
 	public Long register(MemberDTO dto) {
 		log.info("member ServiceImpl ------------" + dto);
 		
-		Role role = new Role();
-		role.builder().id(1L).build();
+		
 		
 		Member entity = memberDtoToMemberEntity(dto);
-		entity.builder().pw(passwordEncoder.encode(dto.getPw()))
-										   .purview(true)
-										   .build();
-		dto.getRoles().add(role);
 		
 		
 		repository.save(entity);

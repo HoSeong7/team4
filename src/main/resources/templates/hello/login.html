@@ -30,8 +30,8 @@
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
                 <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login" onclick="call_login()">로그인</a></li>
-                <li><a id="open-signup" onclick="call_sign_up()">회원가입</a></li>
+                <li><a id="open-login" th:href="@{/hello/login}" >로그인</a></li>
+                <li><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>
             </ul>
         </nav>
     </div>
@@ -53,14 +53,14 @@
             <div class="login-wrapper">
                 <h2>로그인</h2>
                 <form method="post" th:action="@{/hello/login}" id="login-form">
-                    <input type="text" name="userID username" placeholder="ID">
-                    <input type="password" name="userPassword password" placeholder="Password">
+                    <input type="text" name="userID id" placeholder="ID">
+                    <input type="password" name="userPassword pw" placeholder="Password">
                     <input type="submit" value="Login">
                 </form>
                 <div th:if="${param.error}">아이디와 비밀번호를 확인해주세요.</div>
                 <div th:if="${param.logout}">로그아웃 처리 되었습니다.</div>            
-                <div class="login-api">
-                    <div class="kakaoimg"><img src="/img/kakao.png" alt="" height="40px"></div>
+                <div class="login-api">       
+                    <div class="kakaoimg"> <a href="/oauth2/authorization/kakao"><img src="/img/kakao.png" alt="" height="40px"></a></div>
                     <div class="googleimg"><img src="/img/google.png" alt="" height="40px"></div>
                 </div>
                 <div class="login-wrapper-bottom">

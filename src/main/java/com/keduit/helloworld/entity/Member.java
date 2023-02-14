@@ -1,20 +1,20 @@
 package com.keduit.helloworld.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.ManyToAny;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +40,7 @@ public class Member extends BaseEntity{
 	/** member ID */
 	private String id;
 	
-	@Column(length = 30, nullable = false)
+	@Column(length = 100, nullable = false)
 	/** member 비밀번호 */
 	private String pw;
 	
@@ -76,11 +76,23 @@ public class Member extends BaseEntity{
 	/** member 사진 */
 	private String url;
 	
-	@ManyToMany
-	@JoinTable(
-				name = "userRole",
-				joinColumns = @JoinColumn(name = "userId"),
-				inverseJoinColumns = @JoinColumn(name = "roleId")
-			)
-	private List<Role> roles = new ArrayList<>();
+	/** member와 memberRole연결 */
+	@ElementCollection(fetch= FetchType.LAZY)
+	@Builder.Default
+	private Set<MemberRole> roleSet = new HashSet<>();
+	
+	public void changePw(String pw) {
+		this.pw = pw;
+	}
+	
+	public void changeName(String name) {
+		this.name = name;
+	}
+	
+	/** 값 넣어주기*/
+	public void addMemberRole(MemberRole memberRole) {
+		roleSet.add(memberRole);
+	}
+	
+	
 }

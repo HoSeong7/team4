@@ -8,7 +8,7 @@ import javax.persistence.Column;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.keduit.helloworld.entity.Role;
+import com.keduit.helloworld.entity.MemberRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,7 +61,5 @@ public class MemberDTO {
 	/** member 수정 날짜*/
 	protected LocalDateTime updateDate;
 	
-	/** 권한 */
-	private List<Role> roles = new ArrayList<>();
 	
 }
