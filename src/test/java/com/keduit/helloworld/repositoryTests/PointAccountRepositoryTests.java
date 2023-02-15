@@ -36,7 +36,7 @@ public class PointAccountRepositoryTests {
 	/** 포인트 거래내역 조회(read) */
 	public void selectPointList() {
 		
-		List<PointAccount> result = repository.getPointAccount(2L);
+		List<PointAccount> result = repository.getPointAccount(1L);
 		
 		for(PointAccount i : result) {
 			System.out.println(i);

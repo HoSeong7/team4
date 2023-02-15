@@ -2,26 +2,34 @@ package com.keduit.helloworld.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Message;
 
+@Service
 public interface MessageService {
 
 	/** 쪽지 등록(create) */
 	Long register(MessageDTO dto);
 	
-	/** 쪽지 리스트 조회(read, 받은사람 기준) */
+	/** 받은 쪽지 리스트 조회(read, 받은사람 기준, 권한 0 or 1만 출력) */
 	List<Message> getListAsGetter(Long memberGet);
 
-	/** 쪽지 리스트 조회(read, 받은사람 기준) */
+	/** 보낸 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
 	List<Message> getListAsGiver(Long memberGive);
 
 	/** 쪽지 상세 조회(read) */
 	MessageDTO read(Long messageNum);
 	
-	/** 쪽지 삭제(delete) */
-	void remove(Long messageNum);
+	/** 받은 사람이 쪽지 삭제 시 보기권한 변경(update, 보기권한 +2) */
+	void modifyViewAsGetter(MessageDTO dto);
 	
+	/** 보낸 사람이 쪽지 삭제 시 보기권한 변경(update, 보기권한 +1) */
+	void modifyViewAsGiver(MessageDTO dto);
+	
+//	/** 쪽지 삭제(delete, 보기권한 3일때 or 첫쪽지 전송 후 일주일 경과 시) */
+//	void remove(Long messageNum);
 	
 	/** DTO에 있는 정보를 Entity로 옮기기 */
 	default Message MessageDtoToEntity(MessageDTO dto) {

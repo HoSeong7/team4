@@ -48,5 +48,9 @@ public class Message extends BaseEntity {
 	@Column(length = 100)
 	/** 쪽지 사진 */
 	private String url;
+	
+	public void changes(Long view) {
+		this.view = view;
+	}
 
 }
