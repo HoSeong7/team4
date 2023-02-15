@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @Log4j2
-public class WebSocketController {
+public class ChatController {
 
     // 서버에 있는 전체 방 갯수
     private int roomNumber = 0;

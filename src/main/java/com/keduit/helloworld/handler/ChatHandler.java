@@ -31,8 +31,6 @@ public class ChatHandler extends TextWebSocketHandler {
     @Autowired
     private final ParserService parserService;
 
-
-
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         //메시지 발송
