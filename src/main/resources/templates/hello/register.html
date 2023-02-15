@@ -55,12 +55,13 @@
             </div>
             <div class="modal-body">
                 <form name="signup-form" id="signup-form" th:action="@{/hello/register}" method="post">
+                <input type="hidden" name="purview" value="false">
                     <div class="form-group">
                         <label for="user_id">
                             아이디
                         </label>
                         <div class="input-box">
-                            <input type="text" name="user_nick" id="user_nick" />
+                            <input type="text" name="id" id="user_nick" />
                             <button>중복 확인</button>
                         </div>
                     </div>
@@ -70,7 +71,7 @@
                             비밀번호
                         </label>
                         <div class="input-box">
-                            <input type="password" name="user_pw" id="user_pw" />
+                            <input type="password" name="pw" id="user_pw" />
                         </div>
                     </div>
                     <br>
@@ -79,7 +80,7 @@
                             비밀번호 확인
                         </label>
                         <div class="input-box">
-                            <input type="password" name="user_pw_re" id="user_pw_re" />
+                            <input type="password" name="pw_re" id="user_pw_re" />
                         </div>
                     </div>
                     <br>
@@ -88,7 +89,7 @@
                             이름
                         </label>
                         <div class="input-box">
-                            <input type="text" name="user_name" id="user_name" />
+                            <input type="text" name="name" id="user_name" />
                         </div>
                     </div>
                     <br>
@@ -97,7 +98,7 @@
                             닉네임
                         </label>
                         <div class="input-box">
-                            <input type="text" name="user_nick" id="user_nick" />
+                            <input type="text" name="nickname" id="user_nick" />
                             <button>중복 확인</button>
                         </div>
                     </div>
@@ -111,14 +112,14 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group">
+         <!--            <div class="form-group">
                         <label for="tel">
                             연락처
                         </label>
                         <div class="input-box">
                             <input type="text" name="tel" id="tel" />
                         </div>
-                    </div>
+                    </div> -->
                     <br>
                     <div class="form-group">
                         <div class="form-button">

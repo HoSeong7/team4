@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Favorites;
 import com.keduit.helloworld.entity.Member;
@@ -72,4 +73,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	   @Query("select m from Member m where m.purview = :social and m.id = :email")
 	   Optional<Member> findByEmail(String email, Boolean social);
 
+	 @Query(value="select * from member m "
+	 		+ "where m.id = :id ",nativeQuery=true)
+	 Optional<Member> getMemberId(String id);
 }

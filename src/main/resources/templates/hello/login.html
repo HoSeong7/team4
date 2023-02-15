@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +52,7 @@
             <button>X</button>
             <div class="login-wrapper">
                 <h2>로그인</h2>
-                <form method="post" th:action="@{/hello/login}" id="login-form">
+                <form method="post" th:action="@{/hello/login(id=${authMemberDTO})}" id="login-form">
                     <input type="text" name="userId" placeholder="USERNAME">
                     <input type="password" name="passwd" placeholder="PASSWORD">
                     <input type="submit" value="Login">

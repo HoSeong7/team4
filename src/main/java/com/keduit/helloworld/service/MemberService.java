@@ -20,6 +20,9 @@ public interface MemberService {
 	/** member 읽기 */
 	MemberDTO read(Long memberNum);
 	
+	/** id로 전체 읽기*/
+	Member idRead(String id);
+	
 	/** member 삭제 */
 	void remove(Long memberNum);
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.serviceImpl.loginServiceImpl;
 
@@ -41,7 +42,6 @@ public class AuthMemberDTO extends User implements OAuth2User{
 		this.pw = pw;
 		this.purview = purview;
 		log.info("================ authMemberDTO임 ================"+id);
-		
 	}
 	
 	

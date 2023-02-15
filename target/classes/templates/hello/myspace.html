@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>내정보</title>
     <link rel="stylesheet" href="/css/myspace.css">
 </head>
 
@@ -26,8 +26,10 @@
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
                 <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login">로그인</a></li>
-                <li><a id="open-signup">회원가입</a></li>
+                 <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+               <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">사용자이름</a></li>
+                <li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>  
             </ul>
         </nav>
     </div>
@@ -37,8 +39,16 @@
         <div class="box">
             <ul>
                 <li class="user-img"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"></li>
-                <li class="text">유저000</li>
-                <li class="text">gold</li>
+                <li class="text">[[${member.id}]]</li>
+                <li class="text">
+                	<img th:if="${member.exvalue} < 100" src="/img/bronze.png">
+                	<img th:if="${member.exvalue} >= 100 and ${member.exvalue} < 200" src="/img/silver.png">
+                	<img th:if="${member.exvalue} >= 200 and ${member.exvalue} < 300" src="/img/gold.png">
+                	<img th:if="${member.exvalue} >= 300 and ${member.exvalue} < 400" src="/img/platinum.png">
+                	<img th:if="${member.exvalue} >= 400 and ${member.exvalue} < 500" src="/img/diamond.png">
+                	<img th:if="${member.exvalue} >= 500" src="/img/master.png">
+                	
+                </li>
                 <li class="star"><img src="/img/star.png" alt="" width="30px" height="30px"></li>
             </ul>
         </div>

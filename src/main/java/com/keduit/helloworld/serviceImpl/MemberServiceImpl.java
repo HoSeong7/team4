@@ -37,9 +37,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		
 		
-		Member entity = memberDtoToMemberEntity(dto);
-		entity.builder().pw(passwordEncoder.encode(dto.getPw())).build();
+		dto.setPw(passwordEncoder.encode(dto.getPw()));
 		
+		Member entity = memberDtoToMemberEntity(dto);
+		
+		entity.addMemberRole(MemberRole.USER);
 		repository.save(entity);
 		return entity.getMemberNum();
 	}
@@ -73,6 +75,14 @@ public class MemberServiceImpl implements MemberService {
 	public BooleanBuilder getSearch(PageRequestDTO requestDTO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	/**id를 가지고 전체 읽어오기*/
+	public Member idRead(String id) {
+		Optional<Member> member = repository.getMemberId(id);
+		
+		return member.get();
 	}
 
 //	@Override
