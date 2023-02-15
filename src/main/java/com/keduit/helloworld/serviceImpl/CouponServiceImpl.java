@@ -2,6 +2,7 @@ package com.keduit.helloworld.serviceImpl;
 
 import java.util.List;
 
+import com.keduit.helloworld.service.UserPageService;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.CouponDTO;
@@ -43,7 +44,9 @@ public class CouponServiceImpl implements CouponService{
 
 		couponRepository.deleteById(couponNum);
 	}
-	
-	
 
+
+    @Service
+    public static class UserPageServiceImpl implements UserPageService {
+    }
 }
