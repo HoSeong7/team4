@@ -39,7 +39,6 @@
         <div class="box">
             <ul>
                 <li class="user-img"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"></li>
-                <li class="text">[[${member.id}]]</li>
                 <li class="text">
                 	<img th:if="${member.exvalue} < 100" src="/img/bronze.png">
                 	<img th:if="${member.exvalue} >= 100 and ${member.exvalue} < 200" src="/img/silver.png">
@@ -49,6 +48,7 @@
                 	<img th:if="${member.exvalue} >= 500" src="/img/master.png">
                 	
                 </li>
+                <li class="text">[[${member.id}]]님의 경험치는 [[${member.exvalue}]]점 입니다.</li>
                 <li class="star"><img src="/img/star.png" alt="" width="30px" height="30px"></li>
             </ul>
         </div>
@@ -56,10 +56,10 @@
             <h1>내공간</h1>
         </div>
         <div class="box2">
-            <h4>팔로잉 : 200명</h4>
+            <h4>팔로잉 : [[${following}]]명</h4>
         </div>
         <div class="box3">
-            <h4>팔로워 : 200명</h4>
+            <h4>팔로워 : [[${follower}]]명</h4>
         </div>
     </nav>
     <div class="line">

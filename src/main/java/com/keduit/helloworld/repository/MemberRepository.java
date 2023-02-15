@@ -7,12 +7,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.keduit.helloworld.dto.MemberDTO;
-import com.keduit.helloworld.entity.Board;
-import com.keduit.helloworld.entity.Favorites;
 import com.keduit.helloworld.entity.Member;
-import com.keduit.helloworld.entity.MemberAccount;
-import com.keduit.helloworld.entity.Message;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
 
@@ -25,6 +20,10 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	/** 즐겨찾기에서 마커를 넣으면 맴버 아이디가 출력됨(즐겨찾기 한 사람들) */
 	List<Member> getMemberMarker(Long bookmarker);
 	
+	/**나를 즐겨찾기한 사람들 리스트*/
+	@Query(value = "select * from Favorites as f join Member m on member_num = f.bookmarker "
+			+ "where f.bookmarked= :bookmarked order by favorites_num desc" , nativeQuery=true)
+	List<Member> getMemberMarked(Long bookmarked);
 	
 //회원간 거래내역	
 	@Query(value = "select * from member m "
@@ -69,11 +68,16 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 //	@Query(value = "select * from Member m where m.id = :id", nativeQuery= true)
 //	Optional<Member> findByidpage(String id);
 
+	/** 로그인 처리 쿼리문 */
 	 @EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
 	   @Query("select m from Member m where m.purview = :social and m.id = :email")
 	   Optional<Member> findByEmail(String email, Boolean social);
 
+	 /** 맴버 아이디로 정보 뽑아오기*/
 	 @Query(value="select * from member m "
 	 		+ "where m.id = :id ",nativeQuery=true)
 	 Optional<Member> getMemberId(String id);
+
+
+
 }

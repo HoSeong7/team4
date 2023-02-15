@@ -3,6 +3,7 @@ package com.keduit.helloworld.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -79,7 +80,15 @@ public class IndexController {
     	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
     	
     	    Member idnum =  memberService.idRead(userDetails.getUsername());
+    	    //내가 팔로한사람
+    	    List<Member> folowing = memberService.getMemberMarker(idnum.getMemberNum());
+    	    //나를 팔로한 사람
+    	    List<Member> folower = memberService.getMemberMarked(idnum.getMemberNum());
+    	    
     	    model.addAttribute("member",idnum);
+    	    //내가 팔로한 사람 숫자
+    	    model.addAttribute("following", folowing.size());
+    	    model.addAttribute("follower", folower.size());
     
     	    log.info(idnum);
     	        

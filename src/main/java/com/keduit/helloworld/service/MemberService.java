@@ -1,5 +1,6 @@
 package com.keduit.helloworld.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,12 @@ public interface MemberService {
 	
 	/** member 정보 검색하기 */
 	BooleanBuilder getSearch(PageRequestDTO requestDTO);
+
+	/** 내가 팔로한 사람들 */
+	List<Member> getMemberMarker(Long memberNum);
+
+	/** 나를 팔로한 사람들 */
+	List<Member> getMemberMarked(Long memberNum);
 
 //	Map<String, Object> checkLoginAvailable(Map<String, Object> param);
 }

@@ -1,6 +1,7 @@
 package com.keduit.helloworld.serviceImpl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -85,14 +86,18 @@ public class MemberServiceImpl implements MemberService {
 		return member.get();
 	}
 
-//	@Override
-//	public Map<String, Object> checkLoginAvailable(Map<String, Object> param) {
-//		Map<String, Object> rs = new HashMap<>();
-//		
-//		String loginId = (String) param.get("id");
-//		Member member = repository.getMemberByLoginId(loginId);
-//		
-//		if()
-//		return null;
-//	}
+	@Override
+	public List<Member> getMemberMarker(Long memberNum) {
+		List<Member> members = repository.getMemberMarker(memberNum);
+		
+		return members;
+	}
+
+	@Override
+	public List<Member> getMemberMarked(Long memberNum) {
+		List<Member> members = repository.getMemberMarked(memberNum);
+		
+		return members;
+	}
+
 }
