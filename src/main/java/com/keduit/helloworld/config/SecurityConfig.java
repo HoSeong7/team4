@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.keduit.helloworld.security.handler.LoginSuccessHandler;
 import com.keduit.helloworld.security.service.UserDetailsService;
 
 import lombok.extern.log4j.Log4j2;
@@ -25,8 +26,8 @@ public class SecurityConfig {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	@Autowired
-	private UserDetailsService userDetailsService;
+//	@Autowired
+//	private UserDetailsService userDetailsService;
 	
 	
 	@Bean
@@ -53,13 +54,18 @@ public class SecurityConfig {
 		http.csrf().disable();
 		http.logout();
 		
-		http.oauth2Login().loginPage("/hello/login");         //카카오로그인
+		http.oauth2Login().loginPage("/hello/login").defaultSuccessUrl("/hello/index");         //카카오로그인
 		
 //		http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(userDetailsService); // 토큰 유효시간 7일로 잡음
 		
 		return http.build();
 	}
+	@Bean
+	public LoginSuccessHandler successHandler() {
 
+		
+		return new LoginSuccessHandler(passwordEncoder());
+	}
 
 
 

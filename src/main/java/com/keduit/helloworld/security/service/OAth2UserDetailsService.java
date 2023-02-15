@@ -31,7 +31,13 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
+		log.info("=====================================================");
+		log.info("User Request : " + userRequest);
+		
 		String clientName = userRequest.getClientRegistration().getClientName();
+		
+		log.info( "=======클라이언트 네임 ======= "+clientName);							//카카오나 구글같이 쓸 경우 이걸로 구분
+		log.info( "=======파라미터 ======= "+userRequest.getAdditionalParameters());
 		
 		OAuth2User oAuth2User = super.loadUser(userRequest);
 		
@@ -69,7 +75,7 @@ public class OAth2UserDetailsService extends DefaultOAuth2UserService{
 
 	private Member saveSocialMember(String email) {
 
-		Optional<Member> result = memberRepository.findByEmail(email);
+		Optional<Member> result = memberRepository.findByEmail(email, true);
 		if(result.isPresent()) {
 			return result.get();
 		}

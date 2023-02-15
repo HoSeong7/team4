@@ -1,8 +1,6 @@
 package com.keduit.helloworld.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -36,7 +34,7 @@ public class Member extends BaseEntity{
 	/** member 테이블 고유 pk */
 	private Long memberNum;
 	
-	@Column(length =30, nullable = false, unique = true)
+	@Column(length =100, nullable = false, unique = true)
 	/** member ID */
 	private String id;
 	
@@ -44,7 +42,7 @@ public class Member extends BaseEntity{
 	/** member 비밀번호 */
 	private String pw;
 	
-	@Column(length = 10, nullable = false)
+	@Column(length = 100, nullable = false)
 	/** member 이름 */
 	private String name;
 	
@@ -56,7 +54,7 @@ public class Member extends BaseEntity{
 	/** 권한*/
 	private Boolean purview;
 	
-	@Column(length = 30, nullable = false, unique = true)
+	@Column(length = 100, nullable = false, unique = true)
 	/** member 닉네임 */
 	private String nickname;
 	

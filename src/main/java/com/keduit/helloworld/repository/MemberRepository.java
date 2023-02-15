@@ -60,11 +60,16 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 			, nativeQuery = true)
 		Member getBoardByBno(Long boardNum); 
 	
-	@EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
-	@Query("select m from Member m where m.id = :email")
-	Optional<Member> findByEmail(String email);
-	
-	@EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
-	@Query(value = "select * from Member m where m.id = :id", nativeQuery= true)
-	Optional<Member> findByidpage(String id);
+//	@EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
+//	@Query(value = "select * from Member m inner join member_roleset mr on m.member_num = mr.member_member_num where m.email = :email", nativeQuery=true)
+//	Optional<Member> findByEmail(String email);
+//	
+//	@EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
+//	@Query(value = "select * from Member m where m.id = :id", nativeQuery= true)
+//	Optional<Member> findByidpage(String id);
+
+	 @EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
+	   @Query("select m from Member m where m.purview = :social and m.id = :email")
+	   Optional<Member> findByEmail(String email, Boolean social);
+
 }

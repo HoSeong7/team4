@@ -1,5 +1,7 @@
 package com.keduit.helloworld.repositoryTests;
 
+
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,16 @@ public class MemberInsertTest2 {
 				member.addMemberRole(MemberRole.USER);
 				memberRepository.save(member);
 		});
+		
+	}
+	
+	@Test
+	public void testRead() {
+		Optional<Member> result = memberRepository.findByEmail("2aa", false);
+		Member member = result.get();
+		
+		System.out.println("맴버 읽어올 수 있는지 : " + member);
+		
 		
 	}
 }

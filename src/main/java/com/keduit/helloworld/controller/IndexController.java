@@ -58,10 +58,8 @@ public class IndexController {
     }
     
     @GetMapping("/register")
-    public String register() {
-    	
-    	
-    	return "/hello/register";
+    public void register() {
+    	    	
     }
     
     @PostMapping("/register")
