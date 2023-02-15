@@ -23,7 +23,6 @@ public class RoomHandler extends TextWebSocketHandler {
 
     // 전체 채팅방 유저 세션리스트 ArrayList 와 LinkedList 중에서 고를 필요 있음
     private List<WebSocketSession> userSessions = new LinkedList<>();
-    @Autowired
     private final ParserService parserService;
 
     @Override
@@ -43,9 +42,10 @@ public class RoomHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         //소켓 연결
         super.afterConnectionEstablished(session);
+        JSONObject obj = parserService.jsonToObjectParser("test");
         userSessions.add(session);
+        session.sendMessage(new TextMessage(obj.toString()));
         log.info("RoomHandler afterConnectionEstablished session : "+session);
-
     }
 
     @Override

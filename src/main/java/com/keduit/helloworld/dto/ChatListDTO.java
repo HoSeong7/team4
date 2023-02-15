@@ -1,38 +1,39 @@
 package com.keduit.helloworld.dto;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
+@Component
 public class ChatListDTO {
 
-    private static ChatListDTO getInstance = null;
-    private HashMap<Integer,ArrayList<ChatDTO>> chatListMap = new HashMap<>();
-    private ChatListDTO(){}
-    public void chatMapLog(int roomNumber, ChatDTO chatDTO){
-        if (chatListMap.containsKey(roomNumber)){
-            ArrayList<ChatDTO> list = chatListMap.get(roomNumber);
-            list.add(chatDTO);
-            chatListMap.put(roomNumber, list);
-        }else {
-            ArrayList<ChatDTO> list = new ArrayList<>();
-            list.add(chatDTO);
-            chatListMap.put(roomNumber, list);
+    private static ChatListDTO instance = new ChatListDTO();
+    private ConcurrentHashMap<Integer, ConcurrentLinkedQueue<ChatDTO>> chatListMap = new ConcurrentHashMap<>();
+
+    private ChatListDTO() {}
+
+    public void chatMapLog(int roomNumber, ChatDTO chatDTO) {
+        ConcurrentLinkedQueue<ChatDTO> queue = chatListMap.getOrDefault(roomNumber, new ConcurrentLinkedQueue<>());
+        if (queue.size() == 200) {
+            queue.poll();
         }
+        queue.add(chatDTO);
+        chatListMap.put(roomNumber, queue);
     }
 
-    public ArrayList<ChatDTO> getLog(int roomNumber){
-        if(chatListMap.containsKey(roomNumber)){
-            return chatListMap.get(roomNumber);
-        }else {
-            return new ArrayList<>();
+    public ConcurrentLinkedQueue<ChatDTO> getLog(int roomNumber) {
+        ConcurrentLinkedQueue<ChatDTO> queue = chatListMap.get(roomNumber);
+        if (queue == null) {
+            return new ConcurrentLinkedQueue<>();
         }
+        return queue;
     }
 
     public static ChatListDTO getInstance() {
-        if (getInstance == null) {
-            getInstance = new ChatListDTO();
-        }
-        return getInstance;
+        return instance;
     }
 
 }

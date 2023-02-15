@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 @Component
@@ -118,7 +119,7 @@ public class ChatHandler extends TextWebSocketHandler {
         session.sendMessage(new TextMessage(obj.toJSONString()));
 
         // 방에 그간 채팅 내역을 보낸다.
-        ArrayList<ChatDTO> list = ChatListDTO.getInstance().getLog(Integer.parseInt(roomNumber));
+        ConcurrentLinkedQueue<ChatDTO> list = ChatListDTO.getInstance().getLog(Integer.parseInt(roomNumber));
         for (ChatDTO arr : list){
             JSONObject objArray = new JSONObject();
             objArray.put("type",arr.getType());
