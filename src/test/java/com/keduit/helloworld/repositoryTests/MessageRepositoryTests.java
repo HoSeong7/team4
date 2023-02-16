@@ -101,24 +101,22 @@ public class MessageRepositoryTests {
 		message.changes(message.getView() + 1); //보기권한 0 -> 1로 2 -> 3으로 변경
 		
 		System.out.println(messageRepository.save(result.get()));
-		
-//		long msgView = 0;
-//		Message entity = Message.builder()
-//								.memberGive(1L)
-//								.memberGet(7L)
-//								.title("제목 수정")
-//								.content("내용 수정")
-//								.view(msgView + 1) // 권한 0 -> 1로 변경
-//								.build();
-//		System.out.println(messageRepository.save(entity));
 	}
 
-	
-		@Test
-	/** 쪽지 삭제(delete) */
-	public void deleteMsgTest() {
-		messageRepository.deleteById(2L);
-	}
+//		@Test
+//	/** 쪽지 삭제(delete, 보기권한 3일때) */
+//	public void deleteMsgTest() {
+//			
+////		long viewAuth = 3L;
+//		
+//		Optional<Message> result = messageRepository.deleteById()
+//		
+////		if (result.isPresent()) {
+////			messageRepository.deleteMsgWhenView3()
+////		}
+//	}
+		
+		
 	
 	//	@Test
 //	/** 쪽지 삭제(delete) */

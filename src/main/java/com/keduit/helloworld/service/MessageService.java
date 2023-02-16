@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Message;
 
-@Service
 public interface MessageService {
 
 	/** 쪽지 등록(create) */
@@ -28,7 +27,7 @@ public interface MessageService {
 	/** 보낸 사람이 쪽지 삭제 시 보기권한 변경(update, 보기권한 +1) */
 	void modifyViewAsGiver(MessageDTO dto);
 	
-//	/** 쪽지 삭제(delete, 보기권한 3일때 or 첫쪽지 전송 후 일주일 경과 시) */
+//	/** 쪽지 삭제(delete, 보기권한 3일때) */
 //	void remove(Long messageNum);
 	
 	/** DTO에 있는 정보를 Entity로 옮기기 */

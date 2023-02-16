@@ -70,9 +70,12 @@ public class MessageServiceImpl implements MessageService {
 			
 			Message entity = result.get();
 			
-			entity.changes(dto.getView());
-			
-			messageRepository.save(entity);
+			if(dto.getView() == 3) {
+				messageRepository.deleteById(dto.getMessageNum());
+			} else {
+				entity.changes(dto.getView());
+				messageRepository.save(entity);
+			}
 		}
 	}
 

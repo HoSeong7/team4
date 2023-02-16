@@ -35,11 +35,9 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 //	String getMessageNum(Long num);	
 	
 //쪽지 삭제
-	@Query(value = "delete from message ms "
-			+ "join member m on ms.member_give = m.member_num "
-			+ "where ms.member_get = :num", nativeQuery = true)
-	/** 쪽지 삭제(delete, 받은사람 기준) */
-	void deleteMsgAsGetter(Long num);
+	@Query(value = "delete from message where view = :viewNum", nativeQuery = true)
+	/** 쪽지 삭제(delete, 보기권한 3일때) */
+	void deleteMsgWhenView3(Long viewNum);
 
 	//쪽지 삭제
 //	@Query(value = "delete from message ms "
