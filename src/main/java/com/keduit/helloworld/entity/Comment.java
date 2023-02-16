@@ -29,8 +29,8 @@ public class Comment extends BaseEntity{
 	/** comment 고유번호 pk */
 	private Long boardCommentNum;
 	
-	/** member 테이블과 fk  */
-	private Long boardNum;    // 맴버 테이블과 fk
+	/** board 테이블과 fk  */
+	private Long boardNum;    //  fk
 	
 	@Column(length = 1000, nullable = false)
 	/** comment 내용 */
@@ -48,7 +48,7 @@ public class Comment extends BaseEntity{
 	/** comment 사진 */
 	private String url;
 
-	/** comment 사진 */
+	/** comment 추천수 */
 	@ColumnDefault("0")
 	private Long clikes;
 

@@ -85,7 +85,7 @@ public class Member extends BaseEntity{
 			,String introduce,String email, LocalDateTime updateDate) {
 		this.memberNum = memberNum;
 		this.id=id;
-		this.pw=pw;
+		this.pw= pw;
 		this.name=name;
 		this.nickname = nickname;
 		this.introduce = introduce;

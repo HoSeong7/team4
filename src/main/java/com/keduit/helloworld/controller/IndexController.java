@@ -21,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
+import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.service.BoardService;
+import com.keduit.helloworld.service.CommentService;
 import com.keduit.helloworld.service.MemberService;
 import com.nimbusds.jose.shaded.json.JSONObject;
 
@@ -37,6 +39,9 @@ public class IndexController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private CommentService commentService;
 
     @GetMapping("/main")
     public void index(){
@@ -85,7 +90,7 @@ public class IndexController {
     }
     
     @PostMapping("/modify")
-    public String modify(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+    public String modify(MemberDTO memberDTO) {
     	memberService.modify(memberDTO);
     	System.out.println(memberDTO);
     	
@@ -107,15 +112,20 @@ public class IndexController {
     	    
     	    /** 내가 쓴 글 보기 */
     	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
-    	    
+    	   
+    	   /** 내가 쓴 댓글 불러오기 */
+    	   List<Comment> myComments = commentService.getCommentList(idnum.getId());
+    	   
     	    model.addAttribute("member",idnum);
     	    /**내가 팔로한 사람 목록*/
     	    model.addAttribute("following", folowing);
     	    /** 나를 팔로한 사람 목록 */
     	    model.addAttribute("follower", folower);
-    	    
+    	    /** 내가 쓴 글 보기 */
     	    model.addAttribute("myBoard",myBoards);
-    
+    	    /** 내가 쓴 댓글 보기 */
+    	    model.addAttribute("myComment", myComments);
+    	    
     	    log.info(idnum);
     	        
    }

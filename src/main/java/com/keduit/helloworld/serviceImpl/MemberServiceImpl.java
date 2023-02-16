@@ -72,9 +72,11 @@ public class MemberServiceImpl implements MemberService {
 
 		Member member = repository.getById(dto.getMemberNum());
 		
+		
 		if(member != null) {
-			member.change(dto.getMemberNum(), dto.getId(), dto.getPw(), dto.getName()
+			member.change(dto.getMemberNum(), dto.getId(),passwordEncoder.encode(dto.getPw()), dto.getName()
 					, dto.getNickname(), dto.getIntroduce(), dto.getEmail(), dto.getUpdateDate());
+			
 		}
 		
 		repository.save(member);
