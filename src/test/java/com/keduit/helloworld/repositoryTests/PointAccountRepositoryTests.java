@@ -12,7 +12,7 @@ import com.keduit.helloworld.entity.PointAccount;
 import com.keduit.helloworld.repository.PointAccountRepository;
 
 @SpringBootTest
-public class PointAccountTests {
+public class PointAccountRepositoryTests {
 
 	@Autowired
 	private PointAccountRepository repository;
@@ -36,7 +36,7 @@ public class PointAccountTests {
 	/** 포인트 거래내역 조회(read) */
 	public void selectPointList() {
 		
-		List<PointAccount> result = repository.getPointAccount(2L);
+		List<PointAccount> result = repository.getPointAccount(1L);
 		
 		for(PointAccount i : result) {
 			System.out.println(i);
