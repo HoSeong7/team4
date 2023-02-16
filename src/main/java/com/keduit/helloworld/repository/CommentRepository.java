@@ -29,4 +29,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 			+ " where b.board_num = :boardNum"
 			, nativeQuery = true)
 		Long getBoardByBno(Long boardNum); 
+	
+	
 }

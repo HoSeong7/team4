@@ -1,5 +1,6 @@
 package com.keduit.helloworld.entity;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -79,6 +80,18 @@ public class Member extends BaseEntity{
 	@ElementCollection(fetch= FetchType.LAZY)
 	@Builder.Default
 	private Set<MemberRole> roleset = new HashSet<>();
+	
+	public void change(Long memberNum, String id, String pw, String name,String nickname
+			,String introduce,String email, LocalDateTime updateDate) {
+		this.memberNum = memberNum;
+		this.id=id;
+		this.pw=pw;
+		this.name=name;
+		this.nickname = nickname;
+		this.introduce = introduce;
+		this.email = email;
+		this.updateDate = updateDate;
+	}
 	
 	public void changePw(String pw) {
 		this.pw = pw;

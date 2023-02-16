@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -62,12 +64,18 @@ public class MemberServiceImpl implements MemberService {
 		repository.deleteById(memberNum);
 		
 	}
-
-	@Override
+	
 	/** 회원정보 받아서 수정 */
+	@Transactional
+	@Override
 	public void modify(MemberDTO dto) {
 
 		Member member = repository.getById(dto.getMemberNum());
+		
+		if(member != null) {
+			member.change(dto.getMemberNum(), dto.getId(), dto.getPw(), dto.getName()
+					, dto.getNickname(), dto.getIntroduce(), dto.getEmail(), dto.getUpdateDate());
+		}
 		
 		repository.save(member);
 	}

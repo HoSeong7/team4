@@ -11,7 +11,7 @@
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
-<body>
+<body class="body">
     <div class="innerHeader">
         <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
                     height="30px"></a></h1>
@@ -50,7 +50,7 @@
                 	<img th:if="${member.exvalue} >= 500" src="/img/master.png">
                 	
                 </li>
-                <li class="text">[[${member.id}]]님의 경험치는 [[${member.exvalue}]]점 입니다.</li>
+                <li class="text">[[${member.name}]]님의 경험치는 [[${member.exvalue}]]점 입니다.</li>
                 <li class="star"><img src="/img/star.png" alt="" width="30px" height="30px"></li>
             </ul>
         </div>
@@ -70,9 +70,9 @@
         <div class="div-content">
             <h1>소개</h1>
             <div class="content-introduce">
-                	<pre><h3>[[${member.introduce}]]</h3></pre>
-                <div class="introduce-button">
-                    <button>작성하기</button>
+                	<h3>[[${member.introduce}]]</h3>
+                <div class="introduce-button myMamber">
+                    <button>정보수정</button>
                 </div>
             </div>
         </div>
@@ -146,11 +146,6 @@
       <h2>팔로워</h2>
     </div>
     <div class="modal-body">
-      <div class="box">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
-        <div class="box-starimg"><img src="../img/star.png" alt=""  width="20px" height="20px"></div>
-      </div>
       <div class="box" th:each="follow:${follower}">
         <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
         <div class="box-username"><p>[[${follow.id}]]</p></div>
@@ -169,83 +164,148 @@
       <h2>팔로잉</h2>
     </div>
     <div class="modal-body">
-      <div class="box">
+      <div class="box" th:each="followi:${following}">
         <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
+        <div class="box-username"><p>([[${followi.id}]])</p></div>
         <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
       </div>
-      <div class="box">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
-      </div>
-      <div class="box">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
-      </div>
-      <div class="box">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
-      </div>
-      <div class="box">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
-      </div>
-      <div class="box">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
-        <div class="box-username"><p>유저이름</p></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
-      </div>
-      
-      <!-- Add more content as needed -->
-    </div>
+     </div>
   </div>
+ </div>
+      <!-- Add more content as needed -->
+    	 <!-- Modal -->
+   <div id="myModal" class="modal call3 hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>회원 가입</h2>
+            </div>
+            <div class="modal-body">
+                <form name="signup-form" id="signup-form" th:action="@{/hello/modify}" method="post">
+                    <div class="form-group">
+                        <label for="user_id">
+                            아이디
+                        </label>
+                        <div class="input-box">
+                             <input type="text" name="id" th:value="${member.id}" readonly/>
+                            <!-- placeholder readonly-->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_pw">
+                            비밀번호
+                        </label>
+                        <div class="input-box">
+                            <input type="password" name="pw" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_pw">
+                            비밀번호 확인
+                        </label>
+                        <div class="input-box">
+                            <input type="password" name="pw_re" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_name">
+                            이름
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="name" id="user_name" th:value="${member.name}" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_name">
+                            닉네임
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="nickname" id="user_nick" th:value="${member.nickname}"/>
+                            <button>중복 확인</button>
+                        </div>
+                    </div>
+                    <br>
+                     <div class="form-group">
+                        <label for="introduce">
+                            자기소개
+                        </label>
+                        <div class="input-box">
+                            <textarea name="introduce" id="introduce" rows="20" cols="30">[[${member.introduce}]]</textarea>
+                        </div>
+                    </div> 
+                    <br>
+                    <div class="form-group">
+                        <label for="email">
+                            이메일
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="email" id="email" th:value="${member.email}"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="email">
+                            사진추가
+                        </label>
+                        <div class="input-box">
+                            <input type="text"/>
+                        </div>
+                    </div>
+                    <input type="hidden" name="memberNum" th:value="${member.memberNum}">
+                    <input type="hidden" name="point" th:value="${member.point}">
+                    <input type="hidden" name="purview" th:value="${member.purview}">
+                    <input type="hidden" name="exvalue" th:value="${member.exvalue}">
+                    <br>
+                    <div class="form-group">
+                        <div class="form-button">
+                            <button type="submit">가입하기</button>
+                            <button type="reset">다시 작성</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 </div>
-    <script>
-// Get the modal
-/* $("#modalFollowing").on("click", function(){
-	$(".call2").removeClass('hidden');
-});
-$("#modalFollower").on("click", function(){
-	$(".call1").removeClass('hidden');
-}); */
 
-$("#modalFollowing").on("click", function(){
-	$(".call2").show();
-});
+<script>
+	$("#modalFollowing").on("click", function(){
+	   $(".call2").show();
+	});
 
-$("#modalFollower").on("click", function(){
-	$(".call1").show();
-});
+	$("#modalFollower").on("click", function(){
+	   $(".call1").show();
+	});
+	$(".myMamber").on("click", function(){
+	   $(".call3").show();
+	});
 
-window.onclick = $(".call1").hide();
-window.onclick = $(".call2").hide();
+	$(".close").on("click", function(){
+	   $(".call1").hide();
+	  $(".call2").hide();
+	  $(".call3").hide();
+	});
+
+	
+	var modal1 =$(".call1");
+	var modal2 =$(".call2");
+
+	
+	$(window).click(function(event) {
+	  if (event.target == modal1[0]) {
+	    modal1.css("display", "none");
+	  }
+	});
+	$(window).click(function(event) {
+	  if (event.target == modal2[0]) {
+	    modal2.css("display", "none");
+	  }
+	});
 
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-/* // When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-} */
-
-// When the user clicks on <span> (x), close the modal
-/* span.onclick = function() {
-  modal.style.display = "none";
-} */
-
-// When the user clicks anywhere outside of the modal, close it
-/* window.onclick = function(event) {
-	$(".call2").hide();
-	$(".call1").hide();
-} */
 </script>
   
 </body>

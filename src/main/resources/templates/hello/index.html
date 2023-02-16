@@ -97,39 +97,7 @@
     <div id="modal_call">
 
     </div>
-    <script>
-
-        function call_login() {
-            $.ajax({
-                type: "get",
-                url: "/modal/log-in",
-                dataType: "text",
-                success: function (data) {
-                    $("#modal_call").html('');
-                    var str = data.split('<body>');
-                    var str2 = str[1].split('</body>');
-                    console.log(str2[0]);
-                    $("#modal_call").html(str2[0]);
-                }
-            });
-        }
-
-        function call_sign_up() {
-            $.ajax({
-                type: "get",
-                url: "/modal/sign-up",
-                dataType: "text",
-                success: function (data) {
-                    $("#modal_call").html('');
-                    var str = data.split('<body>');
-                    var str2 = str[1].split('</body>');
-                    console.log(str2[0]);
-                    $("#modal_call").html(str2[0]);
-                }
-            });
-        }
-
-    </script>
+ 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- <script type="text/javascript" src="/js/ajax/login.js"></script> -->
 </body>

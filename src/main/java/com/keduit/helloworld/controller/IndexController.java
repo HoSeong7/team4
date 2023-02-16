@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import org.hibernate.dialect.identity.CockroachDB1920IdentityColumnSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -77,6 +77,19 @@ public class IndexController {
     	redirectAttributes.addFlashAttribute("msg", memberNun);
     	
     	return "redirect:/hello/index";
+    }
+    
+    @GetMapping("/modify")
+    public void modify() {
+    	
+    }
+    
+    @PostMapping("/modify")
+    public String modify(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+    	memberService.modify(memberDTO);
+    	System.out.println(memberDTO);
+    	
+    	return "redirect:/hello/myspace";
     }
     
     @GetMapping("/myspace")
