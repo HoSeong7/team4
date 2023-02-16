@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -33,6 +33,8 @@
             </ul>
         </nav>
     </div>
+    
+    <!-- 게시판 상단 -->
     <div class="content-header">
         <div class="header-box">
             <div class="h1-box">
@@ -49,17 +51,21 @@
             </div>
         </div>
     </div>
+    <!-- end 게시판 상단 -->
+    
     <div class="content-body">
         <div class="body-box">
-            <div class="table-box">
+        
+    		<!-- 게시판 list -->
+            <div th:each="dto : ${result.dtoList}" class="table-box">
                 <div class="user-box">
                     <div class="name-box">
-                        <h3>관리자</h3>
+                        <h3>관리자 <small>[[${dto.id}]]</small></h3>
                     </div>
                 </div>
                 <div class="content-box">
                     <div class="top-box">
-                        <h2><a href="/hello/noticeread">[공지사항] 게시물 제목입니다............</a></h2>
+                        <h2><a href="/hello/noticeread">[[${dto.title}]]</a></h2>
                     </div>
                     <div class="bottom-box">
                         <div class="box1">추천수 : 120</div>
@@ -69,222 +75,9 @@
                     </div>
                 </div>
             </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[A&Q] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[A&Q] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[A&Q] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-box">
-                <div class="user-box">
-                    <div class="name-box">
-                        <h3>관리자</h3>
-                    </div>
-                </div>
-                <div class="content-box">
-                    <div class="top-box">
-                        <h2>[공지사항] 게시물 제목입니다............</h2>
-                    </div>
-                    <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
-                        <div class="box2">조회수 : 22340</div>
-                        <div class="box3">5분전</div>
-                        <div class="box4"><button>확인하기</button></div>
-                    </div>
-                </div>
-            </div>
+    		<!-- end 게시판 list -->
+            
+          
             <div class="page_wrap">
                 <div class="page_nation">
                     <a class="arrow prev" href="#"></a>

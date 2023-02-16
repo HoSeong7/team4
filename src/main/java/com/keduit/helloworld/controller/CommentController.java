@@ -1,12 +1,8 @@
 package com.keduit.helloworld.controller;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.service.CommentService;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class CommentController {
 	
 	private final CommentService commentService;
 	
-	@GetMapping(value="/hello/{boardNum}", produces= MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping("/{boardNum}/all")
 	public ResponseEntity<List<CommentDTO>> getListByBoard(@PathVariable("boardNum") Long boardNum){
 		log.info("위치 : CommentController getListByBoard()" + boardNum);
 		log.info("boardNum : " + boardNum);
@@ -36,7 +35,7 @@ public class CommentController {
 		return new ResponseEntity<>(commentService.getList(boardNum),HttpStatus.OK);
 	}
 	
-	@PostMapping("")
+	@PostMapping("/{boardNum}")
 	public ResponseEntity<Long> register(@RequestBody CommentDTO commentDTO){
 		log.info("위치 : CommentController register()");
 		log.info("commentDTO : " + commentDTO);
@@ -44,7 +43,7 @@ public class CommentController {
 		return new ResponseEntity<Long>(boardCommentNum, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{boardCommentNum}")
+	@DeleteMapping("/{boardNum}/{boardCommentNum}")
 	public ResponseEntity<String> remove(@PathVariable("boardCommentNum") Long boardCommentNum){
 		log.info("위치 : CommentController remove()");
 		log.info("boardCommentNum : " + boardCommentNum);
@@ -52,7 +51,7 @@ public class CommentController {
 		return new ResponseEntity<String>("success",HttpStatus.OK);
 	}
 	
-	@PutMapping("/{boardCommentNum}")
+	@PutMapping("/{boardNum}/{boardCommentNum}")
 	public ResponseEntity<String> modify(@RequestBody CommentDTO commentDTO){
 		log.info("위치 : CommentController modify()");
 		log.info("commentDTO : " + commentDTO);

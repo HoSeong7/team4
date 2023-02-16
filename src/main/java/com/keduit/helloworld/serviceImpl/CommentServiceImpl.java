@@ -35,13 +35,10 @@ public class CommentServiceImpl implements CommentService {
 	public List<CommentDTO> getList(Long boardNum) {
 		
 		List<Comment> comment = commentRepository.getCommentlist(boardNum);
-				
-		Member member = memberRepository.getBoardByBno(boardNum);
 		
-		
-		return comment.stream().map(commentarr -> entityToDTO(commentarr,member)).collect(Collectors.toList());
+		return comment.stream().map(commentarr -> getCommentNum(commentarr)	).collect(Collectors.toList());
+		}
 //		return null;
-	}
 
 	@Override
 	/** 수정 */
@@ -57,5 +54,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		commentRepository.deleteById(boardCommentNum);
 		
+	}
+	
+	public CommentDTO getCommentNum(Comment comment) {
+		
+		Member member = memberRepository.getCommenter(comment.getCommenterNum());
+		return entityToDTO(comment, member);
 	}
 }

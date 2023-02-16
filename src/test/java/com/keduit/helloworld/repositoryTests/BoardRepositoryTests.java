@@ -33,10 +33,10 @@ public class BoardRepositoryTests {
 		
 		IntStream.rangeClosed(1, 50).forEach(i ->{
 			Board board = Board.builder()
-							.title("제목 -- " + i)
+							.title("[공지사항] " + i)
 							.content("내용 -- " + i)
-							.tag("JAVA")
-							.boardcase((long) (Math.random()*2))
+							.tag("")
+							.boardcase(2L)
 							.memberNum((long) (Math.random()*30+1))
 							.build();
 			

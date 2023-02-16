@@ -4,6 +4,8 @@ package com.keduit.helloworld.serviceImpl;
 import java.util.Optional;
 import java.util.function.Function;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -123,8 +125,16 @@ public class BoardServiceImpl implements BoardService {
 		Member memberResult = memberRepository.getBoardByBno(boardNum);
 		Long commentResult = commentRepository.getBoardByBno(boardNum);
 		
-		
 		return entityToDTO(boardResult, memberResult, commentResult);
+	}
+	
+	@Override
+	@Transactional
+	public void updateViews(Long boardNum, BoardDTO boardDTO) {
+		Board board = boardRepository.findById(boardNum).orElseThrow((()->
+		new IllegalStateException("해당 게시글이 존재하지 않습니다.")));
+		
+		board.updateViews(boardDTO.getViews());
 	}
 	
 }

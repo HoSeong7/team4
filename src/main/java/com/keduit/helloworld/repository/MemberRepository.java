@@ -58,4 +58,10 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 			, nativeQuery = true)
 		Member getBoardByBno(Long boardNum); 
 	
+	@Query(value = 
+			"select * from Member m join Comment c on m.member_num = c.commenter_num "
+					+ " where m.member_num = :commenterNum"
+			, nativeQuery = true)
+		Member getCommenter(Long commenterNum); 
+	
 }

@@ -22,7 +22,7 @@ public interface CommentService {
 	
 	default Comment dtoToEntity(CommentDTO commentDTO) {
 		
-		Comment reply = Comment.builder()
+		Comment comment = Comment.builder()
 				.boardCommentNum(commentDTO.getBoardCommentNum())
 				.boardNum(commentDTO.getBoardNum())
 				.commentContent(commentDTO.getCommentContent())
@@ -32,7 +32,7 @@ public interface CommentService {
 				.clikes(commentDTO.getClikes())
 				.commenterNum(commentDTO.getCommenterNum())
 				.build();
-		return reply;
+		return comment;
 	}
 	
 	default CommentDTO entityToDTO(Comment comment, Member member) {

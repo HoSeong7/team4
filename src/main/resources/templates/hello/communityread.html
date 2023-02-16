@@ -44,11 +44,7 @@
                     <img src="/img/userimg.png" alt="" width="40px" height="40px">
                 </div>
                 
-                <form>
-                <input type="hidden" name="page" th:value="${requestDTO.page}">
-				<input type="hidden" name="type" th:value="${requestDTO.type}">
-				<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
-                </form>
+           
                 
                 <!-- 유저id -->
                 <div class="username">
@@ -126,6 +122,10 @@
         
         <!-- 댓글 쓰기 -->
        
+        <form>
+	        <input type="hidden" name="page" th:value="${requestDTO.page}">
+			<input type="hidden" name="type" th:value="${requestDTO.type}">
+			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
         <div class="box-write">
             <div class="box-write-top">
                 <div class="box-left">
@@ -152,29 +152,11 @@
             	<!-- end 댓글 입력란 -->
             </div>
         </div>
+        </form>
         <!-- end 댓글 쓰기 -->
         
         <!-- 댓글 -->
-        <div class="box-comments-list">
-            <div class="box-write-top">
-                <div class="box-left">
-                    <div class="userimg">
-                        <img src="/img/userimg.png" alt="" width="40px" height="40px">
-                    </div>
-                    <div class="username">
-                        <p>유저네임</p>
-                    </div>
-                </div>
-            </div>
-            <div class="box-write-bottom">
-                <div class="comment-box">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, voluptatum deleniti ipsa porro totam, ex temporibus minus voluptatibus tempore aliquam, fugiat error esse quidem numquam. Quia totam at earum soluta!</p>
-                </div>
-            </div>
-            <div class="box-button">
-                <div><button>댓글 쓰기</button></div>
-            </div>
-        </div>
+        <div class="commentList"></div>
         <!-- end 댓글 -->
         
     </div>
@@ -186,25 +168,30 @@ $(document).ready(function(){
 	const boardNum = [[${dto.boardNum}]];
 	
 	
-	function loadJSONData(){
-		$.getJSON('/replies/board/'+ bno , function(arr){
-			console.log(arr);
+	function getComment(){
+		$.getJSON('/comment/'+ boardNum + "/all", function(arr){
 			let str = "";
-			$('.replyCount').html("댓글 수 " + arr.length);
 			
-			$.each(arr, function(ind,reply){
-				console.log(reply);
-				str += '<div class="card-body" data-rno="' + reply.rno +' "><b>'	+ reply.rno + '</b>';
-				str += ' 	<h5 class="card-title"> ' +reply.text + '</h5>';
-				str += '		<h6 class="card-subtitle mb-2 text-muted">' + reply.replyer +'</h6>';
-				str += '			<p class="card-text">' +formatTime(reply.regdate) +'</p>';
-				str += '</div>';
+			$.each(arr, function(idx,comment){
+				console.log(comment);
+				str += ' <div class="box-comments-list" data-boardCommentNum="'+ comment.boardCommentNum + '">'; 
+				str += ' <div class="box-write-top"> ';
+				str += ' <div class="box-left"> ';
+				str += ' <div class="userimg"><img src="/img/userimg.png" alt="" width="40px" height="40px"></div> ';
+				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> </div></div></div> ';
+				str += ' <div class="box-write-bottom"> ';
+				str += ' <div class="comment-box">'+ comment.commentContent +'</div></div> ';
+				str += ' <div class="box-button"></div> ';
+				str += ' </div></div> ';
+				
+				
 			})
 			
-			listGroup.html(str);
+			$(".commentList").html(str);
 		})
 	}
 	
+	getComment();
 	
 	
 	
@@ -226,30 +213,28 @@ $(document).ready(function(){
 			
 			
 			
-			$(".replySave").click(function(){
+			$(".commentSaveBnt").click(function(){
 				
-				var reply = {
-						bno: bno,
+				var comment = {
+						boardNum: boardNum,
 						commentContent: $('textarea[name="commentContent"]').val(),
-						commenterNum: $('input[name="commenterNum"]').val()
-				}
-				console.log(reply);
+						commenterNum: $('input[name="commenterNum"]').val()}
+				console.log(comment);
 				
 				$.ajax({
-					url: '/comment/',
-					method: 'post',
+					url: '/comment/' + boardNum,
+					type: 'post',
 					data: JSON.stringify(comment),
-					contentType: 'application/json; charset=utf-8',
-					dataType: 'json',
-					success: function(data){
-						console.log("success..." + data);
-						
-						var newboardCommentNum = parseInt(data);
-						alert(newboardCommentNum + "번 댓글이 등록되었습니다.");
-						loadJSONData();
+					contentType: "application/json; charset=utf-8",
+					dataType: 'text' ,
+					success: function(result){
+						console.log("success result : " + result);
+						self.location.reload();
+						alert("댓글이 등록되었습니다.");
+						getComment();
 					}
 				}); // ajax 끝
-			}); //replySave 끝
+			}); //commentSaveBnt 끝
 			
 			
 			
