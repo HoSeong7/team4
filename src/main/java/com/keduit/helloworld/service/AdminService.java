@@ -1,0 +1,25 @@
+package com.keduit.helloworld.service;
+
+public interface AdminService {
+
+    /** 멤버 삭제 */
+    void memberRemove(Long memberId);
+    /** 패스워드 변경 */
+    void passwordUpdate(Long memberId, String password);
+    /** 포인트 변경 */
+    void pointUpdate(Long memberId,Long point);
+    /** 경험치 변경 */
+    void exUpdate(Long memberId,Long ex);
+    /** 닉네임 변경 */
+    void nicknameUpdate(Long memberId,String nickname);
+    /** 게시물 삭제 */
+    void boardRemove(Long boardId);
+    /** 게시물 블라인드 */
+    void blindBoard(Long boardId);
+    /** 댓글 삭제 */
+    void commentRemove(Long commentId);
+    /** 메시지 삭제 */
+    void messageRemove(Long messageId);
+
+
+}

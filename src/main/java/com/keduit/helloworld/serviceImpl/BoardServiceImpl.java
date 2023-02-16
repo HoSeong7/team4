@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -126,5 +127,10 @@ public class BoardServiceImpl implements BoardService {
 		
 		return entityToDTO(boardResult, memberResult, commentResult);
 	}
-	
+
+	@Override
+	public Page<BoardDTO> getBoards(PageRequest boardPageRequest) {
+		return null;
+	}
+
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface MemberService {
 	
@@ -59,4 +61,7 @@ public interface MemberService {
 	
 	/** member 정보 검색하기 */
 	BooleanBuilder getSearch(PageRequestDTO requestDTO);
+
+
+	Page<MemberDTO> getMembers(PageRequest memberPageRequest);
 }

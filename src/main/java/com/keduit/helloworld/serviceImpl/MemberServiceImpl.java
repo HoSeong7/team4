@@ -1,5 +1,7 @@
 package com.keduit.helloworld.serviceImpl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
@@ -13,7 +15,8 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class MemberServiceImpl implements MemberService {@Override
+public class MemberServiceImpl implements MemberService {
+	@Override
 	public Long register(MemberDTO dto) {
 		// TODO Auto-generated method stub
 		return null;
@@ -40,6 +43,11 @@ public class MemberServiceImpl implements MemberService {@Override
 	@Override
 	public BooleanBuilder getSearch(PageRequestDTO requestDTO) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<MemberDTO> getMembers(PageRequest memberPageRequest) {
 		return null;
 	}
 //

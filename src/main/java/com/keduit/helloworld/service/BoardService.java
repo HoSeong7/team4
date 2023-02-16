@@ -5,6 +5,8 @@ import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface BoardService {
 
@@ -67,4 +69,5 @@ public interface BoardService {
 	}
 
 
+	Page<BoardDTO> getBoards(PageRequest boardPageRequest);
 }
