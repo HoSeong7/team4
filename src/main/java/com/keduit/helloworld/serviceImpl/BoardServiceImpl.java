@@ -1,6 +1,7 @@
 package com.keduit.helloworld.serviceImpl;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -125,6 +126,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		
 		return entityToDTO(boardResult, memberResult, commentResult);
+	}
+
+	@Override
+	public List<Board> getMyBoardList(String id) {
+
+		List<Board> list = boardRepository.getMyBoardList(id);
+		
+		return list;
 	}
 	
 }

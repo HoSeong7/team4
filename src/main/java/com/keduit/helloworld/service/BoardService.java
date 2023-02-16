@@ -1,5 +1,7 @@
 package com.keduit.helloworld.service;
 
+import java.util.List;
+
 import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
@@ -65,6 +67,8 @@ public interface BoardService {
 		
 		return boardDTO;
 	}
+
+	List<Board> getMyBoardList(String id);
 
 
 }

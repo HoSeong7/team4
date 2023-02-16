@@ -37,7 +37,7 @@ public class BoardRepositoryTests {
 							.content("내용 -- " + i)
 							.tag("JAVA")
 							.boardcase((long) (Math.random()*2))
-							.memberNum((long) (Math.random()*30+1))
+							.memberNum((long) (Math.random()*18+1))
 							.build();
 			
 			boardRepository.save(board);

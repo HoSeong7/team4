@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.dto.MemberDTO;
+import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
+import com.keduit.helloworld.service.BoardService;
 import com.keduit.helloworld.service.MemberService;
+import com.nimbusds.jose.shaded.json.JSONObject;
 
 @Controller
 @Log4j2
@@ -30,6 +34,9 @@ public class IndexController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private BoardService boardService;
 
     @GetMapping("/main")
     public void index(){
@@ -85,10 +92,16 @@ public class IndexController {
     	    //나를 팔로한 사람
     	    List<Member> folower = memberService.getMemberMarked(idnum.getMemberNum());
     	    
+    	    /** 내가 쓴 글 보기 */
+    	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
+    	    
     	    model.addAttribute("member",idnum);
-    	    //내가 팔로한 사람 숫자
-    	    model.addAttribute("following", folowing.size());
-    	    model.addAttribute("follower", folower.size());
+    	    /**내가 팔로한 사람 목록*/
+    	    model.addAttribute("following", folowing);
+    	    /** 나를 팔로한 사람 목록 */
+    	    model.addAttribute("follower", folower);
+    	    
+    	    model.addAttribute("myBoard",myBoards);
     
     	    log.info(idnum);
     	        
