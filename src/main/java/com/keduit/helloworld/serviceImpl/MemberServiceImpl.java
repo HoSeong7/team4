@@ -28,13 +28,9 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 @Log4j2
 public class MemberServiceImpl implements MemberService {
-	@Override
-public class MemberServiceImpl implements MemberService {
 
 	private final MemberRepository repository;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
 
 	@Override
