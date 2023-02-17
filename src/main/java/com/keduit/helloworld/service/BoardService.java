@@ -32,6 +32,7 @@ public interface BoardService {
 
 	default Board dtoToEntity(BoardDTO dto) {
 		
+
 		Board board = Board.builder()
 							.boardNum(dto.getBoardNum())
 							.title(dto.getTitle())
@@ -50,6 +51,7 @@ public interface BoardService {
 	
 	default BoardDTO entityToDTO(Board entity, Member member , Long cnt) {
 		
+
 		BoardDTO boardDTO = BoardDTO.builder()
 							.boardNum(entity.getBoardNum())
 							.title(entity.getTitle())
@@ -70,6 +72,7 @@ public interface BoardService {
 		return boardDTO;
 	}
 
+	public void updateViews(Long boardNum, BoardDTO boardDTO);
 	List<Board> getMyBoardList(String id);
 
 

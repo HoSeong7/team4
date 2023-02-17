@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -66,6 +68,7 @@ public class BoardServiceImpl implements BoardService {
 	/** 읽기 */
 	public PageResultDTO<BoardDTO, Object[]> getBoard2List(PageRequestDTO pageRequestDTO) {
 		
+		log.info("위치 : BoardServiceImpl getBoard2List()"+pageRequestDTO);
 		log.info("pageRequestDTO : "+pageRequestDTO);
 		
 		Function<Object[], BoardDTO> fn = (en -> entityToDTO((Board)en[0], (Member)en[1], (Long)en[2]));
@@ -123,10 +126,19 @@ public class BoardServiceImpl implements BoardService {
 		Board boardResult = boardRepository.getBoardByBno(boardNum);
 		Member memberResult = memberRepository.getBoardByBno(boardNum);
 		Long commentResult = commentRepository.getBoardByBno(boardNum);
-		
-		
+
 		return entityToDTO(boardResult, memberResult, commentResult);
 	}
+
+	@Override
+	@Transactional
+	public void updateViews(Long boardNum, BoardDTO boardDTO) {
+		Board board = boardRepository.findById(boardNum).orElseThrow((()->
+		new IllegalStateException("해당 게시글이 존재하지 않습니다.")));
+
+		board.updateViews(boardDTO.getViews());
+	}
+
 
 	@Override
 	public List<Board> getMyBoardList(String id) {

@@ -31,7 +31,16 @@ public class CommentDTO {
 	/** Board_comment 사진 */
 	private String url;
 
+	/** 좋아요 */
 	private Long clikes;
+	
+	private Long commenterNum;
+	
+	/** member 아이디*/
+	private String id;
+	
+	/** member 닉네임*/
+	private String nickname;
 	
 	/** Board_comment 작성,수정 날짜 */
 	private LocalDateTime regdate, updatedate; 

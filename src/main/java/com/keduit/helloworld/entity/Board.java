@@ -66,4 +66,8 @@ public class Board extends BaseEntity{
 		this.title = title;
 		this.content = content;
 	}
+	
+	public void updateViews(Long countViews) {
+		views = countViews;
+	}
 }
