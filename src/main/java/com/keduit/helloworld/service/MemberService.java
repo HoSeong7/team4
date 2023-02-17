@@ -83,5 +83,13 @@ public interface MemberService {
 	/** 나를 팔로한 사람들 */
 	List<Member> getMemberMarked(Long memberNum);
 
+	//호성  02.17
+	
+	/** 아이디, 닉네임 비교용으로 생성 */
+	List<Member> memberAll();
+
+	
+	//end 호성
+	
 //	Map<String, Object> checkLoginAvailable(Map<String, Object> param);
 }

@@ -71,7 +71,15 @@ public class IndexController {
     }
     
     @GetMapping("/register")
-    public void register() {
+    public void register(Model model) {
+    	
+    	List<Member> member = memberService.memberAll();
+    	model.addAttribute("member", member);
+    	
+    	System.out.println(member);
+    	
+    
+    	
     }
     
     @PostMapping("/register")
