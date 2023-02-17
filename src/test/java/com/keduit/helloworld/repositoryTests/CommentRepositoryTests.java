@@ -15,7 +15,6 @@ import com.keduit.helloworld.repository.MemberRepository;
 
 @SpringBootTest
 public class CommentRepositoryTests {
-
 	@Autowired
 	private BoardRepository boardRepository;
 	@Autowired
@@ -39,12 +38,6 @@ public class CommentRepositoryTests {
 			commentRepository.save(comment);
 		});
 	}
-
-
-
-
-	@Autowired
-	private CommentRepository commentRepository;
 
 	@Test
 	public void insertcommentTest() {
