@@ -34,14 +34,13 @@ import com.nimbusds.jose.shaded.json.JSONObject;
 @RequestMapping("/hello/*")
 public class IndexController {
 	
-	@Autowired
-	private MemberService memberService;
 	
-	@Autowired
-	private BoardService boardService;
+	private final MemberService memberService;
 	
-	@Autowired
-	private CommentService commentService;
+	
+	private final BoardService boardService;
+	
+	private final CommentService commentService;
 
     @GetMapping("/main")
     public void index(){
@@ -90,7 +89,7 @@ public class IndexController {
     }
     
     @PostMapping("/modify")
-    public String modify(MemberDTO memberDTO) {
+    public String modify(MemberDTO memberDTO,RedirectAttributes redirectAttributes) {
     	memberService.modify(memberDTO);
     	System.out.println(memberDTO);
     	
