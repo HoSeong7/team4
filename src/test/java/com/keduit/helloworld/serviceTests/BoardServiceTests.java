@@ -21,7 +21,7 @@ public class BoardServiceTests {
 		PageRequestDTO pageRequestDTO = new PageRequestDTO();
 			
 			PageResultDTO<BoardDTO, Object[]> result =
-					boardService.getBoard1List(pageRequestDTO);
+					boardService.getBoard2List(pageRequestDTO);
 			
 			for(BoardDTO boardDTO : result.getDtoList()) {
 				System.out.println(boardDTO);

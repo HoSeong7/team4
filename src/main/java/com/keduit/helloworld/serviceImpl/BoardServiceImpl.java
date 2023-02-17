@@ -67,6 +67,7 @@ public class BoardServiceImpl implements BoardService {
 	/** 읽기 */
 	public PageResultDTO<BoardDTO, Object[]> getBoard2List(PageRequestDTO pageRequestDTO) {
 		
+		log.info("위치 : BoardServiceImpl getBoard2List()"+pageRequestDTO);
 		log.info("pageRequestDTO : "+pageRequestDTO);
 		
 		Function<Object[], BoardDTO> fn = (en -> entityToDTO((Board)en[0], (Member)en[1], (Long)en[2]));

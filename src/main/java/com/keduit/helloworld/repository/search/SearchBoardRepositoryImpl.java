@@ -98,7 +98,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 			
 		}
 		tuple.where(booleanBuilder);
-		
+		log.info("tuple"+tuple);
 		
 		
 		Sort sort = pageable.getSort();
@@ -133,6 +133,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 //		List<Board> result = jpqlQuery.fetch();
 		List<Tuple> result = tuple.fetch();
 		
+		log.info("위치 : SearchBoardImpl searchPage()");
 		log.info("result : " + result);
 		
 		long count = tuple.fetchCount();

@@ -41,21 +41,21 @@ public class BoardController {
 	}
     @GetMapping("/noticelist")
     public void noticelist(PageRequestDTO pageRequestDTO,Model model){
-    	log.info("위치 : BoardController communitylist()");
+    	log.info("위치 : BoardController noticelist()");
     	log.info("pageRequestDTO : " + pageRequestDTO);
     	PageResultDTO<BoardDTO, Object[]> result = boardService.getBoard2List(pageRequestDTO);
-    	log.info("뿌림?" + result);
+    	log.info("2뿌림?" + result);
     	
-		model.addAttribute("result",boardService.getBoard1List(pageRequestDTO));
+		model.addAttribute("result",boardService.getBoard2List(pageRequestDTO));
     }
     @GetMapping("/qnalist")
     public void qnalist(PageRequestDTO pageRequestDTO,Model model){
-    	log.info("위치 : BoardController communitylist()");
+    	log.info("위치 : BoardController qnalist()");
     	log.info("pageRequestDTO : " + pageRequestDTO);
     	PageResultDTO<BoardDTO, Object[]> result = boardService.getBoard3List(pageRequestDTO);
     	log.info("뿌림?" + result);
     	
-		model.addAttribute("result",boardService.getBoard1List(pageRequestDTO));
+		model.addAttribute("result",boardService.getBoard3List(pageRequestDTO));
     }
     
 	@GetMapping({"/communityregister","/noticeregister","/qnaregister"})
