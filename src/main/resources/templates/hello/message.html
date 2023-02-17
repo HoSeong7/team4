@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -26,8 +26,10 @@
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
                 <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login">로그인</a></li>
-                <li><a id="open-signup">회원가입</a></li>
+                <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+              	 <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">사용자이름</a></li>
+                <li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>  
             </ul>
         </nav>
     </div>
@@ -42,71 +44,7 @@
                         <input id="tab2" type="radio" name="tabs">
                         <label for="tab2">받은 내역</label>
                         <section id="content1">
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
-                                <div class="content-box">
-                                    <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
-                                    <div class="content-username">유저000</div>
-                                    <div class="content-time">5분전</div>
-                                    <div class="content-delete"><button>삭제</button></div>
-                                </div>
-                            </div>
-                            <div class="content-body-left-body">
+                            <div class="content-body-left-body" th:each="imgiver:${}">
                                 <div class="content-box">
                                     <div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
                                     <div class="content-username">유저000</div>

@@ -25,19 +25,19 @@ public class MessageController {
 
 	private final MessageService messageService;
 	private final MemberService memberService;
-	
+
 	@GetMapping("/message")
 	public void message(Authentication authentication, Model model) {
-    	UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-    	
-    	
-    	/** 내가 보낸 사람, 메시지 정보 가져오기 */
-    	List<Message> message = messageService.getMsgListAsGiver(userDetails.getUsername());
-    	
-    	/** 내가 보낸 사람, 내 정보 */
-    	List<Member> member = memberService.getMsgById(message.get(0).getMemberGive());
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-    	model.addAttribute("getMem", member);
-    	model.addAttribute("getMsg", message);
+		/** 보낸사람 회원번호로 내가 보낸 사람, 메시지 정보 가져오기 */
+		List<Message> message = messageService.getMsgListAsGiver(userDetails.getUsername()); 
 
+		/** 내가 보낸 사람, 내 정보 */
+		List<Member> member = memberService.getMsgById(message.get(0).getMemberGive()); //username=회원아이디
+
+		model.addAttribute("getMem", member);
+		model.addAttribute("getMsg", message);
+
+	}
 }

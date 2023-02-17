@@ -160,4 +160,23 @@ public class MemberServiceImpl implements MemberService {
 		return members;
 	}
 
+	//호성 02.17
+	
+	@Override
+	public List<Member> memberAll() {
+		List<Member> members = repository.findAll();
+		
+		return members;
+	}
+
+	//end 호성 
+	
+	
+
+	@Override
+	public List<Member> getMsgById(Long memberGive) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

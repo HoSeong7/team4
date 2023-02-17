@@ -128,4 +128,10 @@ public class MessageServiceImpl implements MessageService {
         return null;
     }
 
+	@Override
+	public List<Message> getMsgListAsGiver(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

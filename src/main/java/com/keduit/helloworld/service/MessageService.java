@@ -67,4 +67,7 @@ public interface MessageService {
 				.build();
 		return dto;
 	}
+	
+	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
+	List<Message> getMsgListAsGiver(String username);
 }
