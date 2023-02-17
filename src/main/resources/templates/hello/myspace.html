@@ -163,7 +163,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>회원 가입</h2>
+                <h2>정보수정</h2>
             </div>
             <div class="modal-body">
                 <form name="signup-form" id="signup-form" th:action="@{/hello/modify}" method="post">
@@ -209,8 +209,9 @@
                             닉네임
                         </label>
                         <div class="input-box">
-                            <input type="text" name="nickname" id="user_nick" th:value="${member.nickname}"/>
-                            <button>중복 확인</button>
+                            <input type="text" name="nickname" class="nickname" id="user_nick" th:value="${member.nickname}"/>
+                            <input type="hidden" id="onid" th:value="${member.nickname}">
+                            <button type='button' id="nickChk" onclick="fn_nickChk();">중복 확인</button>
                         </div>
                     </div>
                     <br>
@@ -372,6 +373,35 @@
   // 사진업로드 and
   
 </script>
+<script type="text/javascript">
+		
+	// ajax로 nickname 중복확인
+
+	function fn_nickChk(){
+	    var nick = $("#user_nick").val();
+	    var onid = $("#onid").val();
+	    
+
+	    $.ajax({
+	    	url: '/hello/register/chk/'+nick,
+	        type: 'POST',
+	        data: JSON.stringify(nick),
+	        contentType: "application/json; charset=utf-8",
+	        dataType: 'text',
+	        success: function (result) {
+	            if(onid == nick){
+	                alert('기존 닉네임은 사용가능합니다.');
+	            }else if(result == 0){
+	                alert('사용 가능한 닉네임입니다..');	            	
+	            }else{
+	                alert('닉네임이 중복입니다.');	            	
+	            }
+	        }
+	    })
+		};
+
+	</script>
+
   
 </body>
 

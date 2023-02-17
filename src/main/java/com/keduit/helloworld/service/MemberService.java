@@ -83,10 +83,14 @@ public interface MemberService {
 	/** 나를 팔로한 사람들 */
 	List<Member> getMemberMarked(Long memberNum);
 
-	//호성  02.17
-	
-	/** 아이디, 닉네임 비교용으로 생성 */
-	List<Member> memberAll();
+	//호성  02.18
+
+	/** 아이디 중복 체크 
+	 * @param id */
+	Integer memberCount(String id);
+
+	/** 닉네임 중복체크 */
+	Integer membernickCount(String nickname);
 
 	
 	//end 호성

@@ -70,13 +70,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 			, nativeQuery = true)
 		Member getCommenter(Long commenterNum);
 
-//	@EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
-//	@Query(value = "select * from Member m inner join member_roleset mr on m.member_num = mr.member_member_num where m.email = :email", nativeQuery=true)
-//	Optional<Member> findByEmail(String email);
-//
-//	@EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
-//	@Query(value = "select * from Member m where m.id = :id", nativeQuery= true)
-//	Optional<Member> findByidpage(String id);
 
 	/** 로그인 처리 쿼리문 */
 	 @EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
@@ -88,6 +81,16 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 		+ "where m.id = :id ",nativeQuery=true)
 	 Optional<Member> getMemberId(String id);
 
+	 //호성 02-18
+	 
+	 /** id 중복체크*/
+	 @Query(value="select count(*) from member m where m.id = :id", nativeQuery=true)
+	int getIdCount(String id);
 
+	 /** nick name 중복체크*/
+	 @Query(value="select count(*) from member m where m.nickname = :nickname ", nativeQuery=true)
+	int getNickCount(String nickname);
+
+	//호성 end
 
 }
