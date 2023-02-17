@@ -21,10 +21,6 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 @Log4j2
 public class MessageServiceImpl implements MessageService {
-    @Override
-    public Page<MessageDTO> getMessages(PageRequest messagePageRequest) {
-        return null;
-    }
 
 	private final MessageRepository messageRepository;
 //	private final Message message;
@@ -127,5 +123,9 @@ public class MessageServiceImpl implements MessageService {
 //		messageRepository.deleteMsgAsGiver(memberGive);
 //	}
 
+    @Override
+    public Page<MessageDTO> getMessages(PageRequest messagePageRequest) {
+        return null;
+    }
 
 }
