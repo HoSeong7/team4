@@ -3,7 +3,11 @@ package com.keduit.helloworld.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +20,10 @@ import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
 import com.keduit.helloworld.service.BoardService;
+import com.keduit.helloworld.service.MemberService;
 
 @Controller
 @Log4j2
@@ -29,6 +35,9 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	private final BoardService boardService;
+	
+	private final MemberService memberService;
+	
 
     @GetMapping("/communitylist")
     public void communitylist(PageRequestDTO pageRequestDTO,Model model){
@@ -59,8 +68,18 @@ public class BoardController {
     }
     
 	@GetMapping({"/communityregister","/noticeregister","/qnaregister"})
-	public void register() {
+	public void register(Authentication authentication,Model model) {
 		log.info("등록페이지");
+		
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+		
 	}
 	
 	@PostMapping({"/communityregister","/noticeregister","/qnaregister"})
@@ -75,7 +94,7 @@ public class BoardController {
 	}
 	
 	@GetMapping({"/communityread", "/noticeread","/qnaread"})
-	public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
+	public void read(Authentication authentication,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
 		
 		log.info("위치 : BoardController read()");
 		log.info("boardNum : " + boardNum);
@@ -89,8 +108,19 @@ public class BoardController {
 		
 		boardDTO = boardService.get(boardNum);
 		
-		
 		log.info(boardDTO);
+
+		
+//		추가
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+	    
 		model.addAttribute("dto",boardDTO);
 		
 	}

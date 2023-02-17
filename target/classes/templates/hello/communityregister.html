@@ -54,7 +54,7 @@
             <input type="text" name="content" id="">
         </div>
         <input type="hidden" name="boardcase" value="1">
-        <input type="hidden" name="memberNum" value="4">
+        <input type="hidden" name="memberNum" th:value="${member.memberNum}">
         <div class="button">
             <div><button onclick="location.href='board.html' ">취소</button></div>
             <div class="postbutton"><button type= "submit" >등록</button></div>

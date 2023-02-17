@@ -28,7 +28,7 @@ public class CommentRepositoryTests {
 	public void insertReply() {
 
 		IntStream.rangeClosed(1, 600).forEach(i -> {
-			long boardNum = (long)(Math.random() * 305) + 1;
+			long boardNum = (long)(Math.random() * 600) + 1;
 
 			Comment comment = Comment.builder()
 					.boardNum(boardNum)

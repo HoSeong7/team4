@@ -134,8 +134,8 @@
                     </div>
                     <!-- 유저 -->
                     <div class="username">
-                        <p>nickname <small> id</small></p>
-                        <input type="hidden" name="commenterNum" value=4>
+                        <p>[[${member.nickname}]]  <small>[[${member.id}]]</small></p>
+                        <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
                     </div>
                 </div>
                 <div class="box-right">

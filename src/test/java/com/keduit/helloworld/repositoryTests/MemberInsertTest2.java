@@ -24,8 +24,8 @@ public class MemberInsertTest2 {
 	
 	@Test
 	public void insertTest() {
-		IntStream.rangeClosed(1, 10).forEach(i->{
-			Member member = Member.builder().id(i+"aa")
+		IntStream.rangeClosed(1, 30).forEach(i->{
+			Member member = Member.builder().id(i+"a")
 					.name(i+"이름")
 					.pw(passwordEncoder.encode("1111"))
 					.nickname(i+"email")
