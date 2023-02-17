@@ -1,5 +1,11 @@
 package com.keduit.helloworld.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
@@ -9,12 +15,17 @@ import org.springframework.data.domain.PageRequest;
 
 public interface MemberService {
 	
+
+
 	/** member 회원가입*/
 	Long register(MemberDTO dto);	
 	
 	/** member 읽기 */
 	MemberDTO read(Long memberNum);
 	
+	/** id로 전체 읽기*/
+	Member idRead(String id);
+
 	/** member 삭제 */
 	void remove(Long memberNum);
 	
@@ -43,6 +54,7 @@ public interface MemberService {
 	/** memberDTO에 있는 정보를 memberEntity로 옮기기*/
 	default Member memberDtoToMemberEntity(MemberDTO dto) {
 		
+
 		Member entity = Member.builder().memberNum(dto.getMemberNum())
 										.id(dto.getId())
 										.pw(dto.getPw())
@@ -64,4 +76,12 @@ public interface MemberService {
 
 
 	Page<MemberDTO> getMembers(PageRequest memberPageRequest);
+
+	/** 내가 팔로한 사람들 */
+	List<Member> getMemberMarker(Long memberNum);
+
+	/** 나를 팔로한 사람들 */
+	List<Member> getMemberMarked(Long memberNum);
+
+//	Map<String, Object> checkLoginAvailable(Map<String, Object> param);
 }

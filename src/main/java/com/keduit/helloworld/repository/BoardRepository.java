@@ -1,5 +1,7 @@
 package com.keduit.helloworld.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +17,11 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 					+ " left outer join Comment c on c.board_num = b.board_num "
 					+ " where b.board_num = :boardNum"
 			, nativeQuery = true)
-		Board getBoardByBno(Long boardNum); 
+		Board getBoardByBno(Long boardNum);
+
+	/**내가 작성한 게시판 보기*/
+	@Query(value = "select * from board b "
+				  + "join member m on m.member_num = b.member_num "
+				  + "where m.id = :id order by b.board_num desc", nativeQuery=true)
+	List<Board> getMyBoardList(String id); 
 }

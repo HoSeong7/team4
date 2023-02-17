@@ -1,7 +1,13 @@
 package com.keduit.helloworld.entity;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -29,15 +36,15 @@ public class Member extends BaseEntity{
 	/** member 테이블 고유 pk */
 	private Long memberNum;
 	
-	@Column(length =30, nullable = false, unique = true)
+	@Column(length =100, nullable = false, unique = true)
 	/** member ID */
 	private String id;
 	
-	@Column(length = 30, nullable = false)
+	@Column(length = 100, nullable = false)
 	/** member 비밀번호 */
 	private String pw;
 	
-	@Column(length = 10, nullable = false)
+	@Column(length = 100, nullable = false)
 	/** member 이름 */
 	private String name;
 	
@@ -45,11 +52,11 @@ public class Member extends BaseEntity{
 	/** member 현재 가지고있는 포인트 */
 	private Long point;
 	
-	@ColumnDefault("0") 
-	/** 권한 0 : 일반  1 : 관리자 */
-	private Long purview;
 	
-	@Column(length = 30, nullable = false, unique = true)
+	/** 권한*/
+	private Boolean purview;
+	
+	@Column(length = 100, nullable = false, unique = true)
 	/** member 닉네임 */
 	private String nickname;
 	
@@ -68,5 +75,36 @@ public class Member extends BaseEntity{
 	@Column(length = 100)
 	/** member 사진 */
 	private String url;
+	
+	/** member와 memberRole연결 */
+	@ElementCollection(fetch= FetchType.LAZY)
+	@Builder.Default
+	private Set<MemberRole> roleset = new HashSet<>();
+	
+	public void change(Long memberNum, String id, String pw, String name,String nickname
+			,String introduce,String email, LocalDateTime updateDate) {
+		this.memberNum = memberNum;
+		this.id=id;
+		this.pw= pw;
+		this.name=name;
+		this.nickname = nickname;
+		this.introduce = introduce;
+		this.email = email;
+		this.updateDate = updateDate;
+	}
+	
+	public void changePw(String pw) {
+		this.pw = pw;
+	}
+	
+	public void changeName(String name) {
+		this.name = name;
+	}
+	
+	/** 값 넣어주기*/
+	public void addMemberRole(MemberRole memberRole) {
+		roleset.add(memberRole);
+	}
+	
 	
 }

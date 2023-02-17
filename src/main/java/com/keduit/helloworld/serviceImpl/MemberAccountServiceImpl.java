@@ -20,8 +20,6 @@ public class MemberAccountServiceImpl implements MemberAccountService {
 
 	private final MemberAccountRepository memberAccountRepository;
 	
-	private MemberRepository memberRepository;
-	
 	@Override
 	/** 회원간 거래내역 등록(create) */
 	public Long register(MemberAccountDTO dto) {

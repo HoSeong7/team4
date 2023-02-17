@@ -37,7 +37,7 @@ public class BoardRepositoryTests {
 							.content("내용 -- " + i)
 							.tag("JAVA")
 							.boardcase((long) (Math.random()*2))
-							.memberNum((long) (Math.random()*30+1))
+							.memberNum((long) (Math.random()*18+1))
 							.build();
 			
 			boardRepository.save(board);
@@ -69,7 +69,7 @@ public class BoardRepositoryTests {
 	@Test
 	/** 삭제 */
 	public void deleteBoard() {
-		boardRepository.deleteById(2L);
+//		boardRepository.deleteById(2L);
 	}
 	
 	@Test

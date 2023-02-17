@@ -1,6 +1,7 @@
 package com.keduit.helloworld.serviceImpl;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -13,7 +14,6 @@ import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
-import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
 import com.keduit.helloworld.repository.CommentRepository;
@@ -127,6 +127,15 @@ public class BoardServiceImpl implements BoardService {
 		
 		return entityToDTO(boardResult, memberResult, commentResult);
 	}
+
+	@Override
+	public List<Board> getMyBoardList(String id) {
+
+		List<Board> list = boardRepository.getMyBoardList(id);
+
+		return list;
+	}
+
 
 	@Override
 	public Page<BoardDTO> getBoards(PageRequest boardPageRequest) {
