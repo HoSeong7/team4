@@ -18,29 +18,20 @@ import lombok.extern.log4j.Log4j2;
 public class MessageController {
 
 	private final MessageService messageService;
+	private final MemberService memberService;
 	
 	@GetMapping("/message")
-	public void message(Model model) {
-		log.info("=============== MessageController ===============");
-		int membernum = 5;
-		MessageDTO dto = new MessageDTO();
-		
-		dto.getMemberGet();
-		dto.getMemberGive();
-	}
-	
-	
-	
-//	@GetMapping(value = "/message")
-//	/** 쪽지 리스트 조회(read, 받은사람 기준) */
-//	public ResponseEntity <List<MessageDTO>> getMsgListAsGetter(@PathVariable("memberGet") Long memberGet){
-//		
-//		log.info("=============== MessageController ===============");
-//		
-//		return new ResponseEntity(messageService.getListAsGetter(memberGet), HttpStatus.OK);
-//	}
-	
+	public void message(Authentication authentication, Model model) {
+    	UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+    	
+    	
+    	/** 내가 보낸 사람, 메시지 정보 가져오기 */
+    	List<Message> message = messageService.getMsgListAsGiver(userDetails.getUsername());
+    	
+    	/** 내가 보낸 사람, 내 정보 */
+    	List<Member> member = memberService.getMsgById(message.get(0).getMemberGive());
 
-
+    	model.addAttribute("getMem", member);
+    	model.addAttribute("getMsg", message);
 
 }
