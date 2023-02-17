@@ -87,11 +87,6 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public Page<MemberDTO> getMembers(PageRequest memberPageRequest) {
-		return null;
-	}
 //
 //	private final MemberRepository repository;
 //	

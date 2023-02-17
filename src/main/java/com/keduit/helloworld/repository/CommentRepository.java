@@ -24,9 +24,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 			, nativeQuery = true)
 	List<Comment> getCommentlist(Long boardNum);
 
-
-		Long getBoardByBno(Long boardNum);
-
 	@Query(value = "select * from Comment c "
 				 + "left outer join Board b on c.board_num = b.board_num "
 				 + "left outer join member m on m.member_num = b.member_num "

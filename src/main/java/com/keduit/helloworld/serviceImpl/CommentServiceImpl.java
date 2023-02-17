@@ -78,8 +78,6 @@ public class CommentServiceImpl implements CommentService {
         return null;
     }
 
-	private final CommentRepository commentRepository;
-
 	@Override
 	public List<Comment> getCommentList(String id) {
 
