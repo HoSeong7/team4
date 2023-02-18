@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,9 +18,9 @@
         <!--왼쪽바 공통-->
         <nav class="mainmenu-left">
             <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#"
-                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
+                <li><a id="open-point" sec:authorize="isAuthenticated">포인트</a></li>
+                <li><a href="#" sec:authorize="isAuthenticated"
+                        onclick="window.open('http://localhost:8080/room','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
                 </li>
             </ul>
         </nav>
