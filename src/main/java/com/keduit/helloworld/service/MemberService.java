@@ -2,6 +2,7 @@ package com.keduit.helloworld.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -97,7 +98,10 @@ public interface MemberService {
 	
 //효영
 	
-	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
-	List<Member> getMsgById(Long memberGive);
+	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(read) */
+	List<MemberDTO> getMsgGetListAsGiver(String id);
+	
+	/** 조회하는사람 아이디로, 회원번호 가져오기(read) */
+	MemberDTO getMemNum(String id);
 	
 }

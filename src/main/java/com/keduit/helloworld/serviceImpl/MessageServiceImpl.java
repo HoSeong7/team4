@@ -1,16 +1,17 @@
 package com.keduit.helloworld.serviceImpl;
 
-import com.keduit.helloworld.dto.MessageDTO;
-import com.keduit.helloworld.service.MessageService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.MessageDTO;
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.Message;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.repository.MessageRepository;
 import com.keduit.helloworld.service.MessageService;
 
@@ -23,7 +24,7 @@ import lombok.extern.log4j.Log4j2;
 public class MessageServiceImpl implements MessageService {
 
 	private final MessageRepository messageRepository;
-//	private final Message message;
+	private final MemberRepository memberRepository;
 
 	@Override
 	/** 쪽지 등록(create) */
@@ -31,107 +32,94 @@ public class MessageServiceImpl implements MessageService {
 
 		log.info("Message ServiceImpl register");
 
-		Message entity = MessageDtoToEntity(dto);
+		Message entity = messageDtoToEntity(dto);
 		messageRepository.save(entity);
 
 		return entity.getMessageNum();
 	}
-
+	
 	@Override
 	/** 쪽지 리스트 조회(read, 받은사람 기준, 권한 0 or 1만 출력) */
-	public List<Message> getListAsGetter(Long memberGet) {
+	public List<MessageDTO> getListAsGetter(Long memberGet) {
 
 		List<Message> result = messageRepository.getMsgListAsGetter(memberGet);
+		List<Member> mlist = memberRepository.getMemNicknameByGetter(memberGet);
+		List<MessageDTO> list = new ArrayList<>();
 
-		return result;
+		for (int i = 0; i < result.size(); i++) {
+			MessageDTO messageDto = messageEntityToDto(result.get(i));
+			messageDto.setNickname(mlist.get(i).getNickname());
+			list.add(messageDto);
+		}
+		return list;
 	}
+	
 
 	@Override
 	/** 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
-	public List<Message> getListAsGiver(Long memberGive) {
+	public List<MessageDTO> getListAsGiver(Long memberGive) {
 
 		List<Message> result = messageRepository.getMsgListAsGiver(memberGive);
-
-		return result;
+		List<Member> mlist = memberRepository.getMemNicknameByGiver(memberGive);
+		List<MessageDTO> list = new ArrayList<>();
+		
+		for (int i = 0; i < result.size(); i++) {
+			MessageDTO messageDto = messageEntityToDto(result.get(i));
+			messageDto.setNickname(mlist.get(i).getNickname());
+			list.add(messageDto);
+		}
+		return list;
 	}
-
+	
 	@Override
 	/** 쪽지 상세 조회(read) */
 	public MessageDTO read(Long messageNum) {
 
 		Optional<Message> result = messageRepository.findById(messageNum);
 
-		return result.isPresent()? MessageEntityToDto(result.get()) : null;
+		return result.isPresent()? messageEntityToDto(result.get()) : null;
 	}
-
+	
 	@Override
-	/** 받은 사람이 쪽지 삭제 시 보기권한 변경(update, 보기권한 +2) */
-	public void modifyViewAsGetter(MessageDTO dto) {
+	/** 받은 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +2, delete: 권한 3일때) */
+	public void modifyViewAsGetter(Long messageNum, Long view) {
 
-		Optional<Message> result = messageRepository.findById(dto.getMessageNum());
+		Optional<Message> result = messageRepository.findById(messageNum);
 
 		if(result.isPresent()) {
-
 			Message entity = result.get();
+			entity.changes(view + 2); //보기권한 0은 2, 1은 3으로 변경
+			
+			if(entity.getView() >= 3) {
+				messageRepository.deleteById(messageNum); //3이면 삭제
+			}else {
+				messageRepository.save(entity);
+			}
+		}
+	}
+	
+	@Override
+	/** 보낸 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +1, delete: 권한 3일때) */
+	public void modifyViewAsGiver(Long messageNum, Long view) {
 
-			if(dto.getView() == 3) {
-				messageRepository.deleteById(dto.getMessageNum());
+		Optional<Message> result = messageRepository.findById(messageNum);
+
+		if(result.isPresent()) {
+			Message entity = result.get();
+			entity.changes(view + 1); //보기권한 0은 1, 2는 3으로 변경
+
+			if(entity.getView() >= 3) {
+				messageRepository.deleteById(messageNum);
 			} else {
-				entity.changes(dto.getView());
 				messageRepository.save(entity);
 			}
 		}
 	}
 
-	@Override
-	/** 보낸 사람이 쪽지 삭제 시 보기권한 변경(update, 보기권한 +1) */
-	public void modifyViewAsGiver(MessageDTO dto) {
-
-		Optional<Message> result = messageRepository.findById(dto.getMessageNum());
-
-		if(result.isPresent()) {
-
-			Message entity = result.get();
-
-			entity.changes(dto.getView());
-
-			messageRepository.save(entity);
-
-//		log.info("Message ServiceImpl modify");
-//		Message message = messageRepository.getById(dto.getMemberGive());
-//		messageRepository.save(message);
-		}
-	}
-
-
-
-//	@Override
-//	/** 쪽지 삭제(delete) */
-//	public void remove(Long messageNum) {
-//		messageRepository.deleteById(messageNum);
-//	}
-
-//	@Override
-//	/** 쪽지 삭제(delete, 받은사람 기준) */
-//	public void removeAsGetter(Long memberGet) {
-//		messageRepository.deleteMsgAsGetter(memberGet);
-//	}
-//
-//	@Override
-//	/** 쪽지 삭제(delete, 보낸사람 기준) */
-//	public void removeAsGiver(Long memberGive) {
-//		messageRepository.deleteMsgAsGiver(memberGive);
-//	}
-
     @Override
+    /** 쪽지 리스트 페이징(관리자 모드) */
     public Page<MessageDTO> getMessages(PageRequest messagePageRequest) {
         return null;
     }
-
-	@Override
-	public List<Message> getMsgListAsGiver(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -32,6 +32,9 @@ public class MessageDTO {
 
 	/** 쪽지 보기권한 0:기본, 1:보낸사람이 삭제, 2:받은사람이 삭제, 3:모두 삭제 */
 	private Long view;
+	
+	/** 쪽지 상대 닉네임 */
+	private String nickname;
 
 	/** 쪽지 사진 */
 	private String url;

@@ -1,16 +1,24 @@
 package com.keduit.helloworld.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.keduit.helloworld.dto.MemberDTO;
+import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Member;
-import com.keduit.helloworld.entity.Message;
 import com.keduit.helloworld.service.MemberService;
 import com.keduit.helloworld.service.MessageService;
 
@@ -28,16 +36,41 @@ public class MessageController {
 
 	@GetMapping("/message")
 	public void message(Authentication authentication, Model model) {
+		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-		/** 보낸사람 회원번호로 내가 보낸 사람, 메시지 정보 가져오기 */
-		List<Message> message = messageService.getMsgListAsGiver(userDetails.getUsername()); 
-
-		/** 내가 보낸 사람, 내 정보 */
-		List<Member> member = memberService.getMsgById(message.get(0).getMemberGive()); //username=회원아이디
-
-		model.addAttribute("getMem", member);
-		model.addAttribute("getMsg", message);
-
+		/** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read, 보낸사람 기준) */ 
+		MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+		
+		/** 쪽지 보낸사람 회원번호로, 받은사람 리스트 가져오기(read, 보낸사람 기준) */ 
+		List<MessageDTO> messageGive = messageService.getListAsGiver(memberDTO.getMemberNum()); //보낸 쪽지 목록 가져옴
+		List<MessageDTO> messageGet = messageService.getListAsGetter(memberDTO.getMemberNum()); //받은 쪽지 목록 가져옴
+		
+		model.addAttribute("giveMsg", messageGive);
+		model.addAttribute("getMsg", messageGet);
 	}
+	
+	@DeleteMapping("/message/delete")
+	public ResponseEntity<String> deleteMessage(@RequestParam HashMap<Object, Object> params, 
+			Authentication authentication) {
+		
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		
+		Long messageNum = Long.parseLong(params.get("messageNum").toString());
+		Long view = Long.parseLong(params.get("view").toString());
+
+		MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+		
+		MessageDTO messageDTO = messageService.read(messageNum);
+		
+		if(messageDTO.getMemberGet() == memberDTO.getMemberNum()) {
+			messageService.modifyViewAsGetter(messageNum, view);
+		}else {
+			messageService.modifyViewAsGiver(messageNum, view);
+		}
+		
+		return new ResponseEntity<String>("success",HttpStatus.OK);
+	}
+	
+	
 }

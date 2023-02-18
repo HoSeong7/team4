@@ -2,6 +2,8 @@ package com.keduit.helloworld.serviceImpl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.apache.catalina.filters.AddDefaultCharsetFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -172,11 +175,28 @@ public class MemberServiceImpl implements MemberService {
 	//end 호성 
 	
 	
-
+//효영
+	
 	@Override
-	public List<Member> getMsgById(Long memberGive) {
-		// TODO Auto-generated method stub
-		return null;
+	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(read) */
+	public List<MemberDTO> getMsgGetListAsGiver(String id) {
+		
+		List<Member> result = repository.getMsgGetterInfoByGiverMemNum(id);
+		List<MemberDTO> list = new ArrayList<>();
+		
+		for(Member member : result) {
+			MemberDTO memberDTO = memberEntityToMemberDto(member);
+			list.add(memberDTO);
+		}
+		return list;
+	}
+
+	/** 조회하는사람 아이디로, 회원번호 가져오기(read) */
+	@Override
+	public MemberDTO getMemNum(String id) {
+		Optional<Member> result = repository.getMemberId(id);
+		MemberDTO memberDTO = memberEntityToMemberDto(result.get());
+		return memberDTO;
 	}
 
 }

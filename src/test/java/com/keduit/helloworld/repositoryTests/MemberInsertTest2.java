@@ -25,14 +25,14 @@ public class MemberInsertTest2 {
 	@Test
 	public void insertTest() {
 		IntStream.rangeClosed(1, 10).forEach(i->{
-			Member member = Member.builder().id(i+"aa")
-					.name(i+"이름")
+			Member member = Member.builder().id("user" + i)
+					.name("이름" + i)
 					.pw(passwordEncoder.encode("1111"))
-					.nickname(i+"email")
+					.nickname("닉네임" + i)
 					.email(i + "@abc.com")
 					.purview(false)
 					.build();
-				member.addMemberRole(MemberRole.USER);
+				member.addMemberRole(MemberRole.ADMIN);
 				memberRepository.save(member);
 		});
 		

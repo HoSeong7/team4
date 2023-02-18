@@ -11,10 +11,10 @@ public interface MemberAccountService {
 	Long register(MemberAccountDTO dto);
 	
 	/** 회원간 거래내역 리스트 조회(read, 구매자=질문자 기준) */
-	List<MemberAccount> getListAsBuyer(Long memberBuyer);
+	List<MemberAccountDTO> getListAsBuyer(Long memberBuyer);
 	
 	/** 회원간 거래내역 리스트 조회(read, 판매자=답변자 기준) */
-	List<MemberAccount> getListAsSeller(Long memberSeller);
+	List<MemberAccountDTO> getListAsSeller(Long memberSeller);
 	
 	/** DTO에 있는 정보를 Entity로 옮기기 */
 	default MemberAccount memberAccountDtoToEntity(MemberAccountDTO dto) {
