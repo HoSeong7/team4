@@ -32,6 +32,10 @@ public class Message extends BaseEntity {
 	@Column(nullable = false)
 	/** 쪽지 보낸사람 fk, nn */
 	private Long memberGive; //회원번호(멤버):보낸사람 = 1:n
+
+	@Column(nullable = false)
+	/** comment 고유번호 fk */
+	private Long boardCommentNum;
 	
 	@Column(length = 100, nullable = false)
 	/** 쪽지 제목 nn */
@@ -49,6 +53,7 @@ public class Message extends BaseEntity {
 	/** 쪽지 사진 */
 	private String url;
 	
+	/** 보기 권한 변경 */
 	public void changes(Long view) {
 		this.view = view;
 	}

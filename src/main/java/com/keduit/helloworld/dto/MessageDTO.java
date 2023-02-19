@@ -1,8 +1,9 @@
 package com.keduit.helloworld.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
-import javax.persistence.Column;
+import com.keduit.helloworld.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,9 @@ public class MessageDTO {
 	/** 쪽지 보낸사람 fk, nn */
 	private Long memberGive;
 	
+	/** Board_comment 고유번호 fk */
+	private Long boardCommentNum;
+	
 	/** 쪽지 제목 nn */
 	private String title;
 	
@@ -44,5 +48,16 @@ public class MessageDTO {
 	
 	/** 쪽지 수정날짜 */
 	protected LocalDateTime updateDate;
+	
+//	/** n 분(시간/일)전 으로 표시 */
+//	private String date;
+//	
+//	public String getDate() {
+//		return date;
+//	}
+//	public void setDate(Date date) {
+//		this.date = Time.calculateTime(date);
+//	}	
+	
 	
 }

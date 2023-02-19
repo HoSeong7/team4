@@ -27,5 +27,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 			+ "and view in (0, 2) order by ms.regdate desc", nativeQuery = true)
 	/** 보낸 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
 	List<Message> getMsgListAsGiver(Long memGiveNum);
-	
+
 }

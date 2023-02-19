@@ -6,39 +6,32 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>쪽지함</title>
 <link rel="stylesheet" href="/css/message.css">
 </head>
 
 <body>
 	<div class="innerHeader">
 		<h1 class="logo">
-			<a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png"
-				alt="" width="30px" height="30px"></a>
+			<a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"></a>
 		</h1>
 		<!--왼쪽바 공통-->
 		<nav class="mainmenu-left">
 			<ul class="navbar">
 				<li><a id="open-point">포인트</a></li>
-				<li><a href="#"
-					onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a></li>
+				<li><a href="#" onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a></li>
 			</ul>
 		</nav>
 		<!--오른쪽바 공통-->
 		<nav class="mainmenu-right">
 			<ul class="navbar">
-				<li><img src="/img/battery.png" alt="" width="30px"
-					height="25px"></li>
+				<li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
 				<li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
 				<li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-				<li sec:authorize="!isAuthenticated"><a id="open-login"
-					th:href="@{/hello/login}">로그인</a></li>
-				<li sec:authorize="isAuthenticated" style="color: white"><a
-					sec:authentication="name" th:href="@{/hello/myspace}">사용자이름</a></li>
-				<li sec:authorize="isAuthenticated"><a id="open-login"
-					th:href="@{/logout}">로그아웃</a></li>
-				<li sec:authorize="!isAuthenticated"><a id="open-signup"
-					th:href="@{/hello/register}">회원가입</a></li>
+				<li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+				<li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>
+				<li sec:authorize="isAuthenticated" style="color: white"><a sec:authentication="name" th:href="@{/hello/myspace}">사용자이름</a></li>
+				<li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -50,19 +43,15 @@
 					<div class="main">
 						<input id="tab1" type="radio" name="tabs" checked>
 						<!--디폴트 메뉴-->
-						<label for="tab1" id="post-label">보낸 내역</label> <input id="tab2"
-							type="radio" name="tabs"> <label for="tab2">받은 내역</label>
+						<label for="tab1" id="post-label">보낸 내역</label> 
+						<input id="tab2" type="radio" name="tabs"> 
+						<label for="tab2">받은 내역</label>
 						<section id="content1">
 							<div class="content-body-left-body" th:each="giveList:${giveMsg}">
 								<div class="content-box">
-									<!-- 									<input type="hidden" value="[[${giveList.messageNum}]]"> -->
-									<!-- 									<input type="hidden" value="[[${giveList.view}]]"> -->
-									<div class="content-userimg">
-										<img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px"
-											height="40px">
-									</div>
-									<div class="content-username">[[${giveList.nickname}]], [[${giveList.messageNum}]], [[${giveList.view}]]</div>
-									<div class="content-time">[[${giveList.regDate}]]</div>
+									<div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
+									<div class="content-username">[[${giveList.nickname}]]</div>
+									<div class="content-time">[[${#temporals.format(giveList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div> <!-- [[${giveList.regDate}]] -->
 									<div class="content-delete">
 										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
 									</div>
@@ -70,18 +59,13 @@
 							</div>
 						</section>
 
-
-
 						<!--세선 2-->
 						<section id="content2">
 							<div class="content-body-left-body" th:each="getList:${getMsg}">
 								<div class="content-box">
-									<div class="content-userimg">
-										<img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px"
-											height="40px">
-									</div>
-									<div class="content-username">[[${getList.nickname}]], [[${getList.messageNum}]], [[${getList.view}]]</div>
-									<div class="content-time">[[${getList.regDate}]]</div>
+									<div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
+									<div class="content-username">[[${getList.nickname}]]</div>
+									<div class="content-time">[[${#temporals.format(getList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div> <!-- [[${getList.regDate}]] -->
 									<div class="content-delete">
 										<button th:attr="data-message-num=${getList.messageNum}, data-view-num=${getList.view}" onclick="deleteMessage(this)">삭제</button>
 									</div>
@@ -90,71 +74,111 @@
 						</section>
 					</div>
 				</div>
-
-
-
 			</div>
-			<div class="content-body-right">
-				<div class="content-body-right-box">
-					<h1>작성</h1>
-					<div class="box-top">
-						<div class="user-title">
-							<h2>유저닉네임</h2>
-						</div>
-						<div class="user-content">
-							<input type="text">
-						</div>
-					</div>
-					<div class="box-bottom">
-						<div class="user-title">
-							<h2>내용</h2>
-						</div>
-						<div class="user-content">
-							<textarea name="" id="" cols="40" rows="15"></textarea>
-						</div>
-					</div>
-					<div class="box-post">
-						<button>전송</button>
+			
+<!-- 			<div class="content-body-right"> -->
+<!-- 				<div class="content-body-right-box"> -->
+<!-- 					<h1>작성</h1> -->
+<!-- 					<div class="box-top"> -->
+<!-- 						<div class="user-title"> -->
+<!-- 							<h2>유저닉네임</h2> -->
+<!-- 						</div> -->
+<!-- 						<div class="user-content"> -->
+<!-- 							<input type="text"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="box-bottom"> -->
+<!-- 						<div class="user-title"> -->
+<!-- 							<h2>내용</h2> -->
+<!-- 						</div> -->
+<!-- 						<div class="user-content"> -->
+<!-- 							<textarea name="" id="" cols="40" rows="15"></textarea> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="box-post"> -->
+<!-- 						<button>전송</button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="button-box"> -->
+<!-- 					<button>작성하기</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+				<div class="content-body-right">
+					<div class="content-body-right-box">
+						<div class="msg-top">
+							
+						</div>					
 					</div>
 				</div>
-				<div class="button-box">
-					<button>작성하기</button>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 	</div>
 	</div>
 
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 	<script type="text/javascript">
-		function deleteMessage(button){
-		    var messageNum = $(button).data('message-num');
-		    var viewNum = $(button).data('view-num');
-		    
-			var data = {
-					'messageNum': messageNum,
-					'view': viewNum
-			}
-			console.log(data);
-			$.ajax({
-			url : '/hello/message/delete',
-			type : 'delete',
+	
+	function readMessage(messageNum){
+		var data = {
+				'messageNum': messageNum,
+		}
+		
+		console.log(data);
+		
+		$.ajax({
+			url : '/hello/message/read',
+			type : 'POST',
 			data : data,
 			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 			success : function(result){
-				if(result == "success"){
-				location.reload();
-				}
+				
+				var str = "";
+				
+				$.each(arr, function(idx,message){
+					console.log(message);
+					str += ' <div>' + message.title + message.content + member.nickname + ' </div> ';
+					
+				})
+				
+				$(".msg-top").html(str);
 			}
 			});
+		}		
+	
+	
+	
+	function deleteMessage(button){
+	    var messageNum = $(button).data('message-num');
+	    var viewNum = $(button).data('view-num');
+		    
+		var data = {
+				'messageNum': messageNum,
+				'view': viewNum
 		}
+			
+		console.log(data);
+			
+		$.ajax({
+		url : '/hello/message/delete',
+		type : 'delete',
+		data : data,
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		success : function(result){
+			if(result == "success"){
+			location.reload();
+			}
+		}
+		});
+	}
+		
+
 		
 	</script>
+	
 
 
 </body>
-
-
-
 </html>

@@ -181,7 +181,7 @@ public class MemberServiceImpl implements MemberService {
 	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(read) */
 	public List<MemberDTO> getMsgGetListAsGiver(String id) {
 		
-		List<Member> result = repository.getMsgGetterInfoByGiverMemNum(id);
+		List<Member> result = repository.getMemInfoByGiverId(id);
 		List<MemberDTO> list = new ArrayList<>();
 		
 		for(Member member : result) {

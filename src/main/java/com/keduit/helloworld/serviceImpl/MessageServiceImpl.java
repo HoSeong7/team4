@@ -28,11 +28,12 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	/** 쪽지 등록(create) */
-	public Long register(MessageDTO dto) {
+	public Long register(MessageDTO dto, Long memberGet, Long memberGive, Long boardCommentNum) {
 
 		log.info("Message ServiceImpl register");
 
-		Message entity = messageDtoToEntity(dto);
+		Message entity = messageDtoToEntity(dto, memberGet, memberGive,boardCommentNum);
+		
 		messageRepository.save(entity);
 
 		return entity.getMessageNum();
@@ -121,5 +122,5 @@ public class MessageServiceImpl implements MessageService {
     public Page<MessageDTO> getMessages(PageRequest messagePageRequest) {
         return null;
     }
-
+    
 }

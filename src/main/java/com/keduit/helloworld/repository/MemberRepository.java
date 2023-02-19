@@ -63,17 +63,17 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	List<Member> getMemNumAsSeller(Long num);
 
 	//쪽지 리스트
-	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
 	@Query(value = "select * from member m "
 	 		+ "join message ms on ms.member_give = m.member_num "
 	 		+ "where m.id = :id and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
-	List<Member> getMsgGetterInfoByGiverMemNum(String id);
+	/** 쪽지 보낸사람 아이디로, 회원 정보 가져오기(read, 보낸사람 기준) */
+	List<Member> getMemInfoByGiverId(String id);
 	
-	/** 쪽지 받은사람 회원번호로, 보낸사람 정보 가져오기(read, 받은사람 기준) */
 	@Query(value = "select * from member m "
 	 		+ "join message ms on ms.member_get = m.member_num "
 	 		+ "where m.id = :id and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
-	List<Member> getMsgGetterInfoByGetterMemNum(String id);	 
+	/** 쪽지 받은사람 아이디로, 회원 정보 가져오기(read, 받은사람 기준) */
+	List<Member> getMemInfoByGetterId(String id);	 
 
 	@Query(value = "select * from member m "
 	 		+ "join message ms on ms.member_get = m.member_num "
