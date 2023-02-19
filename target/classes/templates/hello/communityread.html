@@ -103,6 +103,10 @@
             </div>
         </div>
     </div>
+    <div>
+    	<button class="blikesBtnOpen" >좋아요</button>
+    	<button class="blikesBtnCancel" >좋아요</button>
+    </div>
     <hr>
     <div class="content-comments">
         <div class="box-top">
@@ -114,9 +118,9 @@
             
             <!-- list 이동 버튼 -->
             <div class="box-button">
-                <div><button>이전</button></div>
+                <div><button type="button" class="boardprevBtn">이전</button></div>
                 <div><button type="button" class="listBtn">목록</button></div>
-                <div><button>다음</button></div>
+                <div><button type="button" class="boarNextBtn">다음</button></div>
             </div>
         </div>
         
@@ -165,6 +169,9 @@
 <script th:inline="javascript">
 $(document).ready(function(){
 	
+	$(".blikesBtnCancel").hide();
+	
+	
 	const boardNum = [[${dto.boardNum}]];
 	
 	
@@ -178,7 +185,7 @@ $(document).ready(function(){
 				str += ' <div class="box-write-top"> ';
 				str += ' <div class="box-left"> ';
 				str += ' <div class="userimg"><img src="/img/userimg.png" alt="" width="40px" height="40px"></div> ';
-				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> </div></div></div> ';
+				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small>  </div></div></div> ';
 				str += ' <div class="box-write-bottom"> ';
 				str += ' <div class="comment-box">'+ comment.commentContent +'</div></div> ';
 				str += ' <div class="box-button"></div> ';
@@ -236,6 +243,28 @@ $(document).ready(function(){
 				}); // ajax 끝
 			}); //commentSaveBnt 끝
 			
+		    function displayTime(timeValue){
+		        var today = new Date(); // 현재 시간
+		        var gap = today.getTime() - timeValue;
+		        var dateObj = new Date(timeValue);
+		        var str = "";
+		        
+		        if(gap<(1000*60*60*24)){
+		            var hh = dateObj.getHours();
+		            var mi = dateObj.getMinutes();
+		            var ss = dateObj.getSeconds();
+		            
+		            return [ (hh>9?'':'0')+hh, ':',(mi>9?'':'0')+mi ,':',(ss>9?'':'0')+ss].join('');
+
+		        }else{
+		            var yy = dateObj.getFullYear();
+		            var mm = dateObj.getMonth()+1;
+		            var dd = dateObj.getDate();
+		            
+		            return [yy, '/', (mm>9?'':'0')+mm, '/',
+		                (dd>9?'':'0')+dd].join('');
+		        }
+		    }
 			
 			
 			

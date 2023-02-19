@@ -28,7 +28,7 @@ public class MemberInsertTest2 {
 			Member member = Member.builder().id(i+"a")
 					.name(i+"이름")
 					.pw(passwordEncoder.encode("1111"))
-					.nickname(i+"email")
+					.nickname(i+" 닉네임")
 					.email(i + "@abc.com")
 					.purview(false)
 					.build();

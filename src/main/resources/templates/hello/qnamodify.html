@@ -36,12 +36,12 @@
             <h1>게시물 수정</h1>
     	</div>
     </div>
-    <form th:action="@{/hello/communitymodify}" th:method="POST" class="content-body">
+    <form th:action="@{/hello/qnamodify}" th:method="POST" class="content-body">
     	<input type="hidden" name="page" th:value="${requestDTO.page}">
 		<input type="hidden" name="type" th:value="${requestDTO.type}">
 		<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
     
-        <input type="hidden" name="boardcase" value="1">
+        <input type="hidden" name="boardcase" value="3">
         <input type="hidden" name="memberNum" th:value="${member.memberNum}">
         <input type="hidden" name="boardNum" th:value="${dto.boardNum}">
     
@@ -94,7 +94,7 @@
 				}
 				
 				actionForm
-					.attr("action", "/hello/communityremove")
+					.attr("action", "/hello/qnaremove")
 					.attr("method", "post");
 				actionForm.submit();
 			});
@@ -106,7 +106,7 @@
 				}
 				
 				actionForm
-					.attr("action", "/hello/communitymodify")
+					.attr("action", "/hello/qnamodify")
 					.attr("method", "post");
 				actionForm.submit();
 			});
@@ -120,7 +120,7 @@
 				actionForm.append(pageInfo);
 				actionForm.append(type);
 				actionForm.append(keyword);
-				actionForm.attr("action", "/hello/communitylist")
+				actionForm.attr("action", "/hello/qnalist")
 							.attr("method", "GET");
 				
 				actionForm.submit();

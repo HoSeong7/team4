@@ -34,6 +34,7 @@ public class CommentDTO {
 	/** 좋아요 */
 	private Long clikes;
 	
+	/** member테이블과 fk */
 	private Long commenterNum;
 	
 	/** member 아이디*/

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
     <link rel="stylesheet" href="/css/communitylist.css">
+    <script th:src="@{/js/jquery/jquery.min.js}"></script>
 
 </head>
 
@@ -98,7 +99,8 @@
                             <!-- 조회수 -->
                             <div class="hits">[[${dto.views}]] 회</div>
                             <!-- 등록일 -->
-                            <div class="content-time">5시간전</div>
+                            <input type="hidden" class="content-time" th:value="${#temporals.format(dto.regdate, 'yyyy/MM/dd')}">
+                            <div class="updateDate">[[${#temporals.format(dto.regdate, 'yyyy/MM/dd')}]]</div>
                         </div>
                         <div class="box-middle">
                         	<!-- title -->
@@ -164,10 +166,15 @@
 				)}">다음</a>
 			</li>			
 		</ul>
+
+		
+		
 		</div>
 
         
 
 </body>
+
+
 
 </html>

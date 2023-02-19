@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -88,6 +89,19 @@ public class BoardRepositoryTests {
 		
 		
 		System.out.println(result);
+		
+	}
+	
+	
+	@Test
+	public void test2() {
+		String str =  "board_num";
+		Integer num = 1 ; 
+
+		List<Board> list = boardRepository.temp(str,num);
+		
+		System.out.println(list);
+		
 		
 	}
 

@@ -54,7 +54,12 @@
     <div class="content-body">
         <div th:each="dto : ${result.dtoList}" class="board">
             <div class="board-top">
-                <div class="board-title"><a href="/hello/indexqnaread">
+                <div class="board-title">
+                <a th:href="@{/hello/qnaread(boardNum=${dto.boardNum},
+                               page=${result.page},
+                               type=${pageRequestDTO.type},
+							   keyword=${pageRequestDTO.keyword}
+                               )}">[[${dto.title}]]
                         <h2>확인가능</h2>
                     </a></div>
                 <div class="board-view">[[${dto.views}]] 회</div>
@@ -71,21 +76,35 @@
         
         
         <div class="page_wrap">
-            <div class="page_nation">
-                <a class="arrow prev" href="#"></a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">7</a>
-                <a href="#">8</a>
-                <a href="#">9</a>
-                <a href="#">10</a>
-                <a class="arrow next" href="#"></a>
-            </div>
-        </div>
+		<ul class=" page_nation">
+			<li class="arrow prev" th:if="${result.prev}">
+				<a class="page-link" 
+					th:href="@{/hello/qnalist(page=${result.start-1},
+									type=${pageRequestDTO.type},
+									keyword=${pageRequestDTO.keyword}
+					)}" tabindex="-1">이전</a>
+			</li>
+			<li th:class="'page-item ' "
+			th:each="page: ${result.pageList}"><a th:class="'page-link ' + ${result.page == page?'active':''}" 
+				th:href="@{/hello/qnalist(page=${page},
+									type=${pageRequestDTO.type},
+									keyword=${pageRequestDTO.keyword}
+				)}">[[${page}]]</a>
+				
+				
+			
+			
+			<li class="page-item" th:if="${result.next}">
+				<a class="page-link" 
+				th:href="@{/hello/qnalist(page=${result.end},
+									type=${pageRequestDTO.type},
+									keyword=${pageRequestDTO.keyword}
+				)}">다음</a>
+			</li>			
+		</ul>
+		</div>
+        
+        
     </div>
 </body>
 

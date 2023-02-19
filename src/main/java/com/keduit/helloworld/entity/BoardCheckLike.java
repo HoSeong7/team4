@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,21 +18,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
-public class CheckLike {
+public class BoardCheckLike {
 
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	/** 좋아요 확인 고유넘버 */
-	private Long checklikeId;
-	
-	@Column(nullable = false)
-	/** 좋아요 확인 좋아요 누른 댓글 */
-	private Long commentId;
-	
-	@ColumnDefault("0")
-	@Column(nullable = false)
-	/** 좋아요 확인 좋아요 누른 여부 */
-	private Long likebool;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /** 좋아요 확인 고유넘버 */
+    private Long checklikeId;
+
+    @Column(nullable = false)
+    /** 좋아요 확인 좋아요 누른 댓글 */
+    private Long boardNum;
+
+    @Column(nullable = false)
+    /** 좋아요 누른 사람의 pk*/
+    private Long memberNum;
 
 }
