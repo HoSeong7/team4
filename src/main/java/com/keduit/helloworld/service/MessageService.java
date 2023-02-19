@@ -2,6 +2,7 @@ package com.keduit.helloworld.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.MessageDTO;
@@ -14,7 +15,13 @@ import org.springframework.data.domain.PageRequest;
 
 public interface MessageService {
 
-    Page<MessageDTO> getMessages(PageRequest messagePageRequest);
+	//승민
+	/** 관리자용 쪽지 페이징 처리 */
+	Page<MessageDTO> getMessages(Pageable pageable);
+	Page<MessageDTO> getKeywordMessages(String select,String keyword,Pageable pageable);
+
+	//승민 끝
+
 	/** 쪽지 등록(create) */
 	Long register(MessageDTO dto);
 

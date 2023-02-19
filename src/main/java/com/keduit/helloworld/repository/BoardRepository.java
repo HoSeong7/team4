@@ -2,6 +2,8 @@ package com.keduit.helloworld.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +25,16 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 	@Query(value = "select * from board b "
 				  + "join member m on m.member_num = b.member_num "
 				  + "where m.id = :id order by b.board_num desc", nativeQuery=true)
-	List<Board> getMyBoardList(String id); 
+	List<Board> getMyBoardList(String id);
+	
+	//승민
+
+	@Query(value = "SELECT * FROM board WHERE title = :str", nativeQuery = true)
+	Page<Board> findByTitle(String str, Pageable pageable);
+
+	@Query(value = "SELECT * FROM board WHERE member_num = :str", nativeQuery = true)
+	Page<Board> findByMemberNum(String str, Pageable pageable);
+
+	//승민 끝
+
 }

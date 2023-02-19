@@ -2,6 +2,9 @@ package com.keduit.helloworld.repository;
 
 import java.util.List;
 
+import com.keduit.helloworld.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -29,6 +32,12 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 				 + "left outer join member m on m.member_num = b.member_num "
 				 + "where m.member_num = :id order by c.board_comment_Num desc", nativeQuery = true)
 	List<Comment> getCommentById(String id);
+
+	//승민
+	@Query(value = "SELECT * FROM message WHERE commenter_num = :str1", nativeQuery = true)
+	Page<Comment> findByCommenterNum(String str1, Pageable pageable);
+	
+	//승민 끝
 
 
 }

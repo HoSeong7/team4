@@ -3,6 +3,7 @@ package com.keduit.helloworld.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.keduit.helloworld.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -51,5 +52,11 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 //			+ "where ms.member_give = :num", nativeQuery = true)
 //	/** 쪽지 삭제(delete, 보낸사람 기준) */
 //	void deleteMsgAsGiver(Long num);
+
+	//승민
+	@Query(value = "SELECT * FROM message WHERE member_give = :str1 and member_get = :str2", nativeQuery = true)
+	List<Board> findByNickname(String str1, String str2);
+	
+	//승민 끝
 
 }

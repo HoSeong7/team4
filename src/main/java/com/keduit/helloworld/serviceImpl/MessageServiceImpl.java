@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.MessageDTO;
@@ -21,10 +22,7 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 @Log4j2
 public class MessageServiceImpl implements MessageService {
-    @Override
-    public Page<MessageDTO> getMessages(PageRequest messagePageRequest) {
-        return null;
-    }
+
 
 	private final MessageRepository messageRepository;
 //	private final Message message;
@@ -126,6 +124,18 @@ public class MessageServiceImpl implements MessageService {
 //	public void removeAsGiver(Long memberGive) {
 //		messageRepository.deleteMsgAsGiver(memberGive);
 //	}
+	// 승민
+	@Override
+	public Page<MessageDTO> getMessages(Pageable pageable) {
+
+		return messageRepository.findAll(pageable).map(message -> MessageEntityToDto(message));
+	}
+
+	@Override
+	public Page<MessageDTO> getKeywordMessages(String select,String keyword, Pageable pageable) {
+		return null;
+	}
+	//승민 끝
 
 
 }

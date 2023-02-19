@@ -9,6 +9,7 @@ import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
 
@@ -75,6 +76,24 @@ public interface BoardService {
 	public void updateViews(Long boardNum, BoardDTO boardDTO);
 	List<Board> getMyBoardList(String id);
 
+	// 승민
+	Page<BoardDTO> getBoards(Pageable pageable);
+	Page<BoardDTO> getKeywordBoards(String select,String keyword,Pageable pageable);
 
-	Page<BoardDTO> getBoards(PageRequest boardPageRequest);
+	/** 관리자용 BoardDTO 반환 */
+	default BoardDTO boardETD(Board entity) {
+
+		BoardDTO boardDTO = BoardDTO.builder()
+				.boardNum(entity.getBoardNum())
+				.title(entity.getTitle())
+				.blikes(entity.getBlikes())
+				.regdate(entity.getRegDate())
+				.updatedate(entity.getUpdateDate())
+				.memberNum(entity.getMemberNum())
+				.build();
+
+		return boardDTO;
+	}
+
+	//승민 끝
 }

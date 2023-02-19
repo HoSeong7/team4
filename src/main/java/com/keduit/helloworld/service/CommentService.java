@@ -13,10 +13,28 @@ import java.util.List;
 import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.Member;
+import org.springframework.data.domain.Pageable;
 
 public interface CommentService {
+	
+	//승민
+	Page<CommentDTO> getComments(Pageable pageable);
+	Page<CommentDTO> getKeywordComments(String select,String keyword, Pageable pageable);
 
-    Page<CommentDTO> getComments(PageRequest commentPageRequest);
+	/** 관리자용 댓글 commentETD */
+	default CommentDTO commentETD(Comment comment) {
+		CommentDTO replyDTO = CommentDTO.builder()
+				.boardCommentNum(comment.getBoardCommentNum())
+				.boardNum(comment.getBoardNum())
+				.commentContent(comment.getCommentContent())
+				.clikes(comment.getClikes())
+				.commenterNum(comment.getCommenterNum())
+				.regdate(comment.getRegDate())
+				.updatedate(comment.getUpdateDate())
+				.build();
+		return replyDTO;
+	}
+	//승민 끝
 
 	List<Comment> getCommentList(String id);
 
