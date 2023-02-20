@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인페이지</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/sign-up.css">
+
+</head>
+
+<body>
+    <div class="innerHeader">
+        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="apple" width="30px"
+                    height="30px"></a></h1>
+        <!--왼쪽바 공통-->
+        <nav class="mainmenu-left">
+            <ul class="navbar">
+                <li><a id="open-point">포인트</a></li>
+                <li><a href="#"
+                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
+                </li>
+            </ul>
+        </nav>
+        <!--오른쪽바 공통-->
+        <nav class="mainmenu-right">
+            <ul class="navbar">
+                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
+                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
+                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
+                <li><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+                <li><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!--중간 body-content-->
+    <div class="body-content">
+        <div class="content-box1">
+        </div>
+        <div class="content-box2"></div>
+        <div class="content-box3"></div>
+        <div class="content-box4"></div>
+    </div>
+        <!-- <a id="open-login">로그인</a> -->
+    	 <!-- Modal -->
+   <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>회원 가입</h2>
+            </div>
+            <div class="modal-body">
+                <form name="signup-form" id="signup-form" th:action="@{/hello/register}" method="post">
+                <input type="hidden" name="purview" value="false">
+                    <div class="form-group">
+                        <label for="user_id">
+                            아이디
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="id" id="user_nick" />
+                            <button>중복 확인</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_pw">
+                            비밀번호
+                        </label>
+                        <div class="input-box">
+                            <input type="password" name="pw" id="user_pw" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_pw">
+                            비밀번호 확인
+                        </label>
+                        <div class="input-box">
+                            <input type="password" name="pw_re" id="user_pw_re" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_name">
+                            이름
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="name" id="user_name" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="user_name">
+                            닉네임
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="nickname" id="user_nick" />
+                            <button>중복 확인</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="email">
+                            이메일
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="email" id="email" />
+                        </div>
+                    </div>
+                    <br>
+         <!--            <div class="form-group">
+                        <label for="tel">
+                            연락처
+                        </label>
+                        <div class="input-box">
+                            <input type="text" name="tel" id="tel" />
+                        </div>
+                    </div> -->
+                    <br>
+                    <div class="form-group">
+                        <div class="form-button">
+                            <button type="submit">가입하기</button>
+                            <button type="reset">다시 작성</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--메인바 공통-->
+    <div class="bar">
+        <div class="mainbar">
+            <ul>
+                <li class="media"><a href="/hello/communitylist"><img src="/img/1board.png" alt="" width="48px"
+                            height="48px"></a></li>
+                <li class="media"><a href="/hello/qnalist"><img src="/img/2Q&A.png" alt="" width="48px"
+                            height="48px"></a>
+                </li>
+                <li class="media"><a href="/hello/noticelist"><img src="/img/4notice.png" alt="" width="48px"
+                            height="48px"></a></li>
+                <li class="media"><a href="/hello/myspace"><img src="/img/3my.png" alt="" width="48px"
+                            height="48px"></a></li>
+                <li><a href="/hello/point"><img src="/img/5point.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="/hello/message"><img src="/img/6message.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""
+                        onclick="window.open('/icon.html/icon7.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                            src="/img/7.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""
+                        onclick="window.open('/icon.html/icon8.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                            src="/img/8.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""
+                        onclick="window.open('/icon.html/icon9.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                            src="/img/9.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/10.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""
+                        onclick="window.open('/icon.html/icon11.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                            src="/img/11.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""
+                        onclick="window.open('/icon.html/icon12.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                            src="/img/12.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/13.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/14.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/15.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/16.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/17.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/18.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/19.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><img src="/img/20.png" alt="" width="48px" height="48px"></a></li>
+                <li class="media"><a href=""><img src="/img/21.png" alt="" width="48px" height="48px"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="modal_call">
+
+    </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close");
+        
+        $(".close").on("click", function(){
+        	$(".mymodal").hide();
+        });
+        
+ //       btn.onclick = function () {
+ //           modal.style.display = "block";
+  //      }
+   //     span.onclick = function () {
+            //modal.style.display = "none";
+           //$(".mymodal").hide(); 
+   //     }
+  //      window.onclick = function (event) {
+   //         if (event.target == modal) {
+  //              modal.style.display = "none";
+ //           }
+ //       }
+    </script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+</body>
+
+</html>

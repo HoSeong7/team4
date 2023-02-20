@@ -1,10 +1,14 @@
 package com.keduit.helloworld.service;
 
+import java.util.List;
+
 import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface BoardService {
 
@@ -28,6 +32,7 @@ public interface BoardService {
 
 	default Board dtoToEntity(BoardDTO dto) {
 		
+
 		Board board = Board.builder()
 							.boardNum(dto.getBoardNum())
 							.title(dto.getTitle())
@@ -46,6 +51,7 @@ public interface BoardService {
 	
 	default BoardDTO entityToDTO(Board entity, Member member , Long cnt) {
 		
+
 		BoardDTO boardDTO = BoardDTO.builder()
 							.boardNum(entity.getBoardNum())
 							.title(entity.getTitle())
@@ -66,5 +72,9 @@ public interface BoardService {
 		return boardDTO;
 	}
 
+	public void updateViews(Long boardNum, BoardDTO boardDTO);
+	List<Board> getMyBoardList(String id);
 
+
+	Page<BoardDTO> getBoards(PageRequest boardPageRequest);
 }

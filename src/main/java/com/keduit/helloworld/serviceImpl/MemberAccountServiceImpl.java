@@ -1,5 +1,6 @@
 package com.keduit.helloworld.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -35,19 +36,29 @@ public class MemberAccountServiceImpl implements MemberAccountService {
 	
 	@Override
 	/** 회원간 거래내역 리스트 조회(read, 구매자=질문자 기준) */
-	public List<MemberAccount> getListAsBuyer(Long buyerNum) {
+	public List<MemberAccountDTO> getListAsBuyer(Long buyerNum) {
 		
 		List<MemberAccount> result = memberAccountRepository.getPayListAsBuyer(buyerNum);
-		return result;
+		List<MemberAccountDTO> list = new ArrayList<>();
+		
+		for(MemberAccount ma : result) {
+			MemberAccountDTO memberAccountDTO = memberAccountEntityToDto(ma);
+			list.add(memberAccountDTO);
+		}
+		return list;
 	}
 	
 	@Override
 	/** 회원간 거래내역 리스트 조회(read, 판매자=답변자 기준) */
-	public List<MemberAccount> getListAsSeller(Long sellerNum) {
+	public List<MemberAccountDTO> getListAsSeller(Long sellerNum) {
 		
 		List<MemberAccount> result = memberAccountRepository.getPayListAsSeller(sellerNum);
-		return result;
+		List<MemberAccountDTO> list = new ArrayList<>();
+		
+		for(MemberAccount ma : result) {
+			MemberAccountDTO memberAccountDTO = memberAccountEntityToDto(ma);
+			list.add(memberAccountDTO);
+		}
+		return list;
 	}
-
-
 }

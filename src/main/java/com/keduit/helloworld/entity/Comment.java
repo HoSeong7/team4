@@ -29,14 +29,14 @@ public class Comment extends BaseEntity{
 	/** comment 고유번호 pk */
 	private Long boardCommentNum;
 	
-	/** member 테이블과 fk  */
-	private Long boardNum;    // 맴버 테이블과 fk
+	/** board 테이블과 fk  */
+	private Long boardNum;    //  fk
 	
 	@Column(length = 1000, nullable = false)
 	/** comment 내용 */
 	private String commentContent;  
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 100)
 	/** comment 미리보기 사진 */
 	private String viewpicture;
 	
@@ -48,9 +48,12 @@ public class Comment extends BaseEntity{
 	/** comment 사진 */
 	private String url;
 
-	/** comment 사진 */
+	/** comment 추천수 */
 	@ColumnDefault("0")
 	private Long clikes;
+	
+	/** member테이블과 fk */
+	private Long commenterNum;	// 맴버테이블과 fk
 
 
 	

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -31,8 +31,14 @@
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
                 <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login" onclick="call_login()">로그인</a></li>
-                <li><a id="open-signup" onclick="call_sign_up()">회원가입</a></li>
+                
+                
+               <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+               <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">로그인</a></li>
+             <!-- sec:authentication="principal.id -->
+             	
+                <li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
+                <li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>  
             </ul>
         </nav>
     </div>
@@ -91,39 +97,7 @@
     <div id="modal_call">
 
     </div>
-    <script>
-
-        function call_login() {
-            $.ajax({
-                type: "get",
-                url: "/modal/log-in",
-                dataType: "text",
-                success: function (data) {
-                    $("#modal_call").html('');
-                    var str = data.split('<body>');
-                    var str2 = str[1].split('</body>');
-                    console.log(str2[0]);
-                    $("#modal_call").html(str2[0]);
-                }
-            });
-        }
-
-        function call_sign_up() {
-            $.ajax({
-                type: "get",
-                url: "/modal/sign-up",
-                dataType: "text",
-                success: function (data) {
-                    $("#modal_call").html('');
-                    var str = data.split('<body>');
-                    var str2 = str[1].split('</body>');
-                    console.log(str2[0]);
-                    $("#modal_call").html(str2[0]);
-                }
-            });
-        }
-
-    </script>
+ 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <!-- <script type="text/javascript" src="/js/ajax/login.js"></script> -->
 </body>

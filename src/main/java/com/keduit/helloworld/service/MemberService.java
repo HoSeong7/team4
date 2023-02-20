@@ -1,18 +1,32 @@
 package com.keduit.helloworld.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface MemberService {
 	
+
+
 	/** member 회원가입*/
 	Long register(MemberDTO dto);	
 	
 	/** member 읽기 */
 	MemberDTO read(Long memberNum);
 	
+	/** id로 전체 읽기*/
+	Member idRead(String id);
+
 	/** member 삭제 */
 	void remove(Long memberNum);
 	
@@ -41,6 +55,7 @@ public interface MemberService {
 	/** memberDTO에 있는 정보를 memberEntity로 옮기기*/
 	default Member memberDtoToMemberEntity(MemberDTO dto) {
 		
+
 		Member entity = Member.builder().memberNum(dto.getMemberNum())
 										.id(dto.getId())
 										.pw(dto.getPw())
@@ -59,4 +74,34 @@ public interface MemberService {
 	
 	/** member 정보 검색하기 */
 	BooleanBuilder getSearch(PageRequestDTO requestDTO);
+
+
+	Page<MemberDTO> getMembers(PageRequest memberPageRequest);
+
+	/** 내가 팔로한 사람들 */
+	List<Member> getMemberMarker(Long memberNum);
+
+	/** 나를 팔로한 사람들 */
+	List<Member> getMemberMarked(Long memberNum);
+
+	//호성  02.17
+	
+	/** 아이디, 닉네임 비교용으로 생성 */
+	List<Member> memberAll();
+
+	
+	//end 호성
+	
+//	Map<String, Object> checkLoginAvailable(Map<String, Object> param);
+
+	
+	
+//효영
+	
+	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(read) */
+	List<MemberDTO> getMsgGetListAsGiver(String id);
+	
+	/** 조회하는사람 아이디로, 회원번호 가져오기(read) */
+	MemberDTO getMemNum(String id);
+	
 }

@@ -11,7 +11,7 @@ public interface PointAccountService {
 	Long register(PointAccountDTO dto); 
 	
 	/** 포인트 거래내역 리스트 조회(read) */
-	List<PointAccount>read(Long memberNum);
+	List<PointAccountDTO>read(Long memberNum);
 	
 	/** DTO에 있는 정보를 Entity로 옮기기 */
 	default PointAccount pointAccountDtoToEntity(PointAccountDTO dto) {

@@ -1,7 +1,6 @@
 package com.keduit.helloworld.repositoryTests;
 
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -25,8 +24,8 @@ public class MemberTests {
          Member entity = Member.builder()
                           .id("user" + i)
                           .pw("1111")
-                          .name(i+"이름")
-                          .nickname(i+"별명")
+                          .name("이름" + i)
+                          .nickname("별명" + i)
                           .introduce("저는 " + i + "입니다 !!")
                           .email(i+"@abc.com")
                           .build();
