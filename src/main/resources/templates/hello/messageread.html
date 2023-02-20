@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쪽지함</title>
+<link rel="stylesheet" href="/css/message.css">
+</head>
+
+<body>
+	<div class="innerHeader">
+		<h1 class="logo">
+			<a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"></a>
+		</h1>
+		<!--왼쪽바 공통-->
+		<nav class="mainmenu-left">
+			<ul class="navbar">
+				<li><a id="open-point">포인트</a></li>
+				<li><a href="#" onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a></li>
+			</ul>
+		</nav>
+		<!--오른쪽바 공통-->
+		<nav class="mainmenu-right">
+			<ul class="navbar">
+				<li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
+				<li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
+				<li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
+				<li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
+				<li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>
+				<li sec:authorize="isAuthenticated" style="color: white"><a sec:authentication="name" th:href="@{/hello/myspace}">사용자이름</a></li>
+				<li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="content-body">
+		<div class="content-header-box">
+			<div class="content-body-left">
+				<div class="content-body-left-header">
+					<h1>쪽지</h1>
+					<div class="main">
+						<input id="tab1" type="radio" name="tabs" checked>
+						<!--디폴트 메뉴-->
+						<label for="tab1" id="post-label">보낸 내역</label> 
+						<input id="tab2" type="radio" name="tabs"> 
+						<label for="tab2">받은 내역</label>
+						<section id="content1">
+							<div class="content-body-left-body" th:each="giveList:${giveMsg}">
+								<div class="content-box">
+									<div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
+									<div class="content-username">[[${giveList.nickname}]]</div>
+									<div class="content-time">[[${#temporals.format(giveList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div> <!-- [[${giveList.regDate}]] -->
+									<div class="content-delete">
+										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<!--세선 2-->
+						<section id="content2">
+							<div class="content-body-left-body" th:each="getList:${getMsg}">
+								<div class="content-box">
+									<div class="content-userimg"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"></div>
+									<div class="content-username">[[${getList.nickname}]]</div>
+									<div class="content-time">[[${#temporals.format(getList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div> <!-- [[${getList.regDate}]] -->
+									<div class="content-delete">
+										<button th:attr="data-message-num=${getList.messageNum}, data-view-num=${getList.view}" onclick="deleteMessage(this)">삭제</button>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+			
+			<div class="content-body-right">
+                <div class="content-body-right-box">
+                    <h1>확인</h1>
+                    <div class="box-top">
+                        <div class="user-title"><h2>유저닉네임</h2></div>
+                        <div class="user-content">vsdVasdv</div>
+                    </div>
+                    <div class="box-top">
+                        <div class="user-title"><h2>제목</h2></div>
+                        <div class="user-content">zdsvsdv</div>
+                    </div>
+                    <div class="box-bottom">
+                        <div class="user-title"><h2>내용</h2></div>
+                        <div class="user-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id atque dicta libero ut ea doloremque velit, sapiente minus magnam delectus nam, tempora, necessitatibus vitae ab deleniti impedit quibusdam est eaque?</div>
+                    </div>
+                </div>
+                <div class="button-box">
+                    <button onclick="location.href='message.html'">작성하기</button>
+                </div>
+            </div>
+            
+		</div>
+	</div>
+	
+
+
+</body>
+</html>

@@ -25,7 +25,7 @@ public interface MessageService {
 	List<MessageDTO> getListAsGiver(Long memberGive);
 
 	/** 쪽지 상세 조회(read) */
-	MessageDTO read(Long messageNum);
+	MessageDTO read(Long messageNum, Long memberNum);
 	
 	/** 받은 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +2, delete: 권한 3일때) */
 	void modifyViewAsGetter(Long messageNum, Long view); //

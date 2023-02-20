@@ -87,8 +87,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	/** 쪽지 받은사람 회원번호로, 보낸사람 정보 가져오기(read, 받은사람 기준) */
 	List<Member> getMemNicknameByGetter(Long num);
 	
-	
-	
 
 //성진
 

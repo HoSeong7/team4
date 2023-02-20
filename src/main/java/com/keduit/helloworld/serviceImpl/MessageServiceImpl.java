@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.Message;
@@ -74,11 +75,22 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Override
 	/** 쪽지 상세 조회(read) */
-	public MessageDTO read(Long messageNum) {
+	public MessageDTO read(Long messageNum, Long memberNum) {
 
 		Optional<Message> result = messageRepository.findById(messageNum);
-
-		return result.isPresent()? messageEntityToDto(result.get()) : null;
+		Optional<Member> memResult = null;
+		MessageDTO messageDTO = null;
+		
+		if(result.isPresent()) {
+			messageDTO = messageEntityToDto(result.get());
+			if(messageDTO.getMemberGet() == memberNum) {
+				memResult = memberRepository.findById(messageDTO.getMemberGive());
+			}else {
+				memResult = memberRepository.findById(messageDTO.getMemberGet());
+			}
+			messageDTO.setNickname(memResult.get().getNickname());
+		}
+		return messageDTO;
 	}
 	
 	@Override
