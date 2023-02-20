@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
+import com.keduit.helloworld.dto.UploadResultDTO;
 import com.keduit.helloworld.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

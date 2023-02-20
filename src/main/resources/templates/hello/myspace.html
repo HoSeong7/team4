@@ -40,7 +40,11 @@
     <nav class="subnavbar">
         <div class="box">
             <ul>
-                <li class="user-img"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"></li>
+                <li class="user-img" th:each="dto : ${member.url}">
+                <!-- <img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"> -->
+                	 <img
+             			 th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                </li>
                 <li class="text">
                 	<img th:if="${member.exvalue} < 100" src="/img/a1.png">
                 	<img th:if="${member.exvalue} >= 100 and ${member.exvalue} < 200" src="/img/a2.png">
@@ -239,7 +243,7 @@
                         </label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input files" 
-	               					id="fileInput"/>
+	               					id="url"/>
                         </div>
                     </div>
                     <input type="hidden" name="memberNum" th:value="${member.memberNum}">
@@ -323,9 +327,9 @@
         	  
         	  var formData = new FormData();
 
-              var inputFile = $(this);
+              var url = $(this);
 
-              var files = inputFile[0].files;
+              var files = url[0].files;
 
               var appended = false;
 

@@ -62,7 +62,8 @@
                         </label>
                         <div class="input-box">                   
                             <input type="text" name="id" class="idtest" id="user_id" />                
-                            <button type='button' id="idChk" onclick="fn_idChk();">중복확인</button>                      
+                            <button type='button' id="idChk" onclick="fn_idChk();">중복확인</button>
+                            <br><span id="confirmID"></span><br>                     
                         </div>
                     </div>
                     <br>
@@ -198,8 +199,12 @@
         success: function (result) {
             if(result == 1){
                 alert('아이디가 중복입니다.');
+	              /*   confirmID.style.color="#ff0000";
+	                confirmID.innerHTML = "중복 아이디입니다."; */
             }else{
                 alert('사용가능한 아이디 입니다.');
+	               /*  confirmID.style.color = "#0000ff";
+	                confirmID.innerHTML = "사용가능한 아이디입니다."; */
             }
         }
     })
