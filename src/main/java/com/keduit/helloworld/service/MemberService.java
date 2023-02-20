@@ -116,4 +116,7 @@ public interface MemberService {
 	/** 조회하는사람 아이디로, 회원번호 가져오기(read) */
 	MemberDTO getMemNum(String id);
 
+	/** 내 메시지를 받은 회원 가져오기 */
+	List<Member> getMemMessage(Long num);
+
 }

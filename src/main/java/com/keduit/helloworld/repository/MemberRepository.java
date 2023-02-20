@@ -87,6 +87,9 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	/** 쪽지 받은사람 회원번호로, 보낸사람 정보 가져오기(read, 받은사람 기준) */
 	List<Member> getMemNicknameByGetter(Long num);
 	
+	/** 내 메시지를 받은 회원 가져오기 */
+	@Query(value = "select * from member m left outer join message ms on ms.member_get = m.member_num where ms.member_give = :num", nativeQuery = true)
+	List<Member> getMemberMsg(Long num);
 
 //성진
 
@@ -112,6 +115,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 /** nick name 중복체크*/
 	 @Query(value="select count(*) from member m where m.nickname = :nickname ", nativeQuery=true)
 	int getNickCount(String nickname);
+
 
 	//호성 end
 

@@ -220,5 +220,12 @@ public class MemberServiceImpl implements MemberService {
 		return idChk;
 	}
 
+	/** 내 메시지를 받은 회원 가져오기 */
+	@Override
+	public List<Member> getMemMessage(Long num) {
+		List<Member> getMsg = repository.getMemberMsg(num);
+		return getMsg;
+	}
+
 	//end 호성
 }

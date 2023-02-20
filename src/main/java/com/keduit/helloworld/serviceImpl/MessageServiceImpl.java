@@ -68,6 +68,7 @@ public class MessageServiceImpl implements MessageService {
 		for (int i = 0; i < result.size(); i++) {
 			MessageDTO messageDto = messageEntityToDto(result.get(i));
 			messageDto.setNickname(mlist.get(i).getNickname());
+			messageDto.setMemUrl(mlist.get(i).getUrl());
 			list.add(messageDto);
 		}
 		return list;

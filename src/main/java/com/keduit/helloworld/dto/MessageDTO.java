@@ -43,6 +43,9 @@ public class MessageDTO {
 	/** 쪽지 사진 */
 	private String url;
 	
+	/** 멤버 프로필 사진 */
+	private String memUrl;
+	
 	/** 쪽지 등록날짜 */
 	protected LocalDateTime regDate;
 	

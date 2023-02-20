@@ -44,16 +44,29 @@ public class MessageController {
 	public void message(Authentication authentication, Model model) {
 		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		
+		/** 쪽지 상대 프로필사진 */
+		Member idnum =  memberService.idRead(userDetails.getUsername());
+
+		/** 내 메시지를 받은 회원 가져오기 */
+		List<Member> getMemMsg = memberService.getMemMessage(idnum.getMemberNum());
 
 		/** 조회하는사람 아이디로, 회원번호 가져오기 */
-		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보
+		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보 
+		
 		
 		/** 조회하는 사람 회원번호로, 쪽지 목록 가져오기 */ 
 		List<MessageDTO> messageGive = messageService.getListAsGiver(myMemDTO.getMemberNum()); //조회하는 사람이 발신자, 보낸쪽지 목록 가져옴
 		List<MessageDTO> messageGet = messageService.getListAsGetter(myMemDTO.getMemberNum()); //조회하는 사람이 수신자, 받은쪽지 목록 가져옴
 		
+		
 		model.addAttribute("giveMsg", messageGive); //보낸 쪽지 목록
 		model.addAttribute("getMsg", messageGet); //받은 쪽지 목록
+		model.addAttribute("member22",getMemMsg); //쪽지 상대 프로필사진
+		model.addAttribute("myInfo",myMemDTO); //내정보
+		System.out.println("getMemMsg" + getMemMsg.get(0));
+		System.out.println("getMemMsg" + getMemMsg.get(8));
+		
 	}
 	
 	@PostMapping("/message/read")
@@ -75,22 +88,27 @@ public class MessageController {
 	
 	@PostMapping("/message/register")
 	/** 쪽지 등록 = 전송 = 답장 */
-	public String register(MessageDTO dto, 
-			Authentication authentication, 
-			Long boardCommentNum, 
-			Long memberGive) {
+	public String register(@RequestParam HashMap<Object, Object> params, 
+			Authentication authentication) {
 		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		
-		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보
-		MemberDTO yourMemDTO = memberService.read(memberGive); //상대정보
+		Long messageNum = Long.parseLong(params.get("messageNum").toString());
+		String title = params.get("title").toString();
+		String content = params.get("content").toString();
 		
-		Long returnNum = messageService.register(dto, yourMemDTO.getMemberNum(), myMemDTO.getMemberNum(), boardCommentNum);
+		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보
+		MessageDTO messageDTO = messageService.read(messageNum, myMemDTO.getMemberNum()); //내 회원번호로, 메시지 정보 가져오기
+		
+//		MemberDTO yourMemDTO = memberService.read(memberGive); //상대정보
+		
+//		Long returnNum = messageService.register(dto, yourMemDTO.getMemberNum(), myMemDTO.getMemberNum(), boardCommentNum);
 		return "redirect:/hello/message";
 		
 	}
 	
 	@DeleteMapping("/message/delete")
+	/** 쪽지 삭제 */
 	public ResponseEntity<String> deleteMessage(@RequestParam HashMap<Object, Object> params, 
 			Authentication authentication) {
 		
