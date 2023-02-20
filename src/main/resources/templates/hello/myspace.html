@@ -40,18 +40,16 @@
     <nav class="subnavbar">
         <div class="box">
             <ul>
-                <li class="user-img" th:each="dto : ${member.url}">
-                <!-- <img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"> -->
-                	 <img
-             			 th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
-                </li>
+                 <li class="user-img">
+                 <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                	 <img th:if="${member.url != null}" th:src="'/hello/display?fileName='+${member.url}|" >
+                </li> 
                 <li class="text">
                 	<img th:if="${member.exvalue} < 100" src="/img/a1.png">
                 	<img th:if="${member.exvalue} >= 100 and ${member.exvalue} < 200" src="/img/a2.png">
                 	<img th:if="${member.exvalue} >= 200 and ${member.exvalue} < 300" src="/img/a3.png">
                 	<img th:if="${member.exvalue} >= 300 and ${member.exvalue} < 400" src="/img/a4.png">
                 	<img th:if="${member.exvalue} >= 400" src="/img/a5.png">
-                	
                 </li>
                 <li class="text">[[${member.name}]]님의 경험치는 [[${member.exvalue}]]점 입니다.</li>
                 <li class="star"><img src="/img/star.png" alt="" width="30px" height="30px"></li>
@@ -170,7 +168,7 @@
                 <h2>정보수정</h2>
             </div>
             <div class="modal-body">
-                <form name="signup-form" id="signup-form" th:action="@{/hello/modify}" method="post">
+                <form name="signup-form" id="signup-form" th:action="@{/hello/modify}" enctype="multipart/form-data" method="post" th:onsubmit="return OkSubmit();">
                     <div class="form-group">
                         <label for="user_id">
                             아이디
@@ -186,7 +184,7 @@
                             비밀번호
                         </label>
                         <div class="input-box">
-                            <input type="password" name="pw" />
+                            <input type="password" name="pw" id="pw" />
                         </div>
                     </div>
                     <br>
@@ -195,7 +193,7 @@
                             비밀번호 확인
                         </label>
                         <div class="input-box">
-                            <input type="password" name="pw_re" />
+                            <input type="password" name="pw_re" id="pw_re" />
                         </div>
                     </div>
                     <br>
@@ -242,10 +240,11 @@
                             사진넣기
                         </label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input files" 
-	               					id="url"/>
+                            <input type="file" name="uploadfile" multiple="multiple" 
+	               					id="url" value="${member.url}"/>
                         </div>
                     </div>
+                    <input type="hidden" value=0 id="test_1" name="test_1">
                     <input type="hidden" name="memberNum" th:value="${member.memberNum}">
                     <input type="hidden" name="point" th:value="${member.point}">
                     <input type="hidden" name="purview" th:value="${member.purview}">
@@ -299,82 +298,6 @@
 	});
   // 모달창 end
   
-  //사진 업로드 
-  
-  $(document).ready(function(e){
-    	  var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
-          var maxSize = 10485760; //10MB
-          
-          function checkExtension(fileName, fileSize){
-
-              if(fileSize >= maxSize){
-                  alert("파일 사이즈 초과");
-                  return false;
-              }
-
-              if(regex.test(fileName)){
-                  alert("해당 종류의 파일은 업로드할 수 없습니다.");
-                  return false;
-              }
-              
-              return true;
-          }
-  
- $(".custom-file-input").on("change", function() {
-        	  
-        	  var fileName = $(this).val().split("\\").pop();
-        	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        	  
-        	  var formData = new FormData();
-
-              var url = $(this);
-
-              var files = url[0].files;
-
-              var appended = false;
-
-              for (var i = 0; i < files.length; i++) {
-
-                  if(!checkExtension(files[i].name, files[i].size) ){
-                      return false;
-                  }
-
-                  console.log("=== files[i]===> "+files[i]);
-                  
-                  formData.append("uploadFiles", files[i]);
-                  appended = true;
-              }
-              
-              if (!appended) {return false;}
-
-              for (var value of formData.values()) {
-                  console.log(value);
-              }
-              
-       // ajax로 업로드 하기 
-       
-              $.ajax({
-                  url: '/uploadAjax',
-                  processData: false,
-                  contentType: false,
-                  data: formData,
-                  type: 'POST',
-                  dataType:'Json',
-                  success: function(result){
-                      console.log("success : " + result);
-                      showResult(result);
-                  },
-                  error: function(jqXHR, textStatus, errorThrown){
-                      console.log(textStatus);
-                  }
-              }); //$.ajax
-          });
-          
-      		  
-        	  });  // end event
-       
-  
-  // 사진업로드 and
   
 </script>
 <script type="text/javascript">
@@ -384,7 +307,6 @@
 	function fn_nickChk(){
 	    var nick = $("#user_nick").val();
 	    var onid = $("#onid").val();
-	    
 
 	    $.ajax({
 	    	url: '/hello/register/chk/'+nick,
@@ -395,14 +317,37 @@
 	        success: function (result) {
 	            if(onid == nick){
 	                alert('기존 닉네임은 사용가능합니다.');
+	                document.getElementById( 'test_1' ).value = 1;
 	            }else if(result == 0){
 	                alert('사용 가능한 닉네임입니다..');	            	
+	                document.getElementById( 'test_1' ).value = 1;
 	            }else{
-	                alert('닉네임이 중복입니다.');	            	
+	                alert('닉네임이 중복되었습니다.');	            	
+	                document.getElementById( 'test_1' ).value = 0;
 	            }
 	        }
 	    })
 		};
+		
+	//회원가입시 문제있나 확인하기 
+	
+	 function OkSubmit() {
+        var pw1 = document.getElementById( 'pw' ).value;
+        var pw2 = document.getElementById( 'pw_re' ).value;
+        var test = document.getElementById( 'test_1' ).value;
+        if ( pw1 != pw2 ) {
+          alert( '비밀번호가 일치하지 않습니다.' );
+          return false;
+        }else if(pw1 == ""){
+        	alert("비밀번호를 입력해주세요.");
+        	return false;
+        }else if(test == 0){
+        	alert("중복확인을 눌러주세요.");
+        	return false;
+        }
+        
+        
+      }
 
 	</script>
 

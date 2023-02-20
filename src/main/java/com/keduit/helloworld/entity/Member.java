@@ -81,8 +81,10 @@ public class Member extends BaseEntity{
 	@Builder.Default
 	private Set<MemberRole> roleset = new HashSet<>();
 	
+	//호성 23.02.20
+	
 	public void change(Long memberNum, String id, String pw, String name,String nickname
-			,String introduce,String email, LocalDateTime updateDate) {
+			,String introduce,String email, LocalDateTime updateDate, String url) {
 		this.memberNum = memberNum;
 		this.id=id;
 		this.pw= pw;
@@ -91,7 +93,10 @@ public class Member extends BaseEntity{
 		this.introduce = introduce;
 		this.email = email;
 		this.updateDate = updateDate;
+		this.url = url;
 	}
+	
+	//호성 end
 	
 	public void changePw(String pw) {
 		this.pw = pw;

@@ -68,6 +68,8 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	//호성 23.02.20
+	
 	/** 회원정보 받아서 수정 */
 	@Transactional
 	@Override
@@ -78,12 +80,14 @@ public class MemberServiceImpl implements MemberService {
 
 		if(member != null) {
 			member.change(dto.getMemberNum(), dto.getId(),passwordEncoder.encode(dto.getPw()), dto.getName()
-					, dto.getNickname(), dto.getIntroduce(), dto.getEmail(), dto.getUpdateDate());
+					, dto.getNickname(), dto.getIntroduce(), dto.getEmail(), dto.getUpdateDate(), dto.getUrl());
 
 		}
 
 		repository.save(member);
 	}
+	
+	//호성 end
 
 	@Override
 	public BooleanBuilder getSearch(PageRequestDTO requestDTO) {
