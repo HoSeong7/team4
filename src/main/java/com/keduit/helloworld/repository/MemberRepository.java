@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.keduit.helloworld.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long>{
-	
+
 //호성
-	
+
 //	/**맴버 PK하나로 하나 불러오기*/
 //	@Query(value = "select * from member where member_num= :num order by member_num", nativeQuery = true)
 //	String getMemberNum(Long num);
@@ -44,12 +44,12 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 @Query(value="select * from member m "
 	 		+ "where m.id = :id ",nativeQuery=true)
 	 Optional<Member> getMemberId(String id);
-	
-	
-	
-//효영	
-	 
-	//회원간 거래내역	
+
+
+
+//효영
+
+	//회원간 거래내역
 	@Query(value = "select * from member m "
 			+ "join member_account ma on ma.member_seller = m.member_num " 
 			+ "where ma.member_buyer = :num", nativeQuery = true)
@@ -68,19 +68,19 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 		+ "where m.id = :id and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
 	/** 쪽지 보낸사람 아이디로, 회원 정보 가져오기(read, 보낸사람 기준) */
 	List<Member> getMemInfoByGiverId(String id);
-	
+
 	@Query(value = "select * from member m "
 	 		+ "join message ms on ms.member_get = m.member_num "
 	 		+ "where m.id = :id and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
 	/** 쪽지 받은사람 아이디로, 회원 정보 가져오기(read, 받은사람 기준) */
-	List<Member> getMemInfoByGetterId(String id);	 
+	List<Member> getMemInfoByGetterId(String id);
 
 	@Query(value = "select * from member m "
 	 		+ "join message ms on ms.member_get = m.member_num "
 	 		+ "where ms.member_give = :num and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
 	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
 	List<Member> getMemNicknameByGiver(Long num);
-	
+
 	@Query(value = "select * from member m "
 			+ "join message ms on ms.member_give = m.member_num "
 			+ "where ms.member_get = :num and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
@@ -89,10 +89,10 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	
 	
 	
-	
+
 //성진
 
-	@Query(value = 
+	@Query(value =
 			"select * from Member m join Board b on m.member_num = b.member_num "
 					+ " left outer join Comment c on c.board_num = b.board_num "
 					+ " where b.board_num = :boardNum"
@@ -104,5 +104,17 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 					+ " where m.member_num = :commenterNum"
 			, nativeQuery = true)
 		Member getCommenter(Long commenterNum);
+
+	 //호성 02-18
+
+	 /** id 중복체크*/
+	 @Query(value="select count(*) from member m where m.id = :id", nativeQuery=true)
+	int getIdCount(String id);
+
+	 /** nick name 중복체크*/
+	 @Query(value="select count(*) from member m where m.nickname = :nickname ", nativeQuery=true)
+	int getNickCount(String nickname);
+
+	//호성 end
 
 }

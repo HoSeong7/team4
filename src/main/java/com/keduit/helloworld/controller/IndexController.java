@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.hibernate.dialect.identity.CockroachDB1920IdentityColumnSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -72,16 +74,41 @@ public class IndexController {
     
     @GetMapping("/register")
     public void register() {
+    	log.info("여기는 겟 레지스터");
     }
     
     @PostMapping("/register")
     public String register(MemberDTO memberDTO,RedirectAttributes redirectAttributes) {
+    	
+    	log.info("여기는 포스트 레지스터");
     	
     	Long memberNun = memberService.register(memberDTO);
     	redirectAttributes.addFlashAttribute("msg", memberNun);
     	
     	return "redirect:/hello/index";
     }
+    
+    //호성 23.02.18
+    /** id ajax로 가져오기 중복체크*/
+    @PostMapping("/register/{id}")
+    public ResponseEntity<Integer> idChk(@PathVariable("id") String id){
+   
+    	System.out.println( "register에서 찍히나 ?? "+id);
+	   	int idChk = memberService.memberCount(id);
+  	
+        return new ResponseEntity<>(idChk,HttpStatus.OK);
+    }
+    /** nickname ajax로 가져오기 중복체크*/
+    @PostMapping("/register/chk/{nick}")
+    public ResponseEntity<Integer> nickChk(@PathVariable("nick") String nickname){
+   
+    	System.out.println( "register에서 찍히나 ?? "+nickname);
+	   	int idChk = memberService.membernickCount(nickname);
+  	
+        return new ResponseEntity<>(idChk,HttpStatus.OK);
+    }
+    
+    // end 호성
     
     @GetMapping("/modify")
     public void modify() {
@@ -128,6 +155,9 @@ public class IndexController {
     	    log.info(idnum);
     	        
    }
+    
+
+    
     
   
 }

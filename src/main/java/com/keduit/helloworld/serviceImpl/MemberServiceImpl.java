@@ -199,4 +199,22 @@ public class MemberServiceImpl implements MemberService {
 		return memberDTO;
 	}
 
+	//호성 02.18
+
+
+	@Override
+	public Integer memberCount(String id) {
+
+		int idChk = repository.getIdCount(id);
+
+		return idChk;
+	}
+
+	@Override
+	public Integer membernickCount(String nickname) {
+		int idChk = repository.getNickCount(nickname);
+		return idChk;
+	}
+
+	//end 호성
 }

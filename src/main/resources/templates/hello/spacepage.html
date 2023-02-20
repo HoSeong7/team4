@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내정보</title>
+    <title>정보페이지</title>
     <link rel="stylesheet" href="/css/myspace.css">
     <link rel="stylesheet" href="/css/follower.css">
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -40,11 +40,7 @@
     <nav class="subnavbar">
         <div class="box">
             <ul>
-                <li class="user-img" th:each="dto : ${member.url}">
-                <!-- <img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"> -->
-                	 <img
-             			 th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
-                </li>
+                <li class="user-img"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px" height="30px"></li>
                 <li class="text">
                 	<img th:if="${member.exvalue} < 100" src="/img/a1.png">
                 	<img th:if="${member.exvalue} >= 100 and ${member.exvalue} < 200" src="/img/a2.png">
@@ -58,7 +54,7 @@
             </ul>
         </div>
         <div class="box1">
-            <h1>내공간</h1>
+            <h1>남의 공간</h1>
         </div>
         <div class="box2">
             <h4 id="modalFollowing">팔로잉 : [[${following.size()}]]명</h4>
@@ -74,9 +70,6 @@
             <h1>소개</h1>
             <div class="content-introduce">
                 	<h3>[[${member.introduce}]]</h3>
-                <div class="introduce-button myMamber">
-                    <button>정보수정</button>
-                </div>
             </div>
         </div>
         <div class="div-content">
@@ -167,7 +160,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>정보수정</h2>
+                <h2>회원 가입</h2>
             </div>
             <div class="modal-body">
                 <form name="signup-form" id="signup-form" th:action="@{/hello/modify}" method="post">
@@ -213,9 +206,8 @@
                             닉네임
                         </label>
                         <div class="input-box">
-                            <input type="text" name="nickname" class="nickname" id="user_nick" th:value="${member.nickname}"/>
-                            <input type="hidden" id="onid" th:value="${member.nickname}">
-                            <button type='button' id="nickChk" onclick="fn_nickChk();">중복 확인</button>
+                            <input type="text" name="nickname" id="user_nick" th:value="${member.nickname}"/>
+                            <button>중복 확인</button>
                         </div>
                     </div>
                     <br>
@@ -243,7 +235,7 @@
                         </label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input files" 
-	               					id="url"/>
+	               					id="fileInput"/>
                         </div>
                     </div>
                     <input type="hidden" name="memberNum" th:value="${member.memberNum}">
@@ -327,9 +319,9 @@
         	  
         	  var formData = new FormData();
 
-              var url = $(this);
+              var inputFile = $(this);
 
-              var files = url[0].files;
+              var files = inputFile[0].files;
 
               var appended = false;
 
@@ -377,35 +369,6 @@
   // 사진업로드 and
   
 </script>
-<script type="text/javascript">
-		
-	// ajax로 nickname 중복확인
-
-	function fn_nickChk(){
-	    var nick = $("#user_nick").val();
-	    var onid = $("#onid").val();
-	    
-
-	    $.ajax({
-	    	url: '/hello/register/chk/'+nick,
-	        type: 'POST',
-	        data: JSON.stringify(nick),
-	        contentType: "application/json; charset=utf-8",
-	        dataType: 'text',
-	        success: function (result) {
-	            if(onid == nick){
-	                alert('기존 닉네임은 사용가능합니다.');
-	            }else if(result == 0){
-	                alert('사용 가능한 닉네임입니다..');	            	
-	            }else{
-	                alert('닉네임이 중복입니다.');	            	
-	            }
-	        }
-	    })
-		};
-
-	</script>
-
   
 </body>
 

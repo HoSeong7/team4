@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,9 +18,9 @@
         <!--왼쪽바 공통-->
         <nav class="mainmenu-left">
             <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#"
-                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
+                <li><a id="open-point" sec:authorize="isAuthenticated">포인트</a></li>
+                <li><a href="#" sec:authorize="isAuthenticated"
+                        onclick="window.open('http://localhost:8080/room','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
                 </li>
             </ul>
         </nav>
@@ -46,8 +46,8 @@
     </div>
         <!-- <a id="open-login">로그인</a> -->
     	 <!-- Modal -->
-   <div id="myModal" class="modal">
-    <div id="myModal" class="modal">
+   <div id="myModal" class="mymodal">
+    <div id="mymodal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
@@ -60,9 +60,10 @@
                         <label for="user_id">
                             아이디
                         </label>
-                        <div class="input-box">
-                            <input type="text" name="id" id="user_nick" />
-                            <button>중복 확인</button>
+                        <div class="input-box">                   
+                            <input type="text" name="id" class="idtest" id="user_id" />                
+                            <button type='button' id="idChk" onclick="fn_idChk();">중복확인</button>
+                            <br><span id="confirmID"></span><br>                     
                         </div>
                     </div>
                     <br>
@@ -98,8 +99,8 @@
                             닉네임
                         </label>
                         <div class="input-box">
-                            <input type="text" name="nickname" id="user_nick" />
-                            <button>중복 확인</button>
+                            <input type="text" name="nickname" class="nickname" id="user_nick" />
+                            <button type='button' id="nickChk" onclick="fn_nickChk();">중복 확인</button>
                         </div>
                     </div>
                     <br>
@@ -123,7 +124,7 @@
                     <br>
                     <div class="form-group">
                         <div class="form-button">
-                            <button type="submit">가입하기</button>
+                            <button type="submit" id="submit">가입하기</button>
                             <button type="reset">다시 작성</button>
                         </div>
                     </div>
@@ -175,33 +176,61 @@
             </ul>
         </div>
     </div>
-    <div id="modal_call">
-
-    </div>
-    <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("myBtn");
-        var span = document.getElementsByClassName("close");
-        
-        $(".close").on("click", function(){
-        	$(".mymodal").hide();
-        });
-        
- //       btn.onclick = function () {
- //           modal.style.display = "block";
-  //      }
-   //     span.onclick = function () {
-            //modal.style.display = "none";
-           //$(".mymodal").hide(); 
-   //     }
-  //      window.onclick = function (event) {
-   //         if (event.target == modal) {
-  //              modal.style.display = "none";
- //           }
- //       }
-    </script>
+   
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+
+        $(".close").on("click", function(){
+        	$("#myModal").hide();
+        });
+    </script>
+    <script type="text/javascript">
+		
+	function fn_idChk(){
+    var id = $("#user_id").val();
+
+    $.ajax({
+    	url: '/hello/register/'+id,
+        type: 'POST',
+        data: JSON.stringify(id),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'text',
+        success: function (result) {
+            if(result == 1){
+                alert('아이디가 중복입니다.');
+	              /*   confirmID.style.color="#ff0000";
+	                confirmID.innerHTML = "중복 아이디입니다."; */
+            }else{
+                alert('사용가능한 아이디 입니다.');
+	               /*  confirmID.style.color = "#0000ff";
+	                confirmID.innerHTML = "사용가능한 아이디입니다."; */
+            }
+        }
+    })
+	};
+	
+	function fn_nickChk(){
+	    var nick = $("#user_nick").val();
+
+	    $.ajax({
+	    	url: '/hello/register/chk/'+nick,
+	        type: 'POST',
+	        data: JSON.stringify(nick),
+	        contentType: "application/json; charset=utf-8",
+	        dataType: 'text',
+	        success: function (result) {
+	            if(result == 1){
+	                alert('닉네임이 중복입니다.');
+	            }else{
+	                alert('사용가능한 닉네임입니다.');
+	            }
+	        }
+	    })
+		};
+
+	</script>
+   
 
 </body>
 
