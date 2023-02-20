@@ -27,10 +27,10 @@ public class FavoritesRepogitoryTests {
 	public void insertTest() {
 		Member member = new Member();
 		
-		IntStream.rangeClosed(1, 80).forEach(i->{
+		IntStream.rangeClosed(1, 200).forEach(i->{
 			
-			long a = (long)(Math.random()*18)+1;
-			long b = (long)(Math.random()*18)+1;
+			long a = (long)(Math.random()*30)+1;
+			long b = (long)(Math.random()*30)+1;
 			
 			Favorites entity = Favorites.builder().bookmarked(a)
 												  .bookmarker(b).build();

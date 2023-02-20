@@ -41,8 +41,8 @@
         <div class="box">
             <ul>
                 <li class="user-img">
-                 <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
-                	 <img th:if="${member.url != null}" th:src="'/hello/display?fileName='+${member.url}|" ></li>
+                 	 <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="70px" height="70px">
+                	 <img th:if="${member.url != null}" width="70px" height="70px" th:src="'/hello/display?fileName='+${member.url}" ></li>
                 <li class="text">
                 	<img th:if="${member.exvalue} < 100" src="/img/a1.png">
                 	<img th:if="${member.exvalue} >= 100 and ${member.exvalue} < 200" src="/img/a2.png">
@@ -52,11 +52,14 @@
                 	
                 </li>
                 <li class="text">[[${member.name}]]님의 경험치는 [[${member.exvalue}]]점 입니다.</li>
-                <li class="star"><img src="/img/star.png" alt="" width="30px" height="30px"></li>
             </ul>
         </div>
         <div class="box1">
-            <h1>남의 공간</h1>
+            <h1>남의 공간 
+            	<a th:if="${how == 0}" th:href="@{/hello/spacepage/insertF(id=${member.id})}"><img src="/img/star.png" alt="" width="25px" height="25px"></a>
+            	<a th:if="${how == 1}" th:href="@{/hello/spacepage/removeF(id=${member.id})}"><img src="/img/starfull.png" alt="" width="25px" height="25px"></a>
+            </h1>
+                
         </div>
         <div class="box2">
             <h4 id="modalFollowing">팔로잉 : [[${following.size()}]]명</h4>
@@ -131,9 +134,11 @@
     </div>
     <div class="modal-body">
       <div class="box" th:each="follow:${follower}">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
+        <div class="box-userimg">
+                 	 <img th:if="${follow.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                	 <img th:if="${follow.url != null}" width="30px" height="30px" th:src="'/hello/display?fileName='+${follow.url}" ></div>
         <div class="box-username"><a th:href="@{/hello/spacepage(id=${follow.id})}">[[${follow.id}]]</a></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
+        <!-- <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div> -->
       </div>
       <!-- Add more content as needed -->
     </div>
@@ -149,9 +154,11 @@
     </div>
     <div class="modal-body">
       <div class="box" th:each="followi:${following}">
-        <div class="box-userimg"><img src="../img/userimg.png" alt="" width="30px" height="30px"></div>
+        <div class="box-userimg"> 
+        		<img th:if="${followi.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                <img th:if="${followi.url != null}" width="30px" height="30px" th:src="'/hello/display?fileName='+${followi.url}" ></div>
         <div class="box-username"><a th:href="@{/hello/spacepage(id=${followi.id})}">[[${followi.id}]]</a></div>
-        <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div>
+        <!-- <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div> -->
       </div>
      </div>
   </div>

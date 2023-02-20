@@ -14,6 +14,9 @@ import com.keduit.helloworld.entity.Member;
 
 public interface FavoritesRepository extends JpaRepository<Favorites, Long>{
 
+	@Query(value = "select favorites_num from favorites where bookmarker = :myNum and bookmarked = :youNum" ,nativeQuery=true)
+	Long getNum(Long myNum, Long youNum);
+
 
 	
 }
