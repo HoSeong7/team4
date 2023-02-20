@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,27 +29,32 @@
             </ul>
         </nav>
     </div>
+    
     <div class="content-header">
         <div class="content-header-box">
             <h1>게시물 등록</h1>
+    	</div>
     </div>
-    <div class="content-body">
+    <form th:action="@{/hello/noticeregister}" th:method="POST" class="content-body">
         <div class="text">
             <p>제목</p>
         </div>
         <div class="content">
-            <input type="text" name="" id="">
+            <input type="text" name="title" id="">
         </div>
         <div class="text">
             <p>본문</p>
         </div>
         <div class="maincontent">
-            <input type="text" name="" id="">
+            <input type="text" name="content" id="">
         </div>
+        <input type="hidden" name="boardcase" value="2">
+        <input type="hidden" name="memberNum" th:value="${member.memberNum}">
         <div class="button">
-            <div><button onclick="location.href='/hello/noticelist' ">취소</a></button></div>
-            <div class="postbutton"><button>등록</button></div>
+            <div><button onclick="location.href='/hello/noticelist' ">취소</button></div>
+            <div class="postbutton"><button type= "submit" >등록</button></div>
         </div>
-    </div>
+	</form>
+        
 </body>
 </html>

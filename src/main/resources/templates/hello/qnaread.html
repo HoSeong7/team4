@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/qnaread.css">
+    <script th:src="@{/js/jquery/jquery.min.js}"></script>
 </head>
 
 <body>
@@ -34,7 +35,6 @@
     <div class="content-header">
         <div class="content-header-box">
             <h1>Q&A</h1>
-            
         </div>
     </div>
     <div class="content-body">
@@ -43,11 +43,17 @@
                 <div class="userimg">
                     <img src="/img/userimg.png" alt="" width="40px" height="40px">
                 </div>
+                
+           
+                
+                <!-- 유저id -->
                 <div class="username">
-                    <p>유저닉네임</p>
+                    <p>[[${dto.nickname}]] <small>[[${dto.id}]]</small></p>
                 </div>
+                
+                <!-- tag -->
                 <div class="category">
-                    <p>#JAVA #html</p>
+                    <p>[[${dto.tag}]]</p>
                 </div>
             </div>
             <div class="box-right">
@@ -60,86 +66,182 @@
         </div>
         <div class="box-title">
             <div>
+            	<!-- title -->
                 <div class="box-left">
                     <div class="title">
-                        <h1>---제목---</h1>
+                        <h2>[[${dto.title}]]</h2>
                     </div>
                 </div>
+                <!-- 수정&삭제 버튼 -->
                 <div class="box-right">
+	                <!-- 수정버튼 -->
                     <div class="modify-button">
-                        <button>수정</button>
+                    	<a th:href="@{/hello/qnamodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
+									type=${requestDTO.type},
+									keyword=${requestDTO.keyword}	)}">
+                        	<button type="button">수정</button>
+						</a>
                     </div>
-                    <div class="delete-button">
-                        <button>삭제</button>
-                    </div>
+                    
+                    <!-- 삭제버튼 -->
+<!--                     <div class="delete-button">
+                    	<a th:href="@{/hello/communitymodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
+									type=${requestDTO.type},
+									keyword=${requestDTO.keyword}	)}">
+                        	<button type="button">삭제</button>
+                        </a>
+                    </div> -->
                 </div>
+                
             </div>
         </div>
+        
+        <!-- 내용 -->
         <div class="box-content">
-            <div class="content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias eius, maiores corporis natus
-                    repellendus totam neque aspernatur illo amet asperiores rerum, provident architecto nostrum. Magnam
-                    molestias facilis sunt repudiandae laboriosam!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam facere velit atque magni nobis
-                    modi vitae vel unde debitis sed ipsa, delectus necessitatibus rem id perspiciatis quam saepe autem
-                    voluptate.
-                </p>
+            <div>
+                <p>[[${dto.content}]]</p>
             </div>
         </div>
     </div>
     <hr>
     <div class="content-comments">
         <div class="box-top">
+        
+        	<!-- 댓글 cnt -->
             <div class="box-left">
-                <p>댓글 수 : 2개</p>
+                <p>댓글 수 : [[${dto.cnt}]]개</p>
             </div>
+            
+            <!-- list 이동 버튼 -->
             <div class="box-button">
                 <div><button>이전</button></div>
-                <div><button>목록</button></div>
+                <div><button type="button" class="listBtn">목록</button></div>
                 <div><button>다음</button></div>
             </div>
         </div>
+        
+        <!-- 댓글 쓰기 -->
+       
+        <form>
+	        <input type="hidden" name="page" th:value="${requestDTO.page}">
+			<input type="hidden" name="type" th:value="${requestDTO.type}">
+			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
         <div class="box-write">
             <div class="box-write-top">
                 <div class="box-left">
                     <div class="userimg">
                         <img src="/img/userimg.png" alt="" width="40px" height="40px">
                     </div>
+                    <!-- 유저 -->
                     <div class="username">
-                        <p>유저네임</p>
+                        <p>[[${member.nickname}]]  <small>[[${member.id}]]</small></p>
+                        <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
                     </div>
                 </div>
                 <div class="box-right">
-                    <div><button>댓글 쓰기</button></div>
-                </div>
-            </div>
-            <div class="box-write-bottom">
-                <div class="comment-box">
-                    <p><textarea cols="150" rows="5"></textarea></p>
-                </div>
-            </div>
-        </div>
-        <div class="box-comments-list">
-            <div class="box-write-top">
-                <div class="box-left">
-                    <div class="userimg">
-                        <img src="/img/userimg.png" alt="" width="40px" height="40px">
-                    </div>
-                    <div class="username">
-                        <p>유저네임</p>
+                    <div>
+                    	<button type="button" class="commentSaveBnt">댓글 쓰기</button>
                     </div>
                 </div>
             </div>
             <div class="box-write-bottom">
+            	<!-- 댓글 입력란 -->
                 <div class="comment-box">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, voluptatum deleniti ipsa porro totam, ex temporibus minus voluptatibus tempore aliquam, fugiat error esse quidem numquam. Quia totam at earum soluta!</p>
+                    <p><textarea cols="150" rows="5" name="commentContent"></textarea></p>
                 </div>
-            </div>
-            <div class="box-button">
-                <div><button>댓글 쓰기</button></div>
+            	<!-- end 댓글 입력란 -->
             </div>
         </div>
+        </form>
+        <!-- end 댓글 쓰기 -->
+        
+        <!-- 댓글 -->
+        <div class="commentList"></div>
+        <!-- end 댓글 -->
+        
     </div>
 </body>
+
+<script th:inline="javascript">
+$(document).ready(function(){
+	
+	const boardNum = [[${dto.boardNum}]];
+	
+	
+	function getComment(){
+		$.getJSON('/comment/'+ boardNum + "/all", function(arr){
+			let str = "";
+			
+			$.each(arr, function(idx,comment){
+				console.log(comment);
+				str += ' <div class="box-comments-list" data-boardCommentNum="'+ comment.boardCommentNum + '">'; 
+				str += ' <div class="box-write-top"> ';
+				str += ' <div class="box-left"> ';
+				str += ' <div class="userimg"><img src="/img/userimg.png" alt="" width="40px" height="40px"></div> ';
+				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> </div></div></div> ';
+				str += ' <div class="box-write-bottom"> ';
+				str += ' <div class="comment-box">'+ comment.commentContent +'</div></div> ';
+				str += ' <div class="box-button"></div> ';
+				str += ' </div></div> ';
+				
+				
+			})
+			
+			$(".commentList").html(str);
+		})
+	}
+	
+	getComment();
+	
+	
+	
+		var actionForm = $("form");
+			$(".listBtn").click(function(){
+				var pageInfo = $("input[name='page']");
+				var type=$("input[name='page']");
+				var keyword=$("input[name='keyword']");
+				
+				actionForm.empty();
+				actionForm.append(pageInfo);
+				actionForm.append(type);
+				actionForm.append(keyword);
+				actionForm.attr("action", "/hello/qnalist")
+							.attr("method", "GET");
+				
+				actionForm.submit();
+			});
+			
+			
+			
+			$(".commentSaveBnt").click(function(){
+				
+				var comment = {
+						boardNum: boardNum,
+						commentContent: $('textarea[name="commentContent"]').val(),
+						commenterNum: $('input[name="commenterNum"]').val()}
+				console.log(comment);
+				
+				$.ajax({
+					url: '/comment/' + boardNum,
+					type: 'post',
+					data: JSON.stringify(comment),
+					contentType: "application/json; charset=utf-8",
+					dataType: 'text' ,
+					success: function(result){
+						console.log("success result : " + result);
+						self.location.reload();
+						alert("댓글이 등록되었습니다.");
+						getComment();
+					}
+				}); // ajax 끝
+			}); //commentSaveBnt 끝
+			
+			
+			
+			
+});	
+	</script>
+
+
 
 </html>

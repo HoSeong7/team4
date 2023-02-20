@@ -24,4 +24,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 				  + "join member m on m.member_num = b.member_num "
 				  + "where m.id = :id order by b.board_num desc", nativeQuery=true)
 	List<Board> getMyBoardList(String id); 
+	
+	@Query(value = "select * from board where :str = :num", nativeQuery = true)
+    List<Board> temp(String str, Integer num);
+	
 }

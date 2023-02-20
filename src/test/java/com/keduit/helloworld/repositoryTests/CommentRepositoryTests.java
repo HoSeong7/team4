@@ -1,5 +1,6 @@
 package com.keduit.helloworld.repositoryTests;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -27,8 +28,8 @@ public class CommentRepositoryTests {
 	/** 더미 Test */
 	public void insertReply() {
 
-		IntStream.rangeClosed(1, 50).forEach(i -> {
-			long boardNum = (long)(Math.random() * 20) + 1;
+		IntStream.rangeClosed(1, 600).forEach(i -> {
+			long boardNum = (long)(Math.random() * 600) + 1;
 
 			Comment comment = Comment.builder()
 					.boardNum(boardNum)
@@ -37,6 +38,24 @@ public class CommentRepositoryTests {
 					.build();
 			commentRepository.save(comment);
 		});
+	}
+	
+	@Test
+	public void readTest() {
+		
+		List<Comment> cc = commentRepository.getCommentlist(607L);
+		
+		for(Comment i : cc) {
+			System.out.println(i);
+		}
+		
+		
+		for(Comment i : cc) {
+			System.out.println(i.getRegDate());
+			System.out.println(i.getUpdateDate());
+		}
+		
+		
 	}
 
 	@Test

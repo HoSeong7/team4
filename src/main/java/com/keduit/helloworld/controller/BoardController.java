@@ -3,7 +3,11 @@ package com.keduit.helloworld.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +20,10 @@ import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
 import com.keduit.helloworld.service.BoardService;
+import com.keduit.helloworld.service.MemberService;
 
 @Controller
 @Log4j2
@@ -29,7 +35,11 @@ public class BoardController {
 	private BoardRepository boardRepository;
 	
 	private final BoardService boardService;
-
+	
+	private final MemberService memberService;
+	
+	// < list >
+	// GetMapping
     @GetMapping("/communitylist")
     public void communitylist(PageRequestDTO pageRequestDTO,Model model){
     	log.info("위치 : BoardController communitylist()");
@@ -58,13 +68,12 @@ public class BoardController {
 		model.addAttribute("result",boardService.getBoard3List(pageRequestDTO));
     }
     
-	@GetMapping({"/communityregister","/noticeregister","/qnaregister"})
-	public void register() {
-		log.info("등록페이지");
-	}
 	
-	@PostMapping({"/communityregister","/noticeregister","/qnaregister"})
-	public String register(BoardDTO dto, RedirectAttributes redirectAttributes) {
+    
+	// < resister >
+	// PostMapping
+	@PostMapping("/communityregister")
+	public String communityregister(BoardDTO dto, RedirectAttributes redirectAttributes) {
 		log.info("위치 : BoardController register()");
 		log.info("dto : " + dto);
 		Long boardnum = boardService.register(dto);
@@ -74,8 +83,52 @@ public class BoardController {
 		return "redirect:/hello/communitylist";
 	}
 	
+	@PostMapping("/noticeregister")
+	public String noticeregister(BoardDTO dto, RedirectAttributes redirectAttributes) {
+		log.info("위치 : BoardController register()");
+		log.info("dto : " + dto);
+		Long boardnum = boardService.register(dto);
+		
+		log.info("boardnum : " + boardnum);
+		redirectAttributes.addFlashAttribute("msg",boardnum);
+		return "redirect:/hello/noticelist";
+	}	
+	
+	@PostMapping("/qnaregister")
+	public String qnaregister(BoardDTO dto, RedirectAttributes redirectAttributes) {
+		log.info("위치 : BoardController register()");
+		log.info("dto : " + dto);
+		Long boardnum = boardService.register(dto);
+		
+		log.info("boardnum : " + boardnum);
+		redirectAttributes.addFlashAttribute("msg",boardnum);
+		return "redirect:/hello/qnalist";
+	}
+	
+	
+	// GetMapping
+	@GetMapping({"/communityregister","/noticeregister","/qnaregister"})
+	public void register(Authentication authentication,Model model) {
+		log.info("등록페이지");
+		
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+		
+	}
+	
+	
+	
+	
+	// < read >
+	// GetMapping
 	@GetMapping({"/communityread", "/noticeread","/qnaread"})
-	public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
+	public void read(Authentication authentication,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
 		
 		log.info("위치 : BoardController read()");
 		log.info("boardNum : " + boardNum);
@@ -89,37 +142,31 @@ public class BoardController {
 		
 		boardDTO = boardService.get(boardNum);
 		
-		
 		log.info(boardDTO);
+
+		
+//		추가
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+//	    
+	    
 		model.addAttribute("dto",boardDTO);
 		
 	}
 	
-	@GetMapping({"/communitymodify","/noticemodify","/qnamodify"})
-	public void modify(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
-		
-		log.info("위치 : BoardController read()");
-		log.info("bno : " + boardNum);
-		BoardDTO boardDTO = boardService.get(boardNum);
-		
-		log.info(boardDTO);
-		model.addAttribute("dto",boardDTO);
-		
-	}
 	
 	
-	@PostMapping({"/communityremove","/noticeremove","/qnaremove"})
-	public String remove(long boardNum, RedirectAttributes redirectAttributes) {
-		
-		log.info("위치 : BoardController remove()");
-		log.info("boardNum : " + boardNum);
-		boardService.remove(boardNum);
-		redirectAttributes.addFlashAttribute("msg",boardNum);
-		return "redirect:/hello/communitylist";
-	}
 	
-	@PostMapping({"/communitymodify","/noticemodify","/qnamodify"})
-	public String modify(BoardDTO boardDTO,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , RedirectAttributes redirectAttributes) {
+	// < modify >
+	// PostMapping
+	@PostMapping("/communitymodify")
+	public String communitymodify(BoardDTO boardDTO,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , RedirectAttributes redirectAttributes) {
 		log.info("위치 : BoardController modify()");
 		log.info("dto : " + boardDTO);
 		
@@ -131,6 +178,138 @@ public class BoardController {
 		
 		return "redirect:/hello/communityread";
 	}
-	
 
+	@PostMapping("/noticemodify")
+	public String noticemodify(BoardDTO boardDTO,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , RedirectAttributes redirectAttributes) {
+		log.info("위치 : BoardController modify()");
+		log.info("dto : " + boardDTO);
+		
+		boardService.modify(boardDTO);
+		redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+		redirectAttributes.addAttribute("type", pageRequestDTO.getType());
+		redirectAttributes.addAttribute("keyword", pageRequestDTO.getKeyword());
+		redirectAttributes.addAttribute("boardNum", boardDTO.getBoardNum());
+		
+		return "redirect:/hello/noticeread";
+	}
+	
+	@PostMapping("/qnamodify")
+	public String qnamodify(BoardDTO boardDTO,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , RedirectAttributes redirectAttributes) {
+		log.info("위치 : BoardController modify()");
+		log.info("dto : " + boardDTO);
+		
+		boardService.modify(boardDTO);
+		redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+		redirectAttributes.addAttribute("type", pageRequestDTO.getType());
+		redirectAttributes.addAttribute("keyword", pageRequestDTO.getKeyword());
+		redirectAttributes.addAttribute("boardNum", boardDTO.getBoardNum());
+		
+		return "redirect:/hello/qnaread";
+	}
+
+	
+	// GetMapping
+	@GetMapping("/communitymodify")
+	public void communitymodify(Authentication authentication,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
+		
+		log.info("위치 : BoardController modify()");
+		log.info("bno : " + boardNum);
+		BoardDTO boardDTO = boardService.get(boardNum);
+		
+		log.info(boardDTO);
+		
+//		추가
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+//	    
+		model.addAttribute("dto",boardDTO);
+		
+	}
+	
+	@GetMapping("/noticemodify")
+	public void noticemodify(Authentication authentication,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
+		
+		log.info("위치 : BoardController modify()");
+		log.info("bno : " + boardNum);
+		BoardDTO boardDTO = boardService.get(boardNum);
+		
+		log.info(boardDTO);
+		
+//		추가
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+//	    
+		model.addAttribute("dto",boardDTO);
+		
+	}
+	
+	@GetMapping("/qnamodify")
+	public void qnamodify(Authentication authentication,@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO , Long boardNum , Model model) {
+		
+		log.info("위치 : BoardController modify()");
+		log.info("bno : " + boardNum);
+		BoardDTO boardDTO = boardService.get(boardNum);
+		
+		log.info(boardDTO);
+		
+//		추가
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
+//	    
+		model.addAttribute("dto",boardDTO);
+		
+	}
+	
+	
+	
+	
+	// < remove >
+	// PostMapping
+	@PostMapping("/communityremove")
+	public String communityremove(long boardNum, RedirectAttributes redirectAttributes) {
+		
+		log.info("위치 : BoardController remove()");
+		log.info("boardNum : " + boardNum);
+		boardService.remove(boardNum);
+		redirectAttributes.addFlashAttribute("msg",boardNum);
+		return "redirect:/hello/communitylist";
+	}
+	
+	@PostMapping("/noticeremove")
+	public String noticeremove(long boardNum, RedirectAttributes redirectAttributes) {
+		
+		log.info("위치 : BoardController remove()");
+		log.info("boardNum : " + boardNum);
+		boardService.remove(boardNum);
+		redirectAttributes.addFlashAttribute("msg",boardNum);
+		return "redirect:/hello/noticelist";
+	}
+	
+	@PostMapping("/qnaremove")
+	public String qnaremove(long boardNum, RedirectAttributes redirectAttributes) {
+		
+		log.info("위치 : BoardController remove()");
+		log.info("boardNum : " + boardNum);
+		boardService.remove(boardNum);
+		redirectAttributes.addFlashAttribute("msg",boardNum);
+		return "redirect:/hello/qnalist";
+	}
 }

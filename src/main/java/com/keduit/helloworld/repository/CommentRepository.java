@@ -18,8 +18,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 		Long getBoardByBno(Long boardNum);
 
 	@Query(value =
-			"select * from Board b join Member m on m.member_num = b.member_num "
-			+ " left outer join Comment c on c.board_num = b.board_num "
+			"select * from Comment c right join Board b on b.board_num = c.board_num "
+			+ " join Member m on b.member_num = m.member_num "
 			+ " where b.board_num = :boardNum"
 			, nativeQuery = true)
 	List<Comment> getCommentlist(Long boardNum);
