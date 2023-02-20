@@ -6,29 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
-    <div class="innerHeader">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
-                    height="30px"></a></h1>
-        <!--왼쪽바 공통-->
-        <nav class="mainmenu-left">
-            <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#" onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a></li>
-            </ul>
-        </nav>
-        <!--오른쪽바 공통-->
-        <nav class="mainmenu-right">
-            <ul class="navbar">
-                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login">로그인</a></li>
-                <li><a id="open-signup">회원가입</a></li>
-            </ul>
-        </nav>
-    </div>
+    <!-- [header] 영역 시작 -->
+		<header th:replace="fragments/header :: headerFragment"></header>
+	<!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
             <h1>게시물 등록</h1>
@@ -60,5 +43,6 @@
             <div class="postbutton"><button type= "submit" >등록</button></div>
         </div>
     </form>
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 </html>

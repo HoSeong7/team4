@@ -172,10 +172,21 @@ body {
     text-align: center;
 }
 
-.bar .mainbar ul li a:hover {
-    border-bottom: 3px solid white;
 
+.bar .mainbar ul li a img:hover {
+    animation: move 1s ease infinite normal none running;
 }
 
+
+
+@keyframes move {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(0, -20px);
+    }
+    
+}
 
 
