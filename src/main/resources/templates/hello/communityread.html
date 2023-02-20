@@ -243,18 +243,42 @@ $(document).ready(function(){
 				}); // ajax 끝
 			}); //commentSaveBnt 끝
 			
+			
 		    function displayTime(timeValue){
 		        var today = new Date(); // 현재 시간
-		        var gap = today.getTime() - timeValue;
+		        var date = new Date(timeValue).getTime();
+		        var gap = today.getTime() - date;
 		        var dateObj = new Date(timeValue);
 		        var str = "";
 		        
+		        
+		        console.log(date);
+		        console.log(today.getTime());
+		        console.log(gap);
+		        
+		        
+		        
 		        if(gap<(1000*60*60*24)){
+		        	
+		        	// comment 시간
 		            var hh = dateObj.getHours();
 		            var mi = dateObj.getMinutes();
 		            var ss = dateObj.getSeconds();
 		            
-		            return [ (hh>9?'':'0')+hh, ':',(mi>9?'':'0')+mi ,':',(ss>9?'':'0')+ss].join('');
+		            // 현재 시간
+		            var rhh = today.getHours();
+		            var rmi = today.getMinutes();
+		            var rss = today.getSeconds();
+		            
+		            // 표시 예) 1시간 전 or 10분 전
+		            
+		            if(rhh > hh){
+		            	return [ (rhh - hh>9?'':'0')+ rhh - hh, '시간 전'].join('');
+		            }else{
+		            	
+		            	return [ (rmi - mi>9?'':'0')+rmi-mi, '분 전'].join('');
+		            }
+		            
 
 		        }else{
 		            var yy = dateObj.getFullYear();
