@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.keduit.helloworld.dto.BoardCheckLikeDTO;
 import com.keduit.helloworld.dto.CommentDTO;
+import com.keduit.helloworld.service.BoardCheckLikeService;
 import com.keduit.helloworld.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -59,10 +61,6 @@ public class CommentController {
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-	
-	
-	
-	
 	
 	
 	
