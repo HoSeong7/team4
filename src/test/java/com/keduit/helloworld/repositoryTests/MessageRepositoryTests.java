@@ -33,6 +33,7 @@ public class MessageRepositoryTests {
 			
 			Long a = (long)(Math.random()*10)+1;
 			Long b = (long)(Math.random()*10)+1;
+			Long c = (long)(Math.random()*10)+1;
 			
 			Message entity = Message.builder()
 					.memberGet(a)
@@ -40,6 +41,7 @@ public class MessageRepositoryTests {
 					.title("쪽지 제목" + i)
 					.content("쪽지 내용" + i)
 					.view(0L) //최초 전송 시 권한: 0
+					.boardCommentNum(c)
 					.build();
 			messageRepository.save(entity);
 		});
