@@ -54,7 +54,7 @@
                 <h2>회원 가입</h2>
             </div>
             <div class="modal-body">
-                <form name="signup-form" id="signup-form" th:action="@{/hello/register}" method="post">
+                <form name="signup-form" id="signup-form" th:action="@{/hello/register}" method="post" th:onsubmit="return OkSubmit2()">
                 <input type="hidden" name="purview" value="false">
                     <div class="form-group">
                         <label for="user_id">
@@ -71,7 +71,7 @@
                             비밀번호
                         </label>
                         <div class="input-box">
-                            <input type="password" name="pw" id="user_pw" />
+                            <input type="password" name="pw" id="pw" />
                         </div>
                     </div>
                     <br>
@@ -80,7 +80,7 @@
                             비밀번호 확인
                         </label>
                         <div class="input-box">
-                            <input type="password" name="pw_re" id="user_pw_re" />
+                            <input type="password"  name="pw_re" id="pw_re" />
                         </div>
                     </div>
                     <br>
@@ -111,6 +111,8 @@
                             <input type="text" name="email" id="email" />
                         </div>
                     </div>
+                        <input type="hidden" value=0 id="test_1" name="test_1">
+                        <input type="hidden" value=0 id="test_2" name="test_2">
                     <br>
                     <div class="form-group">
                         <div class="form-button">
@@ -189,8 +191,10 @@
         success: function (result) {
             if(result == 1){
                 alert('아이디가 중복입니다.');
+                document.getElementById( 'test_1' ).value = 0;
             }else{
                 alert('사용가능한 아이디 입니다.');
+                document.getElementById( 'test_1' ).value = 1;
             }
         }
     })
@@ -208,12 +212,48 @@
 	        success: function (result) {
 	            if(result == 1){
 	                alert('닉네임이 중복입니다.');
+	                document.getElementById( 'test_2' ).value = 0;
 	            }else{
 	                alert('사용가능한 닉네임입니다.');
+	                document.getElementById( 'test_2' ).value = 1;
 	            }
 	        }
 	    })
 		};
+		
+		 function OkSubmit2(){
+			    var id = $(".idtest").val();
+			    var pw1 = document.getElementById( 'pw' ).value;
+			    var pw2 = document.getElementById( 'pw_re' ).value;
+			    var testid = document.getElementById( 'test_1' ).value;
+		        var testnick = document.getElementById( 'test_2' ).value;
+		        var name = document.getElementById( 'user_name' ).value;
+		        var email = document.getElementById( 'email' ).value;
+			    
+		        	if (id == ""){
+	               	  alert("아이디를 입력해주세요.");
+			         	  return false; 
+			       	 }else 
+		       		 	if( pw1 != pw2 ) {
+		          	alert( '비밀번호가 일치하지 않습니다.' );
+		         	  return false; 
+		       		 }else if(pw1 == ""){
+		        		alert("비밀번호를 입력해주세요.");
+		        		 return false; 
+		       		 }else if(testid == 0){
+		        		alert("ID 중복확인을 눌러주세요.");
+		        		 return false; 
+		       		 }else if(testnick == 0){
+		        		alert("닉네임 중복확인을 눌러주세요.");
+		        		 return false; 
+		      		  }else if(name == ""){
+		      			  alert("이름을 입력해주세요.");
+		        		 return false; 		      			  
+		      		  }else if(email == ""){
+		      			  alert("이메일을 입력해주세요.");
+		        		 return false; 		      			  		      			  
+		      		  }
+		    	  }
 
 	</script>
    
