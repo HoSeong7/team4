@@ -24,13 +24,13 @@ public class MessageDTO {
 	/** 쪽지 보낸사람 fk, nn */
 	private Long memberGive;
 	
-	/** 쪽지 제목 */
+	/** 쪽지 제목 nn */
 	private String title;
 	
-	/** 쪽지 내용 */
+	/** 쪽지 내용 nn */
 	private String content;
 
-	/** 쪽지 보기권한 */
+	/** 쪽지 보기권한 0:기본, 1:보낸사람이 삭제, 2:받은사람이 삭제, 3:모두 삭제 */
 	private Long view;
 
 	/** 쪽지 사진 */

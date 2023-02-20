@@ -13,7 +13,7 @@ import com.keduit.helloworld.repository.MemberAccountRepository;
 import com.keduit.helloworld.repository.MemberRepository;
 
 @SpringBootTest
-public class MemberAccountTests {
+public class MemberAccountRepositoryTests {
 
 	@Autowired
 	private MemberAccountRepository memberAccountRepository;
