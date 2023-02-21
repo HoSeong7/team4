@@ -3,24 +3,40 @@ package com.keduit.helloworld.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.io.File;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.hibernate.dialect.identity.CockroachDB1920IdentityColumnSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.keduit.helloworld.dto.FileDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Comment;
@@ -115,15 +131,91 @@ public class IndexController {
     	
     }
     
+    //호성 23.02.20
+    @Value("${com.keduit.upload.path}")
+	private String uploadPath;
+    
     @PostMapping("/modify")
-    public String modify(MemberDTO memberDTO,RedirectAttributes redirectAttributes) {
+    public String modify(@RequestParam("uploadfile") MultipartFile uploadfile, MemberDTO memberDTO,Model model) {
+//    	System.out.println(" 업로드 파일 "+uploadfile);
+    	
+    	String uuid = UUID.randomUUID().toString();
+    	String originalName = uploadfile.getOriginalFilename();
+    	String fileName = originalName.substring(originalName.lastIndexOf("//")+1);
+    	String savefileName;
+    	System.out.println("값 안넣었을 경우 : " + memberDTO.getUrl());
+    	
+//    	String folderPath = makeFolder();
+    	if(uploadfile.getOriginalFilename() != "") {
+    	
+    	savefileName = uploadPath + File.separator + 
+    							File.separator + uuid + "_" + fileName;
+    	
+    	memberDTO.setUrl(uuid + "_" + fileName);
+    	Path savePath = Paths.get(savefileName);
+    	
+    	try {
+			uploadfile.transferTo(savePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+    	}else {
+    		 Member idnum =  memberService.idRead(memberDTO.getId());
+    		
+    		memberDTO.setUrl(idnum.getUrl());
+    	}
+    	
+    	
     	memberService.modify(memberDTO);
-    	System.out.println(memberDTO);
+
     	
     	return "redirect:/hello/myspace";
     }
     
-    @GetMapping("/myspace")
+    //메이크 폴더 만들었는데 만약에 정리하고 싶으면 이거 넣으면 됨
+	private String makeFolder() {
+		String str = LocalDate.now().format(
+				DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		String folderPath = str.replace("//", File.separator);
+		
+		File uploadPathFolder = new File(uploadPath, folderPath);
+		
+		if(uploadPathFolder.exists()==false) {
+			uploadPathFolder.mkdirs();
+		}
+		return folderPath;
+	}
+	
+	@GetMapping("/display")
+	public ResponseEntity<byte[]> getFile(String fileName, String size){
+		
+		ResponseEntity<byte[]> result = null;
+		
+		try {
+			String srcFileName = URLDecoder.decode(fileName, "UTF-8");
+			
+			File file = new File(uploadPath + File.separator + srcFileName);
+			HttpHeaders header = new HttpHeaders();
+			
+			header.add("Content-Type",  Files.probeContentType(file.toPath()));
+			
+			result = new ResponseEntity<>(
+					FileCopyUtils.copyToByteArray(file),
+					header,
+					HttpStatus.OK);
+			
+			
+			} catch (Exception e) {
+				log.error(e.getMessage());
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		return result;
+	}
+	
+	// end 호성
+
+	@GetMapping("/myspace")
     public void myspace(Authentication authentication,@ModelAttribute("dto") Member member, Model model) {
     	
     	 UserDetails userDetails = (UserDetails)authentication.getPrincipal();
