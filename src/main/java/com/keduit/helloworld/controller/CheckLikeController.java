@@ -30,7 +30,7 @@ public class CheckLikeController {
 	
 	@PostMapping("/{boardNum}")
 	public ResponseEntity<Long> boardLike(@RequestBody BoardCheckLikeDTO boardCheckLikeDTO){
-		log.info("위치 : CommentController register()");
+		log.info("위치 : CheckLikeController boardLike()");
 		log.info("boardCheckLikeDTO : " + boardCheckLikeDTO);
 		log.info("나오냐 " + boardCheckLikeDTO.getMemberNum() + boardCheckLikeDTO.getBoardNum());
 		
@@ -38,13 +38,13 @@ public class CheckLikeController {
 		return new ResponseEntity<Long>(1L, HttpStatus.OK);
 	}
 	
-	@PostMapping("/{boardNum}/all")
-	public ResponseEntity<Long> commentLike(@RequestBody CommentCheckLikeDTO commentCheckLikeDTO){
-		log.info("위치 : CommentController register()");
+	@PostMapping("/{commentId}/all")
+	public ResponseEntity<Long> commentLike(@PathVariable("commentId") Long commentId,@RequestBody CommentCheckLikeDTO commentCheckLikeDTO){
+		log.info("위치 : CheckLikeController commentLike()");
 		log.info("boardCheckLikeDTO : " + commentCheckLikeDTO);
 		log.info("나오냐 " + commentCheckLikeDTO.getMemberNum() + commentCheckLikeDTO.getCommentId());
 		
-		commentCheckLikeService.get(commentCheckLikeDTO.getMemberNum(), commentCheckLikeDTO.getCommentId());
+		commentCheckLikeService.get(commentCheckLikeDTO.getMemberNum(), commentId);
 		return new ResponseEntity<Long>(1L, HttpStatus.OK);
 	}
 	

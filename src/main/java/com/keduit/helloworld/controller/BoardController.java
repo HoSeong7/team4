@@ -38,6 +38,13 @@ public class BoardController {
 	
 	private final MemberService memberService;
 	
+	
+	@GetMapping("/modal")
+	public void modal() {
+		
+	}
+	
+	
 	// < list >
 	// GetMapping
     @GetMapping("/communitylist")

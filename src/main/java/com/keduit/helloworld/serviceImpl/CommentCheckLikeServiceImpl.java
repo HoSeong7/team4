@@ -5,15 +5,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.keduit.helloworld.dto.CommentCheckLikeDTO;
-import com.keduit.helloworld.entity.Board;
-import com.keduit.helloworld.entity.BoardCheckLike;
 import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.CommentCheckLike;
 import com.keduit.helloworld.repository.CommentCheckLikeRepository;
 import com.keduit.helloworld.repository.CommentRepository;
 import com.keduit.helloworld.service.CommentCheckLikeService;
-import com.keduit.helloworld.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -35,7 +31,8 @@ public class CommentCheckLikeServiceImpl implements CommentCheckLikeService {
 		
 		List<CommentCheckLike> check = commentCheckLikeRepository.getbyMemberNum(memberNum,commentid);
 		Optional<Comment> commentcheck = commentRepository.findById(commentid);
-		
+		log.info("위치 : CommentCheckLikeServiceImpl get()");
+		log.info("commentcheck : "+commentcheck);
 		
 		if(!check.isEmpty()) {
 			commentCheckLikeRepository.deleteById(check.get(0).getChecklikeId());

@@ -70,4 +70,13 @@ public class CommentRepositoryTests {
 			commentRepository.save(comment);
 		});
 	}
+	
+	@Test
+	public void testtest() {
+		
+		Optional<Comment> commentcheck = commentRepository.findById(1L);
+		
+		System.out.println(commentcheck);
+	}
+	
 }
