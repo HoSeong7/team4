@@ -114,5 +114,4 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/codehaus/groovy/groovy/3.0.14/groovy-3.0.14.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/nz/net/ultraq/extensions/groovy-extensions/1.1.0/groovy-extensions-1.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/nz/net/ultraq/thymeleaf/thymeleaf-expression-processor/3.0.0/thymeleaf-expression-processor-3.0.0.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="false" runInBatchMode="false"/>
 </factorypath>

@@ -68,6 +68,8 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	//호성 23.02.20
+	
 	/** 회원정보 받아서 수정 */
 	@Transactional
 	@Override
@@ -78,12 +80,14 @@ public class MemberServiceImpl implements MemberService {
 
 		if(member != null) {
 			member.change(dto.getMemberNum(), dto.getId(),passwordEncoder.encode(dto.getPw()), dto.getName()
-					, dto.getNickname(), dto.getIntroduce(), dto.getEmail(), dto.getUpdateDate());
+					, dto.getNickname(), dto.getIntroduce(), dto.getEmail(), dto.getUpdateDate(), dto.getUrl());
 
 		}
 
 		repository.save(member);
 	}
+	
+	//호성 end
 
 	@Override
 	public BooleanBuilder getSearch(PageRequestDTO requestDTO) {
@@ -172,49 +176,58 @@ public class MemberServiceImpl implements MemberService {
 		return members;
 	}
 
-	//end 호성 
+	//호성 02.18
+
+
+		@Override
+		public Integer memberCount(String id) {
+
+			int idChk = repository.getIdCount(id);
+
+			return idChk;
+		}
+
+		@Override
+		public Integer membernickCount(String nickname) {
+			int idChk = repository.getNickCount(nickname);
+			return idChk;
+		}
 	
+	//end 호성 
+		
+		
 	
 //효영
 	
 	@Override
-	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(read) */
-	public List<MemberDTO> getMsgGetListAsGiver(String id) {
-		
-		List<Member> result = repository.getMemInfoByGiverId(id);
-		List<MemberDTO> list = new ArrayList<>();
-		
-		for(Member member : result) {
-			MemberDTO memberDTO = memberEntityToMemberDto(member);
-			list.add(memberDTO);
-		}
-		return list;
-	}
-
-	/** 조회하는사람 아이디로, 회원번호 가져오기(read) */
-	@Override
-	public MemberDTO getMemNum(String id) {
-		Optional<Member> result = repository.getMemberId(id);
+	/** 조회하는사람 아이디로, 본인 정보 가져오기(crud) */
+	public MemberDTO getMyInfo(String id) {
+		Optional<Member> result = repository.getMemberId(id); //호성님 쿼리 재사용
 		MemberDTO memberDTO = memberEntityToMemberDto(result.get());
 		return memberDTO;
 	}
 
-	//호성 02.18
+//	@Override
+//	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(list) */
+//	public List<MemberDTO> getMsgGetListAsGiver(String id) {
+//		
+//		List<Member> result = repository.getMemInfoByGiverId(id);
+//		List<MemberDTO> list = new ArrayList<>();
+//		
+//		for(Member member : result) {
+//			MemberDTO memberDTO = memberEntityToMemberDto(member);
+//			list.add(memberDTO);
+//		}
+//		return list;
+//	}
 
 
-	@Override
-	public Integer memberCount(String id) {
+//	@Override
+//	/** 내 메시지를 받은 회원 가져오기 */
+//	public List<Member> getMemMessage(Long num) {
+//		List<Member> getMsg = repository.getMemberMsg(num);
+//		return getMsg;
+//	}
 
-		int idChk = repository.getIdCount(id);
 
-		return idChk;
-	}
-
-	@Override
-	public Integer membernickCount(String nickname) {
-		int idChk = repository.getNickCount(nickname);
-		return idChk;
-	}
-
-	//end 호성
 }

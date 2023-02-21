@@ -70,4 +70,12 @@ public class Board extends BaseEntity{
 	public void updateViews(Long countViews) {
 		views = countViews;
 	}
+	
+	public void countUp(Long blike) {
+		this.blikes = blike+1;
+	}
+	
+	public void countDown(Long blike) {
+		this.blikes = blike-1;
+	}
 }

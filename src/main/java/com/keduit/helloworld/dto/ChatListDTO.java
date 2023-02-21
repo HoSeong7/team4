@@ -2,8 +2,6 @@ package com.keduit.helloworld.dto;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -14,6 +12,10 @@ public class ChatListDTO {
     private ConcurrentHashMap<Integer, ConcurrentLinkedQueue<ChatDTO>> chatListMap = new ConcurrentHashMap<>();
 
     private ChatListDTO() {}
+    
+    public static ChatListDTO getInstance() {
+        return instance;
+    }
 
     public void chatMapLog(int roomNumber, ChatDTO chatDTO) {
         ConcurrentLinkedQueue<ChatDTO> queue = chatListMap.getOrDefault(roomNumber, new ConcurrentLinkedQueue<>());
@@ -32,8 +34,6 @@ public class ChatListDTO {
         return queue;
     }
 
-    public static ChatListDTO getInstance() {
-        return instance;
-    }
+
 
 }

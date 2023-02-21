@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/qnalist.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <script th:src="@{/js/jquery/jquery.min.js}"></script>
 </head>
 
 <body>
@@ -18,16 +19,33 @@
         <div class="content-header-box">
             <h1>Q&A</h1>
             <div class="search">
-                <select name="search-option">
-                    <option value="">선택</option>
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                    <option value="titlecontent">제목+내용</option>
-                    <option value="category">카테고리</option>
+            <form id="searchForm" action="/hello/qnalist" method="get">
+                <select name="type">
+                    <option value="" 
+		                    	th:selected="${pageRequestDTO.type==null}"
+		                    		>-----</option>
+		                    <option value="t" 
+		                      	th:selected="${pageRequestDTO.type=='t'}"
+		                      		>제목</option>
+		                    <option value="c"
+		                     	th:selected="${pageRequestDTO.type=='c'}"
+		                     		>내용</option>
+		                    <option value="w"
+		                      	th:selected="${pageRequestDTO.type=='w'}"
+		                       		>작성자</option>
+		                    <option value="o"
+		                      	th:selected="${pageRequestDTO.type=='o'}"
+		                       		>카테고리</option>
+		                    <option value="tc"
+		                      th:selected="${pageRequestDTO.type=='tc'}"
+		                       		>제목 or 내용</option>
+		                    <option value="tw"
+		                      th:selected="${pageRequestDTO.type=='tw'}"
+		                       		>제목 or 작성자</option>
                 </select>
-                <input type="text" maxlength="225"> <i id="keyboard" class="fa fa-keyboard-o"></i>
-                <button>검색
-                </button>
+                <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}">
+                <button type="button" class="btn btn-search">검색</button>
+            </form>
             </div>
             <button id="registration" onclick="location.href='/hello/qnaregister' ">작성하기</button>
         </div>
@@ -46,7 +64,7 @@
                         <h2>확인가능</h2>
                     </a></div>
                 <div class="board-view">[[${dto.views}]] 회</div>
-                <div class="board-time">5분전</div>
+                <div class="board-time">[[${#temporals.format(dto.regdate, 'yyyy/MM/dd')}]]</div>
             </div>
             <div class="board-text">
                 <p>[[${dto.content}]]</p>
@@ -91,5 +109,22 @@
     </div>
     <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
+<script th:inline="javascript">
+
+			var searchForm = $("#searchForm");
+			
+			$('.btn-search').click(function(e){
+				
+				searchForm.submit();
+			});
+			
+			$('.btn-clear').click(function(e){
+				
+				searchForm.empty().submit();
+			});
+			
+			
+</script>
+
 
 </html>

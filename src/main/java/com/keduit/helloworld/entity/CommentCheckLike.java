@@ -26,11 +26,11 @@ public class CommentCheckLike {
     /** 좋아요 확인 고유넘버 */
     private Long checklikeId;
 
-    @Column(nullable = false)
+    @Column
     /** 좋아요 확인 좋아요 누른 댓글 */
     private Long commentId;
 
-    @Column(nullable = false)
+    @Column
     /** 좋아요 누른 사람의 pk*/
     private Long memberNum;
 

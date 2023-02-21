@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/noticelist.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <script th:src="@{/js/jquery/jquery.min.js}"></script>
 </head>
 
 <body>
@@ -25,10 +26,26 @@
                 <button id="registration" onclick="location.href='/hello/noticeregister' ">작성하기</button>
             </div>
             <div class="search-box">
-                <div class="search">
-                    <input type="text" placeholder="검색어 입력">
-                    <button>검색</button>
-                </div>
+            	<form id="searchForm" action="/hello/noticelist" method="get">
+	                <div class="search">
+	                	 <select name="type" >
+		                    <option value="" 
+		                    	th:selected="${pageRequestDTO.type==null}"
+		                    		>-----</option>
+		                    <option value="t" 
+		                      	th:selected="${pageRequestDTO.type=='t'}"
+		                      		>제목</option>
+		                    <option value="c"
+		                     	th:selected="${pageRequestDTO.type=='c'}"
+		                     		>내용</option>
+		                    <option value="tc"
+		                      th:selected="${pageRequestDTO.type=='tc'}"
+		                       		>제목 or 내용</option>
+		                  </select>
+	                    <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="검색어 입력">
+	                    <button type="button" class="btn btn-search">검색</button>
+	                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -54,10 +71,14 @@
                                )}">[[${dto.title}]]</a></h2>
                     </div>
                     <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
+                        <div class="box1">추천수 : [[${dto.blikes}]]</div>
                         <div class="box2">조회수 : [[${dto.views}]]</div>
-                        <div class="box3">123412342134분전</div>
-                        <div class="box4"><button>확인하기</button></div>
+                        <div class="box3">[[${#temporals.format(dto.regdate, 'yyyy/MM/dd')}]]</div>
+                        <div class="box4"><a th:href="@{/hello/noticeread(boardNum=${dto.boardNum},
+                               page=${result.page},
+                               type=${pageRequestDTO.type},
+							   keyword=${pageRequestDTO.keyword}
+                               )}"><button>확인하기</button></a></div>
                     </div>
                 </div>
             </div>
@@ -93,8 +114,26 @@
             
             
         </div>
+        </div>
     </div>
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
+<script th:inline="javascript">
+
+			var searchForm = $("#searchForm");
+			
+			$('.btn-search').click(function(e){
+				
+				searchForm.submit();
+			});
+			
+			$('.btn-clear').click(function(e){
+				
+				searchForm.empty().submit();
+			});
+			
+			
+</script>
+
 
 </html>
