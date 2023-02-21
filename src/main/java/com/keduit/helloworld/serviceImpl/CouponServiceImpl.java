@@ -3,6 +3,8 @@ package com.keduit.helloworld.serviceImpl;
 import java.util.List;
 
 import com.keduit.helloworld.service.UserPageService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.CouponDTO;
@@ -19,7 +21,27 @@ import lombok.extern.log4j.Log4j2;
 public class CouponServiceImpl implements CouponService{
 	
 	private final CouponRepository couponRepository;
+	
+	//승민
+	@Override
+	public void couponCreate() {
+		String str = "0123456789qwertyuiopasdfghjklzxcvbnm";
+		for (int i = 0; i < 10; i++) {
+			Coupon coupon = Coupon
+					.builder()
+					.couponvalue(50000L)
+					.serialnum(createNum(str))
+					.build();
+			couponRepository.save(coupon);
+		}
+	}
 
+	@Override
+	public Page<CouponDTO> readCouponList(Pageable pageable) {
+		return couponRepository.findAll(pageable).map(coupon -> EntityToDto(coupon));
+	}
+	//승민 끝
+	
 	@Override
 	/** 쿠폰 번호 등록 */
 	public Long register(CouponDTO dto) {
@@ -45,8 +67,11 @@ public class CouponServiceImpl implements CouponService{
 		couponRepository.deleteById(couponNum);
 	}
 
-
-    @Service
-    public static class UserPageServiceImpl implements UserPageService {
-    }
+	private String createNum(String str){
+		String serNum = "";
+		for (int i = 0; i < 16;i++){
+			serNum += str.indexOf((int) (Math.random() * str.length()));
+		}
+		return serNum;
+	}
 }

@@ -1,9 +1,6 @@
 package com.keduit.helloworld.controller;
 
-import com.keduit.helloworld.dto.BoardDTO;
-import com.keduit.helloworld.dto.CommentDTO;
-import com.keduit.helloworld.dto.MemberDTO;
-import com.keduit.helloworld.dto.MessageDTO;
+import com.keduit.helloworld.dto.*;
 import com.keduit.helloworld.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +24,7 @@ public class AdminController {
     private final BoardService boardService;
     private final CommentService commentService;
     private final MessageService messageService;
+    private final CouponService couponService;
 
     @GetMapping("/admin")
     public void adminPage(Model model,
@@ -34,10 +32,13 @@ public class AdminController {
                           @RequestParam(defaultValue = "0") int boardPage,
                           @RequestParam(defaultValue = "0") int commentPage,
                           @RequestParam(defaultValue = "0") int messagePage,
+                          @RequestParam(defaultValue = "0") int couponPage,
                           @RequestParam(required = false) String memberName,
                           @RequestParam(required = false) String boardTitle,
                           @RequestParam(required = false) String commentContent,
-                          @RequestParam(required = false) String messageContent,
+                          @RequestParam(required = false) String messageNum,
+                          @RequestParam(required = false) String messageGive,
+                          @RequestParam(required = false) String messageGet,
                           @RequestParam(required = false) String memberSelect,
                           @RequestParam(required = false) String boardSelect,
                           @RequestParam(required = false) String commentSelect,
@@ -86,6 +87,16 @@ public class AdminController {
             messageList = messageService.getMessages(messagePageRequest);
         }
         model.addAttribute("messageList", messageList);
+
+        PageRequest commentPageReq = PageRequest.of(couponPage, 10,Sort.by(Sort.Direction.DESC,"couponNum"));
+        Page<CouponDTO> couponList = couponService.readCouponList(commentPageReq);
+        model.addAttribute("couponList",couponList);
+    }
+
+    @GetMapping("/createCoupon")
+    public String createCoupon(){
+        couponService.couponCreate();
+        return "redirect:/hello/admin";
     }
 
 }

@@ -28,6 +28,11 @@
 </head>
 
 <body>
+  <form method="get" action="/hello/admin">
+  <input type="hidden" name="memberPage" th:value="${memberList.number}">
+  <input type="hidden" name="boardPage" th:value="${boardList.number}">
+  <input type="hidden" name="commentPage" th:value="${commentList.number}">
+  <input type="hidden" name="messagePage" th:value="${messageList.number}">
   <!-- Member List -->
   <h2>회원 목록</h2>
   <table>
@@ -52,9 +57,12 @@
       </tr>
     </tbody>
   </table>
-
-  <input type="text" name="member">
-
+    <select name="memberSelect" id="">
+      <option value="member_num">회원번호</option>
+      <option value="nickname">닉네임</option>
+    </select>
+    <input type="text" name="memberName">
+    <button type="submit">검색</button>
   <!-- Member Pagination -->
   <nav aria-label="Member Page Navigation">
     <ul class="pagination">
@@ -219,6 +227,51 @@
       </li>
     </ul>
   </nav>
+
+  <h2>쿠폰 관리</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>쿠폰번호</th>
+      <th>쿠폰 금액</th>
+      <th>사용여부</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="coupon : ${couponList}">
+      <td th:text="${coupon.serialnum}"></td>
+      <td th:text="${coupon.couponvalue}"></td>
+      <td th:text="${coupon.couponbool}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <nav aria-label="Coupon Page Navigation">
+    <ul class="pagination">
+      <li th:classappend="${couponList.first} ? disabled : ''">
+        <a th:if="${not couponList.first}"
+           th:href="@{${#httpServletRequest.requestURI}(couponPage=${couponList.number - 1})}"
+           aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <li th:each="i : ${#numbers.sequence(1, couponList.totalPages)}"
+          th:classappend="${couponList.number + 1} == ${i} ? active : ''">
+        <a th:href="@{${#httpServletRequest.requestURI}(couponPage=${i - 1})}"
+           th:text="${i}"></a>
+      </li>
+
+      <li th:classappend="${couponList.last} ? disabled : ''">
+        <a th:if="${not couponList.last}"
+           th:href="@{${#httpServletRequest.requestURI}(couponPage=${couponList.number + 1})}"
+           aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</form>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

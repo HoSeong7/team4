@@ -4,10 +4,17 @@ import java.util.List;
 
 import com.keduit.helloworld.dto.CouponDTO;
 import com.keduit.helloworld.entity.Coupon;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CouponService {
+	//승민
+	/** 쿠본 번호 생성*/
+	void couponCreate();
 
-	/**쿠폰 생성*/
+	Page<CouponDTO> readCouponList(Pageable pageable);
+	// 승민 끝
+	/** 쿠본 번호 등록*/
 	Long register(CouponDTO dto);
 	
 	/**전체 쿠폰 읽어오기*/
@@ -37,5 +44,7 @@ public interface CouponService {
 										.build();
 		return entity;
 	}
+
+	
 	
 }
