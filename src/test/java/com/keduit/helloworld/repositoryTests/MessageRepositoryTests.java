@@ -29,17 +29,17 @@ public class MessageRepositoryTests {
 	/** 쪽지 등록 테스트(create) */
 	public void insertMsgTest() {
 		
-		IntStream.rangeClosed(1, 200).forEach(i -> {
+		IntStream.rangeClosed(1, 30).forEach(i -> {
 			
-			Long a = (long)(Math.random()*30)+1;
-			Long b = (long)(Math.random()*30)+1;
-			Long c = (long)(Math.random()*30)+1;
+			Long a = (long)(Math.random()*10)+1;
+			Long b = (long)(Math.random()*10)+1;
+			Long c = (long)(Math.random()*10)+1;
 			
 			Message entity = Message.builder()
 					.memberGet(a)
 					.memberGive(b)
-					.title("쪽지 제목" + i)
-					.content("쪽지 내용" + i)
+					.title("제목" + i)
+					.content("내용" + i)
 					.view(0L) //최초 전송 시 권한: 0
 					.boardCommentNum(c)
 					.build();

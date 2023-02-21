@@ -41,7 +41,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	@Override
-	/** 쪽지 리스트 조회(read, 받은사람 기준, 권한 0 or 1만 출력) */
+	/** 쪽지 리스트 조회(list, 받은사람 기준, 권한 0 or 1만 출력) */
 	public List<MessageDTO> getListAsGetter(Long memberGet) {
 
 		List<Message> result = messageRepository.getMsgListAsGetter(memberGet);
@@ -58,10 +58,10 @@ public class MessageServiceImpl implements MessageService {
 	
 
 	@Override
-	/** 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
+	/** 쪽지 리스트 조회(list, 보낸사람 기준, 권한 0 or 2만 출력) */
 	public List<MessageDTO> getListAsGiver(Long memberGive) {
 
-		List<Message> result = messageRepository.getMsgListAsGiver(memberGive);
+		List<Message> result = messageRepository.getMsgListAsGiver(memberGive); //보낸 사람 회원번호로, 보낸 쪽지 정보 & 받는 회원정보 조회
 		List<Member> mlist = memberRepository.getMemNicknameByGiver(memberGive);
 		List<MessageDTO> list = new ArrayList<>();
 		

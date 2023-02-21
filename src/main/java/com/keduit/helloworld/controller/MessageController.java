@@ -45,27 +45,26 @@ public class MessageController {
 		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		
-		/** 쪽지 상대 프로필사진 */
-		Member idnum =  memberService.idRead(userDetails.getUsername());
-
-		/** 내 메시지를 받은 회원 가져오기 */
-		List<Member> getMemMsg = memberService.getMemMessage(idnum.getMemberNum());
-
-		/** 조회하는사람 아이디로, 회원번호 가져오기 */
-		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보 
-		
+		/** 조회하는사람 회원번호로, 회원정보 가져오기 */
+		MemberDTO myMemDTO = memberService.getMyInfo(userDetails.getUsername());
 		
 		/** 조회하는 사람 회원번호로, 쪽지 목록 가져오기 */ 
 		List<MessageDTO> messageGive = messageService.getListAsGiver(myMemDTO.getMemberNum()); //조회하는 사람이 발신자, 보낸쪽지 목록 가져옴
 		List<MessageDTO> messageGet = messageService.getListAsGetter(myMemDTO.getMemberNum()); //조회하는 사람이 수신자, 받은쪽지 목록 가져옴
 		
+//		/** 쪽지 상대 프로필사진 */
+//		Member idnum =  memberService.idRead(userDetails.getUsername());
+//
+//		/** 내 메시지를 받은 회원 가져오기 */
+//		List<Member> getMemMsg = memberService.getMemMessage(idnum.getMemberNum());
 		
+		model.addAttribute("myInfo",myMemDTO); //내정보
 		model.addAttribute("giveMsg", messageGive); //보낸 쪽지 목록
 		model.addAttribute("getMsg", messageGet); //받은 쪽지 목록
-		model.addAttribute("member22",getMemMsg); //쪽지 상대 프로필사진
-		model.addAttribute("myInfo",myMemDTO); //내정보
-		System.out.println("getMemMsg" + getMemMsg.get(0));
-		System.out.println("getMemMsg" + getMemMsg.get(8));
+
+//		model.addAttribute("member22",getMemMsg); //쪽지 상대 프로필사진
+//		System.out.println("getMemMsg" + getMemMsg.get(0));
+//		System.out.println("getMemMsg" + getMemMsg.get(8));
 		
 	}
 	
@@ -76,7 +75,7 @@ public class MessageController {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		
 		/** 조회하는 사람 아이디로, 회원번호 가져오기 */
-		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보
+		MemberDTO myMemDTO = memberService.getMyInfo(userDetails.getUsername()); //내정보
 		
 		/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
 		MessageDTO messageDTO = messageService.read(messageNum, myMemDTO.getMemberNum()); 
@@ -97,7 +96,7 @@ public class MessageController {
 		String title = params.get("title").toString();
 		String content = params.get("content").toString();
 		
-		MemberDTO myMemDTO = memberService.getMemNum(userDetails.getUsername()); //내정보
+		MemberDTO myMemDTO = memberService.getMyInfo(userDetails.getUsername()); //내정보
 		MessageDTO messageDTO = messageService.read(messageNum, myMemDTO.getMemberNum()); //내 회원번호로, 메시지 정보 가져오기
 		
 //		MemberDTO yourMemDTO = memberService.read(memberGive); //상대정보
@@ -117,7 +116,7 @@ public class MessageController {
 		Long messageNum = Long.parseLong(params.get("messageNum").toString());
 		Long view = Long.parseLong(params.get("view").toString());
 
-		MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+		MemberDTO memberDTO = memberService.getMyInfo(userDetails.getUsername());
 		
 		MessageDTO messageDTO = messageService.read(messageNum, memberDTO.getMemberNum());
 		

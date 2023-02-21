@@ -41,30 +41,27 @@
 				<div class="content-body-left-header">
 					<h1>쪽지</h1>
 					<div class="main">
-						<input id="tab1" type="radio" name="tabs" checked>
 						<!--디폴트 메뉴-->
+						<input id="tab1" type="radio" name="tabs" checked>
 						<label for="tab1" id="post-label">보낸 내역</label> 
 						<input id="tab2" type="radio" name="tabs"> 
 						<label for="tab2">받은 내역</label>
+						
 						<section id="content1">
- 						<div class="content-body-left-body" th:each="giveList:${giveMsg}">
+ 							<div class="content-body-left-body" th:each="giveList:${giveMsg}">
 								<div class="content-box">
-								
-										<div>
-										
-											<img th:if="${giveList.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
-                							<img th:if="${giveList.url != null}" th:src="'/hello/display?fileName='+${giveList.url}" >
-										</div>
-										<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.nickname}]]</div> 
-										
-										<div class="content-time">[[${#temporals.format(giveList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div>
-										<div class="content-delete">
-											 <button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
-										</div>
-									
+									<div  class="content-userimg">
+<!-- 										<img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"> -->
+										<img th:if="${giveList.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                						<img th:if="${giveList.url != null}" th:src="'/hello/display?fileName='+${giveList.url}" >
+									</div>
+									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.nickname}]]</div> 
+									<div class="content-time">[[${#temporals.format(giveList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div>
+									<div class="content-delete">
+										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
+									</div>
 								</div>
 							</div>
-						
 						</section>
 
 						<!--세선 2-->
@@ -96,7 +93,7 @@
 	</div>
 
 
-<!-- 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 	<script th:inline="javascript">
 	/*<![CDATA[*/
@@ -247,7 +244,7 @@
 			});
 		}
 	/*]]>*/
-	</script> -->
+	</script>
 
 </body>
 </html>

@@ -18,10 +18,10 @@ public interface MessageService {
 	/** 쪽지 등록(create) */
 	Long register(MessageDTO dto, Long memberGet, Long memberGive, Long boardCommentNum);
 
-	/** 받은 쪽지 리스트 조회(read, 받은사람 기준, 권한 0 or 1만 출력) */
+	/** 받은 쪽지 리스트 조회(list, 받은사람 기준, 권한 0 or 1만 출력) */
 	List<MessageDTO> getListAsGetter(Long memberGet);
 
-	/** 보낸 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
+	/** 보낸 쪽지 리스트 조회(list, 보낸사람 기준, 권한 0 or 2만 출력) */
 	List<MessageDTO> getListAsGiver(Long memberGive);
 
 	/** 쪽지 상세 조회(read) */

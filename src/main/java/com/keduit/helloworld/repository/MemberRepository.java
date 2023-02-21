@@ -45,8 +45,20 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 		+ "where m.id = :id ",nativeQuery=true)
 	 Optional<Member> getMemberId(String id);
 
+	 //호성 02-18
+
+	 /** id 중복체크*/
+	 @Query(value="select count(*) from member m where m.id = :id", nativeQuery=true)
+	int getIdCount(String id);
+
+	 /** nick name 중복체크*/
+	 @Query(value="select count(*) from member m where m.nickname = :nickname ", nativeQuery=true)
+	int getNickCount(String nickname);
+
+//호성 end
 
 
+	 
 //효영
 
 	//회원간 거래내역
@@ -63,34 +75,40 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	List<Member> getMemNumAsSeller(Long num);
 
 	//쪽지 리스트
-	@Query(value = "select * from member m "
-	 		+ "join message ms on ms.member_give = m.member_num "
-	 		+ "where m.id = :id and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
-	/** 쪽지 보낸사람 아이디로, 회원 정보 가져오기(read, 보낸사람 기준) */
-	List<Member> getMemInfoByGiverId(String id);
+//	@Query(value = "select * from member m "
+//	 		+ "join message ms on ms.member_give = m.member_num "
+//	 		+ "where m.id = :id and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
+//	/** 쪽지 보낸사람 아이디로, 회원 정보 가져오기(list, 보낸사람 기준) */
+//	List<Member> getMemInfoByGiverId(String id);
 
-	@Query(value = "select * from member m "
-	 		+ "join message ms on ms.member_get = m.member_num "
-	 		+ "where m.id = :id and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
-	/** 쪽지 받은사람 아이디로, 회원 정보 가져오기(read, 받은사람 기준) */
-	List<Member> getMemInfoByGetterId(String id);
+//	@Query(value = "select * from member m "
+//	 		+ "join message ms on ms.member_get = m.member_num "
+//	 		+ "where m.id = :id and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
+//	/** 쪽지 받은사람 아이디로, 회원 정보 가져오기(list, 받은사람 기준) */
+//	List<Member> getMemInfoByGetterId(String id);
 
-	@Query(value = "select * from member m "
-	 		+ "join message ms on ms.member_get = m.member_num "
-	 		+ "where ms.member_give = :num and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
-	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
-	List<Member> getMemNicknameByGiver(Long num);
-
+	//쪽지 내역 조회	
 	@Query(value = "select * from member m "
 			+ "join message ms on ms.member_give = m.member_num "
 			+ "where ms.member_get = :num and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
-	/** 쪽지 받은사람 회원번호로, 보낸사람 정보 가져오기(read, 받은사람 기준) */
+//	/** 쪽지 받은사람 회원번호로, 보낸사람 정보 가져오기(read, 받은사람 기준) */
+	/** 받은 사람 회원번호로, 받은 쪽지 정보 & 보낸 회원정보 조회 (수신 list, 권한 0 or 1만 출력) */
 	List<Member> getMemNicknameByGetter(Long num);
 	
-	/** 내 메시지를 받은 회원 가져오기 */
-	@Query(value = "select * from member m left outer join message ms on ms.member_get = m.member_num where ms.member_give = :num", nativeQuery = true)
-	List<Member> getMemberMsg(Long num);
+	@Query(value = "select * from member m "
+	 		+ "join message ms on ms.member_get = m.member_num "
+	 		+ "where ms.member_give = :num and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
+//	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
+	/** 보낸 사람 회원번호로, 보낸 쪽지 정보 & 받는 회원정보 조회 (발신 list, 권한 0 or 2만 출력) */
+	List<Member> getMemNicknameByGiver(Long num);
+   
+//	//프사
+//	/** 내 메시지를 받은 회원 가져오기 */
+//	@Query(value = "select * from member m left outer join message ms on ms.member_get = m.member_num where ms.member_give = :num", nativeQuery = true)
+//	List<Member> getMemberMsg(Long num);
 
+	
+	
 //성진
 
 	@Query(value =
@@ -106,17 +124,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 			, nativeQuery = true)
 		Member getCommenter(Long commenterNum);
 
-	 //호성 02-18
 
-	 /** id 중복체크*/
-	 @Query(value="select count(*) from member m where m.id = :id", nativeQuery=true)
-	int getIdCount(String id);
-
-	 /** nick name 중복체크*/
-	 @Query(value="select count(*) from member m where m.nickname = :nickname ", nativeQuery=true)
-	int getNickCount(String nickname);
-
-
-	//호성 end
 
 }
