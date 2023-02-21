@@ -110,6 +110,7 @@
 	window.onload = function () {
 		getRoom();
 		createRoom();
+		clickExVal(ex);
 	}
 
 	function getRoom() {
@@ -134,7 +135,7 @@
 
 	function goRoom(number, name) {
 		var link = "/moveChatting?roomName=" + name + "&" + "roomNumber=" + number;
-		window.open(link,'blank','width=550 , height=600, top=400, left=900', true);
+		window.open(link, 'blank', 'width=550 , height=600, top=400, left=900', true);
 	}
 
 	function createChatingRoom(res) {
@@ -158,10 +159,10 @@
 		$('#roomList').off('click', '.deleteRoom').on('click', '.deleteRoom', function () {
 			var roomNum = $(this).closest('tr').find('.roomNumValue').val();
 			var roomNem = $(this).closest('tr').find('.roomNameValue').val();
-			var msg = { 
-				'roomNumber' : roomNum,
+			var msg = {
+				'roomNumber': roomNum,
 				'roomName': roomNem
-			 };
+			};
 			console.log(msg);
 			commonAjax('/deleteRoom', msg, 'post', function (result) {
 				createChatingRoom(result);
@@ -194,6 +195,19 @@
 			'roomNumber': roomNumber
 		}
 		socketCreateRoom.send(JSON.stringify(option));
+	}
+
+	function clickExVal(ex) {
+		if (ex > 400) {
+			var strRoom =
+				'<tr>' +
+				'<th>방 제목</th>' +
+				'<th><input type="text" name="roomName" id="roomName"></t+h>' +
+				'<th><button id="createRoom">방 만들기</button></th>' +
+				'</tr>'
+
+				$(".inputTable").html(strRoom);
+		}
 	}
 </script>
 

@@ -1,5 +1,6 @@
 package com.keduit.helloworld.serviceImpl;
 
+import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
@@ -10,6 +11,8 @@ import com.keduit.helloworld.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -25,6 +28,12 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void memberRemove(Long memberId) {
         memberRepository.deleteById(memberId);
+    }
+
+    @Override
+    public MemberDTO memberRead(Long memberId) {
+        Optional<Member> result = memberRepository.findById(memberId);
+        return result.isPresent()? memberETD(result.get()) : null;
     }
 
     @Override

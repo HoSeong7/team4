@@ -1,18 +1,18 @@
 package com.keduit.helloworld.serviceImpl;
 
+import com.keduit.helloworld.dto.BoardDTO;
+import com.keduit.helloworld.entity.Board;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
 import org.apache.catalina.filters.AddDefaultCharsetFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,6 @@ public class MemberServiceImpl implements MemberService {
 
 	private final MemberRepository repository;
 	private final PasswordEncoder passwordEncoder;
-
 
 	@Override
 	/** 회원 정보 입력 받으면 entity에 넣음 */
@@ -91,10 +90,31 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 
+	// 승민 시작
 	@Override
-	public Page<MemberDTO> getMembers(PageRequest memberPageRequest) {
-		return null;
+	public Page<MemberDTO> getMembers(Pageable pageable) {
+		return repository.findAll(pageable).map(member -> memberEntityToMemberDto(member));
 	}
+
+	@Override
+	public Page<MemberDTO> getKeywordMembers(String select,String keyword, Pageable pageable) {
+
+		Page<MemberDTO> list = null;
+
+		if(select.equals("member_num")){
+			Optional<Member> result = repository.findById(Long.parseLong(keyword));
+			if(result.isPresent()){
+				MemberDTO memberDTO = memberEntityToMemberDto(result.get());
+				list = new PageImpl<>(Collections.singletonList(memberDTO));
+			}
+		}else if(select.equals("nickname")){
+			list = repository.findByNickname(keyword, pageable).map(member -> memberEntityToMemberDto(member));
+		}
+
+		return list;
+	}
+	//승민 끝
+
 //
 //	private final MemberRepository repository;
 //	
@@ -173,17 +193,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	//end 호성 
-	
-	
+
+
 //효영
-	
+
 	@Override
 	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(read) */
 	public List<MemberDTO> getMsgGetListAsGiver(String id) {
-		
+
 		List<Member> result = repository.getMemInfoByGiverId(id);
 		List<MemberDTO> list = new ArrayList<>();
-		
+
 		for(Member member : result) {
 			MemberDTO memberDTO = memberEntityToMemberDto(member);
 			list.add(memberDTO);

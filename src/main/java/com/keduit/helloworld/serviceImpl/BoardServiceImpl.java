@@ -1,15 +1,15 @@
 package com.keduit.helloworld.serviceImpl;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 import javax.transaction.Transactional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.BoardDTO;
@@ -148,10 +148,31 @@ public class BoardServiceImpl implements BoardService {
 		return list;
 	}
 
+	//승민
+	@Override
+	public Page<BoardDTO> getBoards(Pageable pageable) {
+		return boardRepository.findAll(pageable).map(board -> boardETD(board));
+	}
 
 	@Override
-	public Page<BoardDTO> getBoards(PageRequest boardPageRequest) {
-		return null;
+	public Page<BoardDTO> getKeywordBoards(String select,String keyword, Pageable pageable) {
+
+		Page<BoardDTO> list = null;
+
+		if(select.equals("board_num")){
+			Optional<Board> result = boardRepository.findById(Long.parseLong(keyword));
+			if(result.isPresent()){
+				BoardDTO boardDTO = boardETD(result.get());
+				list = new PageImpl<>(Collections.singletonList(boardDTO));
+			}
+		}else if(select.equals("member_num")){
+			list = boardRepository.findByTitle(keyword, pageable).map(board -> boardETD(board));
+		}else if(select.equals("title")){
+			list = boardRepository.findByMemberNum(keyword, pageable).map(board -> boardETD(board));
+		}
+
+		return list;
 	}
+	//승민 끝
 
 }

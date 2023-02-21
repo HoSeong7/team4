@@ -3,6 +3,8 @@ package com.keduit.helloworld.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -45,6 +47,12 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 		+ "where m.id = :id ",nativeQuery=true)
 	 Optional<Member> getMemberId(String id);
 
+
+	//승민
+	@Query(value = "SELECT * FROM member WHERE nickname = :str", nativeQuery = true)
+	Page<Member> findByNickname(String str, Pageable pageable);
+
+	//승민 끝
 
 
 //효영

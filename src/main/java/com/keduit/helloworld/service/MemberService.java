@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
@@ -75,8 +76,12 @@ public interface MemberService {
 	/** member 정보 검색하기 */
 	BooleanBuilder getSearch(PageRequestDTO requestDTO);
 
+	//승민
+	/** 관리자용 멤버 */
+	Page<MemberDTO> getMembers(Pageable pageable);
+	Page<MemberDTO> getKeywordMembers(String select,String keyword,Pageable pageable);
 
-	Page<MemberDTO> getMembers(PageRequest memberPageRequest);
+	//승민 끝
 
 	/** 내가 팔로한 사람들 */
 	List<Member> getMemberMarker(Long memberNum);

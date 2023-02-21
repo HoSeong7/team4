@@ -2,10 +2,10 @@ package com.keduit.helloworld.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.MessageDTO;
-import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.Message;
 
 import com.keduit.helloworld.dto.MessageDTO;
@@ -14,7 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 public interface MessageService {
-    
+
+	//승민
+	/** 관리자용 쪽지 페이징 처리 */
+	Page<MessageDTO> getMessages(Pageable pageable);
+	Page<MessageDTO> getKeywordMessages(String select,String keyword,Pageable pageable);
+
+	//승민 끝
+
 	/** 쪽지 등록(create) */
 	Long register(MessageDTO dto, Long memberGet, Long memberGive, Long boardCommentNum);
 
@@ -26,16 +33,12 @@ public interface MessageService {
 
 	/** 쪽지 상세 조회(read) */
 	MessageDTO read(Long messageNum);
-	
+
 	/** 받은 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +2, delete: 권한 3일때) */
 	void modifyViewAsGetter(Long messageNum, Long view); //
 
 	/** 보낸 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +1, delete: 권한 3일때) */
 	void modifyViewAsGiver(Long messageNum, Long view);
-	
-	/** 쪽지 리스트 페이징(관리자 모드) */
-	Page<MessageDTO> getMessages(PageRequest messagePageRequest);
-	
 
 	/** DTO에 있는 정보를 Entity로 옮기기 */
 	default Message messageDtoToEntity(MessageDTO dto, Long memberGet, Long memberGive, Long boardCommentNum) {
@@ -70,5 +73,5 @@ public interface MessageService {
 				.build();
 		return dto;
 	}
-	
+
 }
