@@ -55,7 +55,14 @@ public class Comment extends BaseEntity{
 	/** member테이블과 fk */
 	private Long commenterNum;	// 맴버테이블과 fk
 
-
+	
+	public void countUp(Long clike) {
+		this.clikes = clike+1;
+	}
+	
+	public void countDown(Long clike) {
+		this.clikes = clike-1;
+	}
 	
 
 }

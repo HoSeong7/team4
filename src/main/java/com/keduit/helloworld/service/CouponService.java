@@ -47,4 +47,13 @@ public interface CouponService {
 
 	
 	
+	/** 쿠폰 생성 */
+	void couponCreate();
+
+	/**쿠폰 번호 출력하기 */
+	Coupon getCouponList(String coupon);
+
+	/** 쿠폰 번호가 있는지 ? */
+	int getCount(String coupon);
+	
 }

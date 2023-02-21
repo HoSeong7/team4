@@ -15,13 +15,13 @@ import com.keduit.helloworld.entity.Member;
 public interface FavoritesService {
 
 	/** 즐겨찾기 추가하기 */
-	Long register(FavoritesDTO dto);
+	void register(Long myNum, Long youNum);
 	
 	/** 즐겨찾기 읽어오기(bookmarker를 읽어와서 bookmarked 출력해야함 */
 	List<Member> read(FavoritesDTO dto);
 	
 	/** 즐겨찾기 삭제 */
-	void remove(Long favoritesNum);
+	void remove(Long myNum, Long youNum);
 	
 	/** 즐겨찾기Entity에 있는 정보를 즐겨찾기DTO로 옮기기 */
 	default FavoritesDTO EntityToDto(Favorites entity) {

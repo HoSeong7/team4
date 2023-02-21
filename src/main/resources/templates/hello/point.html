@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -24,18 +24,23 @@
             <label class="tab_item" for="box3">결제내역</label>
             <input id="box4" type="radio" name="tab_item">
             <label class="tab_item tab_item4" for="box4">쿠폰</label>
-            <div class="tab_content" id="box1_content">
-                <div class="content-box1">
-                    <div class="box-title"><p>현재 잔액 : 30,000,000포인트</p></div>
-                    <div class="box-top"><input type="text"><img src="/img/pointimg.png" alt="" width="50px"></div>
-                    <div class="box-bottom"><button>충전하기</button></div>
-                </div>
-            </div>
+	        <div class="tab_content" id="box1_content">
+	          <form th:action="@{/hello/charge(id=${my.memberNum},point=${my.point})}" method="post" th:onsubmit="return Ok2Submit();">
+	                <div class="content-box1">
+	                    <div class="box-title"><p>현재 잔액 : <span id="jb">[[${my.point}]]</span>포인트</p></div>
+	                    <div class="box-top"><input type="text" id="charge" name="charge"><img src="/img/pointimg.png" alt="" width="50px"></div>
+	                    <input type="hidden" th:value="${my.point}" id="testPoint">
+	                    <div class="box-bottom"><button type="submit">충전하기</button></div>
+	                </div>
+	          </form>
+	        </div>
             <div class="tab_content" id="box2_content">
                 <div class="content-box2">
-                    <div class="box-title"><p>현재 잔액 : 30,000,000포인트</p></div>
-                    <div class="box-top"><input type="text"><img src="/img/pointimg.png" alt="" width="50px"></div>
-                    <div class="box-bottom"><button>환전하기</button></div>
+                  <form th:action="@{/hello/exchange(id=${my.memberNum},point=${my.point})}" method="post" th:onsubmit="return OkSubmit();">
+                    <div class="box-title"><p>현재 잔액 : <span id="jb1">[[${my.point}]]</span>포인트</p></div>
+                    <div class="box-top"><input type="text" name="exchange" id="exchange"><img src="/img/pointimg.png" alt="" width="50px"></div>
+                    <div class="box-bottom"><button type="submit">환전하기</button></div>
+                  </form>
                 </div>
             </div>
             <div class="tab_content" id="box3_content">
@@ -46,34 +51,94 @@
                         <div class="box3">환전액</div>
                         <div class="box4">잔여포인트</div>
                     </div>
-                    <div class="box-table">
-                        <div class="box1">2023-02-13</div>
-                        <div class="box2">10,000,000</div>
-                        <div class="box3"></div>
-                        <div class="box4">10,000,000</div>
-                    </div>
-                    <div class="box-table">
-                        <div class="box1">2023-02-13</div>
-                        <div class="box2"></div>
-                        <div class="box3">120,000,000</div>
-                        <div class="box4">10,000,000</div>
-                    </div>
-                    <div class="box-table">
-                        <div class="box1">2023-02-13</div>
-                        <div class="box2">10,000,000</div>
-                        <div class="box3"></div>
-                        <div class="box4">10,000,000</div>
+                    <div class="box-table" th:each="point : ${list}">
+                        <div class="box1">[[${#temporals.format(point.regDate, 'yy/MM/dd h시')}]]</div>
+                        <div class="box2" th:if="${point.charge == null}"></div>
+                        <div class="box2" th:if="${point.charge != null}" data-th-text="${#numbers.formatInteger(point.charge, 3, 'COMMA') + '원'}"></div>
+                        <div class="box3" th:if="${point.exchange == null}"></div>
+                        <div class="box3" th:if="${point.exchange != null}" data-th-text="${#numbers.formatInteger(point.exchange, 3, 'COMMA') + '원'}"></div>
+                        <div class="box4" data-th-text="${#numbers.formatInteger(point.balance, 3, 'COMMA') + '원'}"></div>
                     </div>
                 </div>
             </div>
             <div class="tab_content" id="box4_content">
-                <div class="content-box4">
-                    <div class="box-title"><p>현재 잔액 : 30,000,000포인트</p></div>
-                    <div class="box-top"><input type="text">-<input type="text">-<input type="text">-<input type="text"></div>
-                    <div class="box-bottom"><button>쿠폰등록</button></div>
+                <div class="content-box2">
+                    <div class="box-title"><p>현재 잔액 : <span id="jb2">[[${my.point}]]</span>포인트</p></div>
+                    <div class="box-top"><input type="text" id="coupon"><img src="/img/pointimg.png" alt="" width="50px"></div>
+                    <div class="box-bottom"><button type="button" onclick="chk();">쿠폰등록</button></div>
                 </div>
             </div>
         </div>
+   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+   <script>
+      $( document ).ready( function() {
+        $( '#jb' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
+        $( '#jb1' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
+        $( '#jb2' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
+      } );
+   </script>
+   <script type="text/javascript">
+
+	// ajax로 nickname 중복확인
+
+	function chk(){
+	    var coupon = $("#coupon").val();
+
+	    $.ajax({
+	    	url: '/hello/coupon/chk/'+coupon,
+	        type: 'POST',
+	        data: JSON.stringify(coupon),
+	        contentType: "application/json; charset=utf-8",
+	        dataType: 'text',
+	        success: function (result) {
+	            if(0 == result){
+	                alert('쿠폰이 정상 등록되었습니다.');
+	                location.reload();
+	            }else{
+	                alert('쿠폰 번호를 다시 확인해주세요.');
+	            }
+	        }
+	    })
+		};
+
+		// 환불이 가능한지 확인
+		function OkSubmit() {
+	        var point = document.getElementById( 'testPoint' ).value;
+	        var exchange = $("#exchange").val();
+	        if ( point < 1000000 ) {
+	          alert( '100만포인트부터 환전이 가능합니다.' );
+	          return false;
+	        }else if(point/100 < exchange){
+	        	alert("현재 잔액보다 많은 돈은 환전 불가능합니다.");
+	        	return false;
+	        }else if(exchange < 10000){
+	          alert( '만원 이상부터 환전 가능합니다.' );
+	        	return false;
+	        }else if(exchange == ""){
+	          alert( '금액을 입력해주세요.' );
+	        	return false;
+	        }
+	        console.log( " 값이 뜨는지 ??? "+exchange);
+	        console.log( " 값이 뜨는지 ??? "+point);
+
+	      }
+
+		//충전 가능 금액 확인
+		function Ok2Submit(){
+			var change = $("#charge").val();
+			if(change == ""){
+				alert( '충전 금액이 비였습니다.' );
+		          return false;
+			}else if(change <10000){
+				alert( '만원 이상부터 충전 가능합니다.' );
+		          return false;
+			}
+		}
+
+
+	</script>
+
         <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 

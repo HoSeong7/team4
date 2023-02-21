@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.keduit.helloworld.dto.BoardCheckLikeDTO;
 import com.keduit.helloworld.dto.CommentDTO;
+import com.keduit.helloworld.service.BoardCheckLikeService;
 import com.keduit.helloworld.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
@@ -52,17 +54,13 @@ public class CommentController {
 	}
 	
 	@PutMapping("/{boardNum}/{boardCommentNum}")
-	public ResponseEntity<String> modify(@RequestBody CommentDTO commentDTO){
+	public ResponseEntity<String> modify(@PathVariable Long boardCommentNum, @RequestBody CommentDTO commentDTO){
 		log.info("위치 : CommentController modify()");
 		log.info("commentDTO : " + commentDTO);
 		commentService.modify(commentDTO);
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-	
-	
-	
-	
 	
 	
 	

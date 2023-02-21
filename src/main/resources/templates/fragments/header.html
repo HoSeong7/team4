@@ -2,8 +2,9 @@
 <html	lang="ko"
 	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div class="innerHeader" th:fragment="headerFragment">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="apple" width="30px"
-                    height="30px"></a></h1>
+<script src="/js/ajax/main.js"></script>
+        <h1 class="logo"><a href="/hello/index"><img src="/img/logo.png" alt="apple" width="40px"
+                    height="25px"></a></h1>
         <!--왼쪽바 공통-->
         <nav class="mainmenu-left">
             <ul class="navbar">
@@ -15,7 +16,7 @@
             <ul class="navbar">
                 <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
                 <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
+                <li><img class="siri" src="/img/siri.png" alt="" width="20px" height="25px" onclick="siri()"></li>
                 
                 
                <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
@@ -27,5 +28,8 @@
             </ul>
         </nav>
     </div>
+    
+    <script th:src="@{/js/jquery/jquery.min.js}"></script>
+    
     
 </html>

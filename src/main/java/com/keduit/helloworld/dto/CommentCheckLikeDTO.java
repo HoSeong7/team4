@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CheckLikeDTO {
+public class CommentCheckLikeDTO {
 
 	/** 좋아요 확인 고유넘버 */
 	private Long checklikeId;
@@ -24,6 +24,6 @@ public class CheckLikeDTO {
 	private Long commentId;
 	
 	/** 좋아요 확인 좋아요 누른 여부 */
-	private Long likebool;
+	private Long memberNum;
 	
 }

@@ -60,8 +60,8 @@ public class CommentRepositoryTests {
 
 	@Test
 	public void insertcommentTest() {
-		IntStream.rangeClosed(1, 100).forEach(i -> {
-			Comment comment = Comment.builder().boardNum((long)(Math.random()*10)+40)
+		IntStream.rangeClosed(1, 1000).forEach(i -> {
+			Comment comment = Comment.builder().boardNum((long)(Math.random()*200)+1)
 												.commentContent(i + "번째 내용")
 												.viewpicture(i+"번사진.jpg")
 												.price((long)i * 1000)
