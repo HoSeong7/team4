@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="/css/communitylist.css">
     <link rel="stylesheet" href="/css/footer.css">
     <script th:src="@{/js/jquery/jquery.min.js}"></script>
-
+	<script src="/js/ajax/main.js"></script>
+	
+    
+  
 </head>
 
 <body>
@@ -152,8 +155,13 @@
 		
 		</div>
 
-        
+        <div class="googlebox">
+		<div class="gcse-search"></div>
+	</div>
 <footer th:replace="fragments/footer :: footerFragment"></footer>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=e053556a1d0bc4606"></script>
 </body>
 
 
