@@ -54,7 +54,7 @@
             
             	<!-- 게시판 상단 -->
                 <div class="content-header">
-                    <h1>커뮤니티</h1></span>
+                    <h1>커뮤니티</h1>
                     <p>좋은 질문과 답변으로 동료의 시간을 아껴주세요</p>
                 </div>
                 <div class="content-middle">
@@ -62,7 +62,42 @@
                         <button onclick="location.href='/hello/communityregister' ">작성하기</button>
                     </div>
                     <div class="content-search">
-
+                    
+						<!-- 검색 -->
+		              <div class="">
+		                <form id="searchForm" action="/hello/communitylist" method="get">
+		                  <select name="type">
+		                    <option value="" 
+		                    	th:selected="${pageRequestDTO.type==null}"
+		                    		>-----</option>
+		                    <option value="t" 
+		                      	th:selected="${pageRequestDTO.type=='t'}"
+		                      		>제목</option>
+		                    <option value="c"
+		                     	th:selected="${pageRequestDTO.type=='c'}"
+		                     		>내용</option>
+		                    <option value="w"
+		                      	th:selected="${pageRequestDTO.type=='w'}"
+		                       		>작성자</option>
+		                    <option value="o"
+		                      	th:selected="${pageRequestDTO.type=='o'}"
+		                       		>카테고리</option>
+		                    <option value="tc"
+		                      th:selected="${pageRequestDTO.type=='tc'}"
+		                       		>제목 or 내용</option>
+		                    <option value="tw"
+		                      th:selected="${pageRequestDTO.type=='tw'}"
+		                       		>제목 or 작성자</option>
+		                    <option value="TCW"
+		                      th:selected="${pageRequestDTO.type=='tcw'}"
+		                       		>제목 or 내용 or 작성자</option>
+		                  </select>
+		                  <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}">
+			              <button type="button" class="btn btn-search">검색</button>
+			              <button type="button" class="btn btn-clear">취소</button>
+			              <p>
+		                </form>
+		              </div>
                     </div>
                 </div>
             	<!-- end 게시판 상단 -->
@@ -89,7 +124,8 @@
                                <a th:href="@{/hello/communityread(boardNum=${dto.boardNum},
                                page=${result.page},
                                type=${pageRequestDTO.type},
-							   keyword=${pageRequestDTO.keyword}
+							   keyword=${pageRequestDTO.keyword},
+							   memberNum=${member.memberNum}
                                )}">[[${dto.title}]]</a>
                             </div>
                         </div>
@@ -155,7 +191,22 @@
         
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
+<script th:inline="javascript">
 
+			var searchForm = $("#searchForm");
+			
+			$('.btn-search').click(function(e){
+				
+				searchForm.submit();
+			});
+			
+			$('.btn-clear').click(function(e){
+				
+				searchForm.empty().submit();
+			});
+			
+			
+</script>
 
 
 </html>

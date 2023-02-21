@@ -88,7 +88,6 @@
     </div>
     <div>
     	<button class="blikesBtnOpen" >좋아요</button>
-    	<button class="blikesBtnCancel" >안좋아요</button>
 	        <input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
 	        <input type="hidden" name="likememberNum" th:value="${member.memberNum}">
     </div>
@@ -165,28 +164,72 @@ $(document).ready(function(){
 		$.getJSON('/comment/'+ boardNum + "/all", function(arr){
 			let str = "";
 			
+			
+			
+			
+			
+			
 			$.each(arr, function(idx,comment){
+				
+				const urlParams = new URL(location.href).searchParams;
+
+				const mem = urlParams.get('memberNum');
+
+				console.log("결과값은?" + name)
+				var add;
+				if(comment.memberNum == mem){
+						"";
+					}else{
+						"hide";
+					}
+				
 				console.log(comment);
 				str += ' <div class="box-comments-list" data-boardCommentNum="'+ comment.boardCommentNum + '">'; 
-				str += ' <div class="box-write-top"> ';
-				str += ' <div class="box-left"> ';
-				str += ' <div class="userimg"><img src="/img/userimg.png" alt="" width="40px" height="40px"></div> ';
-				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small>  </div></div></div> ';
-				str += ' <div class="box-write-bottom"> ';
-				str += ' <div class="comment-box">'+ comment.commentContent +'</div></div> ';
-				str += ' <div class="box-button"></div> ';
-				str += ' </div></div> ';
+				str += ' 	<div class="box-write-top"> ';
+				str += ' 		<div class="box-left"> ';
+				str += ' 			<div class="userimg">';
+				str += '				<img src="/img/userimg.png" alt="" width="40px" height="40px">';
+				str += '			</div> ';
+				str += ' 			<div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small> <button>좋아요</button>';
+				str += ' 				<div> 추천수 :  </div> ';
+				str += ' 					<button type="button" class="commentModifyBtn ' +  + '">수정</button>';
+				str += ' 					<button type="button" class="commentRemoveBtn">삭제</button>';
+				str += '			</div>';
+				str += '		</div>';
+				str += '	</div> ';
+				str += ' 	<div class="box-write-bottom"> ';
+				str += ' 		<div class="comment-box">'+ comment.commentContent +'</div>';
+				str += '	</div> ';
+				str += ' 	<div class="box-button"></div> ';
+				str += ' </div>';
 				
 				
 			})
 			
-			$(".commentList").html(str);
+	$(".commentList").html(str);
+	$(".commentModifyBtn").hide();
+	$(".commentRemoveBtn").hide();
+	
 		})
 	}
 	
 	getComment();
 	
-	
+	$(".boardprevBtn").click(function(){
+		
+		
+		alert("작동?");
+		$(".commentModifyBtn").show();
+		
+		const urlParams = new URL(location.href).searchParams;
+
+		const name = urlParams.get('memberNum');
+
+		console.log("결과값은?" + name)
+		
+		
+		
+	});
 	
 		var actionForm = $("form");
 			$(".listBtn").click(function(){
@@ -245,7 +288,6 @@ $(document).ready(function(){
 					success: function(result){
 						console.log("success result : " + result);
 						self.location.reload();
-						alert("좋아요 누름");
 						
 					}
 				}); // ajax 끝
