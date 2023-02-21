@@ -38,8 +38,8 @@ public class MessageRepositoryTests {
 			Message entity = Message.builder()
 					.memberGet(a)
 					.memberGive(b)
-					.title("쪽지 제목" + i)
-					.content("쪽지 내용" + i)
+					.title("제목" + i)
+					.content("내용" + i)
 					.view(0L) //최초 전송 시 권한: 0
 					.boardCommentNum(c)
 					.build();
@@ -50,7 +50,7 @@ public class MessageRepositoryTests {
 	@Test
 	/** 받은 쪽지 리스트 조회(read, 받은사람 기준, 권한 0 or 1만 출력) */
 	public void getMsgListAsGetter() {
-		List<Message> list = messageRepository.getMsgListAsGetter(10L);
+		List<Message> list = messageRepository.getMsgInfoAsGetter(10L);
 		
 		for (Message msg : list) {
 		System.out.println("쪽지 번호 : " + msg.getMessageNum() + ", " +
@@ -63,7 +63,7 @@ public class MessageRepositoryTests {
 	@Test
 	/** 보낸 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
 	public void selectMsgListAsGiver() {
-		List<Message> list = messageRepository.getMsgListAsGiver(1L);
+		List<Message> list = messageRepository.getMsgInfoAsGiver(1L);
 		
 		for (Message msg : list) {
 		System.out.println("쪽지 번호 : " + msg.getMessageNum() + ", " +
@@ -72,16 +72,6 @@ public class MessageRepositoryTests {
 						   "등록 일자 : " + msg.getRegDate());
 		}
 	}
-	
-//	@Test
-//	public void getListAsGiver() {
-//		
-//		List<Member> result = memberRepository.getUserNickname(1L);
-//		
-//		for(Member ms : result) {
-//			log.info(ms);
-//		}
-//	}
 	
 	@Test
 	/** 쪽지 상세 조회(read) */

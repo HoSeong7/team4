@@ -16,7 +16,13 @@ a {
 
 body {
   
-    background-image: url(../img/background.png);
+    background-image: url(../img/bgi.jpg);
+}
+.logomain{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /*상단 바*/
@@ -42,6 +48,7 @@ body {
     float: left;
     overflow: hidden;
     position: relative;
+    width: 500px;
 }
 
 .innerHeader .mainmenu-left .navbar {
@@ -138,6 +145,7 @@ body {
 
 
 /*메인 바*/
+/*메인 바*/
 .bar {
     max-width: 1920px;
 }
@@ -157,7 +165,7 @@ body {
 .bar .mainbar ul {
     float: left;
     padding-left: 14px;
-    padding-top: 5px;
+    margin-top: -20px;
 }
 
 .bar .mainbar ul li {
@@ -167,15 +175,42 @@ body {
     padding-right: 13px;
     display: block;
 }
-
+.bar .mainbar ul li a p{
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 13px;
+    color:  black;
+}
 .bar .mainbar ul li a {
     text-align: center;
 }
-
-.bar .mainbar ul li a:hover {
-    border-bottom: 3px solid white;
-
+.bar .mainbar ul li div p{
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 13px;
+    color:  black;
+}
+.bar .mainbar ul li div {
+    text-align: center;
 }
 
+
+.bar .mainbar ul li:hover {
+    animation: move 1s ease infinite normal none running;
+}
+
+.imgtitle.on{
+    visibility: hidden;
+}
+
+@keyframes move {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(0, -20px);
+    }
+    
+}
 
 

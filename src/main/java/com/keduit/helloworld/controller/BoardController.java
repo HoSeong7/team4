@@ -41,11 +41,21 @@ public class BoardController {
 	// < list >
 	// GetMapping
     @GetMapping("/communitylist")
-    public void communitylist(PageRequestDTO pageRequestDTO,Model model){
+    public void communitylist(Authentication authentication, PageRequestDTO pageRequestDTO,Model model){
     	log.info("위치 : BoardController communitylist()");
     	log.info("pageRequestDTO : " + pageRequestDTO);
     	PageResultDTO<BoardDTO, Object[]> result = boardService.getBoard1List(pageRequestDTO);
     	log.info("뿌림?" + result);
+    	
+    	
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		
+		System.out.println("username = " + userDetails.getUsername());
+	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
+		
+	    Member idnum =  memberService.idRead(userDetails.getUsername());
+	    
+	    model.addAttribute("member",idnum);
     	
 		model.addAttribute("result",boardService.getBoard1List(pageRequestDTO));
 	}

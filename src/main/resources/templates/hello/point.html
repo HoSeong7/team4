@@ -7,34 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/point.css">
+    <link rel="stylesheet" href="/css/footer.css">
 </head>
 
 <body>
-    <div class="innerHeader">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
-                    height="30px"></a></h1>
-        <!--왼쪽바 공통-->
-        <nav class="mainmenu-left">
-            <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#"
-                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
-                </li>
-            </ul>
-        </nav>
-         <!--오른쪽바 공통-->
-        <nav class="mainmenu-right">
-            <ul class="navbar">
-                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                 <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
-               <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">사용자이름</a></li>
-                <li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
-                <li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>  
-            </ul>
-        </nav>
-    </div>
+    <!-- [header] 영역 시작 -->
+		<header th:replace="fragments/header :: headerFragment"></header>
+	<!-- [header] 영역 끝 -->
     <div class="content-body">
         <div class="tabs">
             <input id="box1" type="radio" name="tab_item" checked>
@@ -100,7 +79,7 @@
       } );
    </script>
    <script type="text/javascript">
-		
+
 	// ajax로 nickname 중복확인
 
 	function chk(){
@@ -117,12 +96,12 @@
 	                alert('쿠폰이 정상 등록되었습니다.');
 	                location.reload();
 	            }else{
-	                alert('쿠폰 번호를 다시 확인해주세요.');	            	
+	                alert('쿠폰 번호를 다시 확인해주세요.');
 	            }
 	        }
 	    })
 		};
-		
+
 		// 환불이 가능한지 확인
 		function OkSubmit() {
 	        var point = document.getElementById( 'testPoint' ).value;
@@ -134,17 +113,17 @@
 	        	alert("현재 잔액보다 많은 돈은 환전 불가능합니다.");
 	        	return false;
 	        }else if(exchange < 10000){
-	          alert( '만원 이상부터 환전 가능합니다.' );	
+	          alert( '만원 이상부터 환전 가능합니다.' );
 	        	return false;
 	        }else if(exchange == ""){
-	          alert( '금액을 입력해주세요.' );	
+	          alert( '금액을 입력해주세요.' );
 	        	return false;
 	        }
 	        console.log( " 값이 뜨는지 ??? "+exchange);
 	        console.log( " 값이 뜨는지 ??? "+point);
-	        
+
 	      }
-		
+
 		//충전 가능 금액 확인
 		function Ok2Submit(){
 			var change = $("#charge").val();
@@ -153,13 +132,14 @@
 		          return false;
 			}else if(change <10000){
 				alert( '만원 이상부터 충전 가능합니다.' );
-		          return false;				
+		          return false;
 			}
 		}
-		
-		
+
+
 	</script>
-   
+
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
 </html>

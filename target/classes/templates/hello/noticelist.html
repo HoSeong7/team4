@@ -7,32 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/noticelist.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script th:src="@{/js/jquery/jquery.min.js}"></script>
 </head>
 
 <body>
-    <div class="innerHeader">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
-                    height="30px"></a></h1>
-        <!--왼쪽바 공통-->
-        <nav class="mainmenu-left">
-            <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#"
-                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
-                </li>
-            </ul>
-        </nav>
-        <!--오른쪽바 공통-->
-        <nav class="mainmenu-right">
-            <ul class="navbar">
-                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login">로그인</a></li>
-                <li><a id="open-signup">회원가입</a></li>
-            </ul>
-        </nav>
-    </div>
+    <!-- [header] 영역 시작 -->
+		<header th:replace="fragments/header :: headerFragment"></header>
+	<!-- [header] 영역 끝 -->
     
     <!-- 게시판 상단 -->
     <div class="content-header">
@@ -44,10 +26,26 @@
                 <button id="registration" onclick="location.href='/hello/noticeregister' ">작성하기</button>
             </div>
             <div class="search-box">
-                <div class="search">
-                    <input type="text" placeholder="검색어 입력">
-                    <button>검색</button>
-                </div>
+            	<form id="searchForm" action="/hello/noticelist" method="get">
+	                <div class="search">
+	                	 <select name="type" >
+		                    <option value="" 
+		                    	th:selected="${pageRequestDTO.type==null}"
+		                    		>-----</option>
+		                    <option value="t" 
+		                      	th:selected="${pageRequestDTO.type=='t'}"
+		                      		>제목</option>
+		                    <option value="c"
+		                     	th:selected="${pageRequestDTO.type=='c'}"
+		                     		>내용</option>
+		                    <option value="tc"
+		                      th:selected="${pageRequestDTO.type=='tc'}"
+		                       		>제목 or 내용</option>
+		                  </select>
+	                    <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="검색어 입력">
+	                    <button type="button" class="btn btn-search">검색</button>
+	                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -73,10 +71,14 @@
                                )}">[[${dto.title}]]</a></h2>
                     </div>
                     <div class="bottom-box">
-                        <div class="box1">추천수 : 120</div>
+                        <div class="box1">추천수 : [[${dto.blikes}]]</div>
                         <div class="box2">조회수 : [[${dto.views}]]</div>
-                        <div class="box3">123412342134분전</div>
-                        <div class="box4"><button>확인하기</button></div>
+                        <div class="box3">[[${#temporals.format(dto.regdate, 'yyyy/MM/dd')}]]</div>
+                        <div class="box4"><a th:href="@{/hello/noticeread(boardNum=${dto.boardNum},
+                               page=${result.page},
+                               type=${pageRequestDTO.type},
+							   keyword=${pageRequestDTO.keyword}
+                               )}"><button>확인하기</button></a></div>
                     </div>
                 </div>
             </div>
@@ -112,8 +114,26 @@
             
             
         </div>
+        </div>
     </div>
-
+<footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
+<script th:inline="javascript">
+
+			var searchForm = $("#searchForm");
+			
+			$('.btn-search').click(function(e){
+				
+				searchForm.submit();
+			});
+			
+			$('.btn-clear').click(function(e){
+				
+				searchForm.empty().submit();
+			});
+			
+			
+</script>
+
 
 </html>

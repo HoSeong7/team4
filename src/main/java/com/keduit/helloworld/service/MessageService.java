@@ -16,12 +16,12 @@ import org.springframework.data.domain.PageRequest;
 public interface MessageService {
     
 	/** 쪽지 등록(create) */
-	Long register(MessageDTO dto, Long memberGet, Long memberGive, Long boardCommentNum);
+	Long register(MessageDTO messageDTO);
 
-	/** 받은 쪽지 리스트 조회(read, 받은사람 기준, 권한 0 or 1만 출력) */
+	/** 받은 쪽지 리스트 조회(list, 받은사람 기준, 권한 0 or 1만 출력) */
 	List<MessageDTO> getListAsGetter(Long memberGet);
 
-	/** 보낸 쪽지 리스트 조회(read, 보낸사람 기준, 권한 0 or 2만 출력) */
+	/** 보낸 쪽지 리스트 조회(list, 보낸사람 기준, 권한 0 or 2만 출력) */
 	List<MessageDTO> getListAsGiver(Long memberGive);
 
 	/** 쪽지 상세 조회(read) */
@@ -38,13 +38,13 @@ public interface MessageService {
 	
 
 	/** DTO에 있는 정보를 Entity로 옮기기 */
-	default Message messageDtoToEntity(MessageDTO dto, Long memberGet, Long memberGive, Long boardCommentNum) {
+	default Message messageDtoToEntity(MessageDTO dto) {
 
 		Message entity = Message.builder()
 				.messageNum(dto.getMessageNum())
-				.memberGet(memberGet)
-				.memberGive(memberGive)
-				.boardCommentNum(boardCommentNum)
+				.memberGet(dto.getMemberGet())
+				.memberGive(dto.getMemberGive())
+				.boardCommentNum(dto.getBoardCommentNum())
 				.title(dto.getTitle())
 				.content(dto.getContent())
 				.view(dto.getView())

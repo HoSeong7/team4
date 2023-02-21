@@ -7,31 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/qnaread.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <script th:src="@{/js/jquery/jquery.min.js}"></script>
 </head>
 
 <body>
-    <div class="innerHeader">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
-                    height="30px"></a></h1>
-        <!--왼쪽바 공통-->
-        <nav class="mainmenu-left">
-            <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#" onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a></li>
-            </ul>
-        </nav>
-        <!--오른쪽바 공통-->
-        <nav class="mainmenu-right">
-            <ul class="navbar">
-                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login">로그인</a></li>
-                <li><a id="open-signup">회원가입</a></li>
-            </ul>
-        </nav>
-    </div>
+    <!-- [header] 영역 시작 -->
+		<header th:replace="fragments/header :: headerFragment"></header>
+	<!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
             <h1>Q&A</h1>
@@ -160,6 +143,7 @@
         <!-- end 댓글 -->
         
     </div>
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
 <script th:inline="javascript">
@@ -178,7 +162,7 @@ $(document).ready(function(){
 				str += ' <div class="box-write-top"> ';
 				str += ' <div class="box-left"> ';
 				str += ' <div class="userimg"><img src="/img/userimg.png" alt="" width="40px" height="40px"></div> ';
-				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> </div></div></div> ';
+				str += ' <div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small></div></div></div> ';
 				str += ' <div class="box-write-bottom"> ';
 				str += ' <div class="comment-box">'+ comment.commentContent +'</div></div> ';
 				str += ' <div class="box-button"></div> ';
@@ -237,7 +221,51 @@ $(document).ready(function(){
 			}); //commentSaveBnt 끝
 			
 			
-			
+		    function displayTime(timeValue){
+		        var today = new Date(); // 현재 시간
+		        var date = new Date(timeValue).getTime();
+		        var gap = today.getTime() - date;
+		        var dateObj = new Date(timeValue);
+		        var str = "";
+		        
+		        
+		        console.log(date);
+		        console.log(today.getTime());
+		        console.log(gap);
+		        
+		        
+		        
+		        if(gap<(1000*60*60*24)){
+		        	
+		        	// comment 시간
+		            var hh = dateObj.getHours();
+		            var mi = dateObj.getMinutes();
+		            var ss = dateObj.getSeconds();
+		            
+		            // 현재 시간
+		            var rhh = today.getHours();
+		            var rmi = today.getMinutes();
+		            var rss = today.getSeconds();
+		            
+		            // 표시 예) 1시간 전 or 10분 전
+		            
+		            if(rhh > hh){
+		            	return [ (rhh - hh>9?'':'0')+ rhh - hh, '시간 전'].join('');
+		            }else{
+		            	
+		            	return [ (rmi - mi>9?'':'0')+rmi-mi, '분 전'].join('');
+		            }
+		            
+
+		        }else{
+		            var yy = dateObj.getFullYear();
+		            var mm = dateObj.getMonth()+1;
+		            var dd = dateObj.getDate();
+		            
+		            return [yy, '/', (mm>9?'':'0')+mm, '/',
+		                (dd>9?'':'0')+dd].join('');
+		        }
+		    }
 			
 });	
 	</script>

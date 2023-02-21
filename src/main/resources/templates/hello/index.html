@@ -9,39 +9,18 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/sign-up.css">
+    <script src="/js/ajax/main.js"></script>
+     <link rel="stylesheet" href="/iconcss/google.css">
+     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+     <link rel="stylesheet" href="/iconcss/capture.css">
+    
 
 </head>
 
 <body>
-    <div class="innerHeader">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="apple" width="30px"
-                    height="30px"></a></h1>
-        <!--왼쪽바 공통-->
-        <nav class="mainmenu-left">
-            <ul class="navbar">
-                <li><a id="open-point" sec:authorize="isAuthenticated">포인트</a></li>
-                <li><a href="#" sec:authorize="isAuthenticated"
-                        onclick="window.open('http://localhost:8080/room','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
-                </li>
-            </ul>
-        </nav>
-        <!--오른쪽바 공통-->
-        <nav class="mainmenu-right">
-            <ul class="navbar">
-                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                
-                
-               <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/login}">로그인</a></li>
-               <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">로그인</a></li>
-             <!-- sec:authentication="principal.id -->
-             	
-                <li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>
-                <li sec:authorize="!isAuthenticated"><a id="open-signup" th:href="@{/hello/register}">회원가입</a></li>  
-            </ul>
-        </nav>
-    </div>
+     <!-- [header] 영역 시작 -->
+		<header th:replace="fragments/header :: headerFragment"></header>
+	<!-- [header] 영역 끝 -->
 
     <!--중간 body-content-->
     <div class="body-content">
@@ -55,50 +34,59 @@
     <div class="bar">
         <div class="mainbar">
             <ul>
-                <li class="media"><a href="/hello/communitylist"><img src="/img/1board.png" alt="" width="48px"
+                <li><a href="/hello/communitylist"><p class="imgtitle on">커뮤니티</p><img src="/img/1board.png" alt="" width="48px"
                             height="48px"></a></li>
-                <li class="media"><a href="/hello/qnalist"><img src="/img/2Q&A.png" alt="" width="48px"
+                <li><a href="/hello/qnalist"><p class="imgtitle on">Q&A</p><img src="/img/2Q&A.png" alt="" width="48px"
                             height="48px"></a>
                 </li>
-                <li class="media"><a href="/hello/noticelist"><img src="/img/4notice.png" alt="" width="48px"
+                <li><a href="/hello/noticelist"><p class="imgtitle on">공지사항</p><img src="/img/4notice.png" alt="" width="48px"
                             height="48px"></a></li>
-                <li class="media"><a href="/hello/myspace"><img src="/img/3my.png" alt="" width="48px"
+                <li><a href="/hello/myspace"><p class="imgtitle on">내공간</p><img src="/img/3my.png" alt="" width="48px"
                             height="48px"></a></li>
-                <li><a href="/hello/point"><img src="/img/5point.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href="/hello/message"><img src="/img/6message.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="/hello/point"><p class="imgtitle on">포인트</p><img src="/img/5point.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="/hello/message"><p class="imgtitle on">쪽지</p><img src="/img/6message.png" alt="" width="48px" height="48px"></a></li>
                 <li><a href=""
-                        onclick="window.open('/icon.html/icon7.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                        onclick="window.open('http://localhost:8080/room','blank','width=450 , height=700, top=400, left=900', true)"><p class="imgtitle on">채팅</p><img
                             src="/img/7.png" alt="" width="48px" height="48px"></a></li>
                 <li><a href=""
-                        onclick="window.open('/icon.html/icon8.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                        onclick="window.open('http://localhost:8080/icon/calculator','blank','width=350 , height=650, top=400, left=900', true)"><p class="imgtitle on">계산기</p><img
                             src="/img/8.png" alt="" width="48px" height="48px"></a></li>
                 <li><a href=""
-                        onclick="window.open('/icon.html/icon9.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                        onclick="window.open('http://localhost:8080/icon/memo','blank','width=450 , height=600, top=400, left=900', true)"><p class="imgtitle on">메모장</p><img
                             src="/img/9.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/10.png" alt="" width="48px" height="48px"></a></li>
                 <li><a href=""
-                        onclick="window.open('/icon.html/icon11.html','blank','width=250 , height=400, top=200, left=700', true)"><img
+                        onclick="window.open('http://localhost:8080/icon/tetris','blank','width=450 , height=600, top=400, left=900', true)"><p class="imgtitle on">테트리스</p><img
                             src="/img/11.png" alt="" width="48px" height="48px"></a></li>
                 <li><a href=""
-                        onclick="window.open('/icon.html/icon12.html','blank','width=250 , height=400, top=200, left=700', true)"><img
-                            src="/img/12.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/13.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/14.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/15.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/16.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/17.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/18.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/19.png" alt="" width="48px" height="48px"></a></li>
-                <li><a href=""><img src="/img/20.png" alt="" width="48px" height="48px"></a></li>
-                <li class="media"><a href=""><img src="/img/21.png" alt="" width="48px" height="48px"></a></li>
+                        onclick="window.open('http://localhost:8080/icon/compass','blank','width=450 , height=600, top=400, left=900', true)"><p class="imgtitle on">나침반</p><img
+                            src="/img/11.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href=""><p class="imgtitle on">스톱워치</p><img src="/img/14.png" alt="" width="48px" height="48px"></a></li>
+                <li><div><p class="imgtitle on">캡쳐</p><img src="/img/13.png" id="edit" alt="" width="48px" height="48px"><a id="target" style="display: none"></a></div></li>
+                <li><div><p class="imgtitle on">구글검색</p><img src="/img/12.png" alt="" width="48px" height="48px" class="google"></div></li>
+                <li><a href="https://www.github.com" target="_blanck"><p class="imgtitle on">깃허브</p><img src="/img/15.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="https://www.acmicpc.net" target="_blanck"><p class="imgtitle on">백준</p><img src="/img/16.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="https://www.mvnrepository.com" target="_blanck"><p class="imgtitle on">메이븐</p><img src="/img/17.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="https://www.fontawesome.com" target="_blanck"><p class="imgtitle on">폰트</p><img src="/img/18.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="https://www.jobkorea.co.kr" target="_blanck"><p class="imgtitle on">잡코리아</p><img src="/img/19.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="https://www.youtube.com" target="_blanck"><p class="imgtitle on">유튜브</p><img src="/img/20.png" alt="" width="48px" height="48px"></a></li>
+                <li><a href="https://www.keduit.com" target="_blanck"><p class="imgtitle on">한정교</p><img src="/img/21.png" alt="" width="48px" height="48px"></a></li>
             </ul>
         </div>
     </div>
     <div id="modal_call">
 
     </div>
+    <div class="googlebox">
+        <div class="gcse-search"></div>
+    </div>
+    <img src="/img/logomain.png" alt="" class="logomain" width="400px">
  
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=e053556a1d0bc4606">
+    </script>
+    <script src="/js/ajax/google.js"></script>
+    <script src="/js/ajax/capture.js"></script>
+  
     <!-- <script type="text/javascript" src="/js/ajax/login.js"></script> -->
 </body>
 

@@ -7,34 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
     <link rel="stylesheet" href="/css/communitylist.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <script th:src="@{/js/jquery/jquery.min.js}"></script>
-
+	<script src="/js/ajax/main.js"></script>
+	
+    
+  
 </head>
 
 <body>
-    <div class="innerHeader">
-        <h1 class="logo"><a href="/hello/index"><img src="/img/icon-ga9dcd7e34_640.png" alt="" width="30px"
-                    height="30px"></a></h1>
-        <!--왼쪽바 공통-->
-        <nav class="mainmenu-left">
-            <ul class="navbar">
-                <li><a id="open-point">포인트</a></li>
-                <li><a href="#"
-                        onclick="window.open('http://localhost:5001/','blank','width=450 , height=700, top=400, left=900', true)">채팅</a>
-                </li>
-            </ul>
-        </nav>
-        <!--오른쪽바 공통-->
-        <nav class="mainmenu-right">
-            <ul class="navbar">
-                <li><img src="/img/battery.png" alt="" width="30px" height="25px"></li>
-                <li><img src="/img/wifi.png" alt="" width="20px" height="25px"></li>
-                <li><img src="/img/siri.png" alt="" width="20px" height="25px"></li>
-                <li><a id="open-login">로그인</a></li>
-                <li><a id="open-signup">회원가입</a></li>
-            </ul>
-        </nav>
-    </div>
+    <!-- [header] 영역 시작 -->
+		<header th:replace="fragments/header :: headerFragment"></header>
+	<!-- [header] 영역 끝 -->
     <div class="content">
         <div class="content-body">
             <div class="today-content">
@@ -73,7 +57,7 @@
             
             	<!-- 게시판 상단 -->
                 <div class="content-header">
-                    <h1>커뮤니티</h1></span>
+                    <h1>커뮤니티</h1>
                     <p>좋은 질문과 답변으로 동료의 시간을 아껴주세요</p>
                 </div>
                 <div class="content-middle">
@@ -81,7 +65,42 @@
                         <button onclick="location.href='/hello/communityregister' ">작성하기</button>
                     </div>
                     <div class="content-search">
-
+                    
+						<!-- 검색 -->
+		              <div class="">
+		                <form id="searchForm" action="/hello/communitylist" method="get">
+		                  <select name="type">
+		                    <option value="" 
+		                    	th:selected="${pageRequestDTO.type==null}"
+		                    		>-----</option>
+		                    <option value="t" 
+		                      	th:selected="${pageRequestDTO.type=='t'}"
+		                      		>제목</option>
+		                    <option value="c"
+		                     	th:selected="${pageRequestDTO.type=='c'}"
+		                     		>내용</option>
+		                    <option value="w"
+		                      	th:selected="${pageRequestDTO.type=='w'}"
+		                       		>작성자</option>
+		                    <option value="o"
+		                      	th:selected="${pageRequestDTO.type=='o'}"
+		                       		>카테고리</option>
+		                    <option value="tc"
+		                      th:selected="${pageRequestDTO.type=='tc'}"
+		                       		>제목 or 내용</option>
+		                    <option value="tw"
+		                      th:selected="${pageRequestDTO.type=='tw'}"
+		                       		>제목 or 작성자</option>
+		                    <option value="TCW"
+		                      th:selected="${pageRequestDTO.type=='tcw'}"
+		                       		>제목 or 내용 or 작성자</option>
+		                  </select>
+		                  <input type="text" name="keyword" th:value="${pageRequestDTO.keyword}">
+			              <button type="button" class="btn btn-search">검색</button>
+			              <button type="button" class="btn btn-clear">취소</button>
+			              <p>
+		                </form>
+		              </div>
                     </div>
                 </div>
             	<!-- end 게시판 상단 -->
@@ -108,7 +127,8 @@
                                <a th:href="@{/hello/communityread(boardNum=${dto.boardNum},
                                page=${result.page},
                                type=${pageRequestDTO.type},
-							   keyword=${pageRequestDTO.keyword}
+							   keyword=${pageRequestDTO.keyword},
+							   memberNum=${member.memberNum}
                                )}">[[${dto.title}]]</a>
                             </div>
                         </div>
@@ -171,10 +191,30 @@
 		
 		</div>
 
-        
+        <div class="googlebox">
+		<div class="gcse-search"></div>
+	</div>
+<footer th:replace="fragments/footer :: footerFragment"></footer>
 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=e053556a1d0bc4606"></script>
 </body>
+<script th:inline="javascript">
 
+			var searchForm = $("#searchForm");
+			
+			$('.btn-search').click(function(e){
+				
+				searchForm.submit();
+			});
+			
+			$('.btn-clear').click(function(e){
+				
+				searchForm.empty().submit();
+			});
+			
+			
+</script>
 
 
 </html>
