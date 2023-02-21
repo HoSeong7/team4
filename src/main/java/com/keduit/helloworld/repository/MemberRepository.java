@@ -91,16 +91,14 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	@Query(value = "select * from member m "
 			+ "join message ms on ms.member_give = m.member_num "
 			+ "where ms.member_get = :num and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
-//	/** 쪽지 받은사람 회원번호로, 보낸사람 정보 가져오기(read, 받은사람 기준) */
-	/** 받은 사람 회원번호로, 받은 쪽지 정보 & 보낸 회원정보 조회 (수신 list, 권한 0 or 1만 출력) */
-	List<Member> getMemNicknameByGetter(Long num);
+	/** 받은사람 회원번호로, 받은쪽지 정보 & 보낸회원 정보 조회 (수신 list, 권한 0 or 1만 출력) */
+	List<Member> getUrInfoAsGetter(Long num);
 	
 	@Query(value = "select * from member m "
 	 		+ "join message ms on ms.member_get = m.member_num "
 	 		+ "where ms.member_give = :num and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
-//	/** 쪽지 보낸사람 회원번호로, 받는사람 정보 가져오기(read, 보낸사람 기준) */
-	/** 보낸 사람 회원번호로, 보낸 쪽지 정보 & 받는 회원정보 조회 (발신 list, 권한 0 or 2만 출력) */
-	List<Member> getMemNicknameByGiver(Long num);
+	/** 보낸사람 회원번호로, 보낸쪽지 정보 & 받는회원 정보 조회 (발신 list, 권한 0 or 2만 출력) */
+	List<Member> getUrInfoAsGiver(Long num);
    
 //	//프사
 //	/** 내 메시지를 받은 회원 가져오기 */

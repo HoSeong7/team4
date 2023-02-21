@@ -42,7 +42,7 @@
             <ul>
                  <li class="user-img">
                  	<img th:if="${member.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
-                	 <img th:if="${member.url != null}" th:src="'/hello/display?fileName='+${member.url}" >
+                	<img th:if="${member.url != null}" th:src="'/hello/display?fileName='+${member.url}" width="30px" height="30px">
                 </li> 
                 <li class="text">
                 	<img th:if="${member.exvalue} < 100" src="/img/a1.png">

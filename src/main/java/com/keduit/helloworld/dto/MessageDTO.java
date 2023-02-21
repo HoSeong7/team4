@@ -3,8 +3,6 @@ package com.keduit.helloworld.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import com.keduit.helloworld.Time;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,15 +34,9 @@ public class MessageDTO {
 
 	/** 쪽지 보기권한 0:기본, 1:보낸사람이 삭제, 2:받은사람이 삭제, 3:모두 삭제 */
 	private Long view;
-	
-	/** 쪽지 상대 닉네임 */
-	private String nickname;
 
 	/** 쪽지 사진 */
 	private String url;
-	
-	/** 멤버 프로필 사진 */
-	private String memUrl;
 	
 	/** 쪽지 등록날짜 */
 	protected LocalDateTime regDate;
@@ -52,15 +44,14 @@ public class MessageDTO {
 	/** 쪽지 수정날짜 */
 	protected LocalDateTime updateDate;
 	
-//	/** n 분(시간/일)전 으로 표시 */
-//	private String date;
-//	
-//	public String getDate() {
-//		return date;
-//	}
-//	public void setDate(Date date) {
-//		this.date = Time.calculateTime(date);
-//	}	
+	/** 쪽지 상대 닉네임 */
+	private String nickname;
+	
+	/** 멤버 프로필 사진 */
+	private String memUrl;
+	
+	/** 화면에 보이는 시간표시 변경 */
+	protected String changeDate;
 	
 	
 }

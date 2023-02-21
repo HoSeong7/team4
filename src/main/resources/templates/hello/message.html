@@ -51,12 +51,11 @@
  							<div class="content-body-left-body" th:each="giveList:${giveMsg}">
 								<div class="content-box">
 									<div  class="content-userimg">
-<!-- 										<img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px"> -->
-										<img th:if="${giveList.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
-                						<img th:if="${giveList.url != null}" th:src="'/hello/display?fileName='+${giveList.url}" >
+										<img class="profile-img" th:if="${giveList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                						<img class="profile-img" th:if="${giveList.memUrl != null}" th:src="'/hello/display?fileName='+${giveList.memUrl}" >
 									</div>
 									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.nickname}]]</div> 
-									<div class="content-time">[[${#temporals.format(giveList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div>
+									<div class="content-time">[[${giveList.changeDate}]]</div>
 									<div class="content-delete">
 										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
 									</div>
@@ -69,12 +68,11 @@
 							<div class="content-body-left-body" th:each="getList:${getMsg}">
 								<div class="content-box">
 									<div class="content-userimg">
-										<img src="/img/icon-ga9dcd7e34_640.png" alt="" width="40px" height="40px">
-<!-- 										<img th:if="${member.url == null}" src="/img/c1.png" alt="" width="30px" height="30px"> -->
-<!--                 						<img th:if="${member.url != null}" th:src="'/hello/display?fileName='+${member.url}|" > -->
+										<img class="profile-img" th:if="${getList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                						<img class="profile-img" th:if="${getList.memUrl != null}" th:src="'/hello/display?fileName='+${getList.memUrl}" >
 									</div>
 									<div class="content-username" th:attr="data-message-num=${getList.messageNum}" onclick="readMessage(this)">[[${getList.nickname}]]</div>
-									<div class="content-time">[[${#temporals.format(getList.regDate, 'yy/MM/dd HH:mm:ss')}]]</div> <!-- [[${getList.regDate}]] -->
+									<div class="content-time">[[${getList.changeDate}]]</div>
 									<div class="content-delete">
 										<button th:attr="data-message-num=${getList.messageNum}, data-view-num=${getList.view}" onclick="deleteMessage(this)">삭제</button>
 									</div>
@@ -166,7 +164,6 @@
 
 			
 			var registerMsg = "";
-				console.log("1");
 				registerMsg += ' <div class="content-body-right-box"> '+
 								' <h1>작성</h1> '+
 								' <div class="box-top"> '+
@@ -183,20 +180,16 @@
 								' </div> '+
 								' </div> '+
 								' <div class="button-box"> '+
-								' <button type="button" class="registerBtn">전송하기</button> '+
+								' <button type="button" onclick="registerBtn()">전송하기</button> '+
 								' </div> '
-								console.log(registerMsg);
-				console.log("2");
 			$(".content-body-right").html(registerMsg);
-				console.log("3");
 		}
 		
 		
-		$(".registerBtn").click(function(){ //전송 스크립트
+		function registerBtn() { //전송 스크립트
 			if(!confirm("전송하시겠습니까?")){ 
 				return;
 			}
-			
 			var rtitle = $(".title-text").val();
 			var rcontent = $(".content-text").val();
 			
@@ -206,18 +199,19 @@
 					'messageNum' : msgNum,
 					'yourNum' : yourNum
 			}
-
 			$.ajax({
 				url : '/hello/message/register',
 				type : 'POST',
-				data : data,
+				data : regdata,
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				success : function(result){
-					
+					location.reload();
+				},
+				error : function(){
+					alert("경고");
 				}
 			});
-
-		});
+		}
 		
 		
 		function deleteMessage(button){
