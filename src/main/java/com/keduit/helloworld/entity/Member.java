@@ -111,5 +111,9 @@ public class Member extends BaseEntity{
 		roleset.add(memberRole);
 	}
 	
+	public void CopounPoint(Long coupon) {
+		this.point = this.point + coupon;
+	}
+	
 	
 }

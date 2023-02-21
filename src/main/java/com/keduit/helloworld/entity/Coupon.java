@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -42,5 +43,6 @@ public class Coupon {
 	/** Coupon 0사용가능 1사용불가 */
 	private Long couponbool;
 	
+
 	
 }

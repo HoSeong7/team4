@@ -220,5 +220,11 @@ public class MemberServiceImpl implements MemberService {
 		return idChk;
 	}
 
+	@Override
+	public void couponadd(Member me) {
+		repository.save(me);
+		
+	}
+
 	//end 호성
 }

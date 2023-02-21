@@ -116,4 +116,7 @@ public interface MemberService {
 	/** 조회하는사람 아이디로, 회원번호 가져오기(read) */
 	MemberDTO getMemNum(String id);
 
+	/**쿠폰 등록한거 맴버 포인트에 저장 */
+	void couponadd(Member me);
+
 }

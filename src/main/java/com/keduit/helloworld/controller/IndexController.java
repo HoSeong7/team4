@@ -54,8 +54,6 @@ public class IndexController {
 	
 	
 	private final MemberService memberService;
-	
-	
 	private final BoardService boardService;
 	
 	private final CommentService commentService;

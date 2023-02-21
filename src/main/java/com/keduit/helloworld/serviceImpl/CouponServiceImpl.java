@@ -49,4 +49,42 @@ public class CouponServiceImpl implements CouponService{
     @Service
     public static class UserPageServiceImpl implements UserPageService {
     }
+
+    /** 쿠폰 생성*/
+	@Override
+	public void couponCreate() {
+
+	String str = "0123456789qwertyuiopasdfghjklzxcvbnm";
+	  for (int i = 0; i < 10; i++) {
+	       Coupon coupon = Coupon
+	               .builder()
+	               .couponvalue(50000L)
+	               .serialnum(createNum(str))
+	               .build();
+	       couponRepository.save(coupon);
+		
+	}
+		}
+	
+		private String createNum(String str){
+		    String serNum = "";
+		    for (int i = 0; i < 16;i++){
+		       serNum += str.indexOf((int) (Math.random() * str.length()));
+		    }
+		    return serNum;
+ }
+
+		@Override
+		public Coupon getCouponList(String coupon) {
+
+			Coupon coupons = couponRepository.getCouponNum(coupon);
+			
+			return coupons;
+		}
+
+		@Override
+		public int getCount(String coupon) {
+			int counttest = couponRepository.getCountTest(coupon);
+			return counttest;
+		}
 }
