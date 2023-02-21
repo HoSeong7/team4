@@ -56,10 +56,6 @@
 			width: 330px;
 			height: 25px;
 		}
-
-		#yourMsg {
-			display: none;
-		}
 	</style>
 </head>
 
@@ -67,7 +63,9 @@
 	/*<![CDATA[*/
 	var ws;
 	var roomNumber = /*[[${roomNumber}]]*/ {};
-	var myName = '유우저 이름';
+	var userNickname = /*[[${member.nickname}]]*/ {};
+	var userExValue = /*[[${member.exvalue}]]*/ {};
+	var userNum = /*[[${member.memberNum}]]*/ {};
 	wsOpen();
 
 
@@ -81,8 +79,7 @@
 		ws.onopen = function (data) {
 			//소켓이 열리면 동작
 			console.log('열려부럿따.');
-			open_and_close_socket(myName + '님이 등판하셨습니다.');
-			// $("#chating").append("<p class='user_status'>" + myName + "님이 등판하셨습니다. </p>");
+			open_and_close_socket(userNickname + '님이 등판하셨습니다.');
 		}
 
 		ws.onmessage = function (data) {
@@ -98,7 +95,7 @@
 					}
 				} else if (d.type == "message") {
 					if (d.sessionId == $("#sessionId").val()) {
-						$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
+						$("#chating").append("<p class='me'>"+userNickname+" :" + d.msg + "</p>");
 					} else {
 						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
 					}
@@ -109,11 +106,14 @@
 					console.warn("unknown type!");
 				}
 			}
+			scrolldown();
 		}
 
 		document.addEventListener("keypress", function (e) {
-			if (e.keyCode == 13) { //enter press
+			if ((e.keyCode == 13)&&($("#chatting").val().trim() != "")) { //enter press
 				send();
+			}else{
+				alert('보낼 메시지를 입력해 주세요');
 			}
 		});
 
@@ -121,23 +121,10 @@
 			//소켓이 닫히면 동작
 			console.log('닫혀부러따');
 			open_and_close_socket(myName + '님이 나가셨습니다.');
-			// $("#chating").append("<p class='user_status'>" + myName + "님이 나가셨습니다. </p>");
 		}
 		window.addEventListener("beforeunload", function () {
 			socket.close();
 		});
-	}
-
-	function chatName() {
-		var userName = $("#userName").val();
-		if (userName == null || userName.trim() == "") {
-			alert("사용자 이름을 입력해주세요.");
-			$("#userName").focus();
-		} else {
-			// wsOpen();
-			$("#yourName").hide();
-			$("#yourMsg").show();
-		}
 	}
 
 	function send() {
@@ -145,7 +132,7 @@
 			type: "message",
 			'roomNumber': roomNumber,
 			sessionId: $("#sessionId").val(),
-			userName: $("#userName").val(),
+			userName: userNickname,
 			msg: $("#chatting").val()
 		}
 		ws.send(JSON.stringify(option))
@@ -155,14 +142,18 @@
 	function open_and_close_socket(msg) {
 		var message = {
 			'type': "intro",
-			'userNum': $("#userNum").val(),
+			'userNum': userNum,
 			'roomNumber': roomNumber,
 			'sessionId': $("#sessionId").val(),
-			'userName': myName,
+			'userName': userNickname,
 			'msg': msg
 		}
 		ws.send(JSON.stringify(message))
 	}
+
+	function scrolldown() {
+        $(".chating").scrollTop($(document).height());
+    }
 	/*]]>*/
 </script>
 
@@ -172,21 +163,7 @@
 	</div>
 	<div id="container" class="container">
 		<h1>[[${roomName}]]</h1>
-		<input type="hidden" id="sessionId" value="">
-		<input type="hidden" id="roomNumber" value="[[${roomNumber}]]">
-		<input type="hidden" id="userNum" value="1">
-		<input type="hidden" id="nickName" value="별명">
 		<div id="chating" class="chating">
-		</div>
-
-		<div id="yourName">
-			<table class="inputTable">
-				<tr>
-					<th>사용자명</th>
-					<th><input type="text" name="userName" id="userName"></th>
-					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
-				</tr>
-			</table>
 		</div>
 		<div id="yourMsg">
 			<table class="inputTable">

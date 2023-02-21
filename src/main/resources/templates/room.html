@@ -72,6 +72,9 @@
 			padding: 3px;
 			margin: 3px;
 		}
+		.inputTable{
+			display: none;
+		}
 
 		.inputTable th {
 			padding: 5px;
@@ -84,8 +87,13 @@
 	</style>
 </head>
 
-<script type="text/javascript">
+<script th:inline="javascript">
+	/*<![CDATA[*/
 	var socketCreateRoom = new WebSocket("ws://" + location.host + "/reloadRoom");
+
+	var userNickname = /*[[${member.nickname}]]*/ {};
+	var userExValue = /*[[${member.exvalue}]]*/ {};
+	var userNum = /*[[${member.memberNum}]]*/ {};
 
 	$(document).ready(function () {
 
@@ -93,7 +101,7 @@
 		socketCreateRoom.onopen = function (data) {
 			//소켓이 열리면 동작
 			console.log('열려부럿따.');
-			console.log(data);
+			clickExVal(userExValue);
 
 			socketCreateRoom.onmessage = function (data) {
 				getRoom();
@@ -110,7 +118,6 @@
 	window.onload = function () {
 		getRoom();
 		createRoom();
-		clickExVal(ex);
 	}
 
 	function getRoom() {
@@ -118,9 +125,9 @@
 			createChatingRoom(result);
 		});
 	}
-
 	function createRoom() {
 		$("#createRoom").click(function () {
+			console.log('1');
 			var msg = { roomName: $('#roomName').val() };
 
 			commonAjax('/createRoom', msg, 'post', function (result) {
@@ -142,6 +149,12 @@
 		if (res != null) {
 			var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'></th><th class='go'></th></tr>";
 			res.forEach(function (d, idx) {
+				var strDelete = "";
+				if (d.memberNum == userNum) {
+					strDelete = "<td class='go'><button class='deleteRoom' type='button'>방 삭제</button></td>";
+				} else {
+					strDelete = "<td class='go'></td>"
+				}
 				var rn = d.roomName.trim();
 				var roomNumber = d.roomNumber;
 				tag += "<tr class='thisRoom" + rn + "'>" +
@@ -150,7 +163,7 @@
 					"<td class='num'>" + (idx + 1) + "</td>" +
 					"<td class='room'>" + rn + "</td>" +
 					"<td class='go'><button type='button' onclick='goRoom(\"" + roomNumber + "\", \"" + rn + "\")'>참여</button></td>" +
-					"<td class='go'><button class='deleteRoom' type='button'>방 삭제</button></td>" +
+					strDelete +
 					"</tr>";
 			});
 			$("#roomList").empty().append(tag);
@@ -198,17 +211,19 @@
 	}
 
 	function clickExVal(ex) {
-		if (ex > 400) {
-			var strRoom =
-				'<tr>' +
-				'<th>방 제목</th>' +
-				'<th><input type="text" name="roomName" id="roomName"></t+h>' +
-				'<th><button id="createRoom">방 만들기</button></th>' +
-				'</tr>'
+		if (ex >= 400) {
+			// var strRoom =
+			// 	'<tr>' +
+			// 	'<th>방 제목</th>' +
+			// 	'<th><input type="text" name="roomName" id="roomName"></t+h>' +
+			// 	'<th><button id="createRoom">방 만들기</button></th>' +
+			// 	'</tr>'
 
-				$(".inputTable").html(strRoom);
+			// $(".inputTable").html(strRoom);
+			$('.inputTable').show();
 		}
 	}
+	/*]]>*/
 </script>
 
 <body>
@@ -221,7 +236,7 @@
 			<table class="inputTable">
 				<tr>
 					<th>방 제목</th>
-					<th><input type="text" name="roomName" id="roomName"></th>
+					<th><input type="text" name="roomName" id="roomName"></t+h>
 					<th><button id="createRoom">방 만들기</button></th>
 				</tr>
 			</table>

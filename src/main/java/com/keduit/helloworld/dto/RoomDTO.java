@@ -10,6 +10,8 @@ import java.util.Objects;
 @Setter
 @ToString
 public class RoomDTO {
+
+    Long memberNum;
     int roomNumber;
     String roomName;
 

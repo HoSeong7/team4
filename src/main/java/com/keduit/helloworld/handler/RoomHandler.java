@@ -42,9 +42,9 @@ public class RoomHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         //소켓 연결
         super.afterConnectionEstablished(session);
-        JSONObject obj = parserService.jsonToObjectParser("test");
+//        JSONObject obj = parserService.jsonToObjectParser("test");
         userSessions.add(session);
-        session.sendMessage(new TextMessage(obj.toString()));
+//        session.sendMessage(new TextMessage(obj.toString()));
         log.info("RoomHandler afterConnectionEstablished session : "+session);
     }
 

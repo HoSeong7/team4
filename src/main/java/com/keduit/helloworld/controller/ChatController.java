@@ -1,7 +1,12 @@
 package com.keduit.helloworld.controller;
 
+import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.RoomDTO;
+import com.keduit.helloworld.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @Log4j2
+@RequiredArgsConstructor
 public class ChatController {
 
     // 서버에 있는 전체 방 갯수
@@ -22,6 +28,8 @@ public class ChatController {
 
     // 서버에 있는 roomNumber and name List
     private List<RoomDTO> roomList = new ArrayList<>();
+
+    private final MemberService memberService;
 
 
 
@@ -38,9 +46,16 @@ public class ChatController {
      * @return
      */
     @RequestMapping("/room")
-    public ModelAndView room() {
+    public ModelAndView room(Authentication authentication) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        /** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read) */
+        MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("room");
+        mv.addObject("member",memberDTO);
         log.info("mv : "+mv);
         return mv;
     }
@@ -51,12 +66,22 @@ public class ChatController {
      * @return
      */
     @RequestMapping("/createRoom")
-    public @ResponseBody List<RoomDTO> createRoom(@RequestParam HashMap<Object, Object> params){
+    public @ResponseBody List<RoomDTO> createRoom(@RequestParam HashMap<Object, Object> params,
+                                                  Authentication authentication){
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        /** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read) */
+        MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+
         String roomName = (String) params.get("roomName");
-        if(roomName != null && !roomName.trim().equals("")) {
+        log.info("ChatController createRoom");
+        if(roomName != null &&
+                !roomName.trim().equals("") &&
+                containValue(roomList, memberDTO.getMemberNum(),roomName)) {
             RoomDTO roomdto = new RoomDTO();
             roomdto.setRoomNumber(++roomNumber);
             roomdto.setRoomName(roomName);
+            roomdto.setMemberNum(memberDTO.getMemberNum());
             roomList.add(roomdto);
         }
         log.info("WebSocketController createRoom roomList : "+roomList);
@@ -92,20 +117,39 @@ public class ChatController {
      * @return
      */
     @RequestMapping("/moveChatting")
-    public ModelAndView chatting(@RequestParam HashMap<Object, Object> params) {
+    public ModelAndView chatting(@RequestParam HashMap<Object, Object> params,
+                                 Authentication authentication) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        /** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read) */
+        MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+
         ModelAndView mv = new ModelAndView();
         int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
 
-        List<RoomDTO> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+        List<RoomDTO> new_list = roomList
+                .stream()
+                .filter(o->o.getRoomNumber()==roomNumber)
+                .collect(Collectors.toList());
         if(new_list != null && new_list.size() > 0) {
             mv.addObject("roomName", params.get("roomName"));
             mv.addObject("roomNumber", params.get("roomNumber"));
+            mv.addObject("member",memberDTO);
             mv.setViewName("chat");
         }else {
+            mv.addObject("member",memberDTO);
             mv.setViewName("room");
         }
 
         log.info("WebSocketController chatting mv : "+mv);
         return mv;
+    }
+
+    private boolean containValue(List<RoomDTO> list, Long memberNum,String roomName){
+        for(RoomDTO roomDTO : list){
+            if(roomDTO.getMemberNum() == memberNum) return false;
+            if(roomDTO.getRoomName().equals(roomName)) return false;
+        }
+        return true;
     }
 }
