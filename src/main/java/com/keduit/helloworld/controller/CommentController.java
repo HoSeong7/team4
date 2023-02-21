@@ -54,7 +54,7 @@ public class CommentController {
 	}
 	
 	@PutMapping("/{boardNum}/{boardCommentNum}")
-	public ResponseEntity<String> modify(@RequestBody CommentDTO commentDTO){
+	public ResponseEntity<String> modify(@PathVariable Long boardCommentNum, @RequestBody CommentDTO commentDTO){
 		log.info("위치 : CommentController modify()");
 		log.info("commentDTO : " + commentDTO);
 		commentService.modify(commentDTO);

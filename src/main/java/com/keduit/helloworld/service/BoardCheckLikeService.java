@@ -6,12 +6,6 @@ import com.keduit.helloworld.entity.Member;
 
 public interface BoardCheckLikeService {
 
-	/** 쓰기 */
-	Long register(BoardCheckLikeDTO boardCheckLikeDTO);
-
-	/** 삭제 */
-	void remove(Long checklikeId);
-	
 	/** 읽기 */
 	void get(Long memberNum, Long boardNum);
 

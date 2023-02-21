@@ -27,23 +27,6 @@ public class BoardCheckLikeServiceImpl implements BoardCheckLikeService {
 	
 	
 	@Override
-	public Long register(BoardCheckLikeDTO boardCheckLikeDTO) {
-		
-		BoardCheckLike boardCheckLike = dtoToEntity(boardCheckLikeDTO);
-		
-		boardCheckLikeRepository.save(boardCheckLike);
-		
-		return boardCheckLike.getBoardNum();
-	}
-
-	@Override
-	public void remove(Long checklikeId) {
-		
-		boardCheckLikeRepository.deleteById(checklikeId);
-		
-	}
-
-	@Override
 	public void get(Long memberNum, Long boardNum) {
 		
 		List<BoardCheckLike> check = boardCheckLikeRepository.getbyMemberNum(memberNum,boardNum);
