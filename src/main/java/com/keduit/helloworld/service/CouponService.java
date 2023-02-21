@@ -8,9 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CouponService {
-	//승민
-	/** 쿠본 번호 생성*/
-	void couponCreate();
 
 	Page<CouponDTO> readCouponList(Pageable pageable);
 	// 승민 끝

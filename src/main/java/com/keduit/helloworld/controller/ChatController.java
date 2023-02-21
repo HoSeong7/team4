@@ -51,7 +51,7 @@ public class ChatController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         /** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read) */
-        MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+        MemberDTO memberDTO = memberService.getMyInfo(userDetails.getUsername());
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("room");
@@ -71,7 +71,7 @@ public class ChatController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         /** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read) */
-        MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+        MemberDTO memberDTO = memberService.getMyInfo(userDetails.getUsername());
 
         String roomName = (String) params.get("roomName");
         log.info("ChatController createRoom");
@@ -122,7 +122,7 @@ public class ChatController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         /** 쪽지 보낸사람 회원번호로, 받는사람 회원정보 가져오기(read) */
-        MemberDTO memberDTO = memberService.getMemNum(userDetails.getUsername());
+        MemberDTO memberDTO = memberService.getMyInfo(userDetails.getUsername());
 
         ModelAndView mv = new ModelAndView();
         int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
