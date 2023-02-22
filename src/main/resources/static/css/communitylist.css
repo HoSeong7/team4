@@ -25,6 +25,7 @@ body{
 }
 .innerHeader .logo{
     float: left;
+    margin-top:3px;
 }
 .innerHeader .logo a{
     display: block;
@@ -35,6 +36,7 @@ body{
     float: left;
     overflow: hidden;
     position: relative;
+    width: 500px;
 }
 
 .innerHeader .mainmenu-left .navbar {
@@ -191,6 +193,26 @@ body{
     color: white;
     font-weight: 900;
     margin-left: 25px;
+    margin-top: 45px;
+}
+.content .content-body .main-content .content-middle .content-search form{
+	float:right;
+}
+.content .content-body .main-content .content-middle .content-search button{
+    width: 60px;
+    height: 25px;
+    background-color: #0090f9;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 900;
+}
+.content .content-body .main-content .content-middle .content-search input{
+    width: 300px;
+    height: 20px;
+}
+.content .content-body .main-content .content-middle .content-search select{
+    height: 25px;
 }
 .content .content-body .main-content .content-table{
     width: 980px;
@@ -292,10 +314,11 @@ body{
 .page_wrap {
 	text-align:center;
 	font-size:0;
-    margin: 40px 0;  
+    margin: 40px 0; 
  }
 .page_nation {
 	display:inline-block;
+    width: 460px;
 }
 .page_nation .none {
 	display:none;
@@ -305,8 +328,8 @@ body{
 	margin:0 3px;
 	float:left;
 	border:1px solid #e6e6e6;
-	width:28px;
-	height:28px;
+	width:30px;
+	height:30px;
 	line-height:28px;
 	text-align:center;
 	background-color:#fff;

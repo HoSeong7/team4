@@ -24,6 +24,7 @@ body{
 }
 .innerHeader .logo{
     float: left;
+    margin-top: 3px;
 }
 .innerHeader .logo a{
     display: block;

@@ -49,7 +49,7 @@ const GAME_COLS = 10;
 
 //variables
 let score = 0;
-let duration = 500;
+let duration = 600;
 let downInterval;
 let tempMovingItem;
 let num = 3;
@@ -232,8 +232,12 @@ restartButton.addEventListener("click", ()=>{
 
 
 function durationturm(){
-    if(score >= num){
-        num += 3;
-        duration -= 50;
+    if(duration>60){
+   	 if(score >= num){
+        num += 1;
+        duration -= 10;
+    	}
+    }else{
+		duration = 55;
     }
 }

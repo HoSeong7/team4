@@ -41,7 +41,8 @@
             <p>본문</p>
         </div>
         <div class="maincontent">
-            <input type="text" name="content" th:value="${dto.content}" >
+            <!-- <input type="text" name="content" th:value="${dto.content}" > -->
+			<textarea name="content" id="" cols="127" rows="20" th:value="${dto.content}"></textarea>
         </div>
         
         <div class="button">

@@ -34,6 +34,7 @@ a {
 
 .innerHeader .logo {
     float: left;
+    margin-top:3px;
 }
 
 .innerHeader .logo a {
@@ -288,6 +289,7 @@ a {
  }
 .page_nation {
 	display:inline-block;
+    width: 460px;
 }
 .page_nation .none {
 	display:none;
