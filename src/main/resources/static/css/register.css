@@ -144,6 +144,9 @@ a{
     width: 900px;
     height: 300px;
 }
+.content-body .maincontent textarea{
+    resize: none;
+}
 .content-body .maincontent{
     width: 900px;
     height: 300px;
