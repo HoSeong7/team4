@@ -117,15 +117,10 @@ public interface MemberService {
 
 	/** 조회하는사람 아이디로, 본인 정보 가져오기(crud) */
 	MemberDTO getMyInfo(String id);
-	
-//	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(list) */
-//	List<MemberDTO> getMsgGetListAsGiver(String id);
-
-//	/** 내 메시지를 받은 회원 가져오기 */
-//	List<Member> getMemMessage(Long num);
 
 	/**쿠폰 등록한거 맴버 포인트에 저장 */
 	void couponadd(Member me);
+	
 	/** 탑 맴버 조회 */
 	List<Member> topMember();
 

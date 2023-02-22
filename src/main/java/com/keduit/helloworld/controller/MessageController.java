@@ -41,7 +41,9 @@ public class MessageController {
 
 	@PostMapping("/message/register")
 	/** 쪽지 등록 = 전송 = 답장 */
-	public String register(@RequestParam HashMap<Object, Object> params, Authentication authentication) {
+	public String register(@RequestParam HashMap<Object, Object> params, 
+							Authentication authentication,
+							@RequestParam(required = false) Long boardCommentNum) {
 		log.info("MessageController register");
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호
 		
@@ -51,24 +53,37 @@ public class MessageController {
 		String content = params.get("content").toString();
 		String yourNum= params.get("yourNum").toString();
 		
-		
 		/** 조회하는사람 회원번호로, 본인 정보 가져오기 */
 		MemberDTO myInfoDTO = memberService.getMyInfo(userDetails.getUsername());
-		
+				
 		/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
-		MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum()); //최초전송시 쪽지번호 없음
+		MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum()); //쪽지번호는 두번째 부터 존재(최초전송시 쪽지번호 없음)
 		
 		MemberDTO yourMemDTO = memberService.read(Long.parseLong(yourNum)); //상대정보
 		
-		MessageDTO msgDTO = MessageDTO
-				.builder()
-				.memberGet(yourMemDTO.getMemberNum())
-				.memberGive(myInfoDTO.getMemberNum())
-				.boardCommentNum(messageNum)
-				.title(title)
-				.content(content)
-				.view(0L)
-				.build();
+		MessageDTO msgDTO;
+		
+		if(boardCommentNum != null) { //댓글번호 있으면(=게시판 통해 전송 시)
+			msgDTO = MessageDTO
+					.builder()
+					.memberGet(yourMemDTO.getMemberNum())
+					.memberGive(myInfoDTO.getMemberNum())
+					.boardCommentNum(boardCommentNum)
+					.title(title)
+					.content(content)
+					.view(0L)
+					.build();
+		} else { 					//쪽지함에서 답장 시(=쿼리스트링에 댓글번호 없으면)
+			msgDTO = MessageDTO
+					.builder()
+					.memberGet(yourMemDTO.getMemberNum())
+					.memberGive(myInfoDTO.getMemberNum())
+					.boardCommentNum(messageDTO.getBoardCommentNum()) //쪽지 정보에 있는 댓글번호 가져옴
+					.title(title)
+					.content(content)
+					.view(0L)
+					.build();
+		}
 		
 		Long returnNum = messageService.register(msgDTO);
 		

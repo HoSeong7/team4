@@ -33,7 +33,7 @@
             <p>제목</p>
         </div>
         <div class="content">
-            <input type="text" name="title" th:value="${dto.title}" >
+            <input type="text" name="title" th:value="${dto.title}" id="mustTitle">
         </div>
         
         <!-- tag -->
@@ -50,8 +50,8 @@
             <p>본문</p>
         </div>
         <div class="maincontent">
-            <!-- <input type="text" name="content"  > -->
-            <textarea name="content" id="" cols="127" rows="20" th:value="${dto.content}"></textarea>
+            <input type="text" name="content" cols="127" rows="20" th:value="${dto.content}" id="mustContent">
+<!--             <textarea name="content" id="" cols="127" rows="20" th:value="${dto.content}" id="mustContent"></textarea> -->
         </div>
         
         <div class="button">
@@ -62,7 +62,7 @@
             	<button type="button" class="removeBtn">삭제</button>
             </div>
             <div class="postbutton">
-            	<button type="button" class="modifyBtn">수정</button>
+            	<button type="button" class="modifyBtn" id="reqCheck">수정</button>
             </div>
         </div>
     </form>
@@ -84,18 +84,6 @@
 				actionForm.submit();
 			});
 			
-			
-			$(".modifyBtn").click(function(){
-				if(!confirm("수정하시겠습니까?")){
-					return;
-				}
-				
-				actionForm
-					.attr("action", "/hello/communitymodify")
-					.attr("method", "post");
-				actionForm.submit();
-			});
-			
 			$(".listBtn").click(function(){
 				var pageInfo = $("input[name='page']");
 				var type=$("input[name='page']");
@@ -112,7 +100,25 @@
 			});
 	</script>
 
-
-
+	<script>
+		//제목,본문 공백 및 최대 글자수 체크 후 수정
+		$("#reqCheck").click(function () {
+			if (($("#mustTitle").val() == '') || ($("#mustTitle").val().length > 90)) {
+				alert("제목이 비어있거나 너무 깁니다.");
+				return false;
+			} else if (($("#mustContent").val() == '') || ($("#mustContent").val().length > 2990)) {
+				alert("본문이 비어있거나 너무 깁니다.");
+				return false;
+			} else {
+				if (!confirm("수정하시겠습니까?")) {
+					return;
+				}
+				actionForm
+					.attr("action", "/hello/communitymodify")
+					.attr("method", "post");
+				actionForm.submit();
+			}
+		});
+	</script>	
 
 </html>
