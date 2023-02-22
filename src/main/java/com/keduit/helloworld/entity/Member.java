@@ -77,7 +77,7 @@ public class Member extends BaseEntity{
 	private String url;
 	
 	/** member와 memberRole연결 */
-	@ElementCollection(fetch= FetchType.LAZY)
+	@ElementCollection(fetch= FetchType.EAGER)
 	@Builder.Default
 	private Set<MemberRole> roleset = new HashSet<>();
 	
