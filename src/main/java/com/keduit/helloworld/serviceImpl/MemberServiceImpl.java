@@ -97,7 +97,7 @@ public class MemberServiceImpl implements MemberService {
 	// 승민 시작
 	@Override
 	public Page<MemberDTO> getMembers(Pageable pageable) {
-		return repository.findAll(pageable).map(member -> memberEntityToMemberDto(member));
+		return repository.findAll(pageable).map(this::memberEntityToMemberDto);
 	}
 
 	@Override

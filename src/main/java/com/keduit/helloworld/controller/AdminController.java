@@ -81,8 +81,8 @@ public class AdminController {
         // 메시지 페이징 처리
         PageRequest messagePageRequest = PageRequest.of(messagePage, 10, Sort.by(Sort.Direction.DESC, "messageNum"));
         Page<MessageDTO> messageList;
-        if (messageGive != null) {
-            messageList = messageService.getKeywordMessages(messageSelect, messageGive, messagePageRequest);
+        if ((messageGive != null)&&(messageGet != null)&&(messageNum != null)) {
+            messageList = messageService.getKeywordMessages(messageSelect, messageGive, messageGet, messageNum, messagePageRequest);
         }else {
             messageList = messageService.getMessages(messagePageRequest);
         }

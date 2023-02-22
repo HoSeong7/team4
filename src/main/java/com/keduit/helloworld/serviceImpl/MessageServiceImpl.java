@@ -180,8 +180,12 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public Page<MessageDTO> getKeywordMessages(String select,String keyword, Pageable pageable) {
-		return null;
+	public Page<MessageDTO> getKeywordMessages(String select,
+											   String msgGive,
+											   String msgGet,
+											   String msgNum,
+											   Pageable pageable) {
+		return messageRepository.findByGiveGetBCN(msgGive,msgGet,msgNum,pageable).map(msg -> messageEntityToDto(msg));
 	}
 	//승민 끝
 

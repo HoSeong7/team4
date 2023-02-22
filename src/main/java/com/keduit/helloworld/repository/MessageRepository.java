@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.keduit.helloworld.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -30,8 +32,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	List<Message> getMsgInfoAsGiver(Long memGiveNum);
 
 	//승민
-	@Query(value = "SELECT * FROM message WHERE member_give = :str1 and member_get = :str2", nativeQuery = true)
-	List<Board> findByNickname(String str1, String str2);
+	@Query(value = "SELECT * FROM message WHERE (member_give = :str1 and member_get = :str2 and boardCommentNum = :str3)", nativeQuery = true)
+	Page<Message> findByGiveGetBCN(String str1, String str2, String str3, Pageable pageable);
 	
 	//승민 끝
 

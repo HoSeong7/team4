@@ -18,7 +18,7 @@ public interface MessageService {
 	//승민
 	/** 관리자용 쪽지 페이징 처리 */
 	Page<MessageDTO> getMessages(Pageable pageable);
-	Page<MessageDTO> getKeywordMessages(String select,String keyword,Pageable pageable);
+	Page<MessageDTO> getKeywordMessages(String select,String msgGive,String msgGet,String msgNum,Pageable pageable);
 
 	//승민 끝
 

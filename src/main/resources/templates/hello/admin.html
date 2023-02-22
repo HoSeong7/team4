@@ -16,6 +16,14 @@
       margin: auto;
       border: 1px solid black;
     }
+    th {
+      margin: auto;
+      border: 1px solid black;
+    }
+    td {
+      margin: auto;
+      border: 1px solid black;
+    }
 
     .pagination{ 
       display: inline-flex;
@@ -64,31 +72,59 @@
     <input type="text" name="memberName">
     <button type="submit">검색</button>
   <!-- Member Pagination -->
-  <nav aria-label="Member Page Navigation">
-    <ul class="pagination">
-      <li th:classappend="${memberList.first} ? disabled : ''">
-        <a th:if="${not memberList.first}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number - 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
-          aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
+    <nav aria-label="Member Page Navigation">
+      <ul class="pagination">
+        <li th:classappend="${memberList.first} ? disabled : ''">
+          <a th:if="${not memberList.first}"
+             th:href="@{${#httpServletRequest.requestURI}(size=10, page=${memberList.number - 1}, memberPage=${memberList.number - 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
+             aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
 
-      <li th:each="i : ${#numbers.sequence(1, memberList.totalPages)}"
-        th:classappend="${memberList.number + 1} == ${i} ? active : ''">
-        <a th:href="@{${#httpServletRequest.requestURI}(memberPage=${i - 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
-          th:text="${i}"></a>
-      </li>
+        <th:block th:if="${memberList.totalPages > 1}">
+          <li th:classappend="${memberList.number == 1} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, page=0, memberPage=0, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}">
+              <span th:text="1"></span>
+            </a>
+          </li>
 
-      <li th:classappend="${memberList.last} ? disabled : ''">
-        <a th:if="${not memberList.last}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number + 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
-          aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+          <th:block th:if="${memberList.number > 6}">
+            <li>
+              <span>...</span>
+            </li>
+          </th:block>
+
+          <th:block th:each="i : ${#numbers.sequence(memberList.number - 5, memberList.number + 4)}" th:if="${i > 1 and i < memberList.totalPages - 1}">
+            <li th:classappend="${memberList.number + 1} == ${i} ? active : ''">
+              <a th:href="@{${#httpServletRequest.requestURI}(size=10, page=${i - 1}, memberPage=${i - 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}">
+                <span th:text="${i}"></span>
+              </a>
+            </li>
+          </th:block>
+
+          <th:block th:if="${memberList.number < memberList.totalPages - 5}">
+            <li>
+              <span>...</span>
+            </li>
+          </th:block>
+
+          <li th:classappend="${memberList.number == memberList.totalPages} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, page=${memberList.totalPages - 1}, memberPage=${memberList.totalPages - 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}">
+              <span th:text="${memberList.totalPages}"></span>
+            </a>
+          </li>
+        </th:block>
+
+        <li th:classappend="${memberList.last} ? disabled : ''">
+          <a th:if="${not memberList.last}"
+             th:href="@{${#httpServletRequest.requestURI}(size=10, page=${memberList.number + 1}, memberPage=${memberList.number + 1}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
+             aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
   <h2>게시물 목록</h2>
   <table>
@@ -109,33 +145,67 @@
       </tr>
     </tbody>
   </table>
+  <select name="boardSelect" id="">
+    <option value="board_num">회원번호</option>
+    <option value="title">제목</option>
+  </select>
+  <input type="text" name="boardTitle">
+  <button type="submit">검색</button>
 
   <!-- boardList 페이징 -->
-  <nav aria-label="Board Page Navigation">
-    <ul class="pagination">
-      <li th:classappend="${boardList.first} ? disabled : ''">
-        <a th:if="${not boardList.first}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number - 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
-          aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
+    <nav aria-label="Board Page Navigation">
+      <ul class="pagination">
+        <li th:classappend="${boardList.first} ? disabled : ''">
+          <a th:if="${not boardList.first}"
+             th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number - 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
+             aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
 
-      <li th:each="i : ${#numbers.sequence(1, boardList.totalPages)}"
-        th:classappend="${boardList.number + 1} == ${i} ? active : ''">
-        <a th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${i - 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
-          th:text="${i}"></a>
-      </li>
+        <th:block th:if="${boardList.totalPages > 1}">
+          <li th:classappend="${boardList.number == 1} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=0, commentPage=${commentList.number}, messagePage=${messageList.number})}">
+              <span th:text="1"></span>
+            </a>
+          </li>
 
-      <li th:classappend="${boardList.last} ? disabled : ''">
-        <a th:if="${not boardList.last}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number + 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
-          aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+          <th:block th:if="${boardList.number > 6}">
+            <li>
+              <span>...</span>
+            </li>
+          </th:block>
+
+          <th:block th:each="i : ${#numbers.sequence(boardList.number - 5, boardList.number + 4)}" th:if="${i > 1 and i < boardList.totalPages - 1}">
+            <li th:classappend="${boardList.number + 1} == ${i} ? active : ''">
+              <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${i - 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}">
+                <span th:text="${i}"></span>
+              </a>
+            </li>
+          </th:block>
+
+          <th:block th:if="${boardList.number < boardList.totalPages - 5}">
+            <li>
+              <span>...</span>
+            </li>
+          </th:block>
+
+          <li th:classappend="${boardList.number == boardList.totalPages} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.totalPages - 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}">
+              <span th:text="${boardList.totalPages}"></span>
+            </a>
+          </li>
+        </th:block>
+
+        <li th:classappend="${boardList.last} ? disabled : ''">
+          <a th:if="${not boardList.last}"
+             th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number + 1}, commentPage=${commentList.number}, messagePage=${messageList.number})}"
+             aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
   <h2>댓글 목록</h2>
   <table>
@@ -154,33 +224,67 @@
       </tr>
     </tbody>
   </table>
+  <select name="commentSelect" id="">
+    <option value="member_num">회원번호</option>
+    <option value="board_comment_num">댓글번호</option>
+  </select>
+  <input type="text" name="memberName">
+  <button type="submit">검색</button>
 
   <!-- commentList 페이징 -->
-  <nav aria-label="Comment Page Navigation">
-    <ul class="pagination">
-      <li th:classappend="${commentList.first} ? disabled : ''">
-        <a th:if="${not commentList.first}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number - 1}, messagePage=${messageList.number})}"
-          aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
+    <nav aria-label="Comment Page Navigation">
+      <ul class="pagination">
+        <li th:classappend="${commentList.first} ? disabled : ''">
+          <a th:if="${not commentList.first}"
+             th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number - 1}, messagePage=${messageList.number})}"
+             aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
 
-      <li th:each="i : ${#numbers.sequence(1, commentList.totalPages)}"
-        th:classappend="${commentList.number + 1} == ${i} ? active : ''">
-        <a th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${i - 1}, messagePage=${messageList.number})}"
-          th:text="${i}"></a>
-      </li>
+        <th:block th:if="${commentList.totalPages > 1}">
+          <li th:classappend="${commentList.number == 1} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=0, messagePage=${messageList.number})}">
+              <span th:text="1"></span>
+            </a>
+          </li>
 
-      <li th:classappend="${commentList.last} ? disabled : ''">
-        <a th:if="${not commentList.last}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number + 1}, messagePage=${messageList.number})}"
-          aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+          <th:block th:if="${commentList.number > 6}">
+            <li>
+              <span>...</span>
+            </li>
+          </th:block>
+
+          <th:block th:each="i : ${#numbers.sequence(commentList.number - 5, commentList.number + 4)}" th:if="${i > 1 and i < commentList.totalPages - 1}">
+            <li th:classappend="${commentList.number + 1} == ${i} ? active : ''">
+              <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${i - 1}, messagePage=${messageList.number})}">
+                <span th:text="${i}"></span>
+              </a>
+            </li>
+          </th:block>
+
+          <th:block th:if="${commentList.number < commentList.totalPages - 5}">
+            <li>
+              <span>...</span>
+            </li>
+          </th:block>
+
+          <li th:classappend="${commentList.number == commentList.totalPages} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.totalPages - 1}, messagePage=${messageList.number})}">
+              <span th:text="${commentList.totalPages}"></span>
+            </a>
+          </li>
+        </th:block>
+
+        <li th:classappend="${commentList.last} ? disabled : ''">
+          <a th:if="${not commentList.last}"
+             th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number + 1}, messagePage=${messageList.number})}"
+             aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
   <h2>메세지 목록</h2>
   <table>
@@ -201,27 +305,62 @@
       </tr>
     </tbody>
   </table>
+  받는 사람
+  <input type="text" name="memberGive">
+  보낸사람
+  <input type="text" name="memberGet">
+  댓글 번호
+  <input type="text" name="messageNum">
+  <button type="submit">검색</button>
 
   <nav aria-label="Message Page Navigation">
     <ul class="pagination">
       <li th:classappend="${messageList.first} ? disabled : ''">
         <a th:if="${not messageList.first}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number - 1})}"
-          aria-label="Previous">
+           th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number - 1})}"
+           aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-
-      <li th:each="i : ${#numbers.sequence(1, messageList.totalPages)}"
-        th:classappend="${messageList.number + 1} == ${i} ? active : ''">
-        <a th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${i - 1})}"
-          th:text="${i}"></a>
-      </li>
-
+  
+      <th:block th:if="${messageList.totalPages > 1}">
+        <li th:classappend="${messageList.number == 1} ? active : ''">
+          <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=0)}">
+            <span th:text="1"></span>
+          </a>
+        </li>
+  
+        <th:block th:if="${messageList.number > 6}">
+          <li>
+            <span>...</span>
+          </li>
+        </th:block>
+  
+        <th:block th:each="i : ${#numbers.sequence(messageList.number - 5, messageList.number + 4)}" th:if="${i > 1 and i < messageList.totalPages - 1}">
+          <li th:classappend="${messageList.number + 1} == ${i} ? active : ''">
+            <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${i - 1})}">
+              <span th:text="${i}"></span>
+            </a>
+          </li>
+        </th:block>
+  
+        <th:block th:if="${messageList.number < messageList.totalPages - 5}">
+          <li>
+            <span>...</span>
+          </li>
+        </th:block>
+  
+        <li th:classappend="${messageList.number == messageList.totalPages} ? active : ''">
+          <a th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.totalPages - 1})}">
+            <span th:text="${messageList.totalPages}"></span>
+          </a>
+        </li>
+      </th:block>
+  
       <li th:classappend="${messageList.last} ? disabled : ''">
         <a th:if="${not messageList.last}"
-          th:href="@{${#httpServletRequest.requestURI}(memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number + 1})}"
-          aria-label="Next">
+           th:href="@{${#httpServletRequest.requestURI}(size=10, memberPage=${memberList.number}, boardPage=${boardList.number}, commentPage=${commentList.number}, messagePage=${messageList.number + 1})}"
+           aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
