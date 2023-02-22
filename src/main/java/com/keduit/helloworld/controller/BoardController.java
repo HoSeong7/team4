@@ -3,6 +3,7 @@ package com.keduit.helloworld.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +48,32 @@ public class BoardController {
     	PageResultDTO<BoardDTO, Object[]> result = boardService.getBoard1List(pageRequestDTO);
     	log.info("뿌림?" + result);
     	
-    	
+
+    	if(authentication != null) {
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		Member idnum =  memberService.idRead(userDetails.getUsername());
+		model.addAttribute("member",idnum);
 		
 		System.out.println("username = " + userDetails.getUsername());
 	    System.out.println("role = " + userDetails.getAuthorities().stream().map(r -> String.valueOf(r)).collect(Collectors.joining(",")));
-		
-	    Member idnum =  memberService.idRead(userDetails.getUsername());
+    	}
 	    
-	    model.addAttribute("member",idnum);
+	    //호성 top Community 제작 23.02.22
+	    
+	    /** 보드  limit 5 */
+	    List<Board> topBoard = boardService.topboard();
+	    /** 맴버  limit 5 */
+	    List<Member> topMembers = memberService.topMember();
+	    
+//	    System.out.println("탑보드 확인하자"+topBoard); 
+	    System.out.println("맴버값 확인하자"+topBoard); 
+	    model.addAttribute("top",topBoard);
+	    model.addAttribute("topuser",topMembers);
+	    
+	    // 호성 end
+	    
+	    
+	    
     	
 		model.addAttribute("result",boardService.getBoard1List(pageRequestDTO));
 	}

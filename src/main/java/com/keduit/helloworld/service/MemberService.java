@@ -126,6 +126,8 @@ public interface MemberService {
 
 	/**쿠폰 등록한거 맴버 포인트에 저장 */
 	void couponadd(Member me);
+	/** 탑 맴버 조회 */
+	List<Member> topMember();
 
 
 }

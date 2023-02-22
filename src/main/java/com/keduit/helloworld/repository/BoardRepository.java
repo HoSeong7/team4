@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.repository.search.SearchBoardRepository;
 
@@ -41,6 +42,13 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 	@Query(value = "select * from board where :str = :num", nativeQuery = true)
     List<Board> temp(String str, Integer num);
 
+	//호성 top Community 제작 23.02.22
+	
+	/** 게시물 조회수 순으로 가져오기 */
+	@Query(value ="SELECT *  FROM board b where boardcase = '1' order by views desc, board_num desc limit 5" , nativeQuery=true)
+	List<Board> getBoardCount();
+
+	//호성 end
 
 
 }

@@ -218,7 +218,13 @@ public class MemberServiceImpl implements MemberService {
 		repository.save(me);
 
 	}
-
+	/** 탑 맴버 조회*/
+	@Override
+	public List<Member> topMember() {
+		List<Member> top = repository.getTopMember();
+		
+		return top;
+	}
 	//end 호성
 
 
@@ -232,6 +238,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO memberDTO = memberEntityToMemberDto(result.get());
 		return memberDTO;
 	}
+
 
 //	@Override
 //	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(list) */

@@ -175,4 +175,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 	//승민 끝
 
+	//호성 top Community 제작 23.02.22
+	/** 커뮤니티 조회수 순서대로 가져오기 */
+	@Override
+	public List<Board> topboard() {
+		List<Board> dto = boardRepository.getBoardCount();
+	
+		
+		return dto;
+	}
+
+	//호성 end
 }
