@@ -42,7 +42,7 @@
 				                	<img th:if="${list1.exvalue} >= 300 and ${list1.exvalue} < 400" src="/img/a4.png" width="25px" height="25px">
 				                	<img th:if="${list1.exvalue} >= 400" src="/img/a5.png" width="25px" height="25px">
 		                        </div>
-		                        <div class="username"><a th:href="@{/hello/communityread(boardNum=${list1.memberNum})}"><Strong>[[${list1.nickname}]]</Strong></a></div>
+		                        <div class="username"><a th:href="@{/hello/spacepage(id=${list1.id})}"><Strong>[[${list1.nickname}]]</Strong></a></div>
 		                        <div class="hits">[[${list1.exvalue}]]</div>
 		                    </div>
 	                    </div>
