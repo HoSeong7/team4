@@ -28,12 +28,13 @@ public class CommentRepositoryTests {
 	/** 더미 Test */
 	public void insertReply() {
 
-		IntStream.rangeClosed(1, 600).forEach(i -> {
-			long boardNum = (long)(Math.random() * 600) + 1;
+		IntStream.rangeClosed(1, 100).forEach(i -> {
+			long boardNum = (long)(Math.random() * 50) + 1;
+			long commenter = (long)(Math.random() * 10) + 1;
 
 			Comment comment = Comment.builder()
 					.boardNum(boardNum)
-					.commenterNum((long) (Math.random()*30))
+					.commenterNum(commenter)
 					.commentContent("뎃글 " + i + " 번 내용입니다.")
 					.build();
 			commentRepository.save(comment);

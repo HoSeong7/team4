@@ -130,6 +130,12 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 			, nativeQuery = true)
 		Member getCommenter(Long commenterNum);
 
+	// 호성 23.02.22
+	/**탑 맴버 조회*/
+	@Query(value="select * from member order by exvalue desc, nickname limit 5;", nativeQuery=true)
+	List<Member> getTopMember();
+
+	//호성 end
 
 
 }

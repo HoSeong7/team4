@@ -94,6 +94,12 @@ public interface BoardService {
 
 		return boardDTO;
 	}
-
 	//승민 끝
+
+	//호성 top Community 제작 23.02.22
+	
+	/** 조회수 많은 순서 가져오기*/
+	List<Board> topboard();
+	
+	//호성 end
 }

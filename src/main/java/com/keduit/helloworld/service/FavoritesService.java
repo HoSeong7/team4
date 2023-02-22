@@ -47,5 +47,8 @@ public interface FavoritesService {
 	
 	/** 즐겨찾기 정보 검색하기 */
 	BooleanBuilder getSearch(PageRequestDTO requestDTO);
+
+	/**내가 즐겨찾기 했는지*/
+	int getCount(Long memberNum, Long youNum);
 	
 }

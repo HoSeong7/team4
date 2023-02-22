@@ -57,6 +57,14 @@ public class FavoritesServiceImpl implements FavoritesService{
 		return null;
 	}
 
+	/**내가 즐겨찾기 했는지?*/
+	@Override
+	public int getCount(Long memberNum, Long youNum) {
+		int count = favoritesRepository.getCount(memberNum,youNum);
+		
+		return count;
+	}
+
 	
 	
 }
