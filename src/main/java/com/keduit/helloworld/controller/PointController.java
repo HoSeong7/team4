@@ -1,6 +1,7 @@
 package com.keduit.helloworld.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -9,10 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.keduit.helloworld.dto.CouponDTO;
 import com.keduit.helloworld.dto.MemberDTO;
@@ -114,4 +112,15 @@ public class PointController {
 	}
 	
 	//호성 end
+
+	@PostMapping("/transaction")
+	public @ResponseBody String transaction(@RequestParam HashMap<Object,Object> params){
+		String myNum = params.get("myNum").toString();
+		String yourNum = params.get("yourNum").toString();
+		String point = params.get("point").toString();
+
+		pointPayService.modify(Long.parseLong(myNum),Long.parseLong(yourNum),Long.parseLong(point));
+
+		return "success";
+	}
 }

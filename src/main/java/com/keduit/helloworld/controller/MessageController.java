@@ -46,7 +46,10 @@ public class MessageController {
 		String title = params.get("title").toString();
 		String content = params.get("content").toString();
 		String yourNum= params.get("yourNum").toString();
-		String boardCommentNum = params.get("boardCommentNum").toString();
+		String boardCommentNum = "";
+		if(params.get("boardCommentNum") != null){
+			boardCommentNum = params.get("boardCommentNum").toString();
+		}
 
 		log.info("MessageController register");
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호

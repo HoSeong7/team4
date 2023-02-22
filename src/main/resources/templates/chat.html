@@ -62,10 +62,10 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	var ws;
-	var roomNumber = /*[[${roomNumber}]]*/ {};
-	var userNickname = /*[[${member.nickname}]]*/ {};
-	var userExValue = /*[[${member.exvalue}]]*/ {};
-	var userNum = /*[[${member.memberNum}]]*/ {};
+	const roomNumber = /*[[${roomNumber}]]*/ {};
+	const userNickname = /*[[${member.nickname}]]*/ {};
+	const userExValue = /*[[${member.exvalue}]]*/ {};
+	const userNum = /*[[${member.memberNum}]]*/ {};
 	wsOpen();
 
 
@@ -94,7 +94,7 @@
 						$("#sessionId").val(si);
 					}
 				} else if (d.type == "message") {
-					if (d.sessionId == $("#sessionId").val()) {
+					if (d.userName == userNickname) {
 						$("#chating").append("<p class='me'>"+userNickname+" :" + d.msg + "</p>");
 					} else {
 						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
@@ -112,8 +112,6 @@
 		document.addEventListener("keypress", function (e) {
 			if ((e.keyCode == 13)&&($("#chatting").val().trim() != "")) { //enter press
 				send();
-			}else{
-				alert('보낼 메시지를 입력해 주세요');
 			}
 		});
 

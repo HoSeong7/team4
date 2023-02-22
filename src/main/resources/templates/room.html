@@ -202,24 +202,17 @@
 	}
 
 	function send() {
-		roomNumber = 1;
+		var roomNum = $(this).closest('tr').find('.roomNumValue').val();
+		var roomNem = $(this).closest('tr').find('.roomNameValue').val();
 		var option = {
-			roomName: $("#roomName").val(),
-			'roomNumber': roomNumber
+			roomName: roomNem,
+			'roomNumber': roomNum
 		}
 		socketCreateRoom.send(JSON.stringify(option));
 	}
 
 	function clickExVal(ex) {
 		if (ex >= 400) {
-			// var strRoom =
-			// 	'<tr>' +
-			// 	'<th>방 제목</th>' +
-			// 	'<th><input type="text" name="roomName" id="roomName"></t+h>' +
-			// 	'<th><button id="createRoom">방 만들기</button></th>' +
-			// 	'</tr>'
-
-			// $(".inputTable").html(strRoom);
 			$('.inputTable').show();
 		}
 	}

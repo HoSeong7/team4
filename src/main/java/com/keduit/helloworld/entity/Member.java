@@ -114,6 +114,11 @@ public class Member extends BaseEntity{
 	public void CopounPoint(Long coupon) {
 		this.point = this.point + coupon;
 	}
+
+	// 승민
+	public void changePoint(Long point){
+		this.point = point;
+	}
 	
 	
 }

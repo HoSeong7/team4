@@ -37,7 +37,7 @@ public class BoardRepositoryTests {
 							.title("[title] " + i+" 번")
 							.content("내용 -- " + i)
 							.tag("")
-							.boardcase((long) (Math.random()*3))
+							.boardcase((long) (Math.random()*3)+1)
 							.memberNum((long) (Math.random()*10)+1)
 							.build();
 			

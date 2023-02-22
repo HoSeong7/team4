@@ -29,7 +29,7 @@ public class MessageRepositoryTests {
 	/** 쪽지 등록 테스트(create) */
 	public void insertMsgTest() {
 		
-		IntStream.rangeClosed(1, 30).forEach(i -> {
+		IntStream.rangeClosed(1, 200).forEach(i -> {
 			
 			Long a = (long)(Math.random()*10)+1;
 			Long b = (long)(Math.random()*10)+1;
