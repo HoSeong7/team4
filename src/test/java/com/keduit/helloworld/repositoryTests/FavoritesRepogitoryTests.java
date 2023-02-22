@@ -29,8 +29,8 @@ public class FavoritesRepogitoryTests {
 		
 		IntStream.rangeClosed(1, 200).forEach(i->{
 			
-			long a = (long)(Math.random()*30)+1;
-			long b = (long)(Math.random()*30)+1;
+			long a = (long)(Math.random()*10)+1;
+			long b = (long)(Math.random()*10)+1;
 			
 			Favorites entity = Favorites.builder().bookmarked(a)
 												  .bookmarker(b).build();

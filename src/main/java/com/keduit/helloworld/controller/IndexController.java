@@ -78,6 +78,7 @@ public class IndexController {
     @GetMapping("/login")
     public void loginpage(String err, String logout) {
     	log.info("여기는 겟 로그인");
+    	
     }
     
     @PostMapping("/login")
@@ -230,7 +231,7 @@ public class IndexController {
     	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
     	   
     	   /** 내가 쓴 댓글 불러오기 */
-    	   List<Comment> myComments = commentService.getCommentList(idnum.getId());
+    	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
     	   
     	    model.addAttribute("member",idnum);
     	    /**내가 팔로한 사람 목록*/

@@ -104,7 +104,7 @@ public class CommentServiceImpl implements CommentService {
 	// 승민 끝
 
 	@Override
-	public List<Comment> getCommentList(String id) {
+	public List<Comment> getCommentList(Long id) {
 
 		List<Comment> comments = commentRepository.getCommentById(id);
 		return comments;

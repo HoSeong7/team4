@@ -38,7 +38,7 @@
         <div class="box1">
             <h1>[[${member.nickname}]]님 의 공간
             	<a th:if="${how == 0}" th:href="@{/hello/spacepage/insertF(id=${member.id})}"><img src="/img/star.png" alt="" width="25px" height="25px"></a>
-            	<a th:if="${how == 1}" th:href="@{/hello/spacepage/removeF(id=${member.id})}"><img src="/img/starfull.png" alt="" width="25px" height="25px"></a>
+            	<a th:if="${how != 0}" th:href="@{/hello/spacepage/removeF(id=${member.id})}"><img src="/img/starfull.png" alt="" width="25px" height="25px"></a>
             </h1>
 
         </div>

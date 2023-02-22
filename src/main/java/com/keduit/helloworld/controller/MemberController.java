@@ -49,11 +49,8 @@ public class MemberController {
 		 Member me =  memberService.idRead(userDetails.getUsername());
 		 
 		 //내가 팔로한 사람인지
-		 int how = 0;
-		 List<Member> mefollowing = memberService.getMemberMarker(me.getMemberNum());
-		 if(mefollowing.contains(idnum)) {
-			    how = 1;
-			  }
+		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
+		 
 		
 		//들어간사람이 팔로한사람
 	    List<Member> folowing = memberService.getMemberMarker(idnum.getMemberNum());
@@ -64,7 +61,7 @@ public class MemberController {
 	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
 	   
 	   /** 들어간사람 쓴 댓글 불러오기 */
-	   List<Comment> myComments = commentService.getCommentList(idnum.getId());
+	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
 	   
 	    model.addAttribute("member",idnum);
 	    /**들어간사람 팔로한 사람 목록*/
@@ -76,7 +73,7 @@ public class MemberController {
 	    /** 들어간사람 쓴 댓글 보기 */
 	    model.addAttribute("myComment", myComments);
 	    /** 팔로한 사람인지 아닌지 확인하기*/
-	    model.addAttribute("how", how);    
+	    model.addAttribute("how", mefollowing);    
 	}
 	//별 클릭시 즐겨찾기 추가되면서 까만별로 바꾸기 
 	@GetMapping("/spacepage/insertF")
@@ -90,13 +87,9 @@ public class MemberController {
 		favoritesService.register(me.getMemberNum(), idnum.getMemberNum());
 		
 		 /** 팔로한 사람인지 아닌지 확인하기*/
-		 int how = 0;
+		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
 		 
-		 List<Member> mefollowing = memberService.getMemberMarker(me.getMemberNum());
-		 if(mefollowing.contains(idnum)) {
-			    how = 1;
-			  }
-		 redirectAttributes.addAttribute("how", how);
+		 redirectAttributes.addAttribute("how", mefollowing);
 		    
 		return "redirect:/hello/spacepage?id="+id;
 	}
@@ -115,7 +108,7 @@ public class MemberController {
 		
 		
 		 /** 팔로 삭제한 값 넘기기*/
-		 redirectAttributes.addAttribute("how", 0);
+		 redirectAttributes.addAttribute("how", "0");
 		
 		return "redirect:/hello/spacepage?id="+id;
 	}

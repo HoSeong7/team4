@@ -36,7 +36,7 @@ public interface CommentService {
 	}
 	//승민 끝
 
-	List<Comment> getCommentList(String id);
+	List<Comment> getCommentList(Long id);
 
 
 	/** 생성 */

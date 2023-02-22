@@ -130,6 +130,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 			, nativeQuery = true)
 		Member getCommenter(Long commenterNum);
 
+	
 
 
 }
