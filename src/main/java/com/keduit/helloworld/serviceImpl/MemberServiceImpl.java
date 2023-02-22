@@ -104,7 +104,6 @@ public class MemberServiceImpl implements MemberService {
 	public Page<MemberDTO> getKeywordMembers(String select,String keyword, Pageable pageable) {
 
 		Page<MemberDTO> list = null;
-
 		if(select.equals("member_num")){
 			Optional<Member> result = repository.findById(Long.parseLong(keyword));
 			if(result.isPresent()){

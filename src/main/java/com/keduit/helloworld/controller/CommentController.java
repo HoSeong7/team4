@@ -1,17 +1,11 @@
 package com.keduit.helloworld.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.keduit.helloworld.dto.BoardCheckLikeDTO;
 import com.keduit.helloworld.dto.CommentDTO;
@@ -60,6 +54,16 @@ public class CommentController {
 		commentService.modify(commentDTO);
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+
+	@PostMapping("/readModal")
+	public @ResponseBody CommentDTO readModal(@RequestParam HashMap<Object,Object> params){
+
+		Long BCN = Long.parseLong(params.get("boardCommentNum").toString());
+
+		CommentDTO commentDTO = commentService.getById(BCN);
+
+		return commentDTO;
 	}
 	
 	

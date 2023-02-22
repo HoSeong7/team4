@@ -42,33 +42,46 @@ public class MessageController {
 	@PostMapping("/message/register")
 	/** 쪽지 등록 = 전송 = 답장 */
 	public String register(@RequestParam HashMap<Object, Object> params, Authentication authentication) {
-		log.info("MessageController register");
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호
-		
-		Long messageNum = Long.parseLong(params.get("messageNum").toString()); //쪽지번호
-		
+
 		String title = params.get("title").toString();
 		String content = params.get("content").toString();
 		String yourNum= params.get("yourNum").toString();
-		
-		
+		String boardCommentNum = params.get("boardCommentNum").toString();
+
+		log.info("MessageController register");
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호
 		/** 조회하는사람 회원번호로, 본인 정보 가져오기 */
 		MemberDTO myInfoDTO = memberService.getMyInfo(userDetails.getUsername());
-		
-		/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
-		MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum()); //최초전송시 쪽지번호 없음
+
+		 //쪽지번호
+		//최초전송시 쪽지번호 없음
 		
 		MemberDTO yourMemDTO = memberService.read(Long.parseLong(yourNum)); //상대정보
-		
-		MessageDTO msgDTO = MessageDTO
-				.builder()
-				.memberGet(yourMemDTO.getMemberNum())
-				.memberGive(myInfoDTO.getMemberNum())
-				.boardCommentNum(messageNum)
-				.title(title)
-				.content(content)
-				.view(0L)
-				.build();
+		MessageDTO msgDTO;
+		if(boardCommentNum.equals("")){
+			Long messageNum  = Long.parseLong(params.get("messageNum").toString());
+			MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum());
+			msgDTO = MessageDTO
+					.builder()
+					.memberGet(yourMemDTO.getMemberNum())
+					.memberGive(myInfoDTO.getMemberNum())
+					.boardCommentNum(messageDTO.getBoardCommentNum())
+					.title(title)
+					.content(content)
+					.view(0L)
+					.build();
+		}else{
+			msgDTO = MessageDTO
+					.builder()
+					.memberGet(Long.parseLong(yourNum))
+					.memberGive(myInfoDTO.getMemberNum())
+					.boardCommentNum(Long.parseLong(boardCommentNum))
+					.title(title)
+					.content(content)
+					.view(0L)
+					.build();
+		}
+
 		
 		Long returnNum = messageService.register(msgDTO);
 		

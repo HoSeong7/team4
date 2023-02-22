@@ -34,6 +34,8 @@ public interface CommentService {
 				.build();
 		return replyDTO;
 	}
+
+	CommentDTO getById(Long BCN);
 	//승민 끝
 
 	List<Comment> getCommentList(Long id);

@@ -36,7 +36,6 @@
 </head>
 
 <body>
-  <form method="get" action="/hello/admin">
   <input type="hidden" name="memberPage" th:value="${memberList.number}">
   <input type="hidden" name="boardPage" th:value="${boardList.number}">
   <input type="hidden" name="commentPage" th:value="${commentList.number}">
@@ -65,12 +64,14 @@
       </tr>
     </tbody>
   </table>
-    <select name="memberSelect" id="">
+
+    <select id="memberSel" name="memberSelect" id="">
       <option value="member_num">회원번호</option>
       <option value="nickname">닉네임</option>
     </select>
-    <input type="text" name="memberName">
+    <input id="memberVal" type="text" name="memberName">
     <button type="submit">검색</button>
+
   <!-- Member Pagination -->
     <nav aria-label="Member Page Navigation">
       <ul class="pagination">
@@ -146,6 +147,7 @@
     </tbody>
   </table>
   <select name="boardSelect" id="">
+    <option value="">null</option>
     <option value="board_num">회원번호</option>
     <option value="title">제목</option>
   </select>
@@ -229,6 +231,7 @@
     <option value="board_comment_num">댓글번호</option>
   </select>
   <input type="text" name="memberName">
+  <option value="">null</option>
   <button type="submit">검색</button>
 
   <!-- commentList 페이징 -->
@@ -311,6 +314,7 @@
   <input type="text" name="memberGet">
   댓글 번호
   <input type="text" name="messageNum">
+  <option value="">null</option>
   <button type="submit">검색</button>
 
   <nav aria-label="Message Page Navigation">
@@ -410,11 +414,35 @@
       </li>
     </ul>
   </nav>
-</form>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+      function memberSearch(){
+        var memberSel = $("#memberSel").val();
+        var memberVal = $("#memberVal").val();
+
+        var memData = {
+          'memberSel' : memberSel,
+          'memberVal' : memberVal
+        };
+
+        $.ajax({
+          url: '/hello/admin/member',
+          type:'post',
+          data:memData,
+          dataType: 'application/x-www-form-urlencoded; charset=UTF-8',
+          success:function(result){
+            
+          },
+          error:function(err){
+            alert(err);
+          }
+        })
+      }
+    </script>
 </body>
 
 </html>

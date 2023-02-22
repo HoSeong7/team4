@@ -101,6 +101,19 @@ public class CommentServiceImpl implements CommentService {
 
 		return list;
 	}
+
+	@Override
+	public CommentDTO getById(Long BCN) {
+
+		Optional<Comment> result = commentRepository.findById(BCN);
+		if(result.isPresent()){
+			Optional<Member> memNum = memberRepository.findById(result.get().getCommenterNum());
+			if (memNum.isPresent()) {
+			    return entityToDTO(result.get(),memNum.get());
+			}
+		}
+		return null;
+	}
 	// 승민 끝
 
 	@Override
