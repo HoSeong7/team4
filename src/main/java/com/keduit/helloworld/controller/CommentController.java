@@ -39,13 +39,13 @@ public class CommentController {
 	
 	@PostMapping("/{boardNum}")
 	public ResponseEntity<Long> register(@RequestBody CommentDTO commentDTO){
-		log.info("위치 : CommentController register()");
+		log.info("위치 : CommentController PostMapping register()");
 		log.info("commentDTO : " + commentDTO);
 		Long boardCommentNum = commentService.register(commentDTO);
 		return new ResponseEntity<Long>(boardCommentNum, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{boardNum}/{boardCommentNum}")
+	@DeleteMapping("/{boardCommentNum}")
 	public ResponseEntity<String> remove(@PathVariable("boardCommentNum") Long boardCommentNum){
 		log.info("위치 : CommentController remove()");
 		log.info("boardCommentNum : " + boardCommentNum);
@@ -53,8 +53,8 @@ public class CommentController {
 		return new ResponseEntity<String>("success",HttpStatus.OK);
 	}
 	
-	@PutMapping("/{boardNum}/{boardCommentNum}")
-	public ResponseEntity<String> modify(@PathVariable Long boardCommentNum, @RequestBody CommentDTO commentDTO){
+	@PutMapping("/{boardCommentNum}")
+	public ResponseEntity<String> modify(@RequestBody CommentDTO commentDTO){
 		log.info("위치 : CommentController modify()");
 		log.info("commentDTO : " + commentDTO);
 		commentService.modify(commentDTO);

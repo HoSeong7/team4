@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.keduit.helloworld.dto.BoardCheckLikeDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.BoardCheckLike;
 import com.keduit.helloworld.repository.BoardCheckLikeRepository;
