@@ -32,7 +32,7 @@
                 	<img th:if="${member.exvalue} >= 300 and ${member.exvalue} < 400" src="/img/a4.png">
                 	<img th:if="${member.exvalue} >= 400" src="/img/a5.png">
                 </li>
-                <li class="text">[[${member.name}]]님의 경험치는 [[${member.exvalue}]]점 입니다.</li>
+                <li class="text"><p><!--[[${member.name}]]님의--> 경험치 : [[${member.exvalue}]]점</p></li>
             </ul>
         </div>
         <div class="box1">
@@ -145,15 +145,15 @@
  </div>
       <!-- Add more content as needed -->
     	 <!-- Modal -->
-   <div id="myModal" class="modal call3 hidden">
-        <div class="modal-content">
-            <div class="modal-header">
+   <div id="myModal" class="modal1 call3 hidden">
+        <div class="modal-content1">
+            <div class="modal-header1">
                 <span class="close">&times;</span>
                 <h2>정보수정</h2>
             </div>
-            <div class="modal-body">
+            <div class="modal-body1">
                 <form name="signup-form" id="signup-form" th:action="@{/hello/modify}" enctype="multipart/form-data" method="post" th:onsubmit="return OkSubmit();">
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label for="user_id">
                             아이디
                         </label>
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label for="user_pw">
                             비밀번호
                         </label>
@@ -172,7 +172,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label for="user_pw">
                             비밀번호 확인
                         </label>
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label for="user_name">
                             이름
                         </label>
@@ -190,7 +190,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label for="user_name">
                             닉네임
                         </label>
@@ -200,17 +200,9 @@
                             <button type='button' id="nickChk" onclick="fn_nickChk();">중복 확인</button>
                         </div>
                     </div>
+                    
                     <br>
-                     <div class="form-group">
-                        <label for="introduce">
-                            자기소개
-                        </label>
-                        <div class="input-box">
-                            <textarea name="introduce" id="introduce" rows="20" cols="30">[[${member.introduce}]]</textarea>
-                        </div>
-                    </div> 
-                    <br>
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label for="email">
                             이메일
                         </label>
@@ -219,7 +211,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="form-group">
+                    <div class="form-group1">
                         <label>
                             사진넣기
                         </label>
@@ -228,13 +220,22 @@
 	               					id="url" value="${member.url}"/>
                         </div>
                     </div>
+                    <br>
+                     <div class="form-group1">
+                        <label for="introduce">
+                            자기소개
+                        </label>
+                        <div class="input-box">
+                            <textarea name="introduce" id="introduce" rows="8" cols="30">[[${member.introduce}]]</textarea>
+                        </div>
+                    </div> 
                     <input type="hidden" value=0 id="test_1" name="test_1">
                     <input type="hidden" name="memberNum" th:value="${member.memberNum}">
                     <input type="hidden" name="point" th:value="${member.point}">
                     <input type="hidden" name="purview" th:value="${member.purview}">
                     <input type="hidden" name="exvalue" th:value="${member.exvalue}">
                     <br>
-                    <div class="form-group">
+                    <div class="form-group1 form-group2">
                         <div class="form-button">
                             <button type="submit">수정하기</button>
                             <button type="reset">다시 작성</button>

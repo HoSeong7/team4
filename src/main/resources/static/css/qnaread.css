@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&display=swap');
 *{
     padding: 0;
     margin: 0;
@@ -10,11 +10,21 @@ a{
     text-decoration: none;
 }
 body{
-    background-color: #f4faf5;
-    font-family: 'Nanum Gothic Coding', monospace;
-
+    background-color: white;
+    font-family: 'Gothic A1', sans-serif;
 }
-
+button{
+	width: 50px;
+    height: 30px;
+    background-color: #0090f9;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 900;
+}
+.commentSaveBnt{
+    width: 80px;
+}
 /*상단 바*/
 .innerHeader{
     max-width: 1720px;
@@ -112,7 +122,7 @@ body{
     float: left;
     font-size: 40px;
     margin-left: 650px;
-    color: #079645;
+    color: #1b5ac2;
     font-size: 50px;
 }
 
@@ -178,7 +188,7 @@ body{
     text-align: center;
 }
 .content-body .box-top .box-right{
-    width: 220px;
+    width: 180px;
     height: 50px;
     
     float: right;
@@ -201,13 +211,13 @@ body{
     margin-top: 20px;
 }
 .content-body .box-title .box-left{
-    width: 300px;
+    width: 700px;
     height: 50px;
     
     float: left;
 }
-.content-body .box-title .box-left h1{
-    text-align: center;
+.content-body .box-title .box-left h2{
+    margin-top: 10px;
 }
 .content-body .box-title .box-right{
     width: 180px;
@@ -321,6 +331,7 @@ hr{
     float: right;
     margin-top: 15px;
 }
+
 .content-comments .box-write .box-write-bottom{
     width: 1100px;
     height: 90px;

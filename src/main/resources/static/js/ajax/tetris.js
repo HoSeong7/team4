@@ -56,7 +56,7 @@ let num = 3;
 
 function resetpoint(){
     score = 0;
-    duration = 500;
+    duration = 600;
     num = 3;
 }
 
@@ -109,6 +109,7 @@ function renderBlocks(moveType = "") {
             setTimeout(() => {
                 renderBlocks('retry');
                 if(moveType === 'retry'){
+					//console.log("eeeee"+score);
                     clearInterval(downInterval);
                     showGameoverText()
                 }
@@ -222,12 +223,14 @@ document.addEventListener("keydown", e => {
 })
 
 restartButton.addEventListener("click", ()=>{
-    playground.innerHTML = "";
-    gameText.style.display = "none";
-    scoreDisplay.innerText = 0;
-    resetpoint();
-    init();
-    
+    //gameText.style.display = "none";
+    //playground.innerHTML = "";
+    //scoreDisplay.innerText = 0;
+    //resetpoint();
+    //init();
+    location.reload();
+    //console.log("점수"+score);
+
 })
 
 

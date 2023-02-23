@@ -54,7 +54,7 @@
         }
 
         .modal-body {
-            height: 400px;
+            height: 370px;
             
      
         }
@@ -112,5 +112,12 @@
             border-radius: 5px;
             background-color: #a54b16;
             padding: 3px 10px;
+            color: white;
+        }
+        .modal-body #signup-form .form-group .input-box button {
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: #a54b16;
+            padding: 2px 5px;
             color: white;
         }

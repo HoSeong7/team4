@@ -24,12 +24,13 @@ public class MemberInsertTest2 {
 	
 	@Test
 	public void insertTest() {
-		IntStream.rangeClosed(1, 10).forEach(i->{
+		IntStream.rangeClosed(20, 30).forEach(i->{
 			Member member = Member.builder().id("user"+i)
 					.name("이름"+i)
 					.pw(passwordEncoder.encode("1111"))
 					.nickname("닉네임"+i)
 					.email(i + "@abc.com")
+					.exvalue(500L)
 					.purview(false)
 					.build();
 				member.addMemberRole(MemberRole.USER);

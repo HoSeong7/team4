@@ -191,7 +191,7 @@ a {
 }
 
 .content-body .content-body-left .content-body-left-body .content-box .content-time {
-    width: 50px;
+    width: 80px;
     height: 30px;
     float: left;
     margin-left: 5px;
@@ -203,7 +203,7 @@ a {
     height: 25px;
 
     float: left;
-    margin-left: 30px;
+
     margin-top: 13px;
 }
 
@@ -248,7 +248,7 @@ a {
 }
 
 .content-body .content-body-right .content-body-right-box .box-top{
-    width: 400px;
+    width: 300px;
     height: 50px;
    
     margin: auto;
@@ -257,12 +257,12 @@ a {
     float: left;
 }
 .content-body .content-body-right .content-body-right-box .box-top .user-content{
-    float: left;
-    margin-left: 100px;
+    float: right;
+    margin-right: 20px;
     margin-top: 7px;
 }
 .content-body .content-body-right .content-body-right-box .box-bottom{
-    width: 400px;
+    width: 300px;
     height: 200px;
 
     margin: auto;
@@ -273,9 +273,30 @@ a {
 }
 .content-body .content-body-right .content-body-right-box .box-bottom .user-content{
     float: right;
-    width: 300px;
+    width: 290px;
     height: 180px;
     padding: 5px;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-content p{
+    width: 290px;
+    height: 180px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-top-left-radius: 15px;;
+    border-bottom-left-radius: 15px;;
+    padding: 15px;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-content p::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-content p::-webkit-scrollbar-thumb {
+    height: 20%; /* 스크롤바의 길이 */
+    background: #ec736e; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+.content-body .content-body-right .content-body-right-box .box-bottom .user-content p::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }
 .content-body .content-body-right .content-body-right-box .box-post{
     width: 50px;

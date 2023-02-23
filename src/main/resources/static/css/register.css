@@ -11,6 +11,30 @@ li{
 a{
     text-decoration: none;
 }
+button{
+	width: 50px;
+    height: 30px;
+    background-color: #0090f9;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 900;
+}
+input:hover{
+	border: 3px solid #0090f9;
+}
+input{
+	border-radius: 5px;
+	background-color: #FBFBFD;
+}
+textarea{
+	border-radius: 5px;
+	background-color: #FBFBFD;
+	border:2px solid black;
+}
+textarea:hover{
+	border: 3px solid #0090f9;
+}
 
 
 /*상단 바*/
@@ -115,10 +139,10 @@ a{
     margin-top: 50px;
     width: 1200px;
     max-height: 1020px;
-    border: 3px solid rgb(100, 100, 100);
     border-radius: 15px;
     margin-left: auto;
     margin-right: auto;
+    
 }
 .content-body .text{
     width: 900px;

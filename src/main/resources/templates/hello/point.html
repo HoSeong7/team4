@@ -28,7 +28,7 @@
 	          <form th:action="@{/hello/charge(id=${my.memberNum},point=${my.point})}" method="post" th:onsubmit="return Ok2Submit();">
 	                <div class="content-box1">
 	                    <div class="box-title"><p>현재 잔액 : <span id="jb">[[${my.point}]]</span>포인트</p></div>
-	                    <div class="box-top"><input type="text" id="charge" name="charge"><img src="/img/pointimg.png" alt="" width="50px"></div>
+	                    <div class="box-top"><input type="text" id="charge" name="charge"><img src="/img/won.png" alt="" width="65px"></div>
 	                    <input type="hidden" th:value="${my.point}" id="testPoint">
 	                    <div class="box-bottom"><button type="submit">충전하기</button></div>
 	                </div>
@@ -38,7 +38,7 @@
                 <div class="content-box2">
                   <form th:action="@{/hello/exchange(id=${my.memberNum},point=${my.point})}" method="post" th:onsubmit="return OkSubmit();">
                     <div class="box-title"><p>현재 잔액 : <span id="jb1">[[${my.point}]]</span>포인트</p></div>
-                    <div class="box-top"><input type="text" name="exchange" id="exchange"><img src="/img/pointimg.png" alt="" width="50px"></div>
+                    <div class="box-top"><input type="text" name="exchange" id="exchange"><img src="/img/won.png" alt="" width="65px"></div>
                     <div class="box-bottom"><button type="submit">환전하기</button></div>
                   </form>
                 </div>
@@ -64,7 +64,7 @@
             <div class="tab_content" id="box4_content">
                 <div class="content-box2">
                     <div class="box-title"><p>현재 잔액 : <span id="jb2">[[${my.point}]]</span>포인트</p></div>
-                    <div class="box-top"><input type="text" id="coupon"><img src="/img/pointimg.png" alt="" width="50px"></div>
+                    <div class="box-top"><input type="text" id="coupon"><img src="/img/won.png" alt="" width="65px"></div>
                     <div class="box-bottom"><button type="button" onclick="chk();">쿠폰등록</button></div>
                 </div>
             </div>

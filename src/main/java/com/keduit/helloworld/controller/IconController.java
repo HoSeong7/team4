@@ -30,5 +30,10 @@ public class IconController {
 	public void compass() {
 		log.info("IconController compass");
 	}
+	
+	@GetMapping("/stopwatch")
+	public void stopwatch() {
+		log.info("IconController stopwatch");
+	}
 
 }

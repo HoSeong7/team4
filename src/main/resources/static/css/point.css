@@ -34,6 +34,7 @@ a {
 
 .innerHeader .logo {
     float: left;
+    margin-top: 2px;
 }
 
 .innerHeader .logo a {
@@ -178,7 +179,7 @@ input[name="tab_item"] {
     font-size: 25px;
 }
 .tab_content .content-box1 .box-top{
-    width: 500px;
+    width: 510px;
     height: 100px;
     margin: auto;
     margin-top: 40px;
@@ -219,7 +220,7 @@ input[name="tab_item"] {
     font-size: 25px;
 }
 .tab_content .content-box2 .box-top{
-    width: 500px;
+    width: 510px;
     height: 100px;
     margin: auto;
     margin-top: 40px;

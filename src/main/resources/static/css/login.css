@@ -100,11 +100,9 @@ a{
     height: 40px;
 }
 .login-api .kakaoimg{
-    float: left;
+    margin-right: 5px;
 }
-.login-api .googleimg{
-   float: right;
-}
+
 
 .login-wrapper .login-wrapper-bottom{
     width: 90%;
