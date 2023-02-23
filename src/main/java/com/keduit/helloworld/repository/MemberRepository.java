@@ -82,19 +82,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	/** 회원간 거래내역 리스트 조회(read, 판매자=답변자 기준) */
 	List<Member> getMemNumAsSeller(Long num);
 
-	//쪽지 리스트
-//	@Query(value = "select * from member m "
-//	 		+ "join message ms on ms.member_give = m.member_num "
-//	 		+ "where m.id = :id and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
-//	/** 쪽지 보낸사람 아이디로, 회원 정보 가져오기(list, 보낸사람 기준) */
-//	List<Member> getMemInfoByGiverId(String id);
-
-//	@Query(value = "select * from member m "
-//	 		+ "join message ms on ms.member_get = m.member_num "
-//	 		+ "where m.id = :id and view in (0, 1) order by ms.regdate desc", nativeQuery = true )
-//	/** 쪽지 받은사람 아이디로, 회원 정보 가져오기(list, 받은사람 기준) */
-//	List<Member> getMemInfoByGetterId(String id);
-
 	//쪽지 내역 조회	
 	@Query(value = "select * from member m "
 			+ "join message ms on ms.member_give = m.member_num "
@@ -107,11 +94,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 	 		+ "where ms.member_give = :num and view in (0, 2) order by ms.regdate desc", nativeQuery = true )
 	/** 보낸사람 회원번호로, 보낸쪽지 정보 & 받는회원 정보 조회 (발신 list, 권한 0 or 2만 출력) */
 	List<Member> getUrInfoAsGiver(Long num);
-   
-//	//프사
-//	/** 내 메시지를 받은 회원 가져오기 */
-//	@Query(value = "select * from member m left outer join message ms on ms.member_get = m.member_num where ms.member_give = :num", nativeQuery = true)
-//	List<Member> getMemberMsg(Long num);
 
 	
 	

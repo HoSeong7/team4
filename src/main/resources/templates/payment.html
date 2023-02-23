@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>카카오페이 테스트 결제</title>
+    
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+</head>
+
+<body>
+
+    <button onclick="requestPay()">결제하기</button> <!-- 결제하기 버튼 생성 -->
+    
+</body>
+
+    <script>
+
+    	IMP.init("imp17634270");	// 예: imp00000000a
+    
+        function requestPay() {
+            IMP.request_pay({
+                pg : 'kakaopay.TC0ONETIME',
+                pay_method : 'card',
+                merchant_uid: "kakao_order_no_0007", //매번 고유해야함
+                name : 'Q&A 답변 결제',
+                amount : 1004,
+                buyer_email : 'hello_world@google.com',
+                buyer_name : '홍길동',
+                buyer_tel : '010-1234-5678',
+//                 buyer_addr : '서울특별시 동작구 상도동',
+//                 buyer_postcode : '123-456'
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    console.log(rsp);
+					alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
+					window.location.reload()
+                } else {
+                    console.log(rsp);
+					alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
+                }
+            });
+        }
+    </script>
+
+
+
+
+</html>

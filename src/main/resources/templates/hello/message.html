@@ -21,30 +21,16 @@
 				<div class="content-body-left-header">
 					<h1>쪽지</h1>
 					<div class="main">
+					
 						<!--디폴트 메뉴-->
 						<input id="tab1" type="radio" name="tabs" checked>
-						<label for="tab1" id="post-label">보낸 내역</label>
+						<label for="tab1" id="post-label">받은 내역</label>
+						
 						<input id="tab2" type="radio" name="tabs"> 
-						<label for="tab2">받은 내역</label>
+						<label for="tab2">보낸 내역</label>
 
+						<!--세선 1-->
 						<section id="content1">
- 							<div class="content-body-left-body" th:each="giveList:${giveMsg}">
-								<div class="content-box">
-									<div  class="content-userimg">
-										<img class="profile-img" th:if="${giveList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
-                						<img class="profile-img" th:if="${giveList.memUrl != null}" th:src="'/hello/display?fileName='+${giveList.memUrl}" >
-									</div>
-									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.nickname}]]</div>
-									<div class="content-time">[[${giveList.changeDate}]]</div>
-									<div class="content-delete">
-										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
-									</div>
-								</div>
-							</div>
-						</section>
-
-						<!--세선 2-->
-						<section id="content2">
 							<div class="content-body-left-body" th:each="getList:${getMsg}">
 								<div class="content-box">
 									<div class="content-userimg">
@@ -59,17 +45,30 @@
 								</div>
 							</div>
 						</section>
+						
+						<!--세선 2-->
+						<section id="content2">
+ 							<div class="content-body-left-body" th:each="giveList:${giveMsg}">
+								<div class="content-box">
+									<div  class="content-userimg">
+										<img class="profile-img" th:if="${giveList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+                						<img class="profile-img" th:if="${giveList.memUrl != null}" th:src="'/hello/display?fileName='+${giveList.memUrl}" >
+									</div>
+									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.nickname}]]</div>
+									<div class="content-time">[[${giveList.changeDate}]]</div>
+									<div class="content-delete">
+										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
+									</div>
+								</div>
+							</div>
+						</section>						
+						
 					</div>
 				</div>
 			</div>
-			
-			 <div class="content-body-right">
-
-           	 </div>
-
+			 	<div class="content-body-right"></div>
 		</div>
 	</div>
-
 
  	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
@@ -79,8 +78,8 @@
 	var msgNum;
 	var yourNum;
 	var myNum = /*[[${myInfo.memberNum}]]*/ {};
-	
 
+		//상대 닉네임 클릭 시 조회
 		function readMessage(div){
 
 			var messageNum = $(div).data('message-num');
@@ -108,22 +107,27 @@
 
 
 					readMsg += ' <div class="content-body-right-box"> '+
-								' <h1>조회</h1> '+
-								' <div class="box-top"> '+
-								' <div class="user-title nick"><h2>닉네임</h2></div> '+
-								' <div class="user-content">'+result.nickname+'</div> '+
+									' <h1>조회</h1> '+
+									
+									' <div class="box-top"> '+
+										' <div class="user-title nick"><h2>닉네임</h2></div> '+
+										' <div class="user-content">'+result.nickname+'</div> '+
+									' </div> '+
+									
+									' <div class="box-top"> '+
+										' <div class="user-title"><h2>제목</h2></div> '+
+										' <div class="user-content">'+result.title+'</div> '+
+									' </div> '+
+									
+									' <div class="box-bottom"> '+
+										' <div class="user-title"><h2>내용</h2></div> '+
+										' <div class="user-content"><textarea name="" id="" cols="40" rows="12" readonly>'+result.content+'</textarea></div> '+
+									' </div> '+
+									
 								' </div> '+
-								' <div class="box-top"> '+
-								' <div class="user-title"><h2>제목</h2></div> '+
-								' <div class="user-content">'+result.title+'</div> '+
-								' </div> '+
-								' <div class="box-bottom"> '+
-								' <div class="user-title"><h2>내용</h2></div> '+
-								' <div class="user-content"><textarea name="" id="" cols="40" rows="12" readonly>'+result.content+'</textarea></div> '+
-								' </div> '+
-								' </div> '+
+								
 								' <div class="button-box"> '+
-								' <button onclick="registerMessage()">작성하기</button> '+
+									' <button onclick="registerMessage()">작성하기</button> '+
 								' </div> '
 
 					$(".content-body-right").html(readMsg);
@@ -133,7 +137,7 @@
 		}
 
 
-
+		//작성 버튼
 		function registerMessage(){
 			var rdata = {
 					'selNickname': selNickname
@@ -165,8 +169,8 @@
 			$(".content-body-right").html(registerMsg);
 		}
 
-
-		function registerBtn() { //전송 스크립트
+		//전송 버튼
+		function registerBtn() { 
 			if(!confirm("전송하시겠습니까?")){
 				return;
 			}
@@ -194,6 +198,7 @@
 		}
 
 
+		//삭제 버튼
 		function deleteMessage(button){
 
 		    var messageNum = $(button).data('message-num');

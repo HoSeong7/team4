@@ -238,28 +238,5 @@ public class MemberServiceImpl implements MemberService {
 		return memberDTO;
 	}
 
-
-//	@Override
-//	/** 조회하는사람 아이디로, 받는사람 닉네임 가져오기(list) */
-//	public List<MemberDTO> getMsgGetListAsGiver(String id) {
-//
-//		List<Member> result = repository.getMemInfoByGiverId(id);
-//		List<MemberDTO> list = new ArrayList<>();
-//
-//		for(Member member : result) {
-//			MemberDTO memberDTO = memberEntityToMemberDto(member);
-//			list.add(memberDTO);
-//		}
-//		return list;
-//	}
-
-
-//	@Override
-//	/** 내 메시지를 받은 회원 가져오기 */
-//	public List<Member> getMemMessage(Long num) {
-//		List<Member> getMsg = repository.getMemberMsg(num);
-//		return getMsg;
-//	}
-
-
+	
 }
