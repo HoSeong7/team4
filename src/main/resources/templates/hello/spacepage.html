@@ -93,14 +93,12 @@
                 <div class="register-box">
                     <div class="box2">게시글 번호</div>
                     <div class="box1">게시글 내용</div>
-                    <div class="box4">가  격</div>
                     <div class="box3">추천수</div>
                     <div class="box5">등록일</div>
                 </div>
                  <div class="register-box" th:each="com:${myComment}">
                     <div class="box2">[[${com.boardNum}]]</div>
                     <div class="box1"><a th:href="@{/hello/communityread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
-                    <div class="box4">[[${com.price}]]</div>
                     <div class="box3">[[${com.clikes}]]</div>
                     <div class="box5">[[${#temporals.format(com.updateDate, 'yyyy/MM/dd')}]]</div>
                 </div>

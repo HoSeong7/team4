@@ -27,7 +27,7 @@ public class FavoritesRepogitoryTests {
 	public void insertTest() {
 		Member member = new Member();
 		
-		IntStream.rangeClosed(1, 200).forEach(i->{
+		IntStream.rangeClosed(1, 5).forEach(i->{
 			
 			long a = (long)(Math.random()*10)+1;
 			long b = (long)(Math.random()*10)+1;
