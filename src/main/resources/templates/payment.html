@@ -23,7 +23,7 @@
             IMP.request_pay({
                 pg : 'kakaopay.TC0ONETIME',
                 pay_method : 'card',
-                merchant_uid: "kakao_order_no_0001", //매번 고유해야함
+                merchant_uid: "kakao_order_no_0007", //매번 고유해야함
                 name : 'Q&A 답변 결제',
                 amount : 1004,
                 buyer_email : 'hello_world@google.com',
@@ -34,11 +34,11 @@
             }, function (rsp) { // callback
                 if (rsp.success) {
                     console.log(rsp);
-// 					alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
-// 					window.location.reload()
+					alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
+					window.location.reload()
                 } else {
                     console.log(rsp);
-// 					alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
+					alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
                 }
             });
         }

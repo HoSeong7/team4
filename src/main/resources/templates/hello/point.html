@@ -8,6 +8,12 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/point.css">
     <link rel="stylesheet" href="/css/footer.css">
+    
+<!--     jQuery -->
+<!--     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    
 </head>
 
 <body>
@@ -30,7 +36,11 @@
 	                    <div class="box-title"><p>현재 잔액 : <span id="jb">[[${my.point}]]</span>포인트</p></div>
 	                    <div class="box-top"><input type="text" id="charge" name="charge"><img src="/img/pointimg.png" alt="" width="50px"></div>
 	                    <input type="hidden" th:value="${my.point}" id="testPoint">
-	                    <div class="box-bottom"><button type="submit">충전하기</button></div>
+	                    <div class="box-bottom">
+	                    	<button type="submit">충전하기</button>
+	                    	<div onclick="requestPay()">간편결제</div>
+<!-- 	                    	<input type="button" value="간편결제" onclick="requestPay()"> -->
+	                    </div>
 	                </div>
 	          </form>
 	        </div>
@@ -69,8 +79,10 @@
                 </div>
             </div>
         </div>
+        
    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+   
    <script>
       $( document ).ready( function() {
         $( '#jb' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
@@ -78,28 +90,29 @@
         $( '#jb2' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
       } );
    </script>
+   
    <script type="text/javascript">
 
 	// ajax로 nickname 중복확인
 
-	function chk(){
-	    var coupon = $("#coupon").val();
-
-	    $.ajax({
-	    	url: '/hello/coupon/chk/'+coupon,
-	        type: 'POST',
-	        data: JSON.stringify(coupon),
-	        contentType: "application/json; charset=utf-8",
-	        dataType: 'text',
-	        success: function (result) {
-	            if(0 == result){
-	                alert('쿠폰이 정상 등록되었습니다.');
-	                location.reload();
-	            }else{
-	                alert('쿠폰 번호를 다시 확인해주세요.');
-	            }
-	        }
-	    })
+		function chk(){
+		    var coupon = $("#coupon").val();
+	
+		    $.ajax({
+		    	url: '/hello/coupon/chk/'+coupon,
+		        type: 'POST',
+		        data: JSON.stringify(coupon),
+		        contentType: "application/json; charset=utf-8",
+		        dataType: 'text',
+		        success: function (result) {
+		            if(0 == result){
+		                alert('쿠폰이 정상 등록되었습니다.');
+		                location.reload();
+		            }else{
+		                alert('쿠폰 번호를 다시 확인해주세요.');
+		            }
+		        }
+		    })
 		};
 
 		// 환불이 가능한지 확인
@@ -128,7 +141,7 @@
 		function Ok2Submit(){
 			var change = $("#charge").val();
 			if(change == ""){
-				alert( '충전 금액이 비였습니다.' );
+				alert( '충전 금액이 비었습니다.' );
 		          return false;
 			}else if(change <10000){
 				alert( '만원 이상부터 충전 가능합니다.' );
@@ -136,10 +149,43 @@
 			}
 		}
 
-
 	</script>
 
         <footer th:replace="fragments/footer :: footerFragment"></footer>
+        
 </body>
+
+	<!-- 간편결제 - 카카오페이 -->
+	<script th:inline="javascript"> 
+	
+	    	IMP.init("imp17634270");
+	    
+	    	const myName = [[${my.name}]];
+	    	
+	        function requestPay() {
+	        	
+	    		var uuid = self.crypto.randomUUID();
+	    		
+	            IMP.request_pay({
+	                pg : 'kakaopay.TC0ONETIME',
+	                pay_method : 'card',
+	                merchant_uid: uuid, //매번 고유해야함
+	                name : '포인트 충전',
+	                amount : $("#charge").val(),
+	                buyer_name : myName
+	            }, function (rsp) { // callback
+	                if (rsp.success) {
+	                    console.log(rsp);
+						alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
+// 						window.location.reload()
+	                } else {
+	                    console.log(rsp);
+						alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
+	                }
+	            });
+	        }
+	</script>
+
+
 
 </html>
