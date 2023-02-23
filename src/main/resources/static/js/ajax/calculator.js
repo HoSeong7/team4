@@ -44,12 +44,11 @@ class Calculator {
     }
 
     /*key down */
-
 }
 
 const buttons = document.querySelectorAll('button')
 const displayElement = document.querySelector('input')
-
+const inputplace = document.querySelectorAll('.inputplace')
 const calculator = new Calculator(displayElement)
 
 buttons.forEach(button => {
@@ -75,5 +74,3 @@ buttons.forEach(button => {
     })
 })
 
-
-/* */

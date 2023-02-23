@@ -14,11 +14,7 @@
     <!-- [header] 영역 시작 -->
 		<header th:replace="fragments/header :: headerFragment"></header>
 	<!-- [header] 영역 끝 -->
-    <div class="content-header">
-        <div class="content-header-box">
-            <h1>게시물 수정</h1>
-    	</div>
-    </div>
+    
     <form th:action="@{/hello/qnamodify}" th:method="POST" class="content-body">
     	<input type="hidden" name="page" th:value="${requestDTO.page}">
 		<input type="hidden" name="type" th:value="${requestDTO.type}">
