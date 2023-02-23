@@ -89,14 +89,14 @@
 									<option value="" th:selected="${pageRequestDTO.type==null}">-----</option>
 									<option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
 									<option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
-									<option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
+									<option value="w" th:selected="${pageRequestDTO.type=='w'}">닉네임</option>
 									<option value="o" th:selected="${pageRequestDTO.type=='o'}">카테고리</option>
 									<option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목
 										or 내용</option>
 									<option value="tw" th:selected="${pageRequestDTO.type=='tw'}">제목
-										or 작성자</option>
+										or 닉네임</option>
 									<option value="TCW" th:selected="${pageRequestDTO.type=='tcw'}">제목
-										or 내용 or 작성자</option>
+										or 내용 or 닉네임</option>
 								</select> <input type="text" name="keyword"
 									th:value="${pageRequestDTO.keyword}">
 								<button type="button" class="btn btn-search">검색</button>

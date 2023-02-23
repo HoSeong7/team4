@@ -18,7 +18,7 @@
 	<!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
-            <h1>커뮤니티</h1>
+            <h1 class="listBtn">커뮤니티</h1>
         </div>
     </div>
     <div class="content-body">
@@ -42,8 +42,7 @@
             </div>
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-                <div class="shareimg"><img src="/img/share.png" alt="" width="31px" height="31px"></div>
-                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
+                <div class="blikesBtnOpen"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
                 <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
             </div>
         </div>
@@ -178,25 +177,13 @@
       </div>
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     </div>
     <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
 <script th:inline="javascript">
 $(document).ready(function(){
+	
 	
 	let modal = $(".call")
 	
@@ -212,9 +199,7 @@ $(document).ready(function(){
 			
 			$.each(arr, function(idx,comment){
 				
-				const urlParams = new URL(location.href).searchParams;
-
-				const mem = urlParams.get('memberNum');
+				const mem = $("input[name='commenterNum']").val();
 
 				console.log("mem?" + mem)
 				console.log("comment.commenterNum?" + comment.commenterNum)
@@ -282,217 +267,235 @@ $(document).ready(function(){
 		
 	});
 	
-		var actionForm = $("form");
-			$(".listBtn").click(function(){
-				var pageInfo = $("input[name='page']");
-				var type=$("input[name='page']");
-				var keyword=$("input[name='keyword']");
+	var actionForm = $("form");
+	$(".listBtn").click(function(){
+		var pageInfo = $("input[name='page']");
+		var type=$("input[name='page']");
+		var keyword=$("input[name='keyword']");
 				
-				actionForm.empty();
-				actionForm.append(pageInfo);
-				actionForm.append(type);
-				actionForm.append(keyword);
-				actionForm.attr("action", "/hello/communitylist")
-							.attr("method", "GET");
-				
-				actionForm.submit();
-			});
+		actionForm.empty();
+		actionForm.append(pageInfo);
+		actionForm.append(type);
+		actionForm.append(keyword);
+		actionForm.attr("action", "/hello/communitylist")
+					.attr("method", "GET");
+		
+		actionForm.submit();
+	});
 			
 			
 			
-			$(".commentSaveBnt").click(function(){
+	$(".commentSaveBnt").click(function(){
 				
-				var comment = {
+		var comment = {
 						boardNum: boardNum,
 						commentContent: $('textarea[name="commentContent"]').val(),
 						commenterNum: $('input[name="commenterNum"]').val()}
-				console.log(comment);
+		console.log(comment);
 				
-				$.ajax({
-					url: '/comment/' + boardNum,
-					type: 'post',
-					data: JSON.stringify(comment),
-					contentType: "application/json; charset=utf-8",
-					dataType: 'text' ,
-					success: function(result){
-						console.log("success result : " + result);
-						self.location.reload();
-						alert("댓글이 등록되었습니다.");
-						getComment();
-					}
-				}); // ajax 끝
-			}); //commentSaveBnt 끝
+		$.ajax({
+			url: '/comment/' + boardNum,
+			type: 'post',
+			data: JSON.stringify(comment),
+			contentType: "application/json; charset=utf-8",
+			dataType: 'text' ,
+			success: function(result){
+				console.log("success result : " + result);
+				self.location.reload();
+				alert("댓글이 등록되었습니다.");
+				getComment();
+			}
+		}); // ajax 끝
+	}); //commentSaveBnt 끝
 			
-			var inputText = $("input[name='text']");
+	var inputText = $("input[name='text']");
 			
 			//$('.cModifyBnt').click(function(){
 				
-			$(document).on("click",".commentModifyBtn", function(){	
+	$(document).on("click",".commentModifyBtn", function(){	
 				
 				
-				$(".call").show();
+		$(".call").show();
 				
-				$('input[name="modalMember"]').val($(this).data("nickname"));
-				$('input[name="modalText"]').val($(this).data("commentcontent"));
-				$("input[name='mBoardCommentNum']").val($(this).data("boardcommentnum"));
-				$("input[name='mCommenterNum']").val($(this).data("commenternum"));
-				$("input[name='mClikes']").val($(this).data("clikes"));
+		$('input[name="modalMember"]').val($(this).data("nickname"));
+		$('input[name="modalText"]').val($(this).data("commentcontent"));
+		$("input[name='mBoardCommentNum']").val($(this).data("boardcommentnum"));
+		$("input[name='mCommenterNum']").val($(this).data("commenternum"));
+		$("input[name='mClikes']").val($(this).data("clikes"));
 				
-			});
+	});
 			
 			
-			$('.replyModify').click(function(){
+	$('.replyModify').click(function(){
 
-				var boardCommentNum = $("input[name='mBoardCommentNum']").val();
-				var comment = {
-						boardCommentNum : boardCommentNum,
-						boardNum : boardNum,
-						commentContent: $('input[name="modalText"]').val(),
-						commenterNum: $("input[name='mCommenterNum']").val(),
-						clikes: $("input[name='mClikes']").val()
-				};
+		var boardCommentNum = $("input[name='mBoardCommentNum']").val();
+		var comment = {
+				boardCommentNum : boardCommentNum,
+				boardNum : boardNum,
+				commentContent: $('input[name="modalText"]').val(),
+				commenterNum: $("input[name='mCommenterNum']").val(),
+				clikes: $("input[name='mClikes']").val()
+		};
 				
 				console.log(comment);
 				
-				$.ajax({
-					url: '/comment/' + boardCommentNum,
-					method: 'put',
-					data: JSON.stringify(comment),
-					contentType:'application/json; charset=utf-8',
-					success: function(result){
-						console.log("result : " + result);
-						if(result === 'success'){
-							alert("뎃글이 수정되었습니다.");
-							$(".call").hide();
-							getComment();
-						}
-					}
-				});
-			});
+		$.ajax({
+			url: '/comment/' + boardCommentNum,
+			method: 'put',
+			data: JSON.stringify(comment),
+			contentType:'application/json; charset=utf-8',
+			success: function(result){
+				console.log("result : " + result);
+				if(result === 'success'){
+					alert("뎃글이 수정되었습니다.");
+					$(".call").hide();
+					getComment();
+				}
+			}
+		});
+	});
 			
 			
-			$(document).on("click",".commentRemoveBtn", function(){
+	$(document).on("click",".commentRemoveBtn", function(){
 				
-				var boardCommentNum = $(this).data("boardcommentnum");
+		var boardCommentNum = $(this).data("boardcommentnum");
 				
-				$.ajax({
-					url: '/comment/' + boardCommentNum,
-					method: 'delete',
-					success: function(result){
-						console.log("result : " + result);
-						if(result === 'success'){
-							alert("뎃글이 삭제되었습니다.");
-							$(".call").hide();
-							getComment();
-						}
-					}
-				});
+		$.ajax({
+			url: '/comment/' + boardCommentNum,
+			method: 'delete',
+			success: function(result){
+				console.log("result : " + result);
+				if(result === 'success'){
+					alert("뎃글이 삭제되었습니다.");
+					$(".call").hide();
+					getComment();
+				}
+			}
+		});
 				
-			});
+	});
 			
 			
 			
-			// board 좋아요 처리
-			// blikesBtnOpen
-			$(".blikesBtnOpen").click(function(){
+	// board 좋아요 처리
+	// blikesBtnOpen
+	$(".blikesBtnOpen").click(function(){
 				
-				var like = {
-						boardNum: boardNum,
-						memberNum: $('input[name="likememberNum"]').val()};
-				console.log(like);
+		var like = {
+				boardNum: boardNum,
+				memberNum: $('input[name="likememberNum"]').val()};
+		console.log(like);
 				
-				$.ajax({
-					url: '/like/' + boardNum,
-					type: 'post',
-					data: JSON.stringify(like),
-					contentType: "application/json; charset=utf-8",
-					dataType: 'text' ,
-					success: function(result){
-						console.log("success result : " + result);
-						self.location.reload();
+		$.ajax({
+			url: '/like/' + boardNum,
+			type: 'post',
+			data: JSON.stringify(like),
+			contentType: "application/json; charset=utf-8",
+			dataType: 'text' ,
+			success: function(result){
+				console.log("success result : " + result);
+				self.location.reload();
 						
-					}
-				}); // ajax 끝
-			}); //blikesBtnOpen 끝
+			}
+		}); // ajax 끝
+	}); //blikesBtnOpen 끝
 			
 			
-			// comment 좋아요 처리
-			//clikesBtnOpen
-			
-			$(document).on("click",".clikesBtnOpen", function(){
+	// comment 좋아요 처리
+	//clikesBtnOpen
+	$(document).on("click",".clikesBtnOpen", function(){
 					
-					var commentid = $(this).data("boardcommentnum");
-					console.log(commentid);
-					console.log("boardNum : "+boardNum);
+		var commentid = $(this).data("boardcommentnum");
+		console.log(commentid);
+		console.log("boardNum : "+boardNum);
 					
-					var like = {
-							commentid: commentid,
-							memberNum: $('input[name="likememberNum"]').val()};
-					console.log(like);
+		var like = {
+				commentid: commentid,
+				memberNum: $('input[name="likememberNum"]').val()};
+		console.log(like);
 					
-					$.ajax({
-						url: '/like/' + commentid + '/all',
-						type: 'post',
-						data: JSON.stringify(like),
-						contentType: "application/json; charset=utf-8",
-						dataType: 'text' ,
-						success: function(result){
-							console.log("success result : " + result);
-							self.location.reload();
+		$.ajax({
+			url: '/like/' + commentid + '/all',
+			type: 'post',
+			data: JSON.stringify(like),
+			contentType: "application/json; charset=utf-8",
+			dataType: 'text' ,
+			success: function(result){
+				console.log("success result : " + result);
+				self.location.reload();
 							
-						}
-					}); // ajax 끝
-				}); //clikesBtnOpen 끝
+			}
+		}); // ajax 끝
+	}); //clikesBtnOpen 끝
 			
 			
 			
-			// 시간 처리
-		    function displayTime(timeValue){
-		        var today = new Date(); // 현재 시간
-		        var date = new Date(timeValue).getTime();
-		        var gap = today.getTime() - date;
-		        var dateObj = new Date(timeValue);
-		        var str = "";
+	/* 시간 처리 */
+	function displayTime(timeValue){
+	var today = new Date(); // 현재 시간
+	var date = new Date(timeValue).getTime();
+	var gap = today.getTime() - date;
+	var dateObj = new Date(timeValue);
+	var str = "";
 		        
 		        
-		        console.log(date);
-		        console.log(today.getTime());
-		        console.log(gap);
+	console.log(date);
+	console.log(today.getTime());
+	console.log(gap);
 		        
 		        
 		        
-		        if(gap<(1000*60*60*24)){
+	if(gap<(1000*60*60*24)){
 		        	
-		        	// comment 시간
-		            var hh = dateObj.getHours();
-		            var mi = dateObj.getMinutes();
-		            var ss = dateObj.getSeconds();
-		            
+		// comment 시간
+		var hh = dateObj.getHours();
+		var mi = dateObj.getMinutes();
+		var ss = dateObj.getSeconds();
+		           
 		            // 현재 시간
-		            var rhh = today.getHours();
-		            var rmi = today.getMinutes();
-		            var rss = today.getSeconds();
+		var rhh = today.getHours();
+		var rmi = today.getMinutes();
+		var rss = today.getSeconds();
 		            
 		            // 표시 예) 1시간 전 or 10분 전
 		            
-		            if(rhh > hh){
-		            	return [ (rhh - hh>9?'':'0')+ rhh - hh, '시간 전'].join('');
-		            }else{
-		            	
-		            	return [ (rmi - mi>9?'':'0')+rmi-mi, '분 전'].join('');
-		            }
-		            
-
-		        }else{
-		            var yy = dateObj.getFullYear();
+			if(rhh > hh){
+				return [ (rhh - hh>9?'':'0')+ rhh - hh, '시간 전'].join('');
+			}else{
+		    	return [ (rmi - mi>9?'':'0')+rmi-mi, '분 전'].join('');
+			}
+		}else{
+		     var yy = dateObj.getFullYear();
 		            var mm = dateObj.getMonth()+1;
 		            var dd = dateObj.getDate();
 		            
 		            return [yy, '/', (mm>9?'':'0')+mm, '/',
 		                (dd>9?'':'0')+dd].join('');
-		        }
-		    }
-			
+		}
+	}
+	/* 시간 처리 끝 */				
+	
+	/* URL 복사 기능 */
+	$(".urlimg").on("click",function(){
+		
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("URL이 복사되었습니다.")
+
+	})
+	/* END URL 복사 기능 */
+	
+	
+	
+	
+	
+	
 	
 });	
 
@@ -506,7 +509,7 @@ $(window).click(function(event) {
 	  }
 	});
 
-	</script>
+</script>
 
 
 
