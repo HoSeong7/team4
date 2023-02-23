@@ -40,6 +40,20 @@ public class MemberInsertTest2 {
 		
 	}
 	
+	/** 관리자 아이디 만들기 */
+	@Test
+	public void insertAdmin() {
+		Member member = Member.builder().id("admin")
+				.name("관리자")
+				.pw(passwordEncoder.encode("1111"))
+				.nickname("관리자")
+				.email("admin@abc.com")
+				.purview(false)
+				.build();
+			member.addMemberRole(MemberRole.ADMIN);
+			memberRepository.save(member);
+	}
+	
 	@Test
 	public void testRead() {
 		Optional<Member> result = memberRepository.findByEmail("2aa", false);

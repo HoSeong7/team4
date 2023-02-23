@@ -181,6 +181,8 @@ public class BoardController {
 
 		
 //		추가
+		
+		if(authentication != null) {
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 		
 		System.out.println("username = " + userDetails.getUsername());
@@ -189,6 +191,7 @@ public class BoardController {
 	    Member idnum =  memberService.idRead(userDetails.getUsername());
 	    
 	    model.addAttribute("member",idnum);
+		}
 //	    
 	    
 		model.addAttribute("dto",boardDTO);

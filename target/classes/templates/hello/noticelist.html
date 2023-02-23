@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             <div class="h1-box">
                 <h1>notice</h1>
             </div>
-            <div class="registration-box">
+            <div class="registration-box" sec:authorize="hasRole('ROLE_ADMIN')">
                 <button id="registration" onclick="location.href='/hello/noticeregister' ">작성하기</button>
             </div>
             <div class="search-box">

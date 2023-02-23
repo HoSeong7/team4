@@ -36,7 +36,7 @@ public class SecurityConfig {
 		log.info("----------- fileterchain -----------");
 		
 		http.authorizeRequests()
-						.antMatchers("/hello/noticelist/**", "/hello/register/**", "/hello/index", "/hello/communitylist/**", "/css/**", "/img/**", "/js/**").permitAll()
+						.antMatchers("/iconcss/**","/fragments/**","/icon/**","/hello/noticelist/**","/hello/noticeread","/hello/communityread/**", "/hello/register/**", "/hello/index", "/hello/communitylist/**", "/css/**", "/img/**", "/js/**").permitAll()
 						.anyRequest().authenticated()
 						.and()
 					.formLogin()

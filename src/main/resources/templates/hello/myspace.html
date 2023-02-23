@@ -70,11 +70,15 @@
                 </div>
                 <div class="register-box" th:each="dto:${myBoard}">
                     <div class="box5">
-                    	<div th:if="${dto.boardcase == 0}">공지사항</div>
                     	<div th:if="${dto.boardcase == 1}">무료게시판</div>
-                    	<div th:if="${dto.boardcase == 2}">유료게시판</div>
+                    	<div th:if="${dto.boardcase == 2}">공지사항</div>
+                    	<div th:if="${dto.boardcase == 3}">유료게시판</div>
                     </div>
-                    <div class="box2"><a th:href="@{/hello/communityread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a></div>
+                    <div class="box2">
+                    	<a th:if="${dto.boardcase == 1}" th:href="@{/hello/communityread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a th:if="${dto.boardcase == 2}" th:href="@{/hello/noticeread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a th:if="${dto.boardcase == 3}" th:href="@{/hello/qnaread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    </div>
                     <div class="box2">[[${dto.views}]]</div>
                     <div class="box3">[[${dto.blikes}]]</div>
                     <div class="box4">[[${dto.cnt}]]</div>
@@ -88,14 +92,14 @@
                 <div class="register-box">
                     <div class="box2">게시글 번호</div>
                     <div class="box1">게시글 내용</div>
-                    <div class="box4">가  격</div>
+                    <!-- <div class="box4">가  격</div> -->
                     <div class="box3">추천수</div>
                     <div class="box5">등록일</div>
                 </div>
                  <div class="register-box" th:each="com:${myComment}">
                     <div class="box2">[[${com.boardNum}]]</div>
                     <div class="box1"><a th:href="@{/hello/communityread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
-                    <div class="box4">[[${com.price}]]</div>
+                    <!-- <div class="box4">[[${com.price}]]</div> -->
                     <div class="box3">[[${com.clikes}]]</div>
                     <div class="box5">[[${#temporals.format(com.updateDate, 'yyyy/MM/dd')}]]</div>
                 </div>

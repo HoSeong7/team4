@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -86,7 +86,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div sec:authorize="isAuthenticated">
     	<button class="blikesBtnOpen" >좋아요</button>
 	        <input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
 	        <input type="hidden" name="likememberNum" th:value="${member.memberNum}">
@@ -121,11 +121,11 @@
                         <img src="/img/userimg.png" alt="" width="40px" height="40px">
                     </div>
                     <!-- 유저 -->
-                    <div class="username">
+                    <div sec:authorize="isAuthenticated" class="username">
                         <p>[[${member.nickname}]]  <small>[[${member.id}]]</small></p>
                         <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
                         
-                    </div>
+                    </div>        
                 </div>
                 <div class="box-right">
                     <div>
