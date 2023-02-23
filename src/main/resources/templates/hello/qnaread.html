@@ -243,6 +243,8 @@
                             <p>[[${member.nickname}]] <small>[[${member.id}]]</small></p>
                             <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
                         </div>
+                        <p>가격</p>
+                        <input type="text" name="price" value="0">
                     </div>
                     <div class="box-right">
                         <div>
@@ -298,18 +300,23 @@
                 let str = "";
 
                 $.each(arr, function (idx, comment) {
-                    var cutContent = comment.commentContent.substr(0, 1);
-                    str += ' <div class="box-comments-list" data-boardCommentNum="' + comment.boardCommentNum + '" data-point="' + comment.price +'" data-commenterNum="' + comment.commenterNum + '" >';
+                    var cutContent = comment.commentContent.substr(0, 30)+'...';
+                    var picUrl = '/hello/display?fileName=' + comment.memUrl;
+                    if (picUrl == '/hello/display?fileName='+null) 
+                    {picUrl = '/img/c1.png';}
+                    console.log(picUrl);
+                    str += ' <div class="box-comments-list" data-boardCommentNum="' + comment.boardCommentNum + '" data-commenterNum="' + comment.commenterNum + '" data-price="' + comment.price + '">';
                     str += ' <div><button class="btn-danger paybtn">결제</button></div>'
-                    str += ' <div class="box-write-top"> ';
+                    str += ' <div><input type="text" class="point" value="' + comment.price + '"></div>';
+                    str += ' <div class="box-write-top">';
                     str += ' <div class="box-left"> ';
-                    str += ' <div class="userimg"><img src="/img/userimg.png" alt="" width="40px" height="40px"></div> ';
+                    str += ' <div class="userimg"><img src="' + picUrl + '" alt="" width="40px" height="40px"></div> ';
                     str += ' <div class="username">' + comment.nickname + ' <small> ' + comment.id + '</small> <small class="commentUpdateDate">' + displayTime(comment.regdate) + ' </small></div></div></div> ';
                     str += ' <div class="box-write-bottom"> ';
                     str += ' <div class="comment-box">' + cutContent + '</div></div> ';
                     str += ' <div class="box-button"></div> ';
                     str += ' </div></div> ';
-                })
+                });
 
                 $(".commentList").html(str);
 
@@ -317,37 +324,52 @@
                 // 댓글 상세보기 버튼 클릭 이벤트 핸들러
                 $(".paybtn").on("click", function () {
 
-                    // const price = $(this).parents(".box-comments-list").data("point");
-                    // const boardCommentNum = $(this).parents(".box-comments-list").data("boardcommentnum");
                     const $boxCommentsList = $(this).closest(".box-comments-list");
-                    const price = $boxCommentsList.data("point");
                     const commenterNum = $boxCommentsList.data("commenternum");
                     const boardCommentNum = $boxCommentsList.data("boardcommentnum");
-
-                    console.log(price);
-                    console.log(commenterNum);
-                    console.log(boardCommentNum);
+                    const price = $boxCommentsList.data("price");
 
                     if (price > memberPoint) {
-                        alert('금액이 부족합니다.');
-                        return false;
+                        if (!confirm("포인트가 부족합니다 충전창으로 이동하시겠습니까?")) {
+                            return false;
+                        } else {
+                            window.location.href = "/hello/point";
+                            return false;
+                        }
                     }
 
-                    var transData = {
-                        'myNum': memberNumber,
-                        'yourNum': commenterNum,
-                        'point': price
+                    const acountData = {
+                        'memberNumber': memberNumber,
+                        'boardCommentNum': boardCommentNum
                     }
 
                     $.ajax({
-                        url: '/hello/transaction',
-                        data: transData,
+                        url: '/comment/payCheck',
+                        data: acountData,
                         type: 'post',
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         success: function (result) {
-                            alert('결제 완료 되었어용~^^');
+                            if (result) {
+
+                            } else {
+                                var transData = {
+                                    'myNum': memberNumber,
+                                    'yourNum': commenterNum,
+                                    'point': price
+                                }
+
+                                $.ajax({
+                                    url: '/hello/transaction',
+                                    data: transData,
+                                    type: 'post',
+                                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                                    success: function (result) {
+                                        alert('결제 완료 되었어용~^^');
+                                    }
+                                });
+                            }
                         }
-                    })
+                    });
 
                     var BCN = {
                         'boardCommentNum': boardCommentNum
@@ -391,7 +413,7 @@
                                 type: 'post',
                                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                                 success: function (result) {
-                                    alert("보냈습니다.");
+                                    window.location.href = "/hello/message";
                                 }
                             });
                         });
@@ -427,7 +449,8 @@
             var comment = {
                 boardNum: boardNum,
                 commentContent: $('textarea[name="commentContent"]').val(),
-                commenterNum: $('input[name="commenterNum"]').val()
+                commenterNum: memberNumber,
+                price: $('input[name="price"]').val()
             }
             console.log(comment);
 

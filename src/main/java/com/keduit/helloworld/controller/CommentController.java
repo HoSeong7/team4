@@ -3,6 +3,7 @@ package com.keduit.helloworld.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import com.keduit.helloworld.repository.ViewAuthRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +65,15 @@ public class CommentController {
 		CommentDTO commentDTO = commentService.getById(BCN);
 
 		return commentDTO;
+	}
+	
+	@PostMapping("/payCheck")
+	public @ResponseBody boolean payCheck(@RequestParam HashMap<Object,Object> params){
+
+		String memberNumber = params.get("memberNumber").toString();
+		String boardCommentNum = params.get("boardCommentNum").toString();
+
+		return commentService.getFindCheck(Long.parseLong(boardCommentNum),Long.parseLong(memberNumber));
 	}
 	
 	

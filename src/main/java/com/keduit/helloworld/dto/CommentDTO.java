@@ -42,6 +42,9 @@ public class CommentDTO {
 	
 	/** member 닉네임*/
 	private String nickname;
+
+	/** member url */
+	private String memUrl;
 	
 	/** Board_comment 작성,수정 날짜 */
 	private LocalDateTime regdate, updatedate; 

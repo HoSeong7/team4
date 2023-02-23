@@ -2,9 +2,10 @@ package com.keduit.helloworld.serviceImpl;
 
 import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.MemberDTO;
-import com.keduit.helloworld.entity.Comment;
+import com.keduit.helloworld.entity.*;
 import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.repository.CommentRepository;
+import com.keduit.helloworld.repository.ViewAuthRepository;
 import com.keduit.helloworld.service.CommentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -12,11 +13,9 @@ import org.springframework.data.domain.PageRequest;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.entity.Comment;
-import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.CommentRepository;
 import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.CommentService;
@@ -38,6 +36,8 @@ public class CommentServiceImpl implements CommentService {
 	private final CommentRepository commentRepository;
 	private final MemberRepository memberRepository;
 
+	private final ViewAuthRepository viewAuthRepository;
+
 	@Override
 	/** 등록 */
 	public Long register(CommentDTO commentDTO) {
@@ -48,14 +48,21 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	/** 읽기 */
 	public List<CommentDTO> getList(Long boardNum) {
-
 		List<Comment> comment = commentRepository.getCommentlist(boardNum);
+		List<CommentDTO> result = new ArrayList<>();
 
-		return comment.stream().map(commentarr -> getCommentNum(commentarr)	).collect(Collectors.toList());
+		for (Comment comm: comment) {
+			if (comm.getCommenterNum() != null) {
+				Optional<Member> member = memberRepository.findById(comm.getCommenterNum());
+				if (member.isPresent()) {
+					result.add(entityToDTO(comm, member.get()));
+				}
+			}
 		}
-//		return null;
+
+		return result;
+	}
 
 	@Override
 	/** 수정 */
@@ -70,6 +77,26 @@ public class CommentServiceImpl implements CommentService {
 	public void remove(Long boardCommentNum) {
 
 		commentRepository.deleteById(boardCommentNum);
+
+	}
+
+	@Override
+	public boolean getFindCheck(Long BCN, Long memberNum) {
+
+		Optional<ViewAuth> result = viewAuthRepository.findBCNAndMM(BCN,memberNum);
+
+		if(result.isPresent()){
+			return true;
+		}else {
+			ViewAuth viewAuth = ViewAuth
+					.builder()
+					.boardCommentNum(BCN)
+					.memberNum(memberNum)
+					.build();
+			viewAuthRepository.save(viewAuth);
+			return false;
+		}
+
 
 	}
 

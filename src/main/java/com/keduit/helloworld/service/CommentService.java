@@ -53,6 +53,8 @@ public interface CommentService {
 	/** 삭제 */
 	void remove(Long rno);
 
+	boolean getFindCheck(Long BCN, Long memberNum);
+
 	default Comment dtoToEntity(CommentDTO commentDTO) {
 
 		Comment comment = Comment.builder()
@@ -80,6 +82,7 @@ public interface CommentService {
 				.id(member.getId())
 				.nickname(member.getNickname())
 				.commenterNum(comment.getCommenterNum())
+				.memUrl(member.getUrl())
 				.regdate(comment.getRegDate())
 				.updatedate(comment.getUpdateDate())
 				.build();
