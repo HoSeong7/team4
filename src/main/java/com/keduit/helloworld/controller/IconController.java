@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.Tetris;
+import com.keduit.helloworld.service.MemberService;
 import com.keduit.helloworld.service.TetrisService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ import lombok.extern.log4j.Log4j2;
 public class IconController {
 	
 	private final TetrisService tetrisService;
+	private final MemberService memberService;
 	
 	@GetMapping("/calculator")
 	public void calculator() {
@@ -59,7 +62,8 @@ public class IconController {
 		
 		//내 아이디 가져오기
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-		tetrisService.insertNum(userDetails.getUsername(), max);
+		Member me =  memberService.idRead(userDetails.getUsername());
+		tetrisService.insertNum(me.getNickname(), max);
 		
 //		System.out.println(max3);
 		
