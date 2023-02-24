@@ -66,7 +66,6 @@
                     <div class="box2">게시글 제목</div>
                     <div class="box2">조회수</div>
                     <div class="box3">추천수</div>
-                    <div class="box4">댓글수</div>
                     <div class="box5">작성일</div>
                 </div>
                 <div class="register-box" th:each="dto:${myBoard}">
@@ -82,7 +81,6 @@
                     </div>
                     <div class="box2">[[${dto.views}]]</div>
                     <div class="box3">[[${dto.blikes}]]</div>
-                    <div class="box4">[[${dto.cnt}]]</div>
                     <div class="box5">[[${#temporals.format(dto.updateDate, 'yyyy/MM/dd')}]]</div>
                 </div>
             </div>
