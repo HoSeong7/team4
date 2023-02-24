@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.dto.BoardDTO;
+import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Comment;
@@ -47,7 +48,7 @@ public class MemberController {
 	public void spacepage(Authentication authentication,String id, MemberDTO dto, Model model) {
 		Member idnum = memberService.idRead(id);
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-		 Member me =  memberService.idRead(userDetails.getUsername());
+		Member me =  memberService.idRead(userDetails.getUsername());
 		 
 		 //내가 팔로한 사람인지
 		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
@@ -62,7 +63,7 @@ public class MemberController {
 	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
 	   
 	   /** 들어간사람 쓴 댓글 불러오기 */
-	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
+	   List<CommentDTO> myComments = commentService.getCommentList(idnum.getMemberNum());
 	   
 	    model.addAttribute("member",idnum);
 	    /**들어간사람 팔로한 사람 목록*/
