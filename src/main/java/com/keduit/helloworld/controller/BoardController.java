@@ -24,6 +24,7 @@ import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.repository.BoardRepository;
 import com.keduit.helloworld.service.BoardService;
+import com.keduit.helloworld.service.CommentService;
 import com.keduit.helloworld.service.MemberService;
 
 @Controller
@@ -38,6 +39,8 @@ public class BoardController {
 	private final BoardService boardService;
 	
 	private final MemberService memberService;
+	
+	private final CommentService commentService;
 	
 	
 	@GetMapping("/modal")
@@ -327,6 +330,7 @@ public class BoardController {
 		log.info("위치 : BoardController remove()");
 		log.info("boardNum : " + boardNum);
 		boardService.remove(boardNum);
+		commentService.boardRemove(boardNum);
 		redirectAttributes.addFlashAttribute("msg",boardNum);
 		return "redirect:/hello/communitylist";
 	}
@@ -337,6 +341,7 @@ public class BoardController {
 		log.info("위치 : BoardController remove()");
 		log.info("boardNum : " + boardNum);
 		boardService.remove(boardNum);
+		commentService.boardRemove(boardNum);
 		redirectAttributes.addFlashAttribute("msg",boardNum);
 		return "redirect:/hello/noticelist";
 	}
@@ -347,6 +352,7 @@ public class BoardController {
 		log.info("위치 : BoardController remove()");
 		log.info("boardNum : " + boardNum);
 		boardService.remove(boardNum);
+		commentService.boardRemove(boardNum);
 		redirectAttributes.addFlashAttribute("msg",boardNum);
 		return "redirect:/hello/qnalist";
 	}

@@ -165,7 +165,6 @@
             </div>
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-                <div class="shareimg"><img src="/img/share.png" alt="" width="31px" height="31px"></div>
                 <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px" class="blikesBtnOpen">
                 		<input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
 	        			<input type="hidden" name="likememberNum" th:value="${member.memberNum}">
@@ -558,6 +557,23 @@
 			}
 		}); // ajax 끝
 	}); //blikesBtnOpen 끝
+	
+	/* URL 복사 기능 */
+	$(".urlimg").on("click",function(){
+		
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("URL이 복사되었습니다.")
+
+	})
+	/* END URL 복사 기능 */
+	
 </script>
 
 

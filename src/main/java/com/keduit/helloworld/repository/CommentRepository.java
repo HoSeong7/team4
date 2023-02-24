@@ -27,6 +27,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 			, nativeQuery = true)
 	List<Comment> getCommentlist(Long boardNum);
 
+	@Query(value=
+			"select board_comment_num from comment where board_num = :boardNum", nativeQuery = true)
+	List<Long> findBoardCommentNum(Long boardNum);
+	
 	/**내 정보에서 댓글 가져가기*/
 	@Query(value = "select * from Comment c "
 				 + "where c.commenter_num = :id order by c.board_comment_Num desc", nativeQuery = true)

@@ -52,7 +52,7 @@
             	<!-- title -->
                 <div class="box-left">
                     <div class="title">
-                        <h2>[[${dto.title}]]</h2>
+                        <h3>[[${dto.title}]]</h3>
                     </div>
                 </div>
                 <!-- 수정&삭제 버튼 -->
@@ -66,14 +66,6 @@
 						</a>
                     </div>
                     
-                    <!-- 삭제버튼 -->
-<!--                     <div class="delete-button">
-                    	<a th:href="@{/hello/communitymodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
-									type=${requestDTO.type},
-									keyword=${requestDTO.keyword}	)}">
-                        	<button type="button">삭제</button>
-                        </a>
-                    </div> -->
                 </div>
                 
             </div>
@@ -87,7 +79,6 @@
         </div>
     </div>
     <div sec:authorize="isAuthenticated">
-    	<button class="blikesBtnOpen" >좋아요</button>
 	        <input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
 	        <input type="hidden" name="likememberNum" th:value="${member.memberNum}">
     </div>
@@ -101,9 +92,6 @@
             </div>
             
             <!-- list 이동 버튼 -->
-            <div class="box-button">
-                <div><button type="button" class="listBtn">목록</button></div>
-            </div>
         </div>
         
         <!-- 댓글 쓰기 -->
