@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,7 @@ import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.Member;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.BoardService;
 import com.keduit.helloworld.service.CommentService;
 import com.keduit.helloworld.service.FavoritesService;
@@ -43,28 +45,51 @@ public class MemberController {
 	
 	private final FavoritesService favoritesService;
 	
+	private final MemberRepository memberRepository;
+	
 	@GetMapping("/spacepage")
-	public void spacepage(Authentication authentication,String id, MemberDTO dto, Model model) {
-		Member idnum = memberService.idRead(id);
+	public void spacepage(Authentication authentication,String id, MemberDTO dto, Model model, Long memberNum) {
+//		Member idnum = memberService.idRead(id);
+		Optional<Member> member = memberRepository.findById(memberNum);
+
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 		 Member me =  memberService.idRead(userDetails.getUsername());
 		 
+//		 //내가 팔로한 사람인지
+//		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
+//		 
+//		
+//		//들어간사람이 팔로한사람
+//	    List<Member> folowing = memberService.getMemberMarker(idnum.getMemberNum());
+//	    //들어간사람을 팔로한 사람
+//	    List<Member> folower = memberService.getMemberMarked(idnum.getMemberNum());
+//	    
+//	    /** 들어간사람 쓴 글 보기 */
+//	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
+//	   
+//	   /** 들어간사람 쓴 댓글 불러오기 */
+//	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
+
+		 
 		 //내가 팔로한 사람인지
-		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
+		 int mefollowing = favoritesService.getCount(me.getMemberNum(), member.get().getMemberNum());
 		 
 		
 		//들어간사람이 팔로한사람
-	    List<Member> folowing = memberService.getMemberMarker(idnum.getMemberNum());
+	    List<Member> folowing = memberService.getMemberMarker(member.get().getMemberNum());
 	    //들어간사람을 팔로한 사람
-	    List<Member> folower = memberService.getMemberMarked(idnum.getMemberNum());
+	    List<Member> folower = memberService.getMemberMarked(member.get().getMemberNum());
 	    
 	    /** 들어간사람 쓴 글 보기 */
-	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
+	   List<Board> myBoards = boardService.getMyBoardList(member.get().getId());
 	   
 	   /** 들어간사람 쓴 댓글 불러오기 */
-	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
+	   List<Comment> myComments = commentService.getCommentList(member.get().getMemberNum());
 	   
-	    model.addAttribute("member",idnum);
+	   
+	   model.addAttribute("member",member.get());
+	   
+//	    model.addAttribute("member",idnum);	
 	    /**들어간사람 팔로한 사람 목록*/
 	    model.addAttribute("following", folowing);
 	    /** 들어간사람 팔로한 사람 목록 */
@@ -76,6 +101,7 @@ public class MemberController {
 	    /** 팔로한 사람인지 아닌지 확인하기*/
 	    model.addAttribute("how", mefollowing);    
 	}
+	
 	//별 클릭시 즐겨찾기 추가되면서 까만별로 바꾸기 
 	@GetMapping("/spacepage/insertF")
 	public String insertF(Authentication authentication, String id, RedirectAttributes redirectAttributes) {

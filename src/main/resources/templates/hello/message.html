@@ -37,10 +37,15 @@
 										<img class="profile-img" th:if="${getList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 						<img class="profile-img" th:if="${getList.memUrl != null}" th:src="'/hello/display?fileName='+${getList.memUrl}" >
 									</div>
-									<div class="content-username" th:attr="data-message-num=${getList.messageNum}" onclick="readMessage(this)">[[${getList.nickname}]]</div>
+									<div class="content-username">
+										<a th:href="@{/hello/spacepage(memberNum=${getList.memberGive})}">
+											[[${getList.nickname}]]
+										</a>
+									</div>
+									<div class="message-title" th:attr="data-message-num=${getList.messageNum}" onclick="readMessage(this)">[[${getList.title}]]</div>
 									<div class="content-time">[[${getList.changeDate}]]</div>
-									<div class="content-delete">
-										<button th:attr="data-message-num=${getList.messageNum}, data-view-num=${getList.view}" onclick="deleteMessage(this)">삭제</button>
+									<div class="content-btn">
+										<button onclick="registerMessage()">작성</button>
 									</div>
 								</div>
 							</div>
@@ -54,10 +59,15 @@
 										<img class="profile-img" th:if="${giveList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 						<img class="profile-img" th:if="${giveList.memUrl != null}" th:src="'/hello/display?fileName='+${giveList.memUrl}" >
 									</div>
-									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.nickname}]]</div>
+									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" 
+											onclick="readMessage(this)">
+										[[${giveList.nickname}]]
+									</div>
+									<div class="message-title" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.title}]]</div>
 									<div class="content-time">[[${giveList.changeDate}]]</div>
-									<div class="content-delete">
-										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
+									<div class="content-btn">
+									<!-- <button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="registerMessage()">작성</button> -->
+										<button onclick="registerMessage()">작성</button>
 									</div>
 								</div>
 							</div>
@@ -95,7 +105,7 @@
 				data : data,
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				success : function(result){
-
+					
 					var readMsg = "";
 					msgNum = result.messageNum;
 					if(myNum == result.memberGet){
@@ -103,9 +113,7 @@
 					}else {
 						yourNum = result.memberGet;
 					}
-
-
-
+					
 					readMsg += ' <div class="content-body-right-box"> '+
 								' <h1>조회</h1> '+
 								' <div class="box-top"> '+
@@ -121,9 +129,9 @@
 								' <div class="user-content"><p>'+result.content+'</p></div> '+
 								' </div> '+
 								' </div> '+
-
 								' <div class="button-box"> '+
-									' <button onclick="registerMessage()">작성하기</button> '+
+// 								' <button onclick="registerMessage()">작성하기</button> '+
+								' <button data-message-num= "' + result.messageNum + '" data-view-num= "' + result.view + '" onclick="deleteMessage(this)">삭제하기</button> '+
 								' </div> '
 
 					$(".content-body-right").html(readMsg);
@@ -133,7 +141,7 @@
 		}
 
 
-		//작성 버튼
+		//작성하기
 		function registerMessage(){
 			var rdata = {
 					'selNickname': selNickname
@@ -160,12 +168,13 @@
 								' </div> '+
 								' </div> '+
 								' <div class="button-box"> '+
-								' <button type="button" onclick="registerBtn()">전송하기</button> '+
+								' <button type="button" onclick="registerBtn()">작성</button> '+
+// 								' <button type="button" onclick="deleteMessage(this)">삭제하기</button> '+
 								' </div> '
 			$(".content-body-right").html(registerMsg);
 		}
 
-		//전송 버튼
+		//전송 버튼 클릭 시 
 		function registerBtn() {
 			if(!confirm("전송하시겠습니까?")){
 				return;
@@ -194,7 +203,7 @@
 		}
 
 
-		//삭제 버튼
+		//조회 화면에서 삭제 버튼 클릭 시 
 		function deleteMessage(button){
 
 		    var messageNum = $(button).data('message-num');
@@ -203,7 +212,7 @@
 					'messageNum': messageNum,
 					'view': viewNum
 			}
-
+			
 			console.log(data);
 
 			$.ajax({

@@ -164,10 +164,12 @@ a {
     border-top: 2px dotted rgb(155, 155, 155);
 }
 .content-body .content-body-left .content-body-left-body .content-box{
-    width: 400px;
+    width: 380px;
     height: 50px;
     margin-left: 10px;
     margin-top: 8px;
+/*     background: pink; <!-- test --> */
+    
 }
 .content-body .content-body-left .content-body-left-body .content-box .content-userimg .profile-img {
     width: 42px;
@@ -183,28 +185,45 @@ a {
 }
 
 .content-body .content-body-left .content-body-left-body .content-box .content-username {
-    width: 180px;
+    width: 105px;
     height: 30px;
     float: left;
     margin-left: 5px;
     margin-top: 12px;
+/*     background: yellow; <!-- test --> */
+    
 }
+
+.content-body .content-body-left .content-body-left-body .content-box .message-title {
+    width: 105px;
+    height: 30px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 12px;
+/*     background: orange; <!-- test --> */
+	
+}
+
 
 .content-body .content-body-left .content-body-left-body .content-box .content-time {
-    width: 80px;
+    width: 75px;
     height: 30px;
     float: left;
     margin-left: 5px;
     margin-top: 12px;
+/*     background: green; <!-- test --> */
 }
 
-.content-body .content-body-left .content-body-left-body .content-box .content-delete {
+
+
+.content-body .content-body-left .content-body-left-body .content-box .content-btn {
     width: 35px;
     height: 25px;
 
     float: left;
 
-    margin-top: 13px;
+    margin-top: 12px;
+/*     background: white; <!-- test --> */
 }
 
 

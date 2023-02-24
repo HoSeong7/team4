@@ -23,6 +23,7 @@ import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Member;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.MemberService;
 import com.keduit.helloworld.service.MessageService;
 import com.nimbusds.jose.shaded.json.JSONObject;
@@ -105,10 +106,12 @@ public class MessageController {
 		List<MessageDTO> msgGive = messageService.getListAsGiver(myInfoDTO.getMemberNum()); //조회하는 사람이 발신자 
 		List<MessageDTO> msgGet = messageService.getListAsGetter(myInfoDTO.getMemberNum()); //조회하는 사람이 수신자
 		
+//		/** 쪽지 상대 아이디 가져오기 */
+//		MemberDTO urInfoDTO = memberService.idRead();
+		
 		model.addAttribute("myInfo",myInfoDTO); //내정보
 		model.addAttribute("giveMsg", msgGive); //보낸 쪽지 목록
 		model.addAttribute("getMsg", msgGet); //받은 쪽지 목록
-		
 	}
 	
 	@PostMapping("/message/read")
