@@ -25,7 +25,8 @@
         <div class="box-top">
             <div class="box-left">
                 <div class="userimg">
-                    <img src="/img/userimg.png" alt="" width="40px" height="40px">
+                    <img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="40px" height="40px">
+                	<img th:if="${dto.memberurl != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
                 </div>
                 
            
@@ -55,7 +56,7 @@
                     </div>
                 </div>
                 <!-- 수정&삭제 버튼 -->
-                <div class="box-right">
+                <div sec:authorize="isAuthenticated" class="box-right" th:if="${dto.id} == ${member.id}">
 	                <!-- 수정버튼 -->
                     <div class="modify-button">
                     	<a th:href="@{/hello/communitymodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
@@ -101,9 +102,7 @@
             
             <!-- list 이동 버튼 -->
             <div class="box-button">
-                <div><button type="button" class="boardprevBtn">이전</button></div>
                 <div><button type="button" class="listBtn">목록</button></div>
-                <div><button type="button" class="boarNextBtn">다음</button></div>
             </div>
         </div>
         
@@ -113,14 +112,15 @@
 	        <input type="hidden" name="page" th:value="${requestDTO.page}">
 			<input type="hidden" name="type" th:value="${requestDTO.type}">
 			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
-        <div class="box-write">
+        <div class="box-write" sec:authorize="isAuthenticated">
             <div class="box-write-top">
                 <div class="box-left">
                     <div class="userimg">
-                        <img src="/img/userimg.png" alt="" width="40px" height="40px">
+                        <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="40px" height="40px">
+                		<img th:if="${member.url != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${member.url}" >
                     </div>
                     <!-- 유저 -->
-                    <div sec:authorize="isAuthenticated" class="username">
+                    <div class="username">
                         <p>[[${member.nickname}]]  <small>[[${member.id}]]</small></p>
                         <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
                         
@@ -147,6 +147,9 @@
         
         <!-- 댓글 -->
         <div class="commentList"></div>
+        <div sec:authorize="!isAuthenticated" style="text-align:center">
+        	<br><br><a href="/hello/login">로그인</a> 후 댓글을 보실 수 있습니다.<br><br><br><br><br><br><br><br>
+        </div>
         <!-- end 댓글 -->
         
         
@@ -209,6 +212,9 @@ $(document).ready(function(){
 					}else{
 						add = "hide";
 					}
+				 var picUrl = '/hello/display?fileName=' + comment.memUrl;
+                 if (picUrl == '/hello/display?fileName='+null) 
+                 {picUrl = '/img/c1.png';}
 				
 				console.log("결과값은?" + add)
 				
@@ -217,7 +223,7 @@ $(document).ready(function(){
 				str += ' 	<div class="box-write-top"> ';
 				str += ' 		<div class="box-left"> ';
 				str += ' 			<div class="userimg">';
-				str += '				<img src="/img/userimg.png" alt="" width="40px" height="40px">';
+				str += ' 				<div class="userimg"><img src="' + picUrl + '" alt="" width="40px" height="40px"></div> ';							
 				str += '			</div> ';
 				str += ' 			<div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small> 좋아요 :'+ comment.clikes +' 회 ';
 				//str += ' 				<div class="clikes"> 추천수 :'+ comment.clikes +' 회  </div> ';

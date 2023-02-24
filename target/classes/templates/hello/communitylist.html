@@ -116,7 +116,8 @@
 						<div class="box-top">
 							<!-- 유저이미지 -->
 							<div class="userimg">
-								<img src="/img/userimg.png" alt="" width="20px" height="20px">
+								<img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="20px" height="20px">
+                	 			<img th:if="${dto.memberurl != null}" width="20px" height="20px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
 							</div>
 							<!-- 유저id -->
 							<div class="username">

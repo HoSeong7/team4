@@ -140,14 +140,15 @@
     <!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
-            <h1>Q&A</h1>
+            <h1 class="listBtn">Q&A</h1>
         </div>
     </div>
     <div class="content-body">
         <div class="box-top">
             <div class="box-left">
                 <div class="userimg">
-                    <img src="/img/userimg.png" alt="" width="40px" height="40px">
+                    <img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="40px" height="40px">
+                	<img th:if="${dto.memberurl != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
                 </div>
 
 
@@ -165,7 +166,10 @@
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
                 <div class="shareimg"><img src="/img/share.png" alt="" width="31px" height="31px"></div>
-                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
+                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px" class="blikesBtnOpen">
+                		<input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
+	        			<input type="hidden" name="likememberNum" th:value="${member.memberNum}">
+                </div>
                 <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
             </div>
         </div>
@@ -178,7 +182,7 @@
                     </div>
                 </div>
                 <!-- 수정&삭제 버튼 -->
-                <div class="box-right">
+                <div class="box-right" th:if="${dto.id} == ${member.id}">
                     <!-- 수정버튼 -->
                     <div class="modify-button">
                         <a th:href="@{/hello/qnamodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
@@ -219,9 +223,7 @@
 
             <!-- list 이동 버튼 -->
             <div class="box-button">
-                <div><button>이전</button></div>
                 <div><button type="button" class="listBtn">목록</button></div>
-                <div><button>다음</button></div>
             </div>
         </div>
 
@@ -235,7 +237,8 @@
                 <div class="box-write-top">
                     <div class="box-left">
                         <div class="userimg">
-                            <img src="/img/userimg.png" alt="" width="40px" height="40px">
+                            <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="70px" height="70px">
+                			<img th:if="${member.url != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${member.url}" >
                         </div>
                         <!-- 유저 -->
                         <div class="username">
@@ -363,7 +366,7 @@
                                     type: 'post',
                                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                                     success: function (result) {
-                                        alert('결제 완료 되었어용~^^');
+                                        alert('결제가 완료되었습니다.');
                                     }
                                 });
                             }
@@ -533,6 +536,28 @@
             modal1.css("display", "none");
         }
     });
+	// board 좋아요 처리
+	// blikesBtnOpen
+	$(".blikesBtnOpen").click(function(){
+				
+		var like = {
+				boardNum: boardNum,
+				memberNum: $('input[name="likememberNum"]').val()};
+		console.log(like);
+				
+		$.ajax({
+			url: '/like/' + boardNum,
+			type: 'post',
+			data: JSON.stringify(like),
+			contentType: "application/json; charset=utf-8",
+			dataType: 'text' ,
+			success: function(result){
+				console.log("success result : " + result);
+				self.location.reload();
+						
+			}
+		}); // ajax 끝
+	}); //blikesBtnOpen 끝
 </script>
 
 
