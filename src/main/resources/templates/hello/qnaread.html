@@ -282,6 +282,32 @@
         </div>
     </div>
 
+    <!--모달-->
+    <div id="myModal" class="modifyModal call hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modifyclose">&times;</span>
+                <input class="form-control" type="text" name="modalMember" readonly>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <input class="form-control" type="text" name="modalText" placeholder="Reply text...">
+                </div>
+                <!-- Add more content as needed -->
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="mBoardCommentNum">
+                <input type="hidden" name="mCommenterNum">
+                <input type="hidden" name="mClikes">
+                <button type="button" class="btn btn-warning replyModify">수정</button>
+                <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
     <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
@@ -299,25 +325,95 @@
                 let str = "";
 
                 $.each(arr, function (idx, comment) {
-                    var cutContent = comment.commentContent.substr(0, 30)+'...';
+                    var cutContent = comment.commentContent.substr(0, 30) + '...';
                     var picUrl = '/hello/display?fileName=' + comment.memUrl;
-                    if (picUrl == '/hello/display?fileName='+null) 
-                    {picUrl = '/img/c1.png';}
-                    console.log(picUrl);
-                    str += ' <div class="box-comments-list" data-boardCommentNum="' + comment.boardCommentNum + '" data-commenterNum="' + comment.commenterNum + '" data-price="' + comment.price + '">';
-                    str += ' <div><button class="btn-danger paybtn">결제</button></div>'
-                    str += ' <div><input type="text" class="point" value="' + comment.price + '"></div>';
-                    str += ' <div class="box-write-top">';
-                    str += ' <div class="box-left"> ';
-                    str += ' <div class="userimg"><img src="' + picUrl + '" alt="" width="40px" height="40px"></div> ';
-                    str += ' <div class="username">' + comment.nickname + ' <small> ' + comment.id + '</small> <small class="commentUpdateDate">' + displayTime(comment.regdate) + ' </small></div></div></div> ';
-                    str += ' <div class="box-write-bottom"> ';
-                    str += ' <div class="comment-box">' + cutContent + '</div></div> ';
-                    str += ' <div class="box-button"></div> ';
-                    str += ' </div></div> ';
+                    if (picUrl == '/hello/display?fileName=' + null) { picUrl = '/img/c1.png'; }
+                    const modifyBtnClass = `commentModifyBtn-${idx}`;
+
+                    console.log("comment.commenterNum?" + comment.commenterNum)
+                    var add;
+                    if (comment.commenterNum == memberNumber) {
+                        add = "show";
+                    } else {
+                        add = "hide";
+                    }
+                    console.log(add);
+
+
+
+                    str += `
+    <div class="box-comments-list" 
+         data-boardCommentNum="${comment.boardCommentNum}" 
+         data-commenterNum="${comment.commenterNum}" 
+         data-price="${comment.price}">
+        <div>
+            <button class="btn-danger paybtn">결제</button>
+        </div>
+        <div>
+            <input type="text" class="point" value="${comment.price}">
+        </div>
+        <div class="box-write-top">
+            <div class="box-left"> 
+                <button data-boardCommentNum="${comment.boardCommentNum}" 
+                        type="button"  
+                        class="clikesBtnOpen">좋아요
+                </button>
+                <div class="userimg">
+                    <img src="${picUrl}" alt="" width="40px" height="40px">
+                </div> 
+                <div class="username">${comment.nickname} 
+                    <small>${comment.id}</small> 
+                    <small class="commentUpdateDate">${displayTime(comment.regdate)}</small>
+                </div>
+            </div>
+        </div>
+        <div class="box-right">
+            <button type="button" 
+                    class="commentModifyBtn ${add}"
+                    data-boardCommentNum="${comment.boardCommentNum}" 
+                    data-commenterNum="${comment.commenterNum}"
+                    data-clikes="${comment.clikes}" 
+                    data-commentContent="${comment.commentContent}" 
+                    data-nickname="${comment.nickname}">
+                수정
+            </button>
+            <button type="button" 
+                    class="commentRemoveBtn ${add}" 
+                    data-boardCommentNum="${comment.boardCommentNum}">
+                삭제
+            </button>
+            <button data-boardCommentNum="${comment.boardCommentNum}" 
+                    type="button"  
+                    class="clikesBtnOpen">좋아요
+            </button>
+        </div>
+        <div class="box-write-bottom">
+            <div class="comment-box">${cutContent}</div>
+        </div>
+        <div class="box-button"></div>
+    </div>
+`;
                 });
 
                 $(".commentList").html(str);
+
+                openModalButton.addEventListener('click', () => {
+                    modal.classList.remove('hidden');
+                });
+
+                closeModalButtons.forEach((button) => {
+                    button.addEventListener('click', () => {
+                        modal.classList.add('hidden');
+                    });
+                });
+
+                window.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
+
+                const modal = document.querySelector('.modifyModal');
 
 
                 // 댓글 상세보기 버튼 클릭 이벤트 핸들러
@@ -415,6 +511,55 @@
                                     window.location.href = "/hello/message";
                                 }
                             });
+                        });
+                    });
+
+
+
+                    $(document).on("click", ".commentRemoveBtn", function () {
+
+                        var boardCommentNum = $(this).data("boardcommentnum");
+
+                        $.ajax({
+                            url: '/comment/' + boardCommentNum,
+                            method: 'delete',
+                            success: function (result) {
+                                console.log("result : " + result);
+                                if (result === 'success') {
+                                    alert("뎃글이 삭제되었습니다.");
+                                    $(".call").hide();
+                                    getComment();
+                                }
+                            }
+                        });
+
+                    });
+
+                    $('.replyModify').click(function () {
+
+                        var comment = {
+                            boardCommentNum: boardCommentNum,
+                            boardNum: boardNum,
+                            commentContent: $('input[name="modalText"]').val(),
+                            commenterNum: $("input[name='mCommenterNum']").val(),
+                            clikes: $("input[name='mClikes']").val()
+                        };
+
+                        console.log(comment);
+
+                        $.ajax({
+                            url: '/comment/' + boardCommentNum,
+                            method: 'put',
+                            data: JSON.stringify(comment),
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (result) {
+                                console.log("result : " + result);
+                                if (result === 'success') {
+                                    alert("댓글이 수정되었습니다.");
+                                    $(".call").hide();
+                                    getComment();
+                                }
+                            }
                         });
                     });
                 });
@@ -515,7 +660,74 @@
             }
         }
 
-    });	
+        // comment 좋아요 처리
+        //clikesBtnOpen
+        $(document).on("click", ".clikesBtnOpen", function () {
+
+            var commentid = $(this).data("boardcommentnum");
+            console.log(commentid);
+
+            var like = {
+                commentid: commentid,
+                memberNum: memberNumber
+            };
+            console.log(like);
+
+            $.ajax({
+                url: '/like/' + commentid + '/all',
+                type: 'post',
+                data: JSON.stringify(like),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'text',
+                success: function (result) {
+                    console.log("success result : " + result);
+                    self.location.reload();
+
+                }
+            }); // ajax 끝
+        }); //clikesBtnOpen 끝
+
+        // board 좋아요 처리
+        // blikesBtnOpen
+        $(".recommendation").click(function () {
+
+            var like = {
+                boardNum: boardNum,
+                memberNum: memberNumber
+            }
+            console.log(like);
+
+            $.ajax({
+                url: '/like/' + boardNum,
+                type: 'post',
+                data: JSON.stringify(like),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'text',
+                success: function (result) {
+                    console.log("success result : " + result);
+                    self.location.reload();
+
+                }
+            }); // ajax 끝
+        }); //blikesBtnOpen 끝
+
+    });
+
+    $(".urlimg").on("click", function () {
+
+        var url = '';
+        var textarea = document.createElement("textarea");
+        document.body.appendChild(textarea);
+        url = window.document.location.href;
+        textarea.value = url;
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("URL이 복사되었습니다.")
+
+    })
+    /* END URL 복사 기능 */
+
 </script>
 <script>
     // 모달창 관련
