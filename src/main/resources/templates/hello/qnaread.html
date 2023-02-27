@@ -164,7 +164,6 @@
             </div>
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-                <div class="shareimg"><img src="/img/share.png" alt="" width="31px" height="31px"></div>
                 <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
                 <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
             </div>
@@ -174,7 +173,7 @@
                 <!-- title -->
                 <div class="box-left">
                     <div class="title">
-                        <h2>[[${dto.title}]]</h2>
+                        <h3>[[${dto.title}]]</h3>
                     </div>
                 </div>
                 <!-- 수정&삭제 버튼 -->
@@ -219,9 +218,7 @@
 
             <!-- list 이동 버튼 -->
             <div class="box-button">
-                <div><button>이전</button></div>
-                <div><button type="button" class="listBtn">목록</button></div>
-                <div><button>다음</button></div>
+
             </div>
         </div>
 
@@ -241,9 +238,9 @@
                         <div class="username">
                             <p>[[${member.nickname}]] <small>[[${member.id}]]</small></p>
                             <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
+                            <p>가격</p>
+                            <input type="text" name="price" value="0">
                         </div>
-                        <p>가격</p>
-                        <input type="text" name="price" value="0">
                     </div>
                     <div class="box-right">
                         <div>
@@ -346,18 +343,9 @@
          data-boardCommentNum="${comment.boardCommentNum}" 
          data-commenterNum="${comment.commenterNum}" 
          data-price="${comment.price}">
-        <div>
-            <button class="btn-danger paybtn">결제</button>
-        </div>
-        <div>
-            <input type="text" class="point" value="${comment.price}">
-        </div>
+       
         <div class="box-write-top">
             <div class="box-left"> 
-                <button data-boardCommentNum="${comment.boardCommentNum}" 
-                        type="button"  
-                        class="clikesBtnOpen">좋아요
-                </button>
                 <div class="userimg">
                     <img src="${picUrl}" alt="" width="40px" height="40px">
                 </div> 
@@ -365,9 +353,15 @@
                     <small>${comment.id}</small> 
                     <small class="commentUpdateDate">${displayTime(comment.regdate)}</small>
                 </div>
+
+                <div class="box10">
+                        <p class="point">포인트 : ${comment.price}</p>
+                        <button class="btn-danger paybtn">결제</button>
+                </div>
+         
+                    
             </div>
-        </div>
-        <div class="box-right">
+            <div class="box-right">
             <button type="button" 
                     class="commentModifyBtn ${add}"
                     data-boardCommentNum="${comment.boardCommentNum}" 
@@ -387,6 +381,8 @@
                     class="clikesBtnOpen">좋아요
             </button>
         </div>
+        </div>
+        
         <div class="box-write-bottom">
             <div class="comment-box">${cutContent}</div>
         </div>

@@ -51,7 +51,7 @@
 				<!-- title -->
 				<div class="box-left">
 					<div class="title">
-						<h2>[[${dto.title}]]</h2>
+						<h3>[[${dto.title}]]</h3>
 					</div>
 				</div>
 				<!-- 수정&삭제 버튼 -->
@@ -86,7 +86,6 @@
 		</div>
 	</div>
 	<div sec:authorize="isAuthenticated">
-		<button class="blikesBtnOpen">좋아요</button>
 		<input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
 		<input type="hidden" name="likememberNum" th:value="${member.memberNum}">
 	</div>
@@ -101,9 +100,7 @@
 
 			<!-- list 이동 버튼 -->
 			<div class="box-button">
-				<div><button type="button" class="boardprevBtn">이전</button></div>
-				<div><button type="button" class="listBtn">목록</button></div>
-				<div><button type="button" class="boarNextBtn">다음</button></div>
+				
 			</div>
 		</div>
 

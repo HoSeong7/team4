@@ -27,7 +27,7 @@ button{
 }
 /*상단 바*/
 .innerHeader{
-    max-width: 1720px;
+    max-width: 100%;
     height: 30px;
     line-height: 30px;
     margin: auto;
@@ -188,7 +188,7 @@ button{
     text-align: center;
 }
 .content-body .box-top .box-right{
-    width: 180px;
+    width: 130px;
     height: 50px;
     
     float: right;
@@ -211,12 +211,12 @@ button{
     margin-top: 20px;
 }
 .content-body .box-title .box-left{
-    width: 700px;
+    width: 900px;
     height: 50px;
     
     float: left;
 }
-.content-body .box-title .box-left h2{
+.content-body .box-title .box-left h3{
     margin-top: 10px;
 }
 .content-body .box-title .box-right{
@@ -226,7 +226,7 @@ button{
     float: right;
 }
 .content-body .box-title .box-right button{
-    float: left;
+    float: right;
     width: 77px;
     height: 30px;
     border: 1px solid rgb(100, 100, 100);
@@ -296,12 +296,11 @@ hr{
 .content-comments .box-write{
     width: 1200px;
     height: 150px;
-    border: 1px solid rgb(100, 100, 100);
+    border-top: 1px dotted rgb(100, 100, 100);
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     padding-top: 10px;
-    border-radius: 15px;
 }
 .content-comments .box-write .box-write-top{
     width: 1100px;
@@ -324,6 +323,15 @@ hr{
     margin-top: 15px;
     margin-left: 5px;
 }
+.content-comments .box-write .box-write-top .box-left .username p{
+	float: left;
+	margin-right: 5px;
+}
+.content-comments .box-write .box-write-top .box-left .username input{
+	float: left;
+	margin-right: 5px;
+}
+
 .content-comments .box-write .box-write-top .box-right{
     float: right;
 }
@@ -331,6 +339,7 @@ hr{
     float: right;
     margin-top: 15px;
 }
+
 
 .content-comments .box-write .box-write-bottom{
     width: 1100px;
@@ -349,12 +358,14 @@ hr{
 .content-comments .box-write .box-write-bottom .comment-box p{
     text-align: center;
 }
+.content-comments .box-write .box-write-bottom .comment-box p textarea{
+	resize:none;
+}
 
 .content-comments .box-comments-list{
     width: 1200px;
     height: 150px;
-    border: 1px solid rgb(100, 100, 100);
-    border-radius: 15px;
+    border-top: 1px dotted rgb(100, 100, 100);
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -380,6 +391,31 @@ hr{
 }
 .content-comments .box-comments-list .box-write-top .box-left .username{
     margin-top: 15px;
+    margin-left: 5px;
+}
+.content-comments .box-comments-list .box-write-top .box-left .box10{
+    width: 500px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.content-comments .box-comments-list .box-write-top .box-left .box10 .point{
+    float: left;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 7px;
+}
+.content-comments .box-comments-list .box-write-top .box-left .box10 .btn-danger{
+    float: left;
+    margin-left: 5px;
+}
+.content-comments .box-comments-list .box-write-top .box-right{
+    width: 170px;
+    float: right;
+    margin-top: 10px;
+}
+.content-comments .box-comments-list .box-write-top .box-right button{
+    float: right;
     margin-left: 5px;
 }
 .content-comments .box-comments-list .box-write-bottom{
@@ -411,3 +447,4 @@ hr{
 .hide{
     display: none;
 }
+

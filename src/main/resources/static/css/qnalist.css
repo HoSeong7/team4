@@ -23,7 +23,7 @@ a {
 
 /*상단 바*/
 .innerHeader {
-    max-width: 1920px;
+    max-width: 100%;
     height: 30px;
     line-height: 30px;
     margin: auto;
@@ -227,7 +227,11 @@ a {
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
+.content-body .board .board-top .board-title a{
+	color: #079645;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
 .content-body .board .board-top .board-title{
     color: #079645;
 }

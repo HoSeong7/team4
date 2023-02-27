@@ -27,7 +27,7 @@ button{
 }
 /*상단 바*/
 .innerHeader{
-    max-width: 1720px;
+    max-width: 100%;
     height: 30px;
     line-height: 30px;
     margin: auto;
@@ -188,7 +188,7 @@ button{
     text-align: center;
 }
 .content-body .box-top .box-right{
-    width: 180px;
+    width: 130px;
     height: 50px;
     
     float: right;
@@ -211,12 +211,12 @@ button{
     margin-top: 20px;
 }
 .content-body .box-title .box-left{
-    width: 700px;
+    width: 900px;
     height: 50px;
     
     float: left;
 }
-.content-body .box-title .box-left h2{
+.content-body .box-title .box-left h3{
     margin-top: 10px;
 }
 .content-body .box-title .box-right{
@@ -226,7 +226,7 @@ button{
     float: right;
 }
 .content-body .box-title .box-right button{
-    float: left;
+    float: right;
     width: 77px;
     height: 30px;
     border: 1px solid rgb(100, 100, 100);
@@ -296,12 +296,11 @@ hr{
 .content-comments .box-write{
     width: 1200px;
     height: 150px;
-    border: 1px solid rgb(100, 100, 100);
+    border-top: 1px dotted rgb(100, 100, 100);
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     padding-top: 10px;
-    border-radius: 15px;
 }
 .content-comments .box-write .box-write-top{
     width: 1100px;
@@ -331,7 +330,9 @@ hr{
     float: right;
     margin-top: 15px;
 }
-
+.content-comments .box-write .box-write-top .box-right .recommendation{
+	float: right;
+}
 .content-comments .box-write .box-write-bottom{
     width: 1100px;
     height: 90px;
@@ -349,7 +350,9 @@ hr{
 .content-comments .box-write .box-write-bottom .comment-box p{
     text-align: center;
 }
-
+.content-comments .box-write .box-write-bottom .comment-box p textarea{
+	resize:none;
+}
 .content-comments .box-comments-list{
     width: 1200px;
     height: 150px;
