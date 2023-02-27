@@ -42,10 +42,10 @@
 											[[${getList.nickname}]]
 										</a>
 									</div>
-									<div class="message-title" th:attr="data-message-num=${getList.messageNum}" onclick="readMessage(this)">[[${getList.title}]]</div>
+									<div class="message-title" id="msg-title" th:attr="data-message-num=${getList.messageNum}" onclick="readMessage(this)">[[${getList.title}]]</div>
 									<div class="content-time">[[${getList.changeDate}]]</div>
-									<div class="content-btn">
-										<button onclick="registerMessage()">작성</button>
+									<div class="content-delete">
+										<button th:attr="data-message-num=${getList.messageNum}, data-view-num=${getList.view}" onclick="deleteMessage(this)">삭제</button>
 									</div>
 								</div>
 							</div>
@@ -59,15 +59,15 @@
 										<img class="profile-img" th:if="${giveList.memUrl == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 						<img class="profile-img" th:if="${giveList.memUrl != null}" th:src="'/hello/display?fileName='+${giveList.memUrl}" >
 									</div>
-									<div class="content-username" th:attr="data-message-num=${giveList.messageNum}" 
-											onclick="readMessage(this)">
-										[[${giveList.nickname}]]
+									<div class="content-username">
+										<a th:href="@{/hello/spacepage(memberNum=${giveList.memberGet})}">
+											[[${giveList.nickname}]]
+										</a>
 									</div>
 									<div class="message-title" th:attr="data-message-num=${giveList.messageNum}" onclick="readMessage(this)">[[${giveList.title}]]</div>
 									<div class="content-time">[[${giveList.changeDate}]]</div>
-									<div class="content-btn">
-									<!-- <button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="registerMessage()">작성</button> -->
-										<button onclick="registerMessage()">작성</button>
+									<div class="content-delete">
+										<button th:attr="data-message-num=${giveList.messageNum}, data-view-num=${giveList.view}" onclick="deleteMessage(this)">삭제</button>
 									</div>
 								</div>
 							</div>
@@ -89,7 +89,7 @@
 	var yourNum;
 	var myNum = /*[[${myInfo.memberNum}]]*/ {};
 
-		//상대 닉네임 클릭 시 조회
+		//쪽지 목록에서 제목 클릭 시 조회 화면이 뜨게
 		function readMessage(div){
 
 			var messageNum = $(div).data('message-num');
@@ -130,8 +130,7 @@
 								' </div> '+
 								' </div> '+
 								' <div class="button-box"> '+
-// 								' <button onclick="registerMessage()">작성하기</button> '+
-								' <button data-message-num= "' + result.messageNum + '" data-view-num= "' + result.view + '" onclick="deleteMessage(this)">삭제하기</button> '+
+								' <button onclick="writeMessage()">작성하기</button> '+
 								' </div> '
 
 					$(".content-body-right").html(readMsg);
@@ -141,15 +140,13 @@
 		}
 
 
-		//작성하기
-		function registerMessage(){
+		//조회 화면에서 작성하기 버튼 클릭 시 작성 화면이 뜨게
+		function writeMessage(){
 			var rdata = {
 					'selNickname': selNickname
 			}
 
 			$(".content-body-right").html("");
-
-
 
 			var registerMsg = "";
 				registerMsg += ' <div class="content-body-right-box"> '+
@@ -168,8 +165,7 @@
 								' </div> '+
 								' </div> '+
 								' <div class="button-box"> '+
-								' <button type="button" onclick="registerBtn()">작성</button> '+
-// 								' <button type="button" onclick="deleteMessage(this)">삭제하기</button> '+
+								' <button type="button" onclick="registerBtn()">전송하기</button> '+
 								' </div> '
 			$(".content-body-right").html(registerMsg);
 		}
@@ -227,8 +223,11 @@
 				}
 			});
 		}
+		
 	/*]]>*/
 	</script>
+
+	
 
 <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>

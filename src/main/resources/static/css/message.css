@@ -168,8 +168,6 @@ a {
     height: 50px;
     margin-left: 10px;
     margin-top: 8px;
-/*     background: pink; <!-- test --> */
-    
 }
 .content-body .content-body-left .content-body-left-body .content-box .content-userimg .profile-img {
     width: 42px;
@@ -190,8 +188,9 @@ a {
     float: left;
     margin-left: 5px;
     margin-top: 12px;
-/*     background: yellow; <!-- test --> */
-    
+    text-overflow:ellipsis; /* 긴 닉네임 말줄임 */
+    overflow:hidden; /* 긴 닉네임 말줄임 */
+    white-space:nowrap; /* 긴 닉네임 말줄임 */
 }
 
 .content-body .content-body-left .content-body-left-body .content-box .message-title {
@@ -200,8 +199,9 @@ a {
     float: left;
     margin-left: 5px;
     margin-top: 12px;
-/*     background: orange; <!-- test --> */
-	
+    text-overflow:ellipsis; /* 긴 제목 말줄임 */
+    overflow:hidden; /* 긴 제목 말줄임 */
+    white-space:nowrap; /* 긴 제목 말줄임 */
 }
 
 
@@ -211,19 +211,13 @@ a {
     float: left;
     margin-left: 5px;
     margin-top: 12px;
-/*     background: green; <!-- test --> */
 }
 
-
-
-.content-body .content-body-left .content-body-left-body .content-box .content-btn {
+.content-body .content-body-left .content-body-left-body .content-box .content-delete {
     width: 35px;
     height: 25px;
-
     float: left;
-
     margin-top: 12px;
-/*     background: white; <!-- test --> */
 }
 
 

@@ -38,22 +38,20 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	
-	
 	private final BoardService boardService;
 	
 	private final CommentService commentService;
 	
 	private final FavoritesService favoritesService;
 	
-	private final MemberRepository memberRepository;
+	//아이디클릭->유저공간 이동(회원번호로) 테스트
+	private final MemberRepository memberRepository; 
 	
 	@GetMapping("/spacepage")
 	public void spacepage(Authentication authentication,String id, MemberDTO dto, Model model, Long memberNum) {
 //		Member idnum = memberService.idRead(id);
-		Optional<Member> member = memberRepository.findById(memberNum);
-
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-		 Member me =  memberService.idRead(userDetails.getUsername());
+		Member me =  memberService.idRead(userDetails.getUsername());
 		 
 //		 //내가 팔로한 사람인지
 //		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
@@ -69,14 +67,17 @@ public class MemberController {
 //	   
 //	   /** 들어간사람 쓴 댓글 불러오기 */
 //	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
-
+		
+		
+//아이디클릭->유저공간 이동(회원번호로) 테스트
+		 Optional<Member> member = memberRepository.findById(memberNum); 
 		 
 		 //내가 팔로한 사람인지
 		 int mefollowing = favoritesService.getCount(me.getMemberNum(), member.get().getMemberNum());
-		 
 		
 		//들어간사람이 팔로한사람
 	    List<Member> folowing = memberService.getMemberMarker(member.get().getMemberNum());
+	    
 	    //들어간사람을 팔로한 사람
 	    List<Member> folower = memberService.getMemberMarked(member.get().getMemberNum());
 	    
@@ -86,9 +87,9 @@ public class MemberController {
 	   /** 들어간사람 쓴 댓글 불러오기 */
 	   List<Comment> myComments = commentService.getCommentList(member.get().getMemberNum());
 	   
-	   
-	   model.addAttribute("member",member.get());
-	   
+	   	model.addAttribute("member",member.get()); //아이디클릭->유저공간 이동 테스트
+//아이디클릭->유저공간 이동(회원번호로) 테스트 end   
+	   	
 //	    model.addAttribute("member",idnum);	
 	    /**들어간사람 팔로한 사람 목록*/
 	    model.addAttribute("following", folowing);
