@@ -131,6 +131,23 @@
             float: right;
             margin-top: 5px;
         }
+        .message{
+        	width: 70px;
+        	float:right;
+        	margin-right: 10px;
+        }
+        .msgregister{
+        	width:70px;
+        	float:right;
+        	margin-right: 10px;
+        }
+        #msgContent{
+        	resize:none;
+        }
+        .modaltitle{
+        	width: 50px;
+        	margin:auto;
+        }
     </style>
 </head>
 
@@ -449,7 +466,7 @@
                         $(".modalReply").html("");
                         $(".modalTitle").html("");
                         $(".modalTitle").html('<input type="text" class="msgTitle" placeholder="쪽지 제목">');
-                        $(".modalReply").html('<textarea id="msgContent"></textarea>' + '<button class="btn-danger msgregister">쪽지전송</button>');
+                        $(".modalReply").html('<textarea id="msgContent" cols="45" rows="20"></textarea>' + '<button class="btn-danger msgregister">쪽지전송</button>');
                         $(document).on("click", ".msgregister", function () {
                             var msg = $("#msgContent").val();
                             var msgTitle = $(".msgTitle").val();
