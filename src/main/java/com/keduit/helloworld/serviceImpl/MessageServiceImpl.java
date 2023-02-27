@@ -60,6 +60,7 @@ public class MessageServiceImpl implements MessageService {
 			messageDto.setNickname(mlist.get(i).getNickname()); //쪽지 상대 닉네임 셋
 			messageDto.setMemUrl(mlist.get(i).getUrl()); //쪽지 상대 프사 셋
 			messageDto.setChangeDate(timeChangeService.calculateTime(result.get(i).getRegDate()));
+			messageDto.setId(mlist.get(i).getId()); //쪽지 상대 아이디 셋
 
 			list.add(messageDto);
 		}
@@ -83,6 +84,7 @@ public class MessageServiceImpl implements MessageService {
 			messageDto.setNickname(mlist.get(i).getNickname()); //쪽지 상대 닉네임 셋
 			messageDto.setMemUrl(mlist.get(i).getUrl()); //쪽지 상대 프사 셋
 			messageDto.setChangeDate(timeChangeService.calculateTime(result.get(i).getRegDate()));
+			messageDto.setId(mlist.get(i).getId()); //쪽지 상대 아이디 셋
 
 			list.add(messageDto);
 		}

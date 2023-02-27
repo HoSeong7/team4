@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,7 @@ import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.entity.Member;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.BoardService;
 import com.keduit.helloworld.service.CommentService;
 import com.keduit.helloworld.service.FavoritesService;
@@ -36,7 +38,6 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	
-	
 	private final BoardService boardService;
 	
 	private final CommentService commentService;
@@ -44,10 +45,10 @@ public class MemberController {
 	private final FavoritesService favoritesService;
 	
 	@GetMapping("/spacepage")
-	public void spacepage(Authentication authentication,String id, MemberDTO dto, Model model) {
+	public void spacepage(Authentication authentication,String id, MemberDTO dto, Model model, Long memberNum) {
 		Member idnum = memberService.idRead(id);
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-		 Member me =  memberService.idRead(userDetails.getUsername());
+		Member me =  memberService.idRead(userDetails.getUsername());
 		 
 		 //내가 팔로한 사람인지
 		 int mefollowing = favoritesService.getCount(me.getMemberNum(), idnum.getMemberNum());
@@ -63,8 +64,9 @@ public class MemberController {
 	   
 	   /** 들어간사람 쓴 댓글 불러오기 */
 	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
-	   
-	    model.addAttribute("member",idnum);
+		
+		
+	    model.addAttribute("member",idnum);	
 	    /**들어간사람 팔로한 사람 목록*/
 	    model.addAttribute("following", folowing);
 	    /** 들어간사람 팔로한 사람 목록 */
@@ -76,6 +78,7 @@ public class MemberController {
 	    /** 팔로한 사람인지 아닌지 확인하기*/
 	    model.addAttribute("how", mefollowing);    
 	}
+	
 	//별 클릭시 즐겨찾기 추가되면서 까만별로 바꾸기 
 	@GetMapping("/spacepage/insertF")
 	public String insertF(Authentication authentication, String id, RedirectAttributes redirectAttributes) {

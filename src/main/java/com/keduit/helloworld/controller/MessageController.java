@@ -23,6 +23,7 @@ import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Member;
+import com.keduit.helloworld.repository.MemberRepository;
 import com.keduit.helloworld.service.MemberService;
 import com.keduit.helloworld.service.MessageService;
 import com.nimbusds.jose.shaded.json.JSONObject;
@@ -47,23 +48,28 @@ public class MessageController {
 		String content = params.get("content").toString();
 		String yourNum= params.get("yourNum").toString();
 		String boardCommentNum = "";
+		
 		if(params.get("boardCommentNum") != null){
 			boardCommentNum = params.get("boardCommentNum").toString();
 		}
 
 		log.info("MessageController register");
+		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호
+		
 		/** 조회하는사람 회원번호로, 본인 정보 가져오기 */
 		MemberDTO myInfoDTO = memberService.getMyInfo(userDetails.getUsername());
-
-		 //쪽지번호
-		//최초전송시 쪽지번호 없음
 		
 		MemberDTO yourMemDTO = memberService.read(Long.parseLong(yourNum)); //상대정보
+		
 		MessageDTO msgDTO;
-		if(boardCommentNum.equals("")){
-			Long messageNum  = Long.parseLong(params.get("messageNum").toString());
-			MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum());
+		
+		if(boardCommentNum.equals("")){ //댓글번호 있으면(=게시판 통해 전송 시)
+			Long messageNum  = Long.parseLong(params.get("messageNum").toString()); //쪽지번호
+			
+			/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
+			MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum()); //쪽지번호는 두번째 부터 존재(최초전송시 쪽지번호 없음)
+			
 			msgDTO = MessageDTO
 					.builder()
 					.memberGet(yourMemDTO.getMemberNum())
@@ -73,12 +79,12 @@ public class MessageController {
 					.content(content)
 					.view(0L)
 					.build();
-		}else{
+		}else{ //쪽지함에서 답장 시(=쿼리스트링에 댓글번호 없으면)
 			msgDTO = MessageDTO
 					.builder()
 					.memberGet(Long.parseLong(yourNum))
 					.memberGive(myInfoDTO.getMemberNum())
-					.boardCommentNum(Long.parseLong(boardCommentNum))
+					.boardCommentNum(Long.parseLong(boardCommentNum)) //쪽지 정보에 있는 댓글번호 가져옴
 					.title(title)
 					.content(content)
 					.view(0L)
@@ -108,7 +114,6 @@ public class MessageController {
 		model.addAttribute("myInfo",myInfoDTO); //내정보
 		model.addAttribute("giveMsg", msgGive); //보낸 쪽지 목록
 		model.addAttribute("getMsg", msgGet); //받은 쪽지 목록
-		
 	}
 	
 	@PostMapping("/message/read")
