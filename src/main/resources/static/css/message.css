@@ -17,11 +17,13 @@ li {
 a {
     text-decoration: none;
 }
-
+textarea{
+	resize:none;
+}
 
 /*상단 바*/
 .innerHeader {
-    max-width: 1920px;
+    max-width: 100%;
     height: 30px;
     line-height: 30px;
     margin: auto;
@@ -117,7 +119,7 @@ a {
 }
 
 .content-body .content-body-left {
-    width: 37%;
+    width: 40%;
     height: 700px;
     border: 1px solid #ec736e;
     border-radius: 3px;
@@ -159,7 +161,7 @@ a {
 }
 
 .content-body .content-body-left .content-body-left-body {
-    width: 100%;
+    width: 390px;
     height: 60px;
     border-top: 2px dotted rgb(155, 155, 155);
 }
@@ -219,11 +221,19 @@ a {
     float: left;
     margin-top: 12px;
 }
-
+.content-body .content-body-left .content-body-left-body .content-box .content-delete button{
+	background-color: #ec736e;
+    color: white;
+    padding: 2.5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
 
 /*오른쪽*/
 .content-body .content-body-right {
-    width: 60%;
+    width: 57%;
     height: 700px;
     border: 1px solid #ec736e;
     border-radius: 3px;

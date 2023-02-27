@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
+import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Comment;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public interface CommentService {
 	CommentDTO getById(Long BCN);
 	//승민 끝
 
-	List<Comment> getCommentList(Long id);
+	List<CommentDTO> getCommentList(Long id);
 
 
 	/** 생성 */
@@ -51,7 +52,10 @@ public interface CommentService {
 	void modify(CommentDTO commentDTO);
 
 	/** 삭제 */
-	void remove(Long rno);
+	void remove(Long boardCommentNum);
+	
+	/** 게시판 삭제시 전부 삭제*/
+	void boardRemove(Long boardNum);
 
 	boolean getFindCheck(Long BCN, Long memberNum);
 

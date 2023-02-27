@@ -21,12 +21,18 @@ public class PointAccountRepositoryTests {
 	/** 포인트 거래내역 등록 테스트(create) */
 	public void insertPoint() {
 		
-		IntStream.rangeClosed(1, 30).forEach(i -> {
-			PointAccount entity = PointAccount.builder()
-					.charge(4000L)
-					.balance(1000L*i)
-					.exchange(0L)
-					.memberNum((long)i)
+		IntStream.rangeClosed(1, 1000).forEach(i -> {
+			long num = (long) (Math.random()*50)+1;
+			long charge = (long) (Math.random()*50)*10000+1;
+			long exchange = (long) (Math.random()*50)*10000+1;
+			if(charge > exchange)exchange = 0;
+			else charge = 0;
+			PointAccount entity = PointAccount
+					.builder()
+					.charge(charge)
+					.balance(10000L*i)
+					.exchange(exchange)
+					.memberNum(num)
 					.build();
 			repository.save(entity);
 		});

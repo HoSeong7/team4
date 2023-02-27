@@ -15,6 +15,10 @@ body{
     font-size: 36px;
     margin-bottom: 2rem;
 }
+.score2{
+	text-align: right;
+    color: white;
+}
 .playground ul{
     border: 1px solid #333;
     width: 250px;

@@ -29,21 +29,24 @@ public class MessageRepositoryTests {
 	/** 쪽지 등록 테스트(create) */
 	public void insertMsgTest() {
 		
-		IntStream.rangeClosed(1, 200).forEach(i -> {
-			
-			Long a = (long)(Math.random()*10)+1;
-			Long b = (long)(Math.random()*10)+1;
-			Long c = (long)(Math.random()*10)+1;
-			
-			Message entity = Message.builder()
-					.memberGet(a)
-					.memberGive(b)
-					.title("제목" + i)
-					.content("내용" + i)
-					.view(0L) //최초 전송 시 권한: 0
-					.boardCommentNum(c)
-					.build();
-			messageRepository.save(entity);
+		IntStream.rangeClosed(1, 2000).forEach(i -> {
+
+			long num = (long) Math.random()*50;
+			if(num != 25) {
+				long a = (long) (num) + 1;
+				long b = (long) (50 - num) + 1;
+				Long c = (long) (Math.random() * 3000) + 1;
+
+				Message entity = Message.builder()
+						.memberGet(a)
+						.memberGive(b)
+						.title("제목" + i)
+						.content("내용" + i)
+						.view(0L) //최초 전송 시 권한: 0
+						.boardCommentNum(c)
+						.build();
+				messageRepository.save(entity);
+			}
 		});
 	}
 	

@@ -24,7 +24,7 @@ public class MemberInsertTest2 {
 	
 	@Test
 	public void insertTest() {
-		IntStream.rangeClosed(3, 10).forEach(i->{
+		IntStream.rangeClosed(1, 50).forEach(i->{
 			Member member = Member.builder()
 					.id("user"+i)
 					.name("이름"+i)

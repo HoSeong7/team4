@@ -25,18 +25,19 @@ public class MemberAccountRepositoryTests {
 	/** 회원간 거래내역 등록 테스트(create) */
 	public void insertAccount() {
 		
-		IntStream.rangeClosed(1, 30).forEach(i->{
-			
-			Long a = (long)(Math.random()*10)+1;
-			Long b = (long)(Math.random()*10)+1;
-			
-			MemberAccount entity = MemberAccount.builder()
-					.memberBuyer(a)
-					.memberSeller(b)
-					.payment(i*1000L)
-					.build();
-			memberAccountRepository.save(entity);
-			
+		IntStream.rangeClosed(1, 500).forEach(i->{
+			long num = (long) Math.random()*50;
+			if(num != 25) {
+				long a = (long) (num) + 1;
+				long b = (long) (50 - num) + 1;
+
+				MemberAccount entity = MemberAccount.builder()
+						.memberBuyer(a)
+						.memberSeller(b)
+						.payment(i * 1000L)
+						.build();
+				memberAccountRepository.save(entity);
+			}
 		});
 	}
 	

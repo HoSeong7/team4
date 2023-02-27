@@ -4,6 +4,7 @@ import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.*;
 import com.keduit.helloworld.entity.Comment;
+import com.keduit.helloworld.repository.BoardRepository;
 import com.keduit.helloworld.repository.CommentRepository;
 import com.keduit.helloworld.repository.ViewAuthRepository;
 import com.keduit.helloworld.service.CommentService;
@@ -19,6 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.web.jaasapi.JaasApiIntegrationFilter;
 import org.springframework.stereotype.Service;
 
 import com.keduit.helloworld.dto.CommentDTO;
@@ -35,6 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
 	private final CommentRepository commentRepository;
 	private final MemberRepository memberRepository;
+	private final BoardRepository boardRepository;
 
 	private final ViewAuthRepository viewAuthRepository;
 
@@ -42,6 +46,14 @@ public class CommentServiceImpl implements CommentService {
 	/** 등록 */
 	public Long register(CommentDTO commentDTO) {
 		Comment comment = dtoToEntity(commentDTO);
+		if(comment.getPrice() != null && comment.getPrice() != 0){
+			ViewAuth viewAuth = ViewAuth
+					.builder()
+					.boardCommentNum(comment.getBoardCommentNum())
+					.memberNum(comment.getCommenterNum())
+					.build();
+			viewAuthRepository.save(viewAuth);
+		}
 		commentRepository.save(comment);
 
 		return comment.getBoardCommentNum();
@@ -144,9 +156,48 @@ public class CommentServiceImpl implements CommentService {
 	// 승민 끝
 
 	@Override
-	public List<Comment> getCommentList(Long id) {
+	public List<CommentDTO> getCommentList(Long id) {
 
 		List<Comment> comments = commentRepository.getCommentById(id);
-		return comments;
+		List<Long> boards = boardRepository.getCommentById(id);
+		List<CommentDTO> commentDTOs =new ArrayList<>(); ;
+		
+		
+//		System.out.println("보드 케이스 크기 : " + comments.size());
+//		System.out.println("보드 케이스 크기 : " + boards);
+		for(int i = 0; i< comments.size(); i++) {
+			commentDTOs.add(CommentDTO.builder().boardCommentNum(comments.get(i).getBoardCommentNum())
+										.boardNum(comments.get(i).getBoardNum())
+										.commentContent(comments.get(i).getCommentContent())
+										.viewpicture(comments.get(i).getViewpicture())
+										.price(comments.get(i).getPrice())
+										.url(comments.get(i).getUrl())
+										.clikes(comments.get(i).getClikes())
+										.commenterNum(comments.get(i).getCommenterNum())
+										.boardcase(boards.get(i))
+										.regdate(comments.get(i).getRegDate())
+										.updatedate(comments.get(i).getUpdateDate())
+										.build());
+		}
+		
+//		
+//		for(CommentDTO dto : commentDTOs) {
+//			System.out.println(dto);
+//		}
+		
+		return commentDTOs;
+	}
+
+	@Override
+	public void boardRemove(Long boardNum) {
+		
+		List<Long> comment = commentRepository.findBoardCommentNum(boardNum);
+		
+		for(Long aa : comment) {
+			commentRepository.deleteById(aa);
+			
+		}
+		
+		
 	}
 }

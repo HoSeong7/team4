@@ -17,7 +17,7 @@
 	<!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
-            <h1>NOTICE</h1>
+            <h1 class="listBtn">NOTICE</h1>
         </div>
     </div>
     <div class="content-body">
@@ -40,9 +40,8 @@
             </div>
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-                <div class="shareimg"><img src="/img/share.png" alt="" width="31px" height="31px"></div>
                 <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
-                <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
+                <!-- <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div> -->
             </div>
         </div>
         <div class="box-title">
@@ -50,7 +49,7 @@
             	<!-- title -->
                 <div class="box-left">
                     <div class="title">
-                        <h2>[[${dto.title}]]</h2>
+                        <h3>[[${dto.title}]]</h3>
                     </div>
                 </div>
                 <!-- 수정&삭제 버튼 -->
@@ -85,16 +84,17 @@
         </div>
     </div>
     <hr>
-    <div class="content-comments">
+   <!--  <div class="content-comments">
         <div class="box-top">     
         <br>
         <!-- list 이동 버튼 -->
-            <div class="box-button">
-                <div><button>이전</button></div>
-                <div><button type="button" class="listBtn">목록</button></div>
-                <div><button>다음</button></div>
-            </div>
         </div>
+        <form>
+	        <input type="hidden" name="page" th:value="${requestDTO.page}">
+			<input type="hidden" name="type" th:value="${requestDTO.type}">
+			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+		</form>
+
         <br>
         <br>
         <br>
@@ -102,29 +102,31 @@
         <br>
        
         
-    </div>
+    </div> -->
     <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
 <script th:inline="javascript">
-
+$(document).ready(function(){
 	
-		var actionForm = $("form");
+	var actionForm = $("form");
 		
-			$(".listBtn").click(function(){
-				var pageInfo = $("input[name='page']");
-				var type=$("input[name='page']");
-				var keyword=$("input[name='keyword']");
-				
-				actionForm.empty();
-				actionForm.append(pageInfo);
-				actionForm.append(type);
-				actionForm.append(keyword);
-				actionForm.attr("action", "/hello/noticelist")
-							.attr("method", "GET");
-				
-				actionForm.submit();
-			});
+	$(".listBtn").click(function(){
+		var pageInfo = $("input[name='page']");
+		var type=$("input[name='page']");
+		var keyword=$("input[name='keyword']");
+
+		actionForm.empty();
+		actionForm.append(pageInfo);
+		actionForm.append(type);
+		actionForm.append(keyword);
+		actionForm.attr("action", "/hello/noticelist")
+					.attr("method", "GET");
+
+		actionForm.submit();
+	});
+
+});
 			
 	
 	</script>

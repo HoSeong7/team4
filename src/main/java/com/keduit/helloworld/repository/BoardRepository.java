@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.keduit.helloworld.dto.BoardDTO;
 import com.keduit.helloworld.entity.Board;
+import com.keduit.helloworld.entity.Comment;
 import com.keduit.helloworld.repository.search.SearchBoardRepository;
 
 public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository{
@@ -48,6 +49,17 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 	@Query(value ="SELECT *  FROM board b where boardcase = '1' order by views desc, board_num desc limit 5" , nativeQuery=true)
 	List<Board> getBoardCount();
 
+	
+	/**내 정보에서 댓글 가져가기*/
+	
+	
+	  @Query(value = "select b.boardcase from Board b " +
+	  "right outer join comment c on b.board_num = c.board_num " +
+	  "where c.commenter_Num = :id  order by c.board_comment_num desc",nativeQuery = true) 
+	  List<Long> getCommentById(Long id);
+	 
+	 
+	  
 	//호성 end
 
 

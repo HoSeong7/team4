@@ -28,18 +28,12 @@
             <input type="text" name="tag" id="">
         </div>
         <div class="text">
-            <p>태그</p>
-        </div>
-        <div class="content">
-            <input type="text" name="tag" id="">
-        </div>
-        <div class="text">
             <p>본문</p>
         </div>
         
         <div class="maincontent">
-            <input type="text" name="content" cols="127" rows="20" id="mustContent">
-<!--             <textarea name="content" id="" cols="127" rows="20"></textarea> -->
+            <!--           <input type="text" name="content" cols="127" rows="20" >-->
+             <textarea name="content" cols="127" rows="20" id="mustContent"></textarea> 
         </div>
         <input type="hidden" name="boardcase" value="3">
         <input type="hidden" name="memberNum" th:value="${member.memberNum}">

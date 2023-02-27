@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.dto.BoardDTO;
+import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
 import com.keduit.helloworld.entity.Comment;
@@ -37,7 +38,7 @@ public class MemberController {
 	//호성
 	
 	private final MemberService memberService;
-	
+
 	private final BoardService boardService;
 	
 	private final CommentService commentService;
@@ -63,10 +64,9 @@ public class MemberController {
 	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
 	   
 	   /** 들어간사람 쓴 댓글 불러오기 */
-	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
-		
-		
-	    model.addAttribute("member",idnum);	
+	   List<CommentDTO> myComments = commentService.getCommentList(idnum.getMemberNum());
+	   
+	    model.addAttribute("member",idnum);
 	    /**들어간사람 팔로한 사람 목록*/
 	    model.addAttribute("following", folowing);
 	    /** 들어간사람 팔로한 사람 목록 */
@@ -78,8 +78,8 @@ public class MemberController {
 	    /** 팔로한 사람인지 아닌지 확인하기*/
 	    model.addAttribute("how", mefollowing);    
 	}
-	
-	//별 클릭시 즐겨찾기 추가되면서 까만별로 바꾸기 
+
+	//별 클릭시 즐겨찾기 추가되면서 까만별로 바꾸기
 	@GetMapping("/spacepage/insertF")
 	public String insertF(Authentication authentication, String id, RedirectAttributes redirectAttributes) {
 		//상대 정보 가져오기

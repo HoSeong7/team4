@@ -121,7 +121,7 @@
 							</div>
 							<!-- 유저id -->
 							<div class="username">
-								[[${dto.nickname}]] <small> [[${dto.id}]]</small>
+								<a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a> <small> [[${dto.id}]]</small>
 							</div>
 							<!-- 조회수 -->
 							<div class="hits">[[${dto.views}]] 회</div>

@@ -2,7 +2,6 @@ package com.keduit.helloworld.repository;
 
 import java.util.List;
 
-import com.keduit.helloworld.entity.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,9 +26,14 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 			, nativeQuery = true)
 	List<Comment> getCommentlist(Long boardNum);
 
+	@Query(value=
+			"select board_comment_num from comment where board_num = :boardNum", nativeQuery = true)
+	List<Long> findBoardCommentNum(Long boardNum);
+	
 	/**내 정보에서 댓글 가져가기*/
-	@Query(value = "select * from Comment c "
-				 + "where c.commenter_num = :id order by c.board_comment_Num desc", nativeQuery = true)
+	@Query(value = "select * from  comment c "
+			+ "	join board b on b.board_num = c.board_num "
+			+ "	where c.commenter_num = :id  order by c.board_comment_num desc", nativeQuery = true)
 	List<Comment> getCommentById(Long id);
 
 	//승민

@@ -228,7 +228,27 @@ restartButton.addEventListener("click", ()=>{
     //scoreDisplay.innerText = 0;
     //resetpoint();
     //init();
+		var max = score;
+    $.ajax({
+		url: '/icon/chk/'+max,
+		type: 'POST',
+		data: JSON.stringify(max),
+		ccontentType: "application/json; charset=utf-8",
+		dataType: 'text',
+		success: function(result){
+			/*const container = document.querySelector('.score2');
+			
+			result.forEach((result) =>{
+				
+			container.innerHTML += `<p>ID : ${result.id} , Score : ${result.score}</p>`;
+				});
+				
+			//$(".score2").html(result);
+			*/
     location.reload();
+		}
+})
+
     //console.log("점수"+score);
 
 })
