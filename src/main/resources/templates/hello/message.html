@@ -38,7 +38,7 @@
                 						<img class="profile-img" th:if="${getList.memUrl != null}" th:src="'/hello/display?fileName='+${getList.memUrl}" >
 									</div>
 									<div class="content-username">
-										<a th:href="@{/hello/spacepage(memberNum=${getList.memberGive})}">
+										<a th:href="@{/hello/spacepage(id=${getList.id})}">
 											[[${getList.nickname}]]
 										</a>
 									</div>
@@ -60,7 +60,7 @@
                 						<img class="profile-img" th:if="${giveList.memUrl != null}" th:src="'/hello/display?fileName='+${giveList.memUrl}" >
 									</div>
 									<div class="content-username">
-										<a th:href="@{/hello/spacepage(memberNum=${giveList.memberGet})}">
+										<a th:href="@{/hello/spacepage(id=${giveList.id})}">
 											[[${giveList.nickname}]]
 										</a>
 									</div>

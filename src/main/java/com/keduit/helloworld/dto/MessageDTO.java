@@ -50,8 +50,10 @@ public class MessageDTO {
 	/** 멤버 프로필 사진 */
 	private String memUrl;
 	
+	/** 멤버 아이디 */
+	private String id;
+	
 	/** 화면에 보이는 시간표시 변경 */
 	protected String changeDate;
-	
 	
 }
