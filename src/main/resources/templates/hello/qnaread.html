@@ -316,7 +316,7 @@
 
         const boardNum = [[${ dto.boardNum }]];
         const memberNumber = [[${ member.memberNum }]];
-        const memberPoint = [[${ member.point }]];
+        var memberPoint = [[${ member.point }]];
         var getNum;
 
 
@@ -397,21 +397,21 @@
 
                 $(".commentList").html(str);
 
-                openModalButton.addEventListener('click', () => {
-                    modal.classList.remove('hidden');
-                });
+                // openModalButton.addEventListener('click', () => {
+                //     modal.classList.remove('hidden');
+                // });
 
-                closeModalButtons.forEach((button) => {
-                    button.addEventListener('click', () => {
-                        modal.classList.add('hidden');
-                    });
-                });
+                // closeModalButtons.forEach((button) => {
+                //     button.addEventListener('click', () => {
+                //         modal.classList.add('hidden');
+                //     });
+                // });
 
-                window.addEventListener('click', (event) => {
-                    if (event.target === modal) {
-                        modal.classList.add('hidden');
-                    }
-                });
+                // window.addEventListener('click', (event) => {
+                //     if (event.target === modal) {
+                //         modal.classList.add('hidden');
+                //     }
+                // });
 
                 const modal = document.querySelector('.modifyModal');
 
@@ -432,6 +432,8 @@
                             return false;
                         }
                     }
+
+                    memberPoint -= price;
 
                     const acountData = {
                         'memberNumber': memberNumber,
@@ -459,7 +461,7 @@
                                     type: 'post',
                                     contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                                     success: function (result) {
-                                        alert('결제 완료 되었어용~^^');
+                                        alert('결제가 완료 되었습니다.');
                                     }
                                 });
                             }

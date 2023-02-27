@@ -1,6 +1,7 @@
 package com.keduit.helloworld.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,7 @@ public interface FavoritesRepository extends JpaRepository<Favorites, Long>{
 	@Query(value = "select count(*) from favorites where bookmarker = :membernum and bookmarked = :younum" , nativeQuery = true)
 	int getCount(Long membernum, Long younum);
 
+	@Query(value = "SELECT * FROM favorites WHERE bookmarked = :a AND bookmarker = :b", nativeQuery = true)
+	Optional<Favorites> findByBookmarkedAndBookmarker(long a, long b);
 
-	
 }
