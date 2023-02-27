@@ -172,7 +172,7 @@
 
                 <!-- 유저id -->
                 <div class="username">
-                    <p>[[${dto.nickname}]] <small>[[${dto.id}]]</small></p>
+                    <a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a>
                 </div>
 
                 <!-- tag -->
@@ -298,6 +298,7 @@
                 </div>
                 <!-- Add more content as needed -->
             </div>
+            <div class="modal-footer"></div>
         </div>
     </div>
 
@@ -307,6 +308,109 @@
 <script th:inline="javascript">
     $(document).ready(function () {
 
+    	
+    	
+        /* 수정버튼 클릭 */
+		$(document).on("click", ".commentModifyBtn", function () {
+
+
+			$(".call").show();
+			
+ 			 var header  = $(this).data("nickname");
+			 var body = '<input class="form-control" type="text" name="modalText" placeholder="Reply text...">';
+			 var footer  = '<input type="hidden" name="mBoardCommentNum">';
+			 	footer += ' <input type="hidden" name="mCommenterNum"> ';
+			 	footer += ' <input class="form-control" type="hidden" name="modalMember" readonly> ';
+			 	footer += ' <input type="hidden" name="mClikes">';
+			 	footer += '<input type="hidden" name="mClikes"> ';
+			 	footer += '<input type="hidden" name="price"> ';
+			 	footer += ' <button type="button" class="btn btn-warning replyModify">수정</button> ';
+			 	footer += ' <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button> ';
+				
+				
+				
+				
+			 
+            $(".modalTitle").html(header);
+            $(".modalReply").html(body);
+            $(".modal-footer").html(footer); 
+			
+			
+			
+
+			$('input[name="modalMember"]').val($(this).data("nickname"));
+			$('input[name="modalText"]').val($(this).data("commentcontent"));
+			$("input[name='mBoardCommentNum']").val($(this).data("boardcommentnum"));
+			$("input[name='mCommenterNum']").val($(this).data("commenternum"));
+			$("input[name='mClikes']").val($(this).data("clikes"));
+			$("input[name='price']").val($(this).data("price"));
+
+		});
+        
+        /* 삭제버튼 클릭 */
+		$(document).on("click", ".commentRemoveBtn", function () {
+
+			var boardCommentNum = $(this).data("boardcommentnum");
+
+			$.ajax({
+				url: '/comment/' + boardCommentNum,
+				method: 'delete',
+				success: function (result) {
+					console.log("result : " + result);
+					if (result === 'success') {
+						alert("뎃글이 삭제되었습니다.");
+						$(".call").hide();
+						getComment();
+						self.location.reload();
+					}
+				}
+			});
+
+		});
+    	
+        
+        /* 수정 */
+        $(document).on("click", '.replyModify', function () {
+		
+			var boardCommentNum = $("input[name='mBoardCommentNum']").val();
+			var comment = {
+				boardCommentNum: boardCommentNum,
+				boardNum: boardNum,
+				commentContent: $('input[name="modalText"]').val(),
+				commenterNum: $("input[name='mCommenterNum']").val(),
+				clikes: $("input[name='mClikes']").val(),
+				price: $("input[name='price']").val()
+			};
+
+			console.log(comment);
+
+			$.ajax({
+				url: '/comment/' + boardCommentNum,
+				method: 'put',
+				data: JSON.stringify(comment),
+				contentType: 'application/json; charset=utf-8',
+				success: function (result) {
+					console.log("result : " + result);
+					if (result === 'success') {
+						alert("뎃글이 수정되었습니다.");
+						$(".call").hide();
+						getComment();
+					}
+				}
+			});
+		});
+    	
+        /* 취소 */
+        $(document).on("click", ".replyClose", function () {
+    		$(".call").hide();
+    	});
+    	
+    	
+    	
+    	
+    	
+    	
+    	
         const boardNum = [[${ dto.boardNum }]];
         const memberNumber = [[${ member.memberNum }]];
         var memberPoint = [[${ member.point }]];
@@ -345,8 +449,8 @@
                 <div class="userimg">
                     <img src="${picUrl}" alt="" width="40px" height="40px">
                 </div>
-                <div class="username">${comment.nickname}
-                    <small>${comment.id}</small>
+                <div class="username">
+                <a href="/hello/spacepage?id=${comment.id}"><Strong> ${comment.nickname} </Strong></a>
                     <small class="commentUpdateDate">${displayTime(comment.regdate)}</small>
                 </div>
 
@@ -364,7 +468,8 @@
                     data-commenterNum="${comment.commenterNum}"
                     data-clikes="${comment.clikes}"
                     data-commentContent="${comment.commentContent}"
-                    data-nickname="${comment.nickname}">
+                    data-nickname="${comment.nickname}"
+                    data-price="${comment.price}">
                 수정
             </button>
             <button type="button"
@@ -389,6 +494,10 @@
 
                 $(".commentList").html(str);
 
+
+                
+                
+                
 
                 // 댓글 상세보기 버튼 클릭 이벤트 핸들러
                 $(".paybtn").on("click", function () {
@@ -452,6 +561,12 @@
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         success: function (result) {
                             getNum = result.commenterNum;
+                            
+                            $(".modalReply").html("");
+                            $(".modal-footer").html(""); 
+
+                            
+                            
                             $(".modalReply").html("");
                             $(".modalTitle").html("");
                             $(".modalReply").html(result.commentContent);
@@ -462,6 +577,7 @@
                     $(".call").show();
 
                     $(document).on("click", ".message", function () {
+                    	
                         $(".modalReply").html("");
                         $(".modalTitle").html("");
                         $(".modalTitle").html('<input type="text" class="msgTitle" placeholder="쪽지 제목">');

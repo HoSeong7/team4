@@ -52,7 +52,7 @@
     </div>
     
     <!-- 게시판 list -->
-    <div class="content-body">
+  	<div class="content-body">
         <div th:each="dto : ${result.dtoList}" class="board">
             <div class="board-top">
                 <div class="board-title">
@@ -62,14 +62,33 @@
 							   keyword=${pageRequestDTO.keyword}
                                )}">[[${dto.title}]]
                     </a></div>
-                <div class="board-view">[[${dto.views}]] 회</div>
-                <div class="board-time">[[${#temporals.format(dto.regdate, 'yyyy/MM/dd')}]]</div>
             </div>
             <div class="board-text">
-                <p>[[${dto.content}]]</p>
+            	<!-- 유저이미지 -->
+				<div class="userimg">
+					<img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="20px" height="20px">
+                	<img th:if="${dto.memberurl != null}" width="20px" height="20px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
+				</div>
+				<!-- 유저id -->
+				<div class="username">
+					<a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a>
+				</div>
+				<!-- 좋아요 -->
+				<div>
+					<img src="/img/like.png" alt="" width="20px">
+				</div>
+				<div class="box">[[${dto.blikes}]]</div>
+				<!-- 댓글수 -->
+				<div class="box">
+					<img src="/img/message.png" alt="" width="25px">
+				</div>
+				<div class="box">[[${dto.cnt}]]</div>
+				<!-- 조회수 -->
+                <div class="board-view">[[${dto.views}]] 회</div>
+                <!-- 등록일 -->
+                <div class="board-time">[[${#temporals.format(dto.regdate, 'yyyy/MM/dd')}]]</div>
             </div>
-        </div>
- 
+        </div> 
   
         <!-- end 게시판 list -->
         
