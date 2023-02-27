@@ -140,14 +140,15 @@
     <!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
-            <h1>Q&A</h1>
+            <h1 class="listBtn">Q&A</h1>
         </div>
     </div>
     <div class="content-body">
         <div class="box-top">
             <div class="box-left">
                 <div class="userimg">
-                    <img src="/img/userimg.png" alt="" width="40px" height="40px">
+                    <img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="40px" height="40px">
+                	<img th:if="${dto.memberurl != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
                 </div>
 
 
@@ -164,8 +165,10 @@
             </div>
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-                <div class="shareimg"><img src="/img/share.png" alt="" width="31px" height="31px"></div>
-                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
+                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px" class="blikesBtnOpen">
+                		<input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
+	        			<input type="hidden" name="likememberNum" th:value="${member.memberNum}">
+                </div>
                 <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
             </div>
         </div>
@@ -178,7 +181,7 @@
                     </div>
                 </div>
                 <!-- 수정&삭제 버튼 -->
-                <div class="box-right">
+                <div class="box-right" th:if="${dto.id} == ${member.id}">
                     <!-- 수정버튼 -->
                     <div class="modify-button">
                         <a th:href="@{/hello/qnamodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
@@ -219,9 +222,7 @@
 
             <!-- list 이동 버튼 -->
             <div class="box-button">
-                <div><button>이전</button></div>
                 <div><button type="button" class="listBtn">목록</button></div>
-                <div><button>다음</button></div>
             </div>
         </div>
 
@@ -235,7 +236,8 @@
                 <div class="box-write-top">
                     <div class="box-left">
                         <div class="userimg">
-                            <img src="/img/userimg.png" alt="" width="40px" height="40px">
+                            <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="70px" height="70px">
+                			<img th:if="${member.url != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${member.url}" >
                         </div>
                         <!-- 유저 -->
                         <div class="username">
@@ -282,32 +284,6 @@
         </div>
     </div>
 
-    <!--모달-->
-    <div id="myModal" class="modifyModal call hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modifyclose">&times;</span>
-                <input class="form-control" type="text" name="modalMember" readonly>
-            </div>
-            <div class="modal-body">
-                <div class="box">
-                    <input class="form-control" type="text" name="modalText" placeholder="Reply text...">
-                </div>
-                <!-- Add more content as needed -->
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" name="mBoardCommentNum">
-                <input type="hidden" name="mCommenterNum">
-                <input type="hidden" name="mClikes">
-                <button type="button" class="btn btn-warning replyModify">수정</button>
-                <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-
-
-    </div>
-
     <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
@@ -342,9 +318,9 @@
 
 
                     str += `
-    <div class="box-comments-list" 
-         data-boardCommentNum="${comment.boardCommentNum}" 
-         data-commenterNum="${comment.commenterNum}" 
+    <div class="box-comments-list"
+         data-boardCommentNum="${comment.boardCommentNum}"
+         data-commenterNum="${comment.commenterNum}"
          data-price="${comment.price}">
         <div>
             <button class="btn-danger paybtn">결제</button>
@@ -353,37 +329,37 @@
             <input type="text" class="point" value="${comment.price}">
         </div>
         <div class="box-write-top">
-            <div class="box-left"> 
-                <button data-boardCommentNum="${comment.boardCommentNum}" 
-                        type="button"  
+            <div class="box-left">
+                <button data-boardCommentNum="${comment.boardCommentNum}"
+                        type="button"
                         class="clikesBtnOpen">좋아요
                 </button>
                 <div class="userimg">
                     <img src="${picUrl}" alt="" width="40px" height="40px">
-                </div> 
-                <div class="username">${comment.nickname} 
-                    <small>${comment.id}</small> 
+                </div>
+                <div class="username">${comment.nickname}
+                    <small>${comment.id}</small>
                     <small class="commentUpdateDate">${displayTime(comment.regdate)}</small>
                 </div>
             </div>
         </div>
         <div class="box-right">
-            <button type="button" 
+            <button type="button"
                     class="commentModifyBtn ${add}"
-                    data-boardCommentNum="${comment.boardCommentNum}" 
+                    data-boardCommentNum="${comment.boardCommentNum}"
                     data-commenterNum="${comment.commenterNum}"
-                    data-clikes="${comment.clikes}" 
-                    data-commentContent="${comment.commentContent}" 
+                    data-clikes="${comment.clikes}"
+                    data-commentContent="${comment.commentContent}"
                     data-nickname="${comment.nickname}">
                 수정
             </button>
-            <button type="button" 
-                    class="commentRemoveBtn ${add}" 
+            <button type="button"
+                    class="commentRemoveBtn ${add}"
                     data-boardCommentNum="${comment.boardCommentNum}">
                 삭제
             </button>
-            <button data-boardCommentNum="${comment.boardCommentNum}" 
-                    type="button"  
+            <button data-boardCommentNum="${comment.boardCommentNum}"
+                    type="button"
                     class="clikesBtnOpen">좋아요
             </button>
         </div>
@@ -396,24 +372,6 @@
                 });
 
                 $(".commentList").html(str);
-
-                // openModalButton.addEventListener('click', () => {
-                //     modal.classList.remove('hidden');
-                // });
-
-                // closeModalButtons.forEach((button) => {
-                //     button.addEventListener('click', () => {
-                //         modal.classList.add('hidden');
-                //     });
-                // });
-
-                // window.addEventListener('click', (event) => {
-                //     if (event.target === modal) {
-                //         modal.classList.add('hidden');
-                //     }
-                // });
-
-                const modal = document.querySelector('.modifyModal');
 
 
                 // 댓글 상세보기 버튼 클릭 이벤트 핸들러
@@ -513,55 +471,6 @@
                                     window.location.href = "/hello/message";
                                 }
                             });
-                        });
-                    });
-
-
-
-                    $(document).on("click", ".commentRemoveBtn", function () {
-
-                        var boardCommentNum = $(this).data("boardcommentnum");
-
-                        $.ajax({
-                            url: '/comment/' + boardCommentNum,
-                            method: 'delete',
-                            success: function (result) {
-                                console.log("result : " + result);
-                                if (result === 'success') {
-                                    alert("뎃글이 삭제되었습니다.");
-                                    $(".call").hide();
-                                    getComment();
-                                }
-                            }
-                        });
-
-                    });
-
-                    $('.replyModify').click(function () {
-
-                        var comment = {
-                            boardCommentNum: boardCommentNum,
-                            boardNum: boardNum,
-                            commentContent: $('input[name="modalText"]').val(),
-                            commenterNum: $("input[name='mCommenterNum']").val(),
-                            clikes: $("input[name='mClikes']").val()
-                        };
-
-                        console.log(comment);
-
-                        $.ajax({
-                            url: '/comment/' + boardCommentNum,
-                            method: 'put',
-                            data: JSON.stringify(comment),
-                            contentType: 'application/json; charset=utf-8',
-                            success: function (result) {
-                                console.log("result : " + result);
-                                if (result === 'success') {
-                                    alert("댓글이 수정되었습니다.");
-                                    $(".call").hide();
-                                    getComment();
-                                }
-                            }
                         });
                     });
                 });
@@ -747,6 +656,45 @@
             modal1.css("display", "none");
         }
     });
+	// board 좋아요 처리
+	// blikesBtnOpen
+	$(".blikesBtnOpen").click(function(){
+
+		var like = {
+				boardNum: boardNum,
+				memberNum: $('input[name="likememberNum"]').val()};
+		console.log(like);
+
+		$.ajax({
+			url: '/like/' + boardNum,
+			type: 'post',
+			data: JSON.stringify(like),
+			contentType: "application/json; charset=utf-8",
+			dataType: 'text' ,
+			success: function(result){
+				console.log("success result : " + result);
+				self.location.reload();
+
+			}
+		}); // ajax 끝
+	}); //blikesBtnOpen 끝
+
+	/* URL 복사 기능 */
+	$(".urlimg").on("click",function(){
+
+		var url = '';
+		var textarea = document.createElement("textarea");
+		document.body.appendChild(textarea);
+		url = window.document.location.href;
+		textarea.value = url;
+		textarea.select();
+		document.execCommand("copy");
+		document.body.removeChild(textarea);
+		alert("URL이 복사되었습니다.")
+
+	})
+	/* END URL 복사 기능 */
+
 </script>
 
 

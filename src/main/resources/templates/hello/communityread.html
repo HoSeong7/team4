@@ -16,169 +16,161 @@
 	<!-- [header] 영역 시작 -->
 	<header th:replace="fragments/header :: headerFragment"></header>
 	<!-- [header] 영역 끝 -->
-	<div class="content-header">
-		<div class="content-header-box">
-			<h1 class="listBtn">커뮤니티</h1>
-		</div>
-	</div>
-	<div class="content-body">
-		<div class="box-top">
-			<div class="box-left">
-				<div class="userimg">
-					<img src="/img/userimg.png" alt="" width="40px" height="40px">
-				</div>
+    <div class="content-header">
+        <div class="content-header-box">
+            <h1 class="listBtn">커뮤니티</h1>
+        </div>
+    </div>
+    <div class="content-body">
+        <div class="box-top">
+            <div class="box-left">
+                <div class="userimg">
+                    <img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="40px" height="40px">
+                	<img th:if="${dto.memberurl != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
+                </div>
 
 
 
-				<!-- 유저id -->
-				<div class="username">
-					<p>[[${dto.nickname}]] <small>[[${dto.id}]]</small></p>
-				</div>
+                <!-- 유저id -->
+                <div class="username">
+                	<p><a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a>
+                     <small>[[${dto.id}]]</small></p>
+                </div>
 
-				<!-- tag -->
-				<div class="category">
-					<p>[[${dto.tag}]]</p>
-				</div>
-			</div>
-			<div class="box-right">
-				<div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-				<div class="blikesBtnOpen"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
-				<div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
-			</div>
-		</div>
-		<div class="box-title">
-			<div>
-				<!-- title -->
-				<div class="box-left">
-					<div class="title">
-						<h2>[[${dto.title}]]</h2>
-					</div>
-				</div>
-				<!-- 수정&삭제 버튼 -->
-				<div class="box-right">
-					<!-- 수정버튼 -->
-					<div class="modify-button">
-						<a th:href="@{/hello/communitymodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
+                <!-- tag -->
+                <div class="category">
+                    <p>[[${dto.tag}]]</p>
+                </div>
+            </div>
+            <div class="box-right">
+                <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
+                <div class="blikesBtnOpen"><img src="/img/like.svg" alt="" width="30px" height="30px"></div>
+                <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
+            </div>
+        </div>
+        <div class="box-title">
+            <div>
+            	<!-- title -->
+                <div class="box-left">
+                    <div class="title">
+                        <h3>[[${dto.title}]]</h3>
+                    </div>
+                </div>
+                <!-- 수정&삭제 버튼 -->
+                <div sec:authorize="isAuthenticated" class="box-right" th:if="${dto.id} == ${member.id}">
+	                <!-- 수정버튼 -->
+                    <div class="modify-button">
+                    	<a th:href="@{/hello/communitymodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
 									type=${requestDTO.type},
 									keyword=${requestDTO.keyword}	)}">
 							<button type="button">수정</button>
 						</a>
-					</div>
+                    </div>
+                    
+                </div>
 
-					<!-- 삭제버튼 -->
-					<!--                     <div class="delete-button">
-                    	<a th:href="@{/hello/communitymodify(boardNum=${dto.boardNum}, page=${requestDTO.page},
-									type=${requestDTO.type},
-									keyword=${requestDTO.keyword}	)}">
-                        	<button type="button">삭제</button>
-                        </a>
-                    </div> -->
-				</div>
+            </div>
+        </div>
 
-			</div>
-		</div>
+        <!-- 내용 -->
+        <div class="box-content">
+            <div>
+                <p>[[${dto.content}]]</p>
+            </div>
+        </div>
+    </div>
+    <div sec:authorize="isAuthenticated">
+	        <input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
+	        <input type="hidden" name="likememberNum" th:value="${member.memberNum}">
+    </div>
+    <hr>
+    <div class="content-comments">
+        <div class="box-top">
 
-		<!-- 내용 -->
-		<div class="box-content">
-			<div>
-				<p>[[${dto.content}]]</p>
-			</div>
-		</div>
-	</div>
-	<div sec:authorize="isAuthenticated">
-		<button class="blikesBtnOpen">좋아요</button>
-		<input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
-		<input type="hidden" name="likememberNum" th:value="${member.memberNum}">
-	</div>
-	<hr>
-	<div class="content-comments">
-		<div class="box-top">
+        	<!-- 댓글 cnt -->
+            <div class="box-left">
+                <p>댓글 수 : [[${dto.cnt}]]개</p>
+            </div>
 
-			<!-- 댓글 cnt -->
-			<div class="box-left">
-				<p>댓글 수 : [[${dto.cnt}]]개</p>
-			</div>
-
-			<!-- list 이동 버튼 -->
-			<div class="box-button">
-				<div><button type="button" class="boardprevBtn">이전</button></div>
-				<div><button type="button" class="listBtn">목록</button></div>
-				<div><button type="button" class="boarNextBtn">다음</button></div>
-			</div>
-		</div>
-
-		<!-- 댓글 쓰기 -->
-
-		<form>
-			<input type="hidden" name="page" th:value="${requestDTO.page}">
+            <!-- list 이동 버튼 -->
+        </div>
+        
+        <!-- 댓글 쓰기 -->
+       
+        <form>
+	        <input type="hidden" name="page" th:value="${requestDTO.page}">
 			<input type="hidden" name="type" th:value="${requestDTO.type}">
 			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
-			<div class="box-write">
-				<div class="box-write-top">
-					<div class="box-left">
-						<div class="userimg">
-							<img src="/img/userimg.png" alt="" width="40px" height="40px">
-						</div>
-						<!-- 유저 -->
-						<div sec:authorize="isAuthenticated" class="username">
-							<p>[[${member.nickname}]] <small>[[${member.id}]]</small></p>
-							<input type="hidden" name="commenterNum" th:value="${member.memberNum}">
+        <div class="box-write" sec:authorize="isAuthenticated">
+            <div class="box-write-top">
+                <div class="box-left">
+                    <div class="userimg">
+                        <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="40px" height="40px">
+                		<img th:if="${member.url != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${member.url}" >
+                    </div>
+                    <!-- 유저 -->
+                    <div class="username">
+                        <p>[[${member.nickname}]]  <small>[[${member.id}]]</small></p>
+                        <input type="hidden" name="commenterNum" th:value="${member.memberNum}">
 
-						</div>
-					</div>
-					<div class="box-right">
-						<div>
-							<button type="button" class="commentSaveBnt">댓글 쓰기</button>
-							<button type="button" class="cModifyBnt">댓글 수정</button>
-							<button type="button" class="cCancelBnt">취소</button>
-						</div>
-					</div>
-				</div>
-				<div class="box-write-bottom">
-					<!-- 댓글 입력란 -->
-					<div class="comment-box">
-						<p><textarea cols="150" rows="5" name="commentContent"></textarea></p>
-					</div>
-					<!-- end 댓글 입력란 -->
-				</div>
-			</div>
-		</form>
-		<!-- end 댓글 쓰기 -->
+                    </div>
+                </div>
+                <div class="box-right">
+                    <div>
+                    	<button type="button" class="commentSaveBnt">댓글 쓰기</button>
+                    	<button type="button" class="cModifyBnt">댓글 수정</button>
+                    	<button type="button" class="cCancelBnt">취소</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-write-bottom">
+            	<!-- 댓글 입력란 -->
+                <div class="comment-box">
+                    <p><textarea cols="150" rows="5" name="commentContent"></textarea></p>
+                </div>
+            	<!-- end 댓글 입력란 -->
+            </div>
+        </div>
+        </form>
+        <!-- end 댓글 쓰기 -->
 
-		<!-- 댓글 -->
-		<div class="commentList"></div>
-		<!-- end 댓글 -->
-
-
-		<!--모달-->
-		<div id="myModal" class="modal call hidden">
-			<div class="modal-content">
-				<div class="modal-header">
-					<span class="close">&times;</span>
-					<input class="form-control" type="text" name="modalMember" readonly>
-				</div>
-				<div class="modal-body">
-					<div class="box">
-						<input class="form-control" type="text" name="modalText" placeholder="Reply text...">
-					</div>
-					<!-- Add more content as needed -->
-				</div>
-				<div class="modal-footer">
-					<input type="hidden" name="mBoardCommentNum">
-					<input type="hidden" name="mCommenterNum">
-					<input type="hidden" name="mClikes">
-					<button type="button" class="btn btn-warning replyModify">수정</button>
-					<button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button>
-				</div>
-
-
-
-			</div>
+        <!-- 댓글 -->
+        <div class="commentList"></div>
+        <div sec:authorize="!isAuthenticated" style="text-align:center">
+        	<br><br><a href="/hello/login">로그인</a> 후 댓글을 보실 수 있습니다.<br><br><br><br><br><br><br><br>
+        </div>
+        <!-- end 댓글 -->
+        
+        
+    <!--모달-->
+    <div id="myModal" class="modal call hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <input class="form-control" type="text" name="modalMember" readonly>
+          </div>
+          <div class="modal-body">
+            <div class="box" >
+				<input class="form-control" type="text" name="modalText" placeholder="Reply text...">
+            </div>
+            <!-- Add more content as needed -->
+          </div>
+		<div class="modal-footer">
+			<input type="hidden" name="mBoardCommentNum">
+			<input type="hidden" name="mCommenterNum">
+			<input type="hidden" name="mClikes">
+			<button type="button" class="btn btn-warning replyModify">수정</button>
+			<button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button>
 		</div>
-
-
-	</div>
-	<footer th:replace="fragments/footer :: footerFragment"></footer>
+          
+          
+          
+        </div>
+      </div>
+        
+        
+    </div>
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
 </body>
 
 <script th:inline="javascript">
@@ -209,55 +201,58 @@
 					} else {
 						add = "hide";
 					}
+				 var picUrl = '/hello/display?fileName=' + comment.memUrl;
+                 if (picUrl == '/hello/display?fileName='+null)
+                 {picUrl = '/img/c1.png';}
 
-					console.log("결과값은?" + add)
+				console.log("결과값은?" + add)
 
-					console.log(comment);
-					str += ' <div class="box-write" data-boardCommentNum="' + comment.boardCommentNum + '">';
-					str += ' 	<div class="box-write-top"> ';
-					str += ' 		<div class="box-left"> ';
-					str += ' 			<div class="userimg">';
-					str += '				<img src="/img/userimg.png" alt="" width="40px" height="40px">';
-					str += '			</div> ';
-					str += ' 			<div class="username">' + comment.nickname + ' <small> ' + comment.id + '</small> <small class="commentUpdateDate">' + displayTime(comment.regdate) + ' </small> 좋아요 :' + comment.clikes + ' 회 ';
-					//str += ' 				<div class="clikes"> 추천수 :'+ comment.clikes +' 회  </div> ';
-					str += '			</div>';
-					str += '		</div>';
-					str += '		<div class="box-right">';
-					str += ' 			<button type="button" class="commentModifyBtn ' + add;
-					str += '			" data-boardCommentNum="' + comment.boardCommentNum + '" data-commenterNum="' + comment.commenterNum + '"';
-					str += '			data-clikes="' + comment.clikes + '" data-commentContent="' + comment.commentContent + '" data-nickname="' + comment.nickname + '"';
-					str += '			>수정</button>';
-					str += ' 			<button type="button" class="commentRemoveBtn ' + add + '" data-boardCommentNum="' + comment.boardCommentNum + '">삭제</button>';
-					str += '			<button data-boardCommentNum="' + comment.boardCommentNum + '" type="button"  class="clikesBtnOpen">좋아요</button>';
-					str += '		</div>';
-					str += '	</div> ';
-					str += ' 	<div class="box-write-bottom"> ';
-					str += ' 		<div class="comment-box">' + comment.commentContent + '</div>';
-					str += '	</div> ';
-					str += ' 	<div class="box-button"></div> ';
-					str += ' </div>';
-
-
-				})
-
-				$(".commentList").html(str);
-				$(".commentModifyBtn").hide();
-				$(".commentRemoveBtn").hide();
-				$(".show").show();
+				console.log(comment);
+				str += ' <div class="box-write" data-boardCommentNum="'+ comment.boardCommentNum + '">';
+				str += ' 	<div class="box-write-top"> ';
+				str += ' 		<div class="box-left"> ';
+				str += ' 			<div class="userimg">';
+				str += ' 				<div class="userimg"><img src="' + picUrl + '" alt="" width="40px" height="40px"></div> ';
+				str += '			</div> ';
+				str += ' 			<div class="username"><a href="/hello/spacepage?id='+ comment.id +'"><Strong>' +comment.nickname+' </Strong></a> <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small> 좋아요 :'+ comment.clikes +' 회 ';
+				//str += ' 				<div class="clikes"> 추천수 :'+ comment.clikes +' 회  </div> ';
+				str += '			</div>';
+				str += '		</div>';
+				str += '		<div class="box-right">';
+				str += ' 			<button type="button" class="commentModifyBtn ' + add;
+				str += '			" data-boardCommentNum="'+ comment.boardCommentNum +'" data-commenterNum="'+ comment.commenterNum+'"';
+				str += '			data-clikes="' + comment.clikes +'" data-commentContent="'+ comment.commentContent +'" data-nickname="'+ comment.nickname +'"';
+				str += '			>수정</button>';
+				str += ' 			<button type="button" class="commentRemoveBtn ' + add + '" data-boardCommentNum="'+ comment.boardCommentNum +'">삭제</button>';
+				str += '			<button data-boardCommentNum="'+ comment.boardCommentNum + '" type="button"  class="clikesBtnOpen">좋아요</button>';
+				str += '		</div>';
+				str += '	</div> ';
+				str += ' 	<div class="box-write-bottom"> ';
+				str += ' 		<div class="comment-box">'+ comment.commentContent +'</div>';
+				str += '	</div> ';
+				str += ' 	<div class="box-button"></div> ';
+				str += ' </div>';
+				
+				
 			})
-		}
-
-		getComment();
+			
+	$(".commentList").html(str);
+	$(".commentModifyBtn").hide();
+	$(".commentRemoveBtn").hide();
+	$(".show").show();
+		})
+	}
+	
+	getComment();
+	$(".show").show();
+	
+	$(".boardprevBtn").click(function(){
+		
+		
+		alert("작동?");
 		$(".show").show();
-
-		$(".boardprevBtn").click(function () {
-
-
-			alert("작동?");
-			$(".show").show();
-
-			const urlParams = new URL(location.href).searchParams;
+		
+		const urlParams = new URL(location.href).searchParams;
 
 			const name = urlParams.get('memberNum');
 

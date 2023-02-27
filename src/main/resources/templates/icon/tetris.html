@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -7,12 +7,14 @@
 <link rel="stylesheet" href="/iconcss/tetris.css">
 <body onresize="parent.resizeTo(450,650)" onload="parent.resizeTo(450,650)">
     <div class="wrapper">
-        <div class="game-text">게임종료<button>다시시작</button></div>
+        <div class="game-text">게임종료<button>기록저장 후 다시시작</button></div>
+        <div class="score2" th:each="score : ${max}"><p>이름 : [[${score.id}]] , 점수 : [[${score.score}]]</p></div>
         <div class="score">0</div>
         <div class="playground">
             <ul></ul>
         </div>
     </div>
     <script src="/js/ajax/tetris.js" type="module"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </body>
 </html>

@@ -115,7 +115,7 @@ public class BoardServiceImpl implements BoardService {
 		if(result.isPresent()) {
 			Board entity = result.get();
 			
-			entity.change(boardDTO.getTitle(), boardDTO.getContent());
+			entity.change(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.getTag());
 			boardRepository.save(entity);
 		}
 	}

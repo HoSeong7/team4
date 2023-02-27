@@ -157,4 +157,17 @@ public class CommentServiceImpl implements CommentService {
 		List<Comment> comments = commentRepository.getCommentById(id);
 		return comments;
 	}
+
+	@Override
+	public void boardRemove(Long boardNum) {
+		
+		List<Long> comment = commentRepository.findBoardCommentNum(boardNum);
+		
+		for(Long aa : comment) {
+			commentRepository.deleteById(aa);
+			
+		}
+		
+		
+	}
 }

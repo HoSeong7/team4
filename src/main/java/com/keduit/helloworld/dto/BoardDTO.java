@@ -53,6 +53,9 @@ public class BoardDTO {
 	/** member 닉네임*/
 	private String nickname;
 	
+	/** member url*/
+	private String memberurl;
+	
 	/** Board_comment 작성,수정 날짜 */
 	/** Board_comment 작성,수정 날짜 */
 	private LocalDateTime regdate, updatedate; 

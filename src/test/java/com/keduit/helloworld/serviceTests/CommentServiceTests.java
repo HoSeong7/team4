@@ -39,5 +39,12 @@ public class CommentServiceTests {
 		
 		System.out.println("값은? " + member);
 	}
+
+	@Test
+	public void removerTest() {
+		
+		commentService.boardRemove(600L);
+	}
+	
 	
 }

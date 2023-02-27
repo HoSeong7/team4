@@ -68,6 +68,7 @@ public interface BoardService {
 							.regdate(entity.getRegDate())
 							.updatedate(entity.getUpdateDate())
 							.memberNum(entity.getMemberNum())
+							.memberurl(member.getUrl())
 							.build();
 		
 		return boardDTO;

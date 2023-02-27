@@ -17,7 +17,7 @@
 	<!-- [header] 영역 끝 -->
     <div class="content-header">
         <div class="content-header-box">
-            <h1>NOTICE</h1>
+            <h1 class="listBtn">NOTICE</h1>
         </div>
     </div>
     <div class="content-body">
@@ -89,12 +89,13 @@
         <div class="box-top">     
         <br>
         <!-- list 이동 버튼 -->
-            <div class="box-button">
-                <div><button>이전</button></div>
-                <div><button type="button" class="listBtn">목록</button></div>
-                <div><button>다음</button></div>
-            </div>
         </div>
+        <form>
+	        <input type="hidden" name="page" th:value="${requestDTO.page}">
+			<input type="hidden" name="type" th:value="${requestDTO.type}">
+			<input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+		</form>
+		
         <br>
         <br>
         <br>
@@ -107,24 +108,26 @@
 </body>
 
 <script th:inline="javascript">
-
+$(document).ready(function(){
 	
-		var actionForm = $("form");
+	var actionForm = $("form");
 		
-			$(".listBtn").click(function(){
-				var pageInfo = $("input[name='page']");
-				var type=$("input[name='page']");
-				var keyword=$("input[name='keyword']");
-				
-				actionForm.empty();
-				actionForm.append(pageInfo);
-				actionForm.append(type);
-				actionForm.append(keyword);
-				actionForm.attr("action", "/hello/noticelist")
-							.attr("method", "GET");
-				
-				actionForm.submit();
-			});
+	$(".listBtn").click(function(){
+		var pageInfo = $("input[name='page']");
+		var type=$("input[name='page']");
+		var keyword=$("input[name='keyword']");
+					
+		actionForm.empty();
+		actionForm.append(pageInfo);
+		actionForm.append(type);
+		actionForm.append(keyword);
+		actionForm.attr("action", "/hello/noticelist")
+					.attr("method", "GET");
+					
+		actionForm.submit();
+	});
+
+});
 			
 	
 	</script>
