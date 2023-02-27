@@ -70,14 +70,14 @@
                 </div>
                 <div class="register-box" th:each="dto:${myBoard}">
                     <div class="box5">
+                    	<div th:if="${dto.boardcase == 1}">커뮤니티</div>
                     	<div th:if="${dto.boardcase == 2}">공지사항</div>
-                    	<div th:if="${dto.boardcase == 1}">무료게시판</div>
-                    	<div th:if="${dto.boardcase == 3}">유료게시판</div>
+                    	<div th:if="${dto.boardcase == 3}">QnA</div>
                     </div>
                     <div class="box2">
-                    	<a th:if="${dto.boardcase == 1}" th:href="@{/hello/communityread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
-                    	<a th:if="${dto.boardcase == 2}" th:href="@{/hello/noticeread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
-                    	<a th:if="${dto.boardcase == 3}" th:href="@{/hello/qnaread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a id="text1" th:if="${dto.boardcase == 1}" th:href="@{/hello/communityread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a id="text1" th:if="${dto.boardcase == 2}" th:href="@{/hello/noticeread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a id="text1" th:if="${dto.boardcase == 3}" th:href="@{/hello/qnaread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
                     </div>
                     <div class="box2">[[${dto.views}]]</div>
                     <div class="box3">[[${dto.blikes}]]</div>
@@ -89,16 +89,22 @@
             <h1>댓글 내역</h1>
             <div class="content-chat">
                 <div class="register-box">
-                    <div class="box2">게시글 번호</div>
-                    <div class="box1">게시글 내용</div>
+                    <div class="box2">댓글 위치</div>
+                    <div class="box1">댓글 내용</div>
                     <div class="box3">추천수</div>
                     <div class="box5">등록일</div>
                 </div>
-                 <div class="register-box" th:each="com:${myComment}">
-                    <div class="box2">[[${com.boardNum}]]</div>
-                    <div class="box1"><a th:href="@{/hello/communityread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
+               <div class="register-box" th:each="com:${myComment}">
+                    <div class="box2">
+                    	<div th:if="${com.boardcase == 1}">커뮤니티</div>
+                    	<div th:if="${com.boardcase == 2}">공지사항</div>
+                    	<div th:if="${com.boardcase == 3}">QnA</div>
+                    </div>
+                    <div class="box1" th:if="${com.boardcase == 1}" id="text1"><a th:href="@{/hello/communityread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
+                    <div class="box1" th:if="${com.boardcase == 2}" id="text1"><a th:href="@{/hello/noticeread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
+                    <div class="box1" th:if="${com.boardcase == 3}" id="text1"><a th:href="@{/hello/qnaread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
                     <div class="box3">[[${com.clikes}]]</div>
-                    <div class="box5">[[${#temporals.format(com.updateDate, 'yyyy/MM/dd')}]]</div>
+                    <div class="box5">[[${#temporals.format(com.updatedate, 'yyyy/MM/dd')}]]</div>
                 </div>
             </div>
         </div>
@@ -118,8 +124,7 @@
         <div class="box-userimg">
                  	 <img th:if="${follow.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 	 <img th:if="${follow.url != null}" width="30px" height="30px" th:src="'/hello/display?fileName='+${follow.url}" ></div>
-        <div class="box-username"><a th:href="@{/hello/spacepage(id=${follow.id})}">[[${follow.id}]]</a></div>
-        <!-- <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div> -->
+        <div class="box-username"><a th:href="@{/hello/spacepage(id=${follow.id})}">[[${follow.nickname}]]</a></div>
       </div>
       <!-- Add more content as needed -->
     </div>
@@ -138,8 +143,7 @@
         <div class="box-userimg">
         		<img th:if="${followi.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 <img th:if="${followi.url != null}" width="30px" height="30px" th:src="'/hello/display?fileName='+${followi.url}" ></div>
-        <div class="box-username"><a th:href="@{/hello/spacepage(id=${followi.id})}">[[${followi.id}]]</a></div>
-        <!-- <div class="box-starimg"><img src="../img/starfull.png" alt=""  width="20px" height="20px"></div> -->
+        <div class="box-username"><a th:href="@{/hello/spacepage(id=${followi.id})}">[[${followi.nickname}]]</a></div>
       </div>
      </div>
   </div>
@@ -353,10 +357,17 @@
           });
           
       		  
+  //제목 수 10개 제한걸이
+  const text1 = document.getElementById("text1");
+	const content = text1.innerHTML;
+	const shortenedContent = content.substring(0, 15) + "...";
+	text1.innerHTML = shortenedContent;
         	  });  // end event
        
   
   // 사진업로드 and
+  
+  
   
 </script>
   <footer th:replace="fragments/footer :: footerFragment"></footer>

@@ -48,4 +48,6 @@ public class CommentDTO {
 	
 	/** Board_comment 작성,수정 날짜 */
 	private LocalDateTime regdate, updatedate; 
+	
+	private Long boardcase;
 }

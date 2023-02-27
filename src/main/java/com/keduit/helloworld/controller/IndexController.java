@@ -37,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.dto.BoardDTO;
+import com.keduit.helloworld.dto.CommentDTO;
 import com.keduit.helloworld.dto.FileDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.entity.Board;
@@ -232,7 +233,11 @@ public class IndexController {
     	   List<Board> myBoards = boardService.getMyBoardList(idnum.getId());
     	   
     	   /** 내가 쓴 댓글 불러오기 */
-    	   List<Comment> myComments = commentService.getCommentList(idnum.getMemberNum());
+    	   List<CommentDTO> myComments = commentService.getCommentList(idnum.getMemberNum());
+    	   
+    	   for(CommentDTO com : myComments) {
+    		   System.out.println(com);
+    	   }
     	   
     	    model.addAttribute("member",idnum);
     	    /**내가 팔로한 사람 목록*/
