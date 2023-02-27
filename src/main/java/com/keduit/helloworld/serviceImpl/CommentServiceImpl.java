@@ -46,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
 	/** 등록 */
 	public Long register(CommentDTO commentDTO) {
 		Comment comment = dtoToEntity(commentDTO);
-		if(comment.getPrice() != 0){
+		if(comment.getPrice() != null && comment.getPrice() != 0){
 			ViewAuth viewAuth = ViewAuth
 					.builder()
 					.boardCommentNum(comment.getBoardCommentNum())
