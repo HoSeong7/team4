@@ -33,7 +33,8 @@
                 
                 <!-- 유저id -->
                 <div class="username">
-                    <p>[[${dto.nickname}]] <small>[[${dto.id}]]</small></p>
+                	<p><a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a>
+                     <small>[[${dto.id}]]</small></p>
                 </div>
                 
                 <!-- tag -->
@@ -213,7 +214,7 @@ $(document).ready(function(){
 				str += ' 			<div class="userimg">';
 				str += ' 				<div class="userimg"><img src="' + picUrl + '" alt="" width="40px" height="40px"></div> ';							
 				str += '			</div> ';
-				str += ' 			<div class="username">'+comment.nickname+' <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small> 좋아요 :'+ comment.clikes +' 회 ';
+				str += ' 			<div class="username"><a href="/hello/spacepage?id='+ comment.id +'"><Strong>' +comment.nickname+' </Strong></a> <small> '+ comment.id +'</small> <small class="commentUpdateDate">'+ displayTime(comment.regdate) + ' </small> 좋아요 :'+ comment.clikes +' 회 ';
 				//str += ' 				<div class="clikes"> 추천수 :'+ comment.clikes +' 회  </div> ';
 				str += '			</div>';
 				str += '		</div>';
