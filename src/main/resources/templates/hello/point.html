@@ -118,8 +118,7 @@
                         </div>
                         <p style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 5,000원이며 <br />최대 충전금액은 50,000원 입니다.
                         </p>
-                        <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom"
-                                id="charge_kakao">충 전 하 기</button>
+                        <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button>
                         </div>
                     </div>
 
@@ -162,68 +161,20 @@
    
 	<script>
 		function checkRadio() {
-			var price1 = $('.price1').is(':checked');
-			var price2 = $('.price2').is(':checked');
-			var price3 = $('.price3').is(':checked');
-			var price4 = $('.price4').is(':checked');
-			var price5 = $('.price5').is(':checked');
-			var price6 = $('.price6').is(':checked');
-			var price7 = $('.price7').is(':checked');
-			var price8 = $('.price8').is(':checked');
-			var price9 = $('.price9').is(':checked');
-			
-			if(price1){
-				$(".bgr1").addClass("green-background");
-			}else{
-				$(".bgr1").removeClass("green-background");
-			}
-			if(price2){
-				$(".bgr2").addClass("green-background");
-			}else{
-				$(".bgr2").removeClass("green-background");
-			}
-			if(price3){
-				$(".bgr3").addClass("green-background");
-			}else{
-				$(".bgr3").removeClass("green-background");
-			}
-			if(price4){
-				$(".bgr4").addClass("green-background");
-			}else{
-				$(".bgr4").removeClass("green-background");
-			}
-			if(price5){
-				$(".bgr5").addClass("green-background");
-			}else{
-				$(".bgr5").removeClass("green-background");
-			}
-			if(price6){
-				$(".bgr6").addClass("green-background");
-			}else{
-				$(".bgr6").removeClass("green-background");
-			}
-			if(price7){
-				$(".bgr7").addClass("green-background");
-			}else{
-				$(".bgr7").removeClass("green-background");
-			}
-			if(price8){
-				$(".bgr8").addClass("green-background");
-			}else{
-				$(".bgr8").removeClass("green-background");
-			}
-			if(price9){
-				$(".bgr9").addClass("green-background");
-			}else{
-				$(".bgr9").removeClass("green-background");
+			for (let i = 1; i < 10; i++) {
+			    let evalStr = 'var price' + i + ' =  $(".price'+i+'").is(":checked")';
+			    eval(evalStr);
+			    
+			    if(eval('price'+i)){
+			        $(".bgr"+i).addClass("green-background");
+			     }else{
+			        $(".bgr"+i).removeClass("green-background");
+			     }
 			}
 		}
 	</script>
 
-   
-   
-   
-   
+
    <script>
       $( document ).ready( function() {
         $( '#jb' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
@@ -296,8 +247,6 @@
     <footer th:replace="fragments/footer :: footerFragment"></footer>
         
 </body>
-
-
 
 
 
