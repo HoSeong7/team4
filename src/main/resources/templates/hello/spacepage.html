@@ -124,7 +124,7 @@
         <div class="box-userimg">
                  	 <img th:if="${follow.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 	 <img th:if="${follow.url != null}" width="30px" height="30px" th:src="'/hello/display?fileName='+${follow.url}" ></div>
-        <div class="box-username"><a th:href="@{/hello/spacepage(id=${follow.id})}">[[${follow.id}]]</a></div>
+        <div class="box-username"><a th:href="@{/hello/spacepage(id=${follow.id})}">[[${follow.nickname}]]</a></div>
       </div>
       <!-- Add more content as needed -->
     </div>
@@ -143,7 +143,7 @@
         <div class="box-userimg">
         		<img th:if="${followi.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
                 <img th:if="${followi.url != null}" width="30px" height="30px" th:src="'/hello/display?fileName='+${followi.url}" ></div>
-        <div class="box-username"><a th:href="@{/hello/spacepage(id=${followi.id})}">[[${followi.id}]]</a></div>
+        <div class="box-username"><a th:href="@{/hello/spacepage(id=${followi.id})}">[[${followi.nickname}]]</a></div>
       </div>
      </div>
   </div>
@@ -357,17 +357,17 @@
           });
           
       		  
+  //제목 수 10개 제한걸이
+  const text1 = document.getElementById("text1");
+	const content = text1.innerHTML;
+	const shortenedContent = content.substring(0, 15) + "...";
+	text1.innerHTML = shortenedContent;
         	  });  // end event
        
   
   // 사진업로드 and
   
-  //제목 수 10개 제한걸이
   
-  const text1 = document.getElementById("text1");
-	const content = text1.innerHTML;
-	const shortenedContent = content.substring(0, 15) + "...";
-	text1.innerHTML = shortenedContent;
   
 </script>
   <footer th:replace="fragments/footer :: footerFragment"></footer>
