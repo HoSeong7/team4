@@ -1,6 +1,5 @@
 package com.keduit.helloworld.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,9 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.keduit.helloworld.dto.CouponDTO;
 import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PointAccountDTO;
 import com.keduit.helloworld.entity.Coupon;
@@ -123,4 +127,30 @@ public class PointController {
 
 		return "success";
 	}
+	
+//테스트 중
+	@PostMapping("/kakaopay") //실제 결제용 페이지
+	public @ResponseBody boolean chargePoint(@RequestBody HashMap<Object, Object> params) { //charge=충전금액
+		
+		String memberNum = params.get("memberNum").toString();	
+		String charge = params.get("charge").toString();	
+		
+		boolean success = pointPayService.chargePoint(Long.parseLong(memberNum), Long.parseLong(charge));
+		
+		return success; 
+	}
+	
+	
+	@GetMapping("/kakaopay") //결제 페이지로 이동하는 매핑
+	public void kakaoPay(Authentication authentication, Model model) {
+		
+		//내 아이디 가져오기
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		MemberDTO memberDTO = memberService.getMyInfo(userDetails.getUsername());
+		
+		model.addAttribute("myInfo", memberDTO);
+	}
+
+	
+//테스트 끝
 }

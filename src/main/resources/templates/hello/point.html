@@ -8,9 +8,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/point.css">
     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/test.css">
     
-<!--     jQuery -->
-<!--     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
+    
+	<!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     
@@ -38,10 +40,12 @@
 	                    <input type="hidden" th:value="${my.point}" id="testPoint">
 	                    <div class="box-bottom">
 	                    	<button type="submit">충전하기</button>
+	                    	<div id="myBtn" >간편결제</div>
+<!-- 	                    	<button onclick="window.open('/hello/temp')">간편결제</button> -->
+<!-- 	                    	<button onclick="window.open('/hello/kakaopay')">간편결제</button> -->
 <!-- 	                    	<div onclick="requestPay()">간편결제</div> -->
 <!-- 	                    	<input type="button" value="간편결제" onclick="requestPay()"> -->
 	                    </div>
-<!-- 	                    	<button type="button" onclick="location.href=kakaopay.html">간편결제</button> -->
 	                </div>
 	          </form>
 	        </div>
@@ -81,8 +85,143 @@
             </div>
         </div>
         
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <div class='wave -one'></div>
+                    <div class='wave -two'></div>
+                    <div class='wave -three'></div>
+                    <h2 class="title">카카오페이</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body bg-white mt-0 shadow">
+                        <p style="font-weight: bold">카카오페이 현재 사용가능</p>
+                        
+                        <div class="box">
+                            <label class="box-radio-input bgr1"> 5000원 <input class="radio-all price1" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                            <label class="box-radio-input bgr2"> 10000원 <input class="radio-all price2" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                            <label class="box-radio-input bgr3"> 15000원 <input class="radio-all price3" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                        </div>
+                        
+                        <div class="box">
+                            <label class="box-radio-input bgr4"> 20000원 <input class="radio-all price4" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                            <label class="box-radio-input bgr5"> 25000원 <input class="radio-all price5" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                            <label class="box-radio-input bgr6"> 30000원 <input class="radio-all price6" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                        </div>
+                        <div class="box">
+                            <label class="box-radio-input bgr7"> 35000원 <input class="radio-all price7" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                            <label class="box-radio-input bgr8"> 40000원 <input class="radio-all price8" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                            <label class="box-radio-input bgr9"> 50000원 <input class="radio-all price9" onclick="checkRadio()" type="radio" name="cp_item" ></label>
+                        </div>
+                        <p style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 5,000원이며 <br />최대 충전금액은 50,000원 입니다.
+                        </p>
+                        <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom"
+                                id="charge_kakao">충 전 하 기</button>
+                        </div>
+                    </div>
+
+                    <!-- Add more content as needed -->
+                </div>
+            </div>
+        </div>
+        
    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+	<script>
+             // Get the modal
+             var modal = document.getElementById("myModal");
+
+             // Get the button that opens the modal
+             var btn = document.getElementById("myBtn");
+
+             // Get the <span> element that closes the modal
+             var span = document.getElementsByClassName("close")[0];
+
+             // When the user clicks the button, open the modal 
+             btn.onclick = function () {
+                 modal.style.display = "block";
+             }
+
+             // When the user clicks on <span> (x), close the modal
+             span.onclick = function () {
+                 modal.style.display = "none";
+             }
+
+             // When the user clicks anywhere outside of the modal, close it
+             window.onclick = function (event) {
+                 if (event.target == modal) {
+                     modal.style.display = "none";
+                 }
+             }
+ 	</script>
+   
+   
+	<script>
+		function checkRadio() {
+			var price1 = $('.price1').is(':checked');
+			var price2 = $('.price2').is(':checked');
+			var price3 = $('.price3').is(':checked');
+			var price4 = $('.price4').is(':checked');
+			var price5 = $('.price5').is(':checked');
+			var price6 = $('.price6').is(':checked');
+			var price7 = $('.price7').is(':checked');
+			var price8 = $('.price8').is(':checked');
+			var price9 = $('.price9').is(':checked');
+			
+			if(price1){
+				$(".bgr1").addClass("green-background");
+			}else{
+				$(".bgr1").removeClass("green-background");
+			}
+			if(price2){
+				$(".bgr2").addClass("green-background");
+			}else{
+				$(".bgr2").removeClass("green-background");
+			}
+			if(price3){
+				$(".bgr3").addClass("green-background");
+			}else{
+				$(".bgr3").removeClass("green-background");
+			}
+			if(price4){
+				$(".bgr4").addClass("green-background");
+			}else{
+				$(".bgr4").removeClass("green-background");
+			}
+			if(price5){
+				$(".bgr5").addClass("green-background");
+			}else{
+				$(".bgr5").removeClass("green-background");
+			}
+			if(price6){
+				$(".bgr6").addClass("green-background");
+			}else{
+				$(".bgr6").removeClass("green-background");
+			}
+			if(price7){
+				$(".bgr7").addClass("green-background");
+			}else{
+				$(".bgr7").removeClass("green-background");
+			}
+			if(price8){
+				$(".bgr8").addClass("green-background");
+			}else{
+				$(".bgr8").removeClass("green-background");
+			}
+			if(price9){
+				$(".bgr9").addClass("green-background");
+			}else{
+				$(".bgr9").removeClass("green-background");
+			}
+		}
+	</script>
+
+   
+   
+   
    
    <script>
       $( document ).ready( function() {
@@ -151,41 +290,13 @@
 		}
 
 	</script>
-
-        <footer th:replace="fragments/footer :: footerFragment"></footer>
+	
+	
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
         
 </body>
 
-	<!-- 간편결제 - 카카오페이 -->
-	<script th:inline="javascript"> 
-	
-	    	IMP.init("imp17634270");
-	    
-	    	const myName = [[${my.name}]];
-	    	
-	        function requestPay() {
-	        	
-	    		var uuid = self.crypto.randomUUID();
-	    		
-	            IMP.request_pay({
-	                pg : 'kakaopay.TC0ONETIME',
-	                pay_method : 'card',
-	                merchant_uid: uuid, //매번 고유해야함
-	                name : '포인트 충전',
-	                amount : $("#charge").val(),
-	                buyer_name : myName
-	            }, function (rsp) { // callback
-	                if (rsp.success) {
-	                    console.log(rsp);
-						alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
-// 						window.location.reload()
-	                } else {
-	                    console.log(rsp);
-						alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
-	                }
-	            });
-	        }
-	</script>
+
 
 
 
