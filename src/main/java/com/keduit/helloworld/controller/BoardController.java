@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.helloworld.dto.BoardDTO;
+import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.PageRequestDTO;
 import com.keduit.helloworld.dto.PageResultDTO;
 import com.keduit.helloworld.entity.Board;
@@ -108,11 +109,17 @@ public class BoardController {
 	// < resister >
 	// PostMapping
 	@PostMapping("/communityregister")
-	public String communityregister(BoardDTO dto, RedirectAttributes redirectAttributes) {
+	public String communityregister(Authentication authentication,BoardDTO dto, RedirectAttributes redirectAttributes) {
 		log.info("위치 : BoardController register()");
 		log.info("dto : " + dto);
 		Long boardnum = boardService.register(dto);
 		
+		//23.02.28 호성
+		// 게시물 등록시 경험치 추가 
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		MemberDTO exe = memberService.exeModify(userDetails.getUsername());
+		
+		//호성 end
 		log.info("boardnum : " + boardnum);
 		redirectAttributes.addFlashAttribute("msg",boardnum);
 		return "redirect:/hello/communitylist";
@@ -130,10 +137,17 @@ public class BoardController {
 	}	
 	
 	@PostMapping("/qnaregister")
-	public String qnaregister(BoardDTO dto, RedirectAttributes redirectAttributes) {
+	public String qnaregister(Authentication authentication, BoardDTO dto, RedirectAttributes redirectAttributes) {
 		log.info("위치 : BoardController register()");
 		log.info("dto : " + dto);
 		Long boardnum = boardService.register(dto);
+		//23.02.28 호성
+				// 게시물 등록시 경험치 추가 
+				UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+				MemberDTO exe = memberService.exeModify(userDetails.getUsername());
+				
+				//호성 end
+		
 		
 		log.info("boardnum : " + boardnum);
 		redirectAttributes.addFlashAttribute("msg",boardnum);

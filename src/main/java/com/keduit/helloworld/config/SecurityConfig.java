@@ -2,7 +2,6 @@ package com.keduit.helloworld.config;
 
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.keduit.helloworld.security.handler.LoginSuccessHandler;
-import com.keduit.helloworld.security.service.UserDetailsService;
 
 import lombok.extern.log4j.Log4j2;
 

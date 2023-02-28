@@ -238,5 +238,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDTO;
 	}
 
+	/**게시물등록시 경험치 추가*/
+	@Override
+	public MemberDTO exeModify(String username) {
+		Optional<Member> entity = repository.getMemberId(username);
+		entity.get().sumExe((long)50);
+		repository.save(entity.get());
+		
+		return null;
+	}
+
 	
 }
