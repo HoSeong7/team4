@@ -75,9 +75,9 @@
                     	<div th:if="${dto.boardcase == 3}">QnA</div>
                     </div>
                     <div class="box2">
-                    	<a id="text1" th:if="${dto.boardcase == 1}" th:href="@{/hello/communityread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
-                    	<a id="text1" th:if="${dto.boardcase == 2}" th:href="@{/hello/noticeread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
-                    	<a id="text1" th:if="${dto.boardcase == 3}" th:href="@{/hello/qnaread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a class="text1" id="text1" th:if="${dto.boardcase == 1}" th:href="@{/hello/communityread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a class="text1" id="text1" th:if="${dto.boardcase == 2}" th:href="@{/hello/noticeread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
+                    	<a class="text1" id="text1" th:if="${dto.boardcase == 3}" th:href="@{/hello/qnaread(boardNum=${dto.boardNum})}">[[${dto.title}]]</a>
                     </div>
                     <div class="box2">[[${dto.views}]]</div>
                     <div class="box3">[[${dto.blikes}]]</div>
@@ -100,9 +100,9 @@
                     	<div th:if="${com.boardcase == 2}">공지사항</div>
                     	<div th:if="${com.boardcase == 3}">QnA</div>
                     </div>
-                    <div class="box1" th:if="${com.boardcase == 1}" id="text1"><a th:href="@{/hello/communityread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
-                    <div class="box1" th:if="${com.boardcase == 2}" id="text1"><a th:href="@{/hello/noticeread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
-                    <div class="box1" th:if="${com.boardcase == 3}" id="text1"><a th:href="@{/hello/qnaread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
+                    <div class="box1" th:if="${com.boardcase == 1}" id="text1"><a class="text1" th:href="@{/hello/communityread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
+                    <div class="box1" th:if="${com.boardcase == 2}" id="text1"><a class="text1" th:href="@{/hello/noticeread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
+                    <div class="box1" th:if="${com.boardcase == 3}" id="text1"><a class="text1" th:href="@{/hello/qnaread(boardNum=${com.boardNum})}">[[${com.commentContent}]]</a></div>
                     <div class="box3">[[${com.clikes}]]</div>
                     <div class="box5">[[${#temporals.format(com.updatedate, 'yyyy/MM/dd')}]]</div>
                 </div>
@@ -367,7 +367,22 @@
   
   // 사진업로드 and
   
-  
+  // 글자수 15제한
+  	function truncateText() {
+  var elements = document.getElementsByClassName("text1");
+  for (var i = 0; i < elements.length; i++) {
+    var html = elements[i].innerHTML.trim();
+    if (html.length > 15) {
+      html = html.substr(0, 15) + "...";
+      elements[i].innerHTML = html;
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  truncateText();
+});
+
   
 </script>
   <footer th:replace="fragments/footer :: footerFragment"></footer>

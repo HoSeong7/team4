@@ -19,8 +19,8 @@
                 <li><img class="siri" src="/img/siri.png" alt="" width="20px" height="25px" onclick="siri()"></li>
                 
                 
-               <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/myspace}">로그인</a></li>
-               <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">로그인</a></li>
+               <li sec:authorize="!isAuthenticated"><a id="open-login" th:href="@{/hello/main}">로그인</a></li>
+               <li sec:authorize="isAuthenticated" style="color:white"><a sec:authentication="name" th:href="@{/hello/myspace}">불러온id값</a></li>
              <!-- sec:authentication="principal.id -->
              	
                 <li sec:authorize="isAuthenticated"><a id="open-login" th:href="@{/logout}">로그아웃</a></li>

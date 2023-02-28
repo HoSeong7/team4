@@ -6,12 +6,16 @@ import java.util.List;
 import com.keduit.helloworld.repository.ViewAuthRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import com.keduit.helloworld.dto.BoardCheckLikeDTO;
 import com.keduit.helloworld.dto.CommentDTO;
+import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.service.BoardCheckLikeService;
 import com.keduit.helloworld.service.CommentService;
+import com.keduit.helloworld.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +27,7 @@ import lombok.extern.log4j.Log4j2;
 public class CommentController {
 	
 	private final CommentService commentService;
+	private final MemberService memberService;
 	
 	@GetMapping("/{boardNum}/all")
 	public ResponseEntity<List<CommentDTO>> getListByBoard(@PathVariable("boardNum") Long boardNum){
@@ -33,10 +38,16 @@ public class CommentController {
 	}
 	
 	@PostMapping("/{boardNum}")
-	public ResponseEntity<Long> register(@RequestBody CommentDTO commentDTO){
+	public ResponseEntity<Long> register(@RequestBody CommentDTO commentDTO, Authentication authentication){
 		log.info("위치 : CommentController PostMapping register()");
 		log.info("commentDTO : " + commentDTO);
 		Long boardCommentNum = commentService.register(commentDTO);
+		// 게시물 등록시 경험치 추가 
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		MemberDTO exe = memberService.exeModify(userDetails.getUsername());
+		
+		//호성 end
+		
 		return new ResponseEntity<Long>(boardCommentNum, HttpStatus.OK);
 	}
 	

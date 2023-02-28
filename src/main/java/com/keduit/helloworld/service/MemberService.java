@@ -123,6 +123,8 @@ public interface MemberService {
 	
 	/** 탑 맴버 조회 */
 	List<Member> topMember();
+	/** 게시물 등록시 경험치추가*/
+	MemberDTO exeModify(String username);
 
 
 }

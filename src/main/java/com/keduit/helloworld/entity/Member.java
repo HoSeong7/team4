@@ -122,6 +122,11 @@ public class Member extends BaseEntity{
 	public void changePoint(Long point){
 		this.point = point;
 	}
+
+	public void sumExe(long l) {
+		this.exvalue += l;
+		
+	}
 	
 	
 }
