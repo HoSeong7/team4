@@ -18,7 +18,9 @@ li {
 a {
     text-decoration: none;
 }
-
+strong{
+	color:black;
+}
 
 
 /*상단 바*/
@@ -259,11 +261,49 @@ a {
     margin: auto;
     margin-top: 5px;
 }
-.content-body .board .board-text p{
-    font-size: 10px;
-    float: left;
-    margin: 0 5px;
-    font-size: 12px;
+.content-body .board .board-text .userimg{
+	width: 50px;
+	float:left;
+}
+.content-body .board .board-text .username{
+	max-width: 300px;
+	float: left;
+	margin-top:5px;
+}
+.content-body .board .board-text .rightbox{
+	float:right;
+}
+.content-body .board .board-text .rightbox .box1{
+	float:left;
+	width: 30px;
+	margin-top: 4px;
+}
+.content-body .board .board-text .rightbox .box1p{
+	float:left;
+	margin-left:5px;
+	width: 30px;
+}
+.content-body .board .board-text .rightbox .box2{
+	float:left;
+	width: 30px;
+	margin-top: 4px;
+}
+.content-body .board .board-text .rightbox .box2p{
+	float:left;
+	margin-left:5px;
+	width: 30px;
+}
+.content-body .board .board-text .rightbox .board-view{
+	float:left;
+	max-width:100px;
+}
+.content-body .board .board-text .rightbox .board-time{
+	float:left;
+	width:100px;
+	margin-left: 5px;
+}
+.content-body .board .board-text .rightbox p{
+	margin-top:6px;
 }
 /*페이지 번호*/
 .page_wrap {

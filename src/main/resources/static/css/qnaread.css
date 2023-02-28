@@ -22,6 +22,12 @@ button{
     color: white;
     font-weight: 900;
 }
+textarea{
+	resize:none;
+}
+strong{
+	color:black;
+}
 .commentSaveBnt{
     width: 80px;
 }
