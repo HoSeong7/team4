@@ -24,7 +24,7 @@ public class MemberInsertTest2 {
 	
 	@Test
 	public void insertTest() {
-		IntStream.rangeClosed(1, 50).forEach(i->{
+		IntStream.rangeClosed(1, 10).forEach(i->{
 			Member member = Member.builder()
 					.id("user"+i)
 					.name("이름"+i)
@@ -32,7 +32,6 @@ public class MemberInsertTest2 {
 					.nickname("닉네임"+i)
 					.email(i + "@abc.com")
 					.purview(false)
-					.exvalue(800L)
 					.build();
 				member.addMemberRole(MemberRole.USER);
 				memberRepository.save(member);

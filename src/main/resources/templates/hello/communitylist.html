@@ -42,7 +42,7 @@
 				                	<img th:if="${list1.exvalue} >= 300 and ${list1.exvalue} < 400" src="/img/a4.png" width="25px" height="25px">
 				                	<img th:if="${list1.exvalue} >= 400" src="/img/a5.png" width="25px" height="25px">
 		                        </div>
-		                        <div class="username"><a th:href="@{/hello/spacepage(id=${list1.id})}"><Strong>[[${list1.nickname}]]</Strong></a></div>
+		                        <div class="username"><a th:href="@{/hello/spacepage(id=${list1.id})}"><Strong class="text2">[[${list1.nickname}]]</Strong></a></div>
 		                        <div class="hits">[[${list1.exvalue}]]</div>
 		                    </div>
 	                    </div>
@@ -60,7 +60,7 @@
 	                   <div th:each=" listchk : ${top}">
 		                    <div class="box-content">
 		                        <!-- <div class="username">[[${listchk.boardNum}]]</div> -->
-		                        <div class="username"><a th:href="@{/hello/communityread(boardNum=${listchk.boardNum})}"><Strong class="text1">[[${listchk.title}]]</Strong></a></div>
+		                        <div class="username"><a th:href="@{/hello/communityread(boardNum=${listchk.boardNum})}"><Strong class="text2">[[${listchk.title}]]</Strong></a></div>
 		                        <div class="hits">[[${listchk.views}]]회</div>
 		                    </div>
 	                    </div>
@@ -223,6 +223,17 @@
 	
 	//글자수 표시 제한 걸기
 	
+		function truncateText2() {
+  var elements = document.getElementsByClassName("text2");
+  for (var i = 0; i < elements.length; i++) {
+    var html = elements[i].innerHTML.trim();
+    if (html.length > 13) {
+      html = html.substr(0, 13) + "...";
+      elements[i].innerHTML = html;
+    }
+  }
+}
+	
 	
 	function truncateText() {
   var elements = document.getElementsByClassName("text1");
@@ -237,6 +248,7 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
   truncateText();
+  truncateText2();
 });
 </script>
 

@@ -46,6 +46,7 @@ public class CommentServiceImpl implements CommentService {
 	/** 등록 */
 	public Long register(CommentDTO commentDTO) {
 		Comment comment = dtoToEntity(commentDTO);
+		commentRepository.save(comment);
 		if(comment.getPrice() != null && comment.getPrice() != 0){
 			ViewAuth viewAuth = ViewAuth
 					.builder()
@@ -54,7 +55,6 @@ public class CommentServiceImpl implements CommentService {
 					.build();
 			viewAuthRepository.save(viewAuth);
 		}
-		commentRepository.save(comment);
 
 		return comment.getBoardCommentNum();
 	}

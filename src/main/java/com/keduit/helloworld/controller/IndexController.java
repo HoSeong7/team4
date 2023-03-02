@@ -144,10 +144,10 @@ public class IndexController {
     	String originalName = uploadfile.getOriginalFilename();
     	String fileName = originalName.substring(originalName.lastIndexOf("//")+1);
     	String savefileName;
-    	System.out.println("값 안넣었을 경우 : " + memberDTO.getUrl());
+    	System.out.println("값 안넣었을 경우 : " + originalName);
     	
 //    	String folderPath = makeFolder();
-    	if(uploadfile.getOriginalFilename() != "") {
+    	if(originalName != null || originalName != "" || uploadfile.getOriginalFilename() != "") {
     	
     	savefileName = uploadPath + File.separator + 
     							File.separator + uuid + "_" + fileName;

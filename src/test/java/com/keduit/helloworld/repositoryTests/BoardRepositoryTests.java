@@ -32,13 +32,13 @@ public class BoardRepositoryTests {
 	/** 더미생성 */
 	public void insertBoardTest() { // 더미
 		
-		IntStream.rangeClosed(1, 500).forEach(i ->{
+		IntStream.rangeClosed(1, 110).forEach(i ->{
 			Board board = Board.builder()
-							.title("[title] " + i+" 번")
+							.title("공지입니다.. " + i+" 번입니다.")
 							.content("내용 -- " + i)
 							.tag("")
-							.boardcase((long) (Math.random()*3)+1)
-							.memberNum((long) (Math.random()*50)+1)
+							.boardcase((long)2)
+							.memberNum((long) 11)
 							.build();
 			
 			boardRepository.save(board);
