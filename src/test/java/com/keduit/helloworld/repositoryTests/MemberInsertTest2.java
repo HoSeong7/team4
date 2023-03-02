@@ -18,10 +18,10 @@ public class MemberInsertTest2 {
 
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Test
 	public void insertTest() {
 		IntStream.rangeClosed(1, 50).forEach(i->{
@@ -37,9 +37,9 @@ public class MemberInsertTest2 {
 				member.addMemberRole(MemberRole.USER);
 				memberRepository.save(member);
 		});
-		
+
 	}
-	
+
 	/** 관리자 아이디 만들기 */
 	@Test
 	public void insertAdmin() {
@@ -53,14 +53,14 @@ public class MemberInsertTest2 {
 			member.addMemberRole(MemberRole.ADMIN);
 			memberRepository.save(member);
 	}
-	
+
 	@Test
 	public void testRead() {
-		Optional<Member> result = memberRepository.findByEmail("2aa", false);
+		Optional<Member> result = memberRepository.findByEmail("123", false);
 		Member member = result.get();
-		
+
 		System.out.println("맴버 읽어올 수 있는지 : " + member);
-		
-		
+
+
 	}
 }

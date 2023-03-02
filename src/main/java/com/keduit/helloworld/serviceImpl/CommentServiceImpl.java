@@ -8,6 +8,7 @@ import com.keduit.helloworld.repository.BoardRepository;
 import com.keduit.helloworld.repository.CommentRepository;
 import com.keduit.helloworld.repository.ViewAuthRepository;
 import com.keduit.helloworld.service.CommentService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class CommentServiceImpl implements CommentService {
 
 	private final CommentRepository commentRepository;
@@ -46,16 +48,16 @@ public class CommentServiceImpl implements CommentService {
 	/** 등록 */
 	public Long register(CommentDTO commentDTO) {
 		Comment comment = dtoToEntity(commentDTO);
+		commentRepository.save(comment);
+		Optional<Comment> result = commentRepository.findByCommenterNum(commentDTO.getCommenterNum());
 		if(comment.getPrice() != null && comment.getPrice() != 0){
 			ViewAuth viewAuth = ViewAuth
 					.builder()
-					.boardCommentNum(comment.getBoardCommentNum())
-					.memberNum(comment.getCommenterNum())
+					.boardCommentNum(result.get().getBoardCommentNum())
+					.memberNum(result.get().getCommenterNum())
 					.build();
 			viewAuthRepository.save(viewAuth);
 		}
-		commentRepository.save(comment);
-
 		return comment.getBoardCommentNum();
 	}
 

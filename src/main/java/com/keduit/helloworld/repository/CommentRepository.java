@@ -1,6 +1,7 @@
 package com.keduit.helloworld.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,15 +14,15 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 	
 	@Query(value =
-			"select count(board_comment_num) from Board b join Member m on m.member_num = b.member_num "
-			+ " left outer join Comment c on c.board_num = b.board_num "
+			"select count(board_comment_num) from board b join member m on m.member_num = b.member_num "
+			+ " left outer join comment c on c.board_num = b.board_num "
 			+ " where b.board_num = :boardNum"
 			, nativeQuery = true)
 		Long getBoardByBno(Long boardNum);
 
 	@Query(value =
-			"select * from Comment c right join Board b on b.board_num = c.board_num "
-			+ " join Member m on b.member_num = m.member_num "
+			"select * from comment c right join board b on b.board_num = c.board_num "
+			+ " join member m on b.member_num = m.member_num "
 			+ " where b.board_num = :boardNum"
 			, nativeQuery = true)
 	List<Comment> getCommentlist(Long boardNum);
@@ -37,8 +38,11 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 	List<Comment> getCommentById(Long id);
 
 	//승민
-	@Query(value = "SELECT * FROM message WHERE commenter_num = :str1", nativeQuery = true)
+	@Query(value = "SELECT * FROM comment WHERE commenter_num = :str1", nativeQuery = true)
 	Page<Comment> findByCommenterNum(String str1, Pageable pageable);
+
+	@Query(value = "SELECT * FROM comment WHERE (commenter_num = :str1) limit 1", nativeQuery = true)
+	Optional<Comment> findByCommenterNum(Long str1);
 	
 	//승민 끝
 

@@ -18,8 +18,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 
 	
 	@Query(value = 
-			"select * from Board b join Member m on m.member_num = b.member_num "
-					+ " left outer join Comment c on c.board_num = b.board_num "
+			"select * from board b join member m on m.member_num = b.member_num "
+					+ " left outer join comment c on c.board_num = b.board_num "
 					+ " where b.board_num = :boardNum"
 			, nativeQuery = true)
 		Board getBoardByBno(Long boardNum);
@@ -53,7 +53,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
 	/**내 정보에서 댓글 가져가기*/
 	
 	
-	  @Query(value = "select b.boardcase from Board b " +
+	  @Query(value = "select b.boardcase from board b " +
 	  "right outer join comment c on b.board_num = c.board_num " +
 	  "where c.commenter_Num = :id  order by c.board_comment_num desc",nativeQuery = true) 
 	  List<Long> getCommentById(Long id);
