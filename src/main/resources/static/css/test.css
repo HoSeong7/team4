@@ -69,7 +69,7 @@
     position: absolute;
     top: 3%;
     left: 50%;
-    background: #0af;
+    background: rgb(253, 228, 4);
     width: 500px;
     height: 500px;
     margin-left: -250px;
@@ -135,7 +135,7 @@
     text-align: center;
 }
 .modal div .box{
-    max-width: 225px;
+    max-width: 280px;
     margin: auto;
 }
 .modal div .box label{
@@ -176,11 +176,11 @@
 }
 
 .box-radio-input:hover{
-	background-color: yellow;
+	background-color: rgb(253, 228, 4);
 }
 
 .green-background{
-	background-color: green;
+	background-color: rgb(253, 228, 4);
 }
 
 

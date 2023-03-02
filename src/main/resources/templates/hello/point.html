@@ -118,7 +118,7 @@
                         </div>
                         <p style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 5,000원이며 <br />최대 충전금액은 50,000원 입니다.
                         </p>
-                        <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button>
+                        <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao" onclick="requestPay()">충 전 하 기</button>
                         </div>
                     </div>
 
@@ -129,6 +129,109 @@
 	
    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+	<script th:inline="javascript">
+	
+/*<![CDATA[*/
+// 	$('#charge_kakao').click(function () {
+	
+// 	 var IMP = window.IMP;
+	 IMP.init("imp17634270");
+	 
+	function requestPay()  {
+	 // getter
+	 
+	 var charge = $('input[name="cp_item"]:checked').val();
+	 console.log(charge);
+	 
+	 const my = /*[[${my}]]*/ {};
+	 console.log("my " + my[0]);
+
+	 const myNickname = /*[[${my.nickname}]]*/ {};
+	 const myNum = /*[[${my.memberNum}]]*/ {};
+	 
+	 console.log("myNickname " + myNickname);
+	 console.log("myNum " + myNum);
+	 console.log("charge " + charge);
+	
+	 
+	 IMP.request_pay({
+// 	     pg: 'kakaopay.TC0ONETIME',
+// // 	     merchant_uid: 'merchant_' + new Date().getTime(),  //매번 고유해야함
+// 	     merchant_uid: 'merchant',  //매번 고유해야함
+// 	     name: '주문명 : 포인트 충전', <!-- '주문명 : 주문명 설정' -->
+// 		 charge: charge, 
+// 	     buyer_name: myNickname
+
+		 pg : 'kakaopay.TC0ONETIME',
+         pay_method : 'card',
+         merchant_uid: 'merchant_' + new Date().getTime(), //매번 고유해야함
+         name : 'Q&A 답변 결제',
+         amount : charge,
+         buyer_email : 'hello_world@google.com',
+         buyer_name : myNickname,
+         buyer_tel : '010-1234-5678',
+         
+	 }, function (rsp) {
+		 if (rsp.success) {
+             console.log(rsp);
+	         $.ajax({
+	             type: "POST", 
+	             url: "/hello/kakaopay", //충전 금액값을 보낼 url 설정
+	             contentType: 'application/json; charset=utf-8',
+	             dataType: 'json',
+	             data: JSON.stringify({
+	                 "memberNum" : myNum,
+	             	 "charge" : charge * 100
+	             }),
+	             success: function (result){
+	             	if (result){
+	             		alert("결제에 성공했습니다.");
+// 	             		alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
+	             		window.location.reload();
+	             	} else {
+	             		alert("결제에 실패했습니다.");
+// 	             		alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
+	             	}
+	             }
+	         });
+             
+             
+// 				alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
+// 				alert("결제에 성공했습니다.");
+// 				window.location.reload();
+         } else {
+             console.log(rsp);
+             	alert("결제에 실패했습니다.");
+// 				alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
+         }	 
+	 
+// 	         $.ajax({
+// 	             type: "POST", 
+// 	             url: "/hello/kakaopay", //충전 금액값을 보낼 url 설정
+// 	             contentType: 'application/json; charset=utf-8',
+// 	             dataType: 'json',
+// 	             data: JSON.stringify({
+// 	                 "memberNum" : myNum,
+// 	             	 "charge" : charge * 100
+// 	             }),
+// 	             success: function (result){
+// 	             	if (result){
+// 	             		alert("결제에 성공했습니다.");
+// // 	             		alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
+// 	             		window.location.reload();
+// 	             	} else {
+// 	             		alert("결제에 실패했습니다.");
+// // 	             		alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
+// 	             	}
+// 	             }
+// 	         });
+// 	     document.location.href="/hello/point"; //alert창 확인 후 이동할 url 설정
+	 });
+	};
+	/*]]>*/
+</script>
+
 
 	<script>
              // Get the modal

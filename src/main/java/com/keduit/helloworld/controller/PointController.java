@@ -132,8 +132,12 @@ public class PointController {
 	@PostMapping("/kakaopay") //실제 결제용 페이지
 	public @ResponseBody boolean chargePoint(@RequestBody HashMap<Object, Object> params) { //charge=충전금액
 		
+		log.info(params);
+		
 		String memberNum = params.get("memberNum").toString();	
 		String charge = params.get("charge").toString();	
+		
+		log.info(memberNum + charge);
 		
 		boolean success = pointPayService.chargePoint(Long.parseLong(memberNum), Long.parseLong(charge));
 		
@@ -151,6 +155,11 @@ public class PointController {
 		model.addAttribute("myInfo", memberDTO);
 	}
 
+	@GetMapping("/payment")
+	public String payment() {
+		return "/payment";
+	}
+	
 	
 //테스트 끝
 }
