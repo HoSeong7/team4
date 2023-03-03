@@ -56,7 +56,7 @@
         <div th:each="dto : ${result.dtoList}" class="board">
             <div class="board-top">
                 <div class="board-title">
-                <a th:href="@{/hello/qnaread(boardNum=${dto.boardNum},
+                <a class="text1" th:href="@{/hello/qnaread(boardNum=${dto.boardNum},
                                page=${result.page},
                                type=${pageRequestDTO.type},
 							   keyword=${pageRequestDTO.keyword}
@@ -149,6 +149,23 @@
 				searchForm.empty().submit();
 			});
 			
+	//글자수 표시 제한 걸기
+			
+			
+			function truncateText() {
+		  var elements = document.getElementsByClassName("text1");
+		  for (var i = 0; i < elements.length; i++) {
+		    var html = elements[i].innerHTML.trim();
+		    if (html.length > 13) {
+		      html = html.substr(0, 13) + "...";
+		      elements[i].innerHTML = html;
+		    }
+		  }
+		}
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+		  truncateText();
+		});
 			
 </script>
 

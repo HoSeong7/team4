@@ -39,7 +39,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>{
 
 	/** 로그인 처리 쿼리문 */
 	 @EntityGraph(attributePaths = {"roleset"},type = EntityGraph.EntityGraphType.LOAD)
-	   @Query("select m from member m where m.purview = :social and m.id = :id")
+	   @Query("select m from Member m where m.purview = :social and m.id = :id")
 	   Optional<Member> findByEmail(String id, Boolean social);
 
 	 /** 맴버 아이디로 정보 뽑아오기*/
