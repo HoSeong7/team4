@@ -17,11 +17,11 @@ public class TetrisServiceImpl implements TetrisService {
 	private final TetrisRepository tetrisRepository;
 
 	@Override
-	public void insertNum(String username, Long max) {
+	public void insertNum(Long memberNum, Long score) {
 
 		Tetris entity = Tetris.builder()
-							.id(username)
-							.score(max)
+							.memberNum(memberNum)
+							.score(score)
 							.build();
 		tetrisRepository.save(entity);
 	}

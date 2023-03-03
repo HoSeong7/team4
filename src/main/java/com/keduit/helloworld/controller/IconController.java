@@ -63,7 +63,7 @@ public class IconController {
 		//내 아이디 가져오기
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 		Member me =  memberService.idRead(userDetails.getUsername());
-		tetrisService.insertNum(me.getNickname(), max);
+		tetrisService.insertNum(me.getMemberNum(), max);
 		
 //		System.out.println(max3);
 		

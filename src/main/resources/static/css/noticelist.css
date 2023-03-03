@@ -17,10 +17,13 @@ li {
     list-style: none;
 }
 
-a {
-    text-decoration: none;
+strong{
+	color:black;
 }
-
+a{
+    text-decoration: none;
+    color:black;
+}
 
 
 /*상단 바*/

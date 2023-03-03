@@ -14,7 +14,12 @@ body{
     background-color: rgb(243, 241, 241);
 }
 
-
+strong{
+	color:black;
+}
+a{
+	color:black;
+}
 /*상단 바*/
 .innerHeader{
     max-width: 100%;

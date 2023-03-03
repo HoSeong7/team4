@@ -10,7 +10,7 @@ import com.keduit.helloworld.entity.Tetris;
 public interface TetrisRepository extends JpaRepository<Tetris, Long>{
 
 	/** 3명 가져오기 */
-	@Query(value = "select * from tetris order by score desc limit 3" ,nativeQuery=true)
+	@Query(value = "select * from tetris t join member m on t.member_num = m.member_num order by score desc limit 3" ,nativeQuery=true)
 	List<Tetris> max3();
 
 	

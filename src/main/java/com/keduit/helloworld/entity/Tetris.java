@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.DynamicInsert;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,8 +28,8 @@ public class Tetris{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tno;
 	
-	@Column(length = 100)
-	private String id;
+	@Column
+	private Long memberNum;
 	
 	@Column
 	private Long score;
