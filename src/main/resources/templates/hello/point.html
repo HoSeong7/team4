@@ -8,7 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/point.css">
     <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/test.css">
+    <link rel="stylesheet" href="/css/kakaopaymodal.css">
     
     
 	<!-- jQuery -->
@@ -41,10 +41,6 @@
 	                    <div class="box-bottom">
 	                    	<button type="submit">충전하기</button>
 	                    	<div id="myBtn" ><p>간편결제</p></div>
-<!-- 	                    	<button onclick="window.open('/hello/temp')">간편결제</button> -->
-<!-- 	                    	<button onclick="window.open('/hello/kakaopay')">간편결제</button> -->
-<!-- 	                    	<div onclick="requestPay()">간편결제</div> -->
-<!-- 	                    	<input type="button" value="간편결제" onclick="requestPay()"> -->
 	                    </div>
 	                </div>
 	          </form>
@@ -67,12 +63,12 @@
                         <div class="box4">잔여포인트</div>
                     </div>
                     <div class="box-table" th:each="point : ${list}">
-                        <div class="box1">[[${#temporals.format(point.regDate, 'yy/MM/dd h시')}]]</div>
-                        <div class="box2" th:if="${point.charge == null}"></div>
-                        <div class="box2" th:if="${point.charge != null}" data-th-text="${#numbers.formatInteger(point.charge, 3, 'COMMA') + '원'}"></div>
-                        <div class="box3" th:if="${point.exchange == null}"></div>
-                        <div class="box3" th:if="${point.exchange != null}" data-th-text="${#numbers.formatInteger(point.exchange, 3, 'COMMA') + '원'}"></div>
-                        <div class="box4" data-th-text="${#numbers.formatInteger(point.balance, 3, 'COMMA') + '원'}"></div>
+                        <div class="box1">[[${#temporals.format(point.regDate, 'yy/MM/dd H:mm')}]]</div>
+                        <div class="box2" th:if="${point.charge} == null or ${point.charge} == 0"></div>
+                        <div class="box2" th:if="${point.charge} != null and ${point.charge} != 0" data-th-text="${#numbers.formatInteger(point.charge, 3, 'COMMA') + '원'}"></div>
+                        <div class="box3" th:if="${point.exchange} == null or ${point.exchange} == 0"></div>
+                        <div class="box3" th:if="${point.exchange} != null and ${point.exchange} != 0" data-th-text="${#numbers.formatInteger(point.exchange, 3, 'COMMA') + '원'}"></div>
+                        <div class="box4" data-th-text="${#numbers.formatInteger(point.balance, 3, 'COMMA') + 'P'}"></div>
                     </div>
                 </div>
             </div>
@@ -182,7 +178,7 @@
 	             dataType: 'json',
 	             data: JSON.stringify({
 	                 "memberNum" : myNum,
-	             	 "charge" : charge * 100
+	             	 "charge" : charge
 	             }),
 	             success: function (result){
 	             	if (result){

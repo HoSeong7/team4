@@ -169,8 +169,6 @@
     margin: auto;
 }
 
-
-/* 테스트 중 */
 .radio-all{
 	display: none;
 }
@@ -182,6 +180,4 @@
 .green-background{
 	background-color: rgb(253, 228, 4);
 }
-
-
 

@@ -24,7 +24,6 @@ import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.service.CouponService;
 import com.keduit.helloworld.service.MemberService;
 import com.keduit.helloworld.service.PointAccountService;
-import com.keduit.helloworld.service.PointPayService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -35,11 +34,10 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/hello/*")
 public class PointController {
 	
-	//호성 23.02.21
+//호성 23.02.21
 	
 	private final MemberService memberService;
 	private final PointAccountService pointAccountService;
-	private final PointPayService pointPayService;
 	private final CouponService couponService;
 	
 	
@@ -115,36 +113,22 @@ public class PointController {
 		return new ResponseEntity<>(i , HttpStatus.OK);
 	}
 	
-	//호성 end
+//호성 end
 
-	@PostMapping("/transaction")
-	public @ResponseBody String transaction(@RequestParam HashMap<Object,Object> params){
-		String myNum = params.get("myNum").toString();
-		String yourNum = params.get("yourNum").toString();
-		String point = params.get("point").toString();
 
-		pointPayService.modify(Long.parseLong(myNum),Long.parseLong(yourNum),Long.parseLong(point));
+//효영
+	
+//	@PostMapping("/transaction")
+//	public @ResponseBody String transaction(@RequestParam HashMap<Object,Object> params){
+//		String myNum = params.get("myNum").toString();
+//		String yourNum = params.get("yourNum").toString();
+//		String point = params.get("point").toString();
+//
+//		pointAccountService.modify(Long.parseLong(myNum),Long.parseLong(yourNum),Long.parseLong(point));
+//
+//		return "success";
+//	}
 
-		return "success";
-	}
-	
-//테스트 중
-	@PostMapping("/kakaopay") //실제 결제용 페이지
-	public @ResponseBody boolean chargePoint(@RequestBody HashMap<Object, Object> params) { //charge=충전금액
-		
-		log.info(params);
-		
-		String memberNum = params.get("memberNum").toString();	
-		String charge = params.get("charge").toString();	
-		
-		log.info(memberNum + charge);
-		
-		boolean success = pointPayService.chargePoint(Long.parseLong(memberNum), Long.parseLong(charge));
-		
-		return success; 
-	}
-	
-	
 	@GetMapping("/kakaopay") //결제 페이지로 이동하는 매핑
 	public void kakaoPay(Authentication authentication, Model model) {
 		
@@ -155,11 +139,23 @@ public class PointController {
 		model.addAttribute("myInfo", memberDTO);
 	}
 
-	@GetMapping("/payment")
-	public String payment() {
-		return "/payment";
+
+	
+	@PostMapping("/kakaopay") //실제 결제용 페이지
+	public @ResponseBody boolean chargePoint(@RequestBody HashMap<Object, Object> params) { //charge=충전금액
+		
+		log.info(params);
+		
+		String memberNum = params.get("memberNum").toString();	
+		String charge = params.get("charge").toString();	
+		
+		log.info(memberNum + charge);
+		
+		boolean success = pointAccountService.chargePoint(Long.parseLong(memberNum), Long.parseLong(charge));
+		
+		return success; 
 	}
 	
+//효영 끝
 	
-//테스트 끝
 }

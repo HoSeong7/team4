@@ -94,7 +94,7 @@
 
 			var messageNum = $(div).data('message-num');
 			var data = {
-					'messageNum': messageNum,
+					'messageNum': messageNum
 			}
 
 			console.log(data);
@@ -108,6 +108,7 @@
 					
 					var readMsg = "";
 					msgNum = result.messageNum;
+					
 					if(myNum == result.memberGet){
 						yourNum = result.memberGive;
 					}else {

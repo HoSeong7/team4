@@ -15,6 +15,13 @@ public interface PointAccountService {
 	/** 포인트 거래내역 리스트 조회(read) */
 	List<PointAccountDTO>read(Long memberNum);
 	
+	/** 포인트 증감(update) */
+	void modify(Long myNum, Long yourNum, Long payment);
+	
+	/** 카카오페이 포인트 충전(모달)  */
+	public boolean chargePoint(Long memberNum, Long charge);
+	
+	
 	/** DTO에 있는 정보를 Entity로 옮기기 */
 	default PointAccount pointAccountDtoToEntity(PointAccountDTO dto) {
 		
@@ -43,7 +50,8 @@ public interface PointAccountService {
 		return dto;
 	}
 
-	//호성 23.02.21
+	
+//호성 23.02.21
 	
 	// 충전내역 추가하기
 	Long setCharge(Long id, Long point, Long charge, MemberDTO memdto);
@@ -90,6 +98,8 @@ public interface PointAccountService {
 	}
 	
 	// 호성 end
+	
+
 }
 
 
