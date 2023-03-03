@@ -20,9 +20,15 @@ li {
 a {
     text-decoration: none;
 }
-
-
-
+.close{
+	display: none;	
+}
+.text10{
+	margin-bottom:30px;
+}
+.bgr1{
+	margin-left: 11px;
+}
 /*상단 바*/
 .innerHeader {
     max-width: 100%;
@@ -424,7 +430,9 @@ input[name="tab_item"] {
 #box4:checked ~ #box4_content{
   display: block;
 }
-
+#myBtn p{
+	margin-top: 10px;
+}
 /* 선택된 탭 스타일 */
 .tabs input:checked + .tab_item {
   background-color: rgb(247, 126, 13);
