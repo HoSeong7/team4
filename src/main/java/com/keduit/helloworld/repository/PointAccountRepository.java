@@ -15,5 +15,5 @@ public interface PointAccountRepository extends JpaRepository<PointAccount, Long
 			+ "where member_num = :memberNum order by updatedate desc", nativeQuery = true)
 	/** 포인트 거래내역 리스트 조회(read) */
 	List<PointAccount> getPointAccount(Long memberNum);
-	
+
 }

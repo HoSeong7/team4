@@ -33,7 +33,8 @@
 
                 <!-- 유저id -->
                 <div class="username">
-                	<a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a>
+                	<p><a th:href="@{/hello/spacepage(id=${dto.id})}"><Strong>[[${dto.nickname}]] </Strong></a>
+                     <small>[[${dto.id}]]</small></p>
                 </div>
 
                 <!-- tag -->
