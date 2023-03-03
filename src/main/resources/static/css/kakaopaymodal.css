@@ -112,7 +112,7 @@
     color: white;
     text-transform: uppercase;
     letter-spacing: .4em;
-    font-size: 24px;
+    font-size: 22px;
     text-shadow: 0 1px 0 rgba(black, .1);
     text-indent: .3em;
     margin: auto;
@@ -133,10 +133,17 @@
 }
 .modal div p{
     text-align: center;
+    height: 25px;
+    font-weight: 600;
 }
 .modal div .box{
     max-width: 280px;
     margin: auto;
+    padding: 3px;
+    display: flex;
+  	justify-content: center;
+ 	align-items: center;
+  	flex-wrap: wrap;
 }
 .modal div .box label{
     display: inline-block;
@@ -145,12 +152,15 @@
     font-size: 1.2rem;
     cursor: pointer;
     line-height: 2rem;
+    margin-right: 3px;
 }
-.modal div .box label input{
-    background-color: white;
-    border: 1px solid rgb(196, 196, 196);
-    padding: 4px;
-    
+
+.out{
+	border: 1px solid #d0d0d0;
+}
+
+.price-text {
+	font-size: 15px;
 }
 
 .button-box{
@@ -174,10 +184,10 @@
 }
 
 .box-radio-input:hover{
-	background-color: rgb(253, 228, 4);
+	background-color: #fde404;
 }
 
-.green-background{
-	background-color: rgb(253, 228, 4);
+.yellow-background{
+	background-color: #fde404;
 }
 

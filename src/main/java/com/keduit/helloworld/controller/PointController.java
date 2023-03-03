@@ -34,14 +34,11 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/hello/*")
 public class PointController {
 	
-//호성 23.02.21
-	
 	private final MemberService memberService;
 	private final PointAccountService pointAccountService;
 	private final CouponService couponService;
 	
-	
-
+//호성 23.02.21
 	@GetMapping("/point")
 	public void message(Authentication authentication, Model model) {
 		log.info("=============== PointController ===============");
@@ -112,23 +109,25 @@ public class PointController {
 		
 		return new ResponseEntity<>(i , HttpStatus.OK);
 	}
-	
 //호성 end
 
-
-//효영
 	
-//	@PostMapping("/transaction")
-//	public @ResponseBody String transaction(@RequestParam HashMap<Object,Object> params){
-//		String myNum = params.get("myNum").toString();
-//		String yourNum = params.get("yourNum").toString();
-//		String point = params.get("point").toString();
-//
-//		pointAccountService.modify(Long.parseLong(myNum),Long.parseLong(yourNum),Long.parseLong(point));
-//
-//		return "success";
-//	}
+//승민
+	@PostMapping("/transaction")
+	/** qna 댓글에서 회원간 포인트 거래 발생 시 */
+	public @ResponseBody String transaction(@RequestParam HashMap<Object,Object> params){
+		String myNum = params.get("myNum").toString();
+		String yourNum = params.get("yourNum").toString();
+		String point = params.get("point").toString();
 
+		pointAccountService.modify(Long.parseLong(myNum),Long.parseLong(yourNum),Long.parseLong(point));
+
+		return "success";
+	}
+//승민 끝
+
+	
+//효영
 	@GetMapping("/kakaopay") //결제 페이지로 이동하는 매핑
 	public void kakaoPay(Authentication authentication, Model model) {
 		
@@ -139,8 +138,6 @@ public class PointController {
 		model.addAttribute("myInfo", memberDTO);
 	}
 
-
-	
 	@PostMapping("/kakaopay") //실제 결제용 페이지
 	public @ResponseBody boolean chargePoint(@RequestBody HashMap<Object, Object> params) { //charge=충전금액
 		
@@ -155,7 +152,6 @@ public class PointController {
 		
 		return success; 
 	}
-	
 //효영 끝
 	
 }
