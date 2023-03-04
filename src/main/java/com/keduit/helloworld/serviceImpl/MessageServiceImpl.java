@@ -1,16 +1,13 @@
 package com.keduit.helloworld.serviceImpl;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.Message;
@@ -155,25 +152,6 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
-
-
-//	@Override
-//	/** 쪽지 삭제(delete) */
-//	public void remove(Long messageNum) {
-//		messageRepository.deleteById(messageNum);
-//	}
-
-//	@Override
-//	/** 쪽지 삭제(delete, 받은사람 기준) */
-//	public void removeAsGetter(Long memberGet) {
-//		messageRepository.deleteMsgAsGetter(memberGet);
-//	}
-//
-//	@Override
-//	/** 쪽지 삭제(delete, 보낸사람 기준) */
-//	public void removeAsGiver(Long memberGive) {
-//		messageRepository.deleteMsgAsGiver(memberGive);
-//	}
 	// 승민
 	@Override
 	public Page<MessageDTO> getMessages(Pageable pageable) {
