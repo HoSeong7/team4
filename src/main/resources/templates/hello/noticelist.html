@@ -22,7 +22,7 @@
             <div class="h1-box">
                 <h1>notice</h1>
             </div>
-            <div class="registration-box" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="registration-box" sec:authorize="hasRole('ADMIN')">
                 <button id="registration" onclick="location.href='/hello/noticeregister' ">작성하기</button>
             </div>
             <div class="search-box">

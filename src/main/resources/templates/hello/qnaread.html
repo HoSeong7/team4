@@ -131,22 +131,26 @@
             float: right;
             margin-top: 5px;
         }
-        .message{
-        	width: 70px;
-        	float:right;
-        	margin-right: 10px;
+
+        .message {
+            width: 70px;
+            float: right;
+            margin-right: 10px;
         }
-        .msgregister{
-        	width:70px;
-        	float:right;
-        	margin-right: 10px;
+
+        .msgregister {
+            width: 70px;
+            float: right;
+            margin-right: 10px;
         }
-        #msgContent{
-        	resize:none;
+
+        #msgContent {
+            resize: none;
         }
-        .modaltitle{
-        	width: 50px;
-        	margin:auto;
+
+        .modaltitle {
+            width: 50px;
+            margin: auto;
         }
     </style>
 </head>
@@ -165,7 +169,8 @@
             <div class="box-left">
                 <div class="userimg">
                     <img th:if="${dto.memberurl == null}" src="/img/c1.png" alt="" width="40px" height="40px">
-                	<img th:if="${dto.memberurl != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${dto.memberurl}" >
+                    <img th:if="${dto.memberurl != null}" width="40px" height="40px"
+                        th:src="'/hello/display?fileName='+${dto.memberurl}">
                 </div>
 
 
@@ -182,9 +187,10 @@
             </div>
             <div class="box-right">
                 <div class="urlimg"><img src="/img/url.svg" alt="" width="30px" height="30px"></div>
-                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px" class="blikesBtnOpen">
-                		<input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
-	        			<input type="hidden" name="likememberNum" th:value="${member.memberNum}">
+                <div class="recommendation"><img src="/img/like.svg" alt="" width="30px" height="30px"
+                        class="blikesBtnOpen">
+                    <input type="hidden" name="likeboardNum" th:value="${dto.boardNum}">
+                    <input type="hidden" name="likememberNum" th:value="${member.memberNum}">
                 </div>
                 <div class="report"><img src="/img/siren.png" alt="" width="30px" height="30px"></div>
             </div>
@@ -254,7 +260,8 @@
                     <div class="box-left">
                         <div class="userimg">
                             <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="40px" height="40px">
-                			<img th:if="${member.url != null}" width="40px" height="40px" th:src="'/hello/display?fileName='+${member.url}" >
+                            <img th:if="${member.url != null}" width="40px" height="40px"
+                                th:src="'/hello/display?fileName='+${member.url}">
                         </div>
                         <!-- 유저 -->
                         <div class="username">
@@ -308,109 +315,104 @@
 <script th:inline="javascript">
     $(document).ready(function () {
 
-    	
-    	
+
+
+
         /* 수정버튼 클릭 */
-		$(document).on("click", ".commentModifyBtn", function () {
+        $(document).on("click", ".commentModifyBtn", function () {
+            // 2. 클래스가 존재하는지 확인
+            if (!$(".commentModifyBtn").length) return;
 
+            $(".call").show();
 
-			$(".call").show();
-			
- 			 var header  = $(this).data("nickname");
-			 var body = '<textarea cols="45" rows="25" class="form-control" type="text" name="modalText" placeholder="Reply text...">';
-			 var footer  = '<input type="hidden" name="mBoardCommentNum">';
-			 	footer += ' <input type="hidden" name="mCommenterNum"> ';
-			 	footer += ' <input class="form-control" type="hidden" name="modalMember" readonly> ';
-			 	footer += ' <input type="hidden" name="mClikes">';
-			 	footer += '<input type="hidden" name="mClikes"> ';
-			 	footer += '<input type="hidden" name="price"> ';
-			 	footer += ' <button type="button" class="btn btn-warning replyModify">수정</button> ';
-			 	footer += ' <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button> ';
-				
-				
-				
-				
-			 
+            var header = $(this).data("nickname");
+            var body =
+                '<textarea cols="45" rows="25" class="form-control" type="text" name="modalReply" placeholder="Reply text..."></textarea>';
+            var footer =
+                '<input type="hidden" name="mBoardCommentNum">' +
+                '<input type="hidden" name="mCommenterNum">' +
+                '<input class="form-control" type="hidden" name="modalMember" readonly>' +
+                '<input type="hidden" name="mClikes">' +
+                '<input type="hidden" name="price">' +
+                '<button type="button" class="btn btn-warning replyModify">수정</button>' +
+                '<button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">취소</button>';
+
             $(".modalTitle").html(header);
             $(".modalReply").html(body);
-            $(".modal-footer").html(footer); 
-			
-			
-			
+            $(".modal-footer").html(footer);
 
-			$('input[name="modalMember"]').val($(this).data("nickname"));
-			$('input[name="modalText"]').val($(this).data("commentcontent"));
-			$("input[name='mBoardCommentNum']").val($(this).data("boardcommentnum"));
-			$("input[name='mCommenterNum']").val($(this).data("commenternum"));
-			$("input[name='mClikes']").val($(this).data("clikes"));
-			$("input[name='price']").val($(this).data("price"));
+            // 3. textarea 태그의 name 속성 수정 및 데이터 삽입
+            $('textarea[name="modalReply"]').val($(this).data("commentcontent"));
+            $("input[name='mBoardCommentNum']").val($(this).data("boardcommentnum"));
+            $("input[name='mCommenterNum']").val($(this).data("commenternum"));
+            $("input[name='mClikes']").val($(this).data("clikes"));
+            $("input[name='price']").val($(this).data("price"));
+        });
 
-		});
-        
-        /* 삭제버튼 클릭 */
-		$(document).on("click", ".commentRemoveBtn", function () {
 
-			var boardCommentNum = $(this).data("boardcommentnum");
+            /* 삭제버튼 클릭 */
+            $(document).on("click", ".commentRemoveBtn", function () {
 
-			$.ajax({
-				url: '/comment/' + boardCommentNum,
-				method: 'delete',
-				success: function (result) {
-					console.log("result : " + result);
-					if (result === 'success') {
-						alert("뎃글이 삭제되었습니다.");
-						$(".call").hide();
-						getComment();
-						self.location.reload();
-					}
-				}
-			});
+                if (!confirm("댓글을 삭제 하시겠습니까?")) {
+                    return;
+                }
 
-		});
-    	
-        
+                var boardCommentNum = $(this).data("boardcommentnum");
+
+                $.ajax({
+                    url: '/comment/' + boardCommentNum,
+                    method: 'delete',
+                    success: function (result) {
+                        console.log("result : " + result);
+                        if (result === 'success') {
+                            alert("뎃글이 삭제되었습니다.");
+                            $(".call").hide();
+                            getComment();
+                            self.location.reload();
+                        }
+                    }
+                });
+
+            });
+
+
         /* 수정 */
         $(document).on("click", '.replyModify', function () {
-		
-			var boardCommentNum = $("input[name='mBoardCommentNum']").val();
-			var comment = {
-				boardCommentNum: boardCommentNum,
-				boardNum: boardNum,
-				commentContent: $('textarea[name="modalText"]').val(),
-				commenterNum: $("input[name='mCommenterNum']").val(),
-				clikes: $("input[name='mClikes']").val(),
-				price: $("input[name='price']").val()
-			};
 
-			console.log(comment);
+            var boardCommentNum = $("input[name='mBoardCommentNum']").val();
+            var comment = {
+                boardCommentNum: boardCommentNum,
+                boardNum: boardNum,
+                commentContent: $('textarea[name="modalReply"]').val(),
+                commenterNum: $("input[name='mCommenterNum']").val(),
+                clikes: $("input[name='mClikes']").val(),
+                price: $("input[name='price']").val()
+            };
 
-			$.ajax({
-				url: '/comment/' + boardCommentNum,
-				method: 'put',
-				data: JSON.stringify(comment),
-				contentType: 'application/json; charset=utf-8',
-				success: function (result) {
-					console.log("result : " + result);
-					if (result === 'success') {
-						alert("뎃글이 수정되었습니다.");
-						$(".call").hide();
-						getComment();
-					}
-				}
-			});
-		});
-    	
+            console.log(comment);
+
+            $.ajax({
+                url: '/comment/' + boardCommentNum,
+                method: 'put',
+                data: JSON.stringify(comment),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    console.log("result : " + result);
+                    if (result === 'success') {
+                        alert("뎃글이 수정되었습니다.");
+                        $(".call").hide();
+                        getComment();
+                    }
+                }
+            });
+        });
+
         /* 취소 */
         $(document).on("click", ".replyClose", function () {
-    		$(".call").hide();
-    	});
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+            $(".call").hide();
+        });
+
+
         const boardNum = [[${ dto.boardNum }]];
         const memberNumber = [[${ member.memberNum }]];
         var memberPoint = [[${ member.point }]];
@@ -495,9 +497,9 @@
                 $(".commentList").html(str);
 
 
-                
-                
-                
+
+
+
 
                 // 댓글 상세보기 버튼 클릭 이벤트 핸들러
                 $(".paybtn").on("click", function () {
@@ -561,23 +563,23 @@
                         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                         success: function (result) {
                             getNum = result.commenterNum;
-                            
-                            $(".modalReply").html("");
-                            $(".modal-footer").html(""); 
 
-                            
-                            
+                            $(".modalReply").html("");
+                            $(".modal-footer").html("");
+
+
+
                             $(".modalReply").html("");
                             $(".modalTitle").html("");
                             $(".modalReply").html(result.commentContent);
-                            var replystr  = ' <div><button class="btn-danger message">쪽지쓰기</button></div>'
+                            var replystr = ' <div><button class="btn-danger message">쪽지쓰기</button></div>'
                             $(".modalTitle").html(replystr);
                         }
                     })
                     $(".call").show();
 
                     $(document).on("click", ".message", function () {
-                    	
+
                         $(".modalReply").html("");
                         $(".modalTitle").html("");
                         $(".modalTitle").html('<input type="text" class="msgTitle" placeholder="쪽지 제목">');
@@ -729,32 +731,10 @@
             }); // ajax 끝
         }); //clikesBtnOpen 끝
 
-        // board 좋아요 처리
-        // blikesBtnOpen
-        $(".recommendation").click(function () {
 
-            var like = {
-                boardNum: boardNum,
-                memberNum: memberNumber
-            }
-            console.log(like);
-
-            $.ajax({
-                url: '/like/' + boardNum,
-                type: 'post',
-                data: JSON.stringify(like),
-                contentType: "application/json; charset=utf-8",
-                dataType: 'text',
-                success: function (result) {
-                    console.log("success result : " + result);
-                    self.location.reload();
-
-                }
-            }); // ajax 끝
-        }); //blikesBtnOpen 끝
 
     });
-    
+
     /* URL 복사 기능 */
     $(".urlimg").on("click", function () {
 
@@ -788,28 +768,29 @@
             modal1.css("display", "none");
         }
     });
-	// board 좋아요 처리
-	// blikesBtnOpen
-	$(".blikesBtnOpen").click(function(){
+    // board 좋아요 처리
+    // blikesBtnOpen
+    $(".blikesBtnOpen").click(function () {
 
-		var like = {
-				boardNum: boardNum,
-				memberNum: $('input[name="likememberNum"]').val()};
-		console.log(like);
+        var like = {
+            boardNum: boardNum,
+            memberNum: $('input[name="likememberNum"]').val()
+        };
+        console.log(like);
 
-		$.ajax({
-			url: '/like/' + boardNum,
-			type: 'post',
-			data: JSON.stringify(like),
-			contentType: "application/json; charset=utf-8",
-			dataType: 'text' ,
-			success: function(result){
-				console.log("success result : " + result);
-				self.location.reload();
+        $.ajax({
+            url: '/like/' + boardNum,
+            type: 'post',
+            data: JSON.stringify(like),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'text',
+            success: function (result) {
+                console.log("success result : " + result);
+                self.location.reload();
 
-			}
-		}); // ajax 끝
-	}); //blikesBtnOpen 끝
+            }
+        }); // ajax 끝
+    }); //blikesBtnOpen 끝
 
 
 </script>

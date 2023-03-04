@@ -43,6 +43,7 @@ public class MessageController {
 	@PostMapping("/message/register")
 	/** 쪽지 등록 = 전송 = 답장 */
 	public String register(@RequestParam HashMap<Object, Object> params, Authentication authentication) {
+		// 꺼진불도 다시보자 正
 
 		String title = params.get("title").toString();
 		String content = params.get("content").toString();
@@ -59,17 +60,18 @@ public class MessageController {
 		
 		/** 조회하는사람 회원번호로, 본인 정보 가져오기 */
 		MemberDTO myInfoDTO = memberService.getMyInfo(userDetails.getUsername());
-		
+
 		MemberDTO yourMemDTO = memberService.read(Long.parseLong(yourNum)); //상대정보
 		
 		MessageDTO msgDTO;
 		
-		if(boardCommentNum.equals("")){ //댓글번호 있으면(=게시판 통해 전송 시)
+		if(boardCommentNum.equals("")){ // 최초전송 이후
 			Long messageNum  = Long.parseLong(params.get("messageNum").toString()); //쪽지번호
-			
+
 			/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
-			MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum()); //쪽지번호는 두번째 부터 존재(최초전송시 쪽지번호 없음)
-			
+			MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum());
+			//쪽지번호는 두번째 부터 존재(최초전송시 쪽지번호 없음)
+
 			msgDTO = MessageDTO
 					.builder()
 					.memberGet(yourMemDTO.getMemberNum())
@@ -79,7 +81,9 @@ public class MessageController {
 					.content(content)
 					.view(0L)
 					.build();
-		}else{ //쪽지함에서 답장 시(=쿼리스트링에 댓글번호 없으면)
+
+		}else{ // 최초전송시
+
 			msgDTO = MessageDTO
 					.builder()
 					.memberGet(Long.parseLong(yourNum))
@@ -100,7 +104,7 @@ public class MessageController {
 	
 	@GetMapping("/message")
 	/** 쪽지함 메인 = 쪽지 목록(list) */
-	public void message(Authentication authentication, Model model) {
+	public void message(Authentication authentication, Model model) {  // 꺼진불도 다시보자 正
 		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호
 		
@@ -118,7 +122,7 @@ public class MessageController {
 	
 	@PostMapping("/message/read")
 	/** 쪽지 상세 조회(read) */
-	public ResponseEntity<MessageDTO> read(Long messageNum, Authentication authentication, Model model) {
+	public ResponseEntity<MessageDTO> read(Long messageNum, Authentication authentication, Model model) { // 꺼진불도 다시보자 正
 		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // 멤버 pk = 회원번호
 		
@@ -126,8 +130,8 @@ public class MessageController {
 		MemberDTO myInfoDTO = memberService.getMyInfo(userDetails.getUsername()); //내정보
 		
 		/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
-		MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum()); 
-		
+		MessageDTO messageDTO = messageService.read(messageNum, myInfoDTO.getMemberNum());
+
 		model.addAttribute("messageDTO", messageDTO);
 		
 		return new ResponseEntity<>(messageDTO,HttpStatus.OK);

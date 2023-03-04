@@ -47,7 +47,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	/** 받은 쪽지 리스트 조회(list, 받은사람 기준, 권한 0 or 1만 출력) */
-	public List<MessageDTO> getListAsGetter(Long memberGet) {
+	public List<MessageDTO> getListAsGetter(Long memberGet) {  // 꺼진불도 다시보자 正
 
 		List<Message> result = messageRepository.getMsgInfoAsGetter(memberGet); //받은 쪽지 정보
 		List<Member> mlist = memberRepository.getUrInfoAsGetter(memberGet); //쪽지 상대 정보
@@ -59,8 +59,8 @@ public class MessageServiceImpl implements MessageService {
 
 			messageDto.setNickname(mlist.get(i).getNickname()); //쪽지 상대 닉네임 셋
 			messageDto.setMemUrl(mlist.get(i).getUrl()); //쪽지 상대 프사 셋
-			messageDto.setChangeDate(timeChangeService.calculateTime(result.get(i).getRegDate()));
 			messageDto.setId(mlist.get(i).getId()); //쪽지 상대 아이디 셋
+			messageDto.setChangeDate(timeChangeService.calculateTime(result.get(i).getRegDate())); // 시간 이쁘게 바꾸기
 
 			list.add(messageDto);
 		}
@@ -70,7 +70,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	/** 보낸 쪽지 리스트 조회(list, 보낸사람 기준, 권한 0 or 2만 출력) */
-	public List<MessageDTO> getListAsGiver(Long memberGive) {
+	public List<MessageDTO> getListAsGiver(Long memberGive) {  // 꺼진불도 다시보자 正
 
 		List<Message> result = messageRepository.getMsgInfoAsGiver(memberGive); //보낸 쪽지 정보
 		List<Member> mlist = memberRepository.getUrInfoAsGiver(memberGive); //쪽지 상대 정보
@@ -83,8 +83,8 @@ public class MessageServiceImpl implements MessageService {
 
 			messageDto.setNickname(mlist.get(i).getNickname()); //쪽지 상대 닉네임 셋
 			messageDto.setMemUrl(mlist.get(i).getUrl()); //쪽지 상대 프사 셋
-			messageDto.setChangeDate(timeChangeService.calculateTime(result.get(i).getRegDate()));
 			messageDto.setId(mlist.get(i).getId()); //쪽지 상대 아이디 셋
+			messageDto.setChangeDate(timeChangeService.calculateTime(result.get(i).getRegDate())); // 시간 이쁘게 바꾸기
 
 			list.add(messageDto);
 		}
@@ -93,11 +93,10 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	/** 쪽지 상세 조회(read) */
-	public MessageDTO read(Long messageNum, Long memberNum) {
+	public MessageDTO read(Long messageNum, Long memberNum) { // 꺼진불도 다시보자 正
 
 		Optional<Message> result = messageRepository.findById(messageNum); //쪽지번호로 구분
 		Optional<Member> memResult = null;
-
 		MessageDTO messageDTO = null;
 
 		if(result.isPresent()) {
@@ -117,7 +116,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	/** 받은 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +2, delete: 권한 3일때) */
-	public void modifyViewAsGetter(Long messageNum, Long view) {
+	public void modifyViewAsGetter(Long messageNum, Long view) { // 꺼진불도 다시보자 正
 
 		Optional<Message> result = messageRepository.findById(messageNum); //쪽지번호로 구분
 
@@ -137,7 +136,7 @@ public class MessageServiceImpl implements MessageService {
 
 	@Override
 	/** 보낸 사람이 쪽지 삭제 시 보기권한 변경 & 최종 삭제(update: 보기권한 +1, delete: 권한 3일때) */
-	public void modifyViewAsGiver(Long messageNum, Long view) {
+	public void modifyViewAsGiver(Long messageNum, Long view) { // 꺼진불도 다시보자 正
 
 		Optional<Message> result = messageRepository.findById(messageNum); //쪽지번호로 구분
 
@@ -155,25 +154,6 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
-
-
-//	@Override
-//	/** 쪽지 삭제(delete) */
-//	public void remove(Long messageNum) {
-//		messageRepository.deleteById(messageNum);
-//	}
-
-//	@Override
-//	/** 쪽지 삭제(delete, 받은사람 기준) */
-//	public void removeAsGetter(Long memberGet) {
-//		messageRepository.deleteMsgAsGetter(memberGet);
-//	}
-//
-//	@Override
-//	/** 쪽지 삭제(delete, 보낸사람 기준) */
-//	public void removeAsGiver(Long memberGive) {
-//		messageRepository.deleteMsgAsGiver(memberGive);
-//	}
 	// 승민
 	@Override
 	public Page<MessageDTO> getMessages(Pageable pageable) {
