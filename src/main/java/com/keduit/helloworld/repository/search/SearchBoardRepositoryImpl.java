@@ -61,7 +61,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 		QMember member = QMember.member;
 		
 		JPQLQuery<Board> jpqlQuery = from(board);
-		jpqlQuery.leftJoin(member).on(board.memberNum.eq(member.memberNum));
+		jpqlQuery.innerJoin(member).on(board.memberNum.eq(member.memberNum));
 		jpqlQuery.leftJoin(comment).on(comment.boardNum.eq(board.boardNum));
 		
 		JPQLQuery<Tuple> tuple = jpqlQuery.select(board,member, comment.count());

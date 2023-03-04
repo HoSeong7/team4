@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Chating</title>
 	<style>
-		/* 스크롤바 설정*/ 
+		/* 스크롤바 설정*/
 		.message-box::-webkit-scrollbar {
 			width: 10px;
 		}
@@ -290,7 +290,10 @@
 	}
 
 	function scrolldown() {
-		$(".message-box").scrollTop($(document).height());
+		$(".message-box").scrollTo({
+			top: document.body.scrollHeight,
+			behavior: "smooth"
+		});
 	}
 	/*]]>*/
 </script>
