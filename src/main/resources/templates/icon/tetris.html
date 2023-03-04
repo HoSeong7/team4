@@ -8,7 +8,11 @@
 <body onresize="parent.resizeTo(450,750)" onload="parent.resizeTo(450,750)">
     <div class="wrapper">
         <div class="game-text">게임종료<button>기록저장 후 다시시작</button></div>
-        <div class="score2" th:each="score : ${max}"><p>이름 : [[${score.id}]] , 점수 : [[${score.score}]]</p></div>
+        <div class="score2" th:each="score : ${max}">
+            <img class="profile-img" th:if="${score.url == null}" src="/img/c1.png" alt="" width="30px" height="30px">
+            <img class="profile-img" th:if="${score.url != null}" th:src="[[${score.url}]]" width="30px" height="30px">
+            <p>닉네임 : [[${score.nickName}]] , 점수 : [[${score.score}]]</p>
+        </div>
         <div class="score">0</div>
         <div class="playground">
             <ul></ul>

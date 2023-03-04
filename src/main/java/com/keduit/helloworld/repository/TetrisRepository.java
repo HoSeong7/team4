@@ -13,5 +13,8 @@ public interface TetrisRepository extends JpaRepository<Tetris, Long>{
 	@Query(value = "select * from tetris order by score desc limit 3" ,nativeQuery=true)
 	List<Tetris> max3();
 
+	@Query(value = "delete from tetris where score = 0",nativeQuery = true)
+	void deleteDummy();
+
 	
 }

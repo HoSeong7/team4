@@ -54,7 +54,7 @@ let downInterval;
 let tempMovingItem;
 let num = 3;
 
-function resetpoint(){
+function resetpoint() {
     score = 0;
     duration = 600;
     num = 3;
@@ -108,8 +108,8 @@ function renderBlocks(moveType = "") {
             tempMovingItem = { ...movingItem }
             setTimeout(() => {
                 renderBlocks('retry');
-                if(moveType === 'retry'){
-					//console.log("eeeee"+score);
+                if (moveType === 'retry') {
+                    //console.log("eeeee"+score);
                     clearInterval(downInterval);
                     showGameoverText()
                 }
@@ -129,20 +129,20 @@ function seizeBlock() {
     movingBlocks.forEach(moving => {
         moving.classList.remove("moving");
         moving.classList.add("seized");
-        
+
     })
     checkMatch()
 }
-function checkMatch(){
+function checkMatch() {
     const childNodes = playground.childNodes;
-    childNodes.forEach(child=>{
+    childNodes.forEach(child => {
         let matched = true;
-        child.children[0].childNodes.forEach(li=>{
-            if(!li.classList.contains("seized")){
-                matched =false;
+        child.children[0].childNodes.forEach(li => {
+            if (!li.classList.contains("seized")) {
+                matched = false;
             }
         })
-        if(matched){
+        if (matched) {
             child.remove();
             prependNewLine()
             score++;
@@ -153,7 +153,7 @@ function checkMatch(){
 
     generateNewBlock()
 }
-function generateNewBlock(){
+function generateNewBlock() {
     clearInterval(downInterval);
     downInterval = setInterval(() => {
         moveBlock('top', 1)
@@ -167,7 +167,7 @@ function generateNewBlock(){
     movingItem.top = 0;
     movingItem.left = 3;
     movingItem.direction = 0;
-    tempMovingItem = {...movingItem};
+    tempMovingItem = { ...movingItem };
     renderBlocks()
 }
 
@@ -190,13 +190,13 @@ function moveBlock(moveType, amount) {
     renderBlocks(moveType)
 }
 
-function dropBlock(){
+function dropBlock() {
     clearInterval(downInterval);
-    downInterval = setInterval(()=>{
+    downInterval = setInterval(() => {
         moveBlock("top", 1)
     }, 5)
 }
-function showGameoverText(){
+function showGameoverText() {
     gameText.style.display = "flex";
 }
 //event handling
@@ -222,45 +222,31 @@ document.addEventListener("keydown", e => {
     }
 })
 
-restartButton.addEventListener("click", ()=>{
-    //gameText.style.display = "none";
-    //playground.innerHTML = "";
-    //scoreDisplay.innerText = 0;
-    //resetpoint();
-    //init();
-		var max = score;
+restartButton.addEventListener("click", () => {
     $.ajax({
-		url: '/icon/chk/'+max,
-		type: 'POST',
-		data: JSON.stringify(max),
-		ccontentType: "application/json; charset=utf-8",
-		dataType: 'text',
-		success: function(result){
-			/*const container = document.querySelector('.score2');
-			
-			result.forEach((result) =>{
-				
-			container.innerHTML += `<p>ID : ${result.id} , Score : ${result.score}</p>`;
-				});
-				
-			//$(".score2").html(result);
-			*/
-    location.reload();
-		}
-})
-
-    //console.log("점수"+score);
-
-})
+        url: '/icon/createScore/' + score,
+        type: 'POST',
+        data: JSON.stringify(score),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'text',
+        success: function (result) {
+            
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+    window.location.href = "/icon/tetris";
+});
 
 
-function durationturm(){
-    if(duration>60){
-   	 if(score >= num){
-        num += 1;
-        duration -= 10;
-    	}
-    }else{
-		duration = 55;
+function durationturm() {
+    if (duration > 60) {
+        if (score >= num) {
+            num += 1;
+            duration -= 10;
+        }
+    } else {
+        duration = 55;
     }
 }

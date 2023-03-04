@@ -79,3 +79,9 @@ body{
 .square{
     background-color: pink;
 }
+img{
+    float: right;
+}
+.nick_score{
+    font-size: 15px;
+}

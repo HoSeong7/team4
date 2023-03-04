@@ -290,10 +290,7 @@
 	}
 
 	function scrolldown() {
-		$(".message-box").scrollTo({
-			top: document.body.scrollHeight,
-			behavior: "smooth"
-		});
+		$(".message-box").scrollTop($(".message-box")[0].scrollHeight);
 	}
 	/*]]>*/
 </script>

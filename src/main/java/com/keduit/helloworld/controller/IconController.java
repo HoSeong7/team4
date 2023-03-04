@@ -2,6 +2,7 @@ package com.keduit.helloworld.controller;
 
 import java.util.List;
 
+import com.keduit.helloworld.dto.TetrisDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -43,7 +44,7 @@ public class IconController {
 	@GetMapping("/tetris")
 	public void tetris(Model model) {
 		log.info("IconController tetris");
-		List<Tetris> max3 = tetrisService.getMax3();
+		List<TetrisDTO> max3 = tetrisService.getMax3();
 		model.addAttribute("max",max3);
 	}
 	
@@ -57,17 +58,13 @@ public class IconController {
 		log.info("IconController stopwatch");
 	}
 	
-	@PostMapping("/chk/{max}")
-	public ResponseEntity<List<Tetris>> chk(@PathVariable("max") Long max ,Authentication authentication){
-		
+	@PostMapping("/createScore/{score}")
+	public void createScore(@PathVariable("score") Long score ,Authentication authentication){
 		//내 아이디 가져오기
 		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 		Member me =  memberService.idRead(userDetails.getUsername());
-		tetrisService.insertNum(me.getNickname(), max);
-		
-//		System.out.println(max3);
-		
-		return new ResponseEntity<>(null , HttpStatus.OK);
+		log.info("IconController createScore 탔을까요?");
+		tetrisService.createRank(me.getMemberNum(), score);
 	}
 
 }
