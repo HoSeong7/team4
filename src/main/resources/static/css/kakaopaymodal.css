@@ -141,9 +141,10 @@
     margin: auto;
     padding: 3px;
     display: flex;
-  	justify-content: center;
- 	align-items: center;
-  	flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    flex-flow: row wrap;
 }
 .modal div .box label{
     display: inline-block;
@@ -152,7 +153,10 @@
     font-size: 1.2rem;
     cursor: pointer;
     line-height: 2rem;
-    margin-right: 3px;
+    flex: 0 0 30%;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .out{

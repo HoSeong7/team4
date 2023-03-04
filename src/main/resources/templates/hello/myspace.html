@@ -24,7 +24,7 @@
             <ul>
                  <li class="user-img">
                 	 <img th:if="${member.url == null}" src="/img/c1.png" alt="" width="70px" height="70px">
-                	 <img th:if="${member.url != null}" width="70px" height="70px" th:src="'/hello/display?fileName='+${member.url}" >
+                	 <img th:if="${member.url != null}" width="70px" height="70px" th:src="'/hello/display?fileName='+${member.url}" style="border-radius: 80%;">
                 </li> 
                 <li class="text" >
                 	<img th:if="${member.exvalue} < 100" src="/img/a1.png">
