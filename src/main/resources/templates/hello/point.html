@@ -5,23 +5,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>포인트</title>
     <link rel="stylesheet" href="/css/point.css">
     <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/test.css">
-    
+    <link rel="stylesheet" href="/css/kakaopaymodal.css">
     
 	<!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    
 </head>
 
 <body>
     <!-- [header] 영역 시작 -->
 		<header th:replace="fragments/header :: headerFragment"></header>
 	<!-- [header] 영역 끝 -->
+	
     <div class="content-body">
         <div class="tabs">
             <input id="box1" type="radio" name="tab_item" checked>
@@ -32,6 +31,7 @@
             <label class="tab_item" for="box3">결제내역</label>
             <input id="box4" type="radio" name="tab_item">
             <label class="tab_item tab_item4" for="box4">쿠폰</label>
+            
 	        <div class="tab_content" id="box1_content">
 	          <form th:action="@{/hello/charge(id=${my.memberNum},point=${my.point})}" method="post" th:onsubmit="return Ok2Submit();">
 	                <div class="content-box1">
@@ -41,14 +41,11 @@
 	                    <div class="box-bottom">
 	                    	<button type="submit">충전하기</button>
 	                    	<div id="myBtn" ><p>간편결제</p></div>
-<!-- 	                    	<button onclick="window.open('/hello/temp')">간편결제</button> -->
-<!-- 	                    	<button onclick="window.open('/hello/kakaopay')">간편결제</button> -->
-<!-- 	                    	<div onclick="requestPay()">간편결제</div> -->
-<!-- 	                    	<input type="button" value="간편결제" onclick="requestPay()"> -->
 	                    </div>
 	                </div>
 	          </form>
 	        </div>
+	        
             <div class="tab_content" id="box2_content">
                 <div class="content-box2">
                   <form th:action="@{/hello/exchange(id=${my.memberNum},point=${my.point})}" method="post" th:onsubmit="return OkSubmit();">
@@ -58,6 +55,7 @@
                   </form>
                 </div>
             </div>
+            
             <div class="tab_content" id="box3_content">
                 <div class="content-box3">
                     <div class="box-table-top">
@@ -67,15 +65,17 @@
                         <div class="box4">잔여포인트</div>
                     </div>
                     <div class="box-table" th:each="point : ${list}">
-                        <div class="box1">[[${#temporals.format(point.regDate, 'yy/MM/dd h시')}]]</div>
-                        <div class="box2" th:if="${point.charge == null}"></div>
-                        <div class="box2" th:if="${point.charge != null}" data-th-text="${#numbers.formatInteger(point.charge, 3, 'COMMA') + '원'}"></div>
-                        <div class="box3" th:if="${point.exchange == null}"></div>
-                        <div class="box3" th:if="${point.exchange != null}" data-th-text="${#numbers.formatInteger(point.exchange, 3, 'COMMA') + '원'}"></div>
-                        <div class="box4" data-th-text="${#numbers.formatInteger(point.balance, 3, 'COMMA') + '원'}"></div>
+                        <div class="box1">[[${#temporals.format(point.regDate, 'yy/MM/dd HH:mm')}]]</div>
+                        <div class="box2" th:if="${point.charge} == null or ${point.charge} == 0"></div>
+                        <div class="box2" th:if="${point.charge} != null and ${point.charge} != 0" data-th-text="${#numbers.formatInteger(point.charge, 3, 'COMMA') + '원'}"></div>
+                        <div class="box3" th:if="${point.exchange} == null or ${point.exchange} == 0"></div>
+                        <div class="box3" th:if="${point.exchange} != null and ${point.exchange} != 0" data-th-text="${#numbers.formatInteger(point.exchange, 3, 'COMMA') + '원'}"></div>
+                        <div class="box4" th:if="${point.balance} == null or ${point.balance} == 0" data-th-text="${0 + 'P'}"></div>
+                        <div class="box4" th:if="${point.balance} != null and ${point.balance} != 0" data-th-text="${#numbers.formatInteger(point.balance, 3, 'COMMA') + 'P'}"></div>
                     </div>
                 </div>
             </div>
+            
             <div class="tab_content" id="box4_content">
                 <div class="content-box2">
                     <div class="box-title"><p>현재 잔액 : <span id="jb2">[[${my.point}]]</span>포인트</p></div>
@@ -86,92 +86,83 @@
         </div>
    </div>
         
-        <!-- Modal -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <div class='wave -one'></div>
-                    <div class='wave -two'></div>
-                    <div class='wave -three'></div>
-                    <h2 class="title">카카오페이</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body bg-white mt-0 shadow">
-                        <p style="font-weight: bold">카카오페이 현재 사용가능</p>
-                        
-                        <div class="box">
-                            <label class="box-radio-input bgr1"> 5000원 <input class="radio-all price1" onclick="checkRadio()" type="radio" name="cp_item" value="5000"></label>
-                            <label class="box-radio-input bgr2"> 10000원 <input class="radio-all price2" onclick="checkRadio()" type="radio" name="cp_item" value="10000"></label>
-                            <label class="box-radio-input bgr3"> 15000원 <input class="radio-all price3" onclick="checkRadio()" type="radio" name="cp_item" value="15000"></label>
-                        </div>
-                        
-                        <div class="box">
-                            <label class="box-radio-input bgr4"> 20000원 <input class="radio-all price4" onclick="checkRadio()" type="radio" name="cp_item" value="20000"></label>
-                            <label class="box-radio-input bgr5"> 25000원 <input class="radio-all price5" onclick="checkRadio()" type="radio" name="cp_item" value="25000"></label>
-                            <label class="box-radio-input bgr6"> 30000원 <input class="radio-all price6" onclick="checkRadio()" type="radio" name="cp_item" value="30000"></label>
-                        </div>
-                        <div class="box">
-                            <label class="box-radio-input bgr7"> 35000원 <input class="radio-all price7" onclick="checkRadio()" type="radio" name="cp_item" value="35000"></label>
-                            <label class="box-radio-input bgr8"> 40000원 <input class="radio-all price8" onclick="checkRadio()" type="radio" name="cp_item" value="40000"></label>
-                            <label class="box-radio-input bgr9"> 50000원 <input class="radio-all price9" onclick="checkRadio()" type="radio" name="cp_item" value="50000"></label>
-                        </div>
-                        <p class="text10"style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 5,000원이며 <br />최대 충전금액은 50,000원 입니다.
-                        </p>
-                        <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao" onclick="requestPay()">충 전 하 기</button>
-                        </div>
-                    </div>
+   <!-- Modal -->
+   <div id="myModal" class="modal">
+       <div class="modal-content">
+           <div class="modal-header">
+               <span class="close">&times;</span>
+               <div class='wave -one'></div>
+               <div class='wave -two'></div>
+               <div class='wave -three'></div>
+               <h2 class="title">카카오페이</h2>
+           </div>
+           <div class="modal-body">
+               <div class="card-body bg-white mt-0 shadow">
+                   <p>충전 금액을 선택해 주세요.</p>
+                   
+                   <div class="box">
+                       <label class="box-radio-input out bgr1"> <span class="price-text"> 5000원 </span> <input class="radio-all price1" onclick="checkRadio()" type="radio" name="cp_item" value="5000"></label>
+                       <label class="box-radio-input out bgr2"> <span class="price-text">10000원</span> <input class="radio-all price2" onclick="checkRadio()" type="radio" name="cp_item" value="10000"></label>
+                       <label class="box-radio-input out bgr3"> <span class="price-text">15000원</span> <input class="radio-all price3" onclick="checkRadio()" type="radio" name="cp_item" value="15000"></label>
+                   </div>
+                   <div class="box">
+                       <label class="box-radio-input out bgr4"> <span class="price-text">20000원</span> <input class="radio-all price4" onclick="checkRadio()" type="radio" name="cp_item" value="20000"></label>
+                       <label class="box-radio-input out bgr5"> <span class="price-text">25000원</span> <input class="radio-all price5" onclick="checkRadio()" type="radio" name="cp_item" value="25000"></label>
+                       <label class="box-radio-input out bgr6"> <span class="price-text">30000원</span> <input class="radio-all price6" onclick="checkRadio()" type="radio" name="cp_item" value="30000"></label>
+                   </div>
+                   <div class="box">
+                       <label class="box-radio-input out bgr7"> <span class="price-text">35000원</span> <input class="radio-all price7" onclick="checkRadio()" type="radio" name="cp_item" value="35000"></label>
+                       <label class="box-radio-input out bgr8"> <span class="price-text">40000원</span> <input class="radio-all price8" onclick="checkRadio()" type="radio" name="cp_item" value="40000"></label>
+                       <label class="box-radio-input out bgr9"> <span class="price-text">50000원</span> <input class="radio-all price9" onclick="checkRadio()" type="radio" name="cp_item" value="50000"></label>
+                   </div>
+                   <p class="text10"style="color: #ac2925; margin-top: 17px">카카오페이의 최소 충전금액은 5,000원이며 <br />최대 충전금액은 50,000원 입니다.
+                   </p>
+                   <div class="button-box"><button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao" onclick="requestPay()">충 전 하 기</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>     
 
-                    <!-- Add more content as needed -->
-                </div>
-            </div>
-        </div>     
 	
    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+	<script>
+		function checkRadio() {
+			for (let i = 1; i < 10; i++) {
+			    let evalStr = 'var price' + i + ' =  $(".price'+i+'").is(":checked")';
+			    eval(evalStr);
+			    
+			    if(eval('price'+i)){
+			        $(".bgr"+i).addClass("yellow-background");
+			     }else{
+			        $(".bgr"+i).removeClass("yellow-background");
+			     }
+			}
+		}
+	</script>  
+
+
 	<script th:inline="javascript">
-	
-/*<![CDATA[*/
-// 	$('#charge_kakao').click(function () {
-	
-// 	 var IMP = window.IMP;
+	/*<![CDATA[*/
 	 IMP.init("imp17634270");
 	 
 	function requestPay()  {
-	 // getter
 	 
 	 var charge = $('input[name="cp_item"]:checked').val();
-	 console.log(charge);
 	 
 	 const my = /*[[${my}]]*/ {};
-	 console.log("my " + my[0]);
-
 	 const myNickname = /*[[${my.nickname}]]*/ {};
 	 const myNum = /*[[${my.memberNum}]]*/ {};
 	 
-	 console.log("myNickname " + myNickname);
-	 console.log("myNum " + myNum);
-	 console.log("charge " + charge);
-	
-	 
 	 IMP.request_pay({
-// 	     pg: 'kakaopay.TC0ONETIME',
-// // 	     merchant_uid: 'merchant_' + new Date().getTime(),  //매번 고유해야함
-// 	     merchant_uid: 'merchant',  //매번 고유해야함
-// 	     name: '주문명 : 포인트 충전', <!-- '주문명 : 주문명 설정' -->
-// 		 charge: charge, 
-// 	     buyer_name: myNickname
-
 		 pg : 'kakaopay.TC0ONETIME',
          pay_method : 'card',
          merchant_uid: 'merchant_' + new Date().getTime(), //매번 고유해야함
-         name : 'Q&A 답변 결제',
+         name : '포인트 충전',
          amount : charge,
-         buyer_email : 'hello_world@google.com',
-         buyer_name : myNickname,
-         buyer_tel : '010-1234-5678',
-         
+         buyer_name : myNickname
 	 }, function (rsp) {
 		 if (rsp.success) {
              console.log(rsp);
@@ -182,55 +173,25 @@
 	             dataType: 'json',
 	             data: JSON.stringify({
 	                 "memberNum" : myNum,
-	             	 "charge" : charge * 100
+	             	 "charge" : charge
 	             }),
 	             success: function (result){
 	             	if (result){
 	             		alert("결제에 성공했습니다.");
-// 	             		alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
 	             		window.location.reload();
 	             	} else {
 	             		alert("결제에 실패했습니다.");
-// 	             		alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
 	             	}
 	             }
 	         });
-             
-             
-// 				alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
-// 				alert("결제에 성공했습니다.");
-// 				window.location.reload();
          } else {
              console.log(rsp);
              	alert("결제에 실패했습니다.");
-// 				alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
          }	 
-	 
-// 	         $.ajax({
-// 	             type: "POST", 
-// 	             url: "/hello/kakaopay", //충전 금액값을 보낼 url 설정
-// 	             contentType: 'application/json; charset=utf-8',
-// 	             dataType: 'json',
-// 	             data: JSON.stringify({
-// 	                 "memberNum" : myNum,
-// 	             	 "charge" : charge * 100
-// 	             }),
-// 	             success: function (result){
-// 	             	if (result){
-// 	             		alert("결제에 성공했습니다.");
-// // 	             		alert("완료 -> imp_uid : " + rsp.imp_uid + " / merchant_uid(orderKey) : " + rsp.merchant_uid);
-// 	             		window.location.reload();
-// 	             	} else {
-// 	             		alert("결제에 실패했습니다.");
-// // 	             		alert("실패 : 코드(" + rsp.error_code + ") / 메세지(" + rsp.error_msg + ")");
-// 	             	}
-// 	             }
-// 	         });
-// 	     document.location.href="/hello/point"; //alert창 확인 후 이동할 url 설정
 	 });
 	};
 	/*]]>*/
-</script>
+	</script>
 
 
 	<script>
@@ -262,22 +223,6 @@
  	</script>
    
    
-	<script>
-		function checkRadio() {
-			for (let i = 1; i < 10; i++) {
-			    let evalStr = 'var price' + i + ' =  $(".price'+i+'").is(":checked")';
-			    eval(evalStr);
-			    
-			    if(eval('price'+i)){
-			        $(".bgr"+i).addClass("green-background");
-			     }else{
-			        $(".bgr"+i).removeClass("green-background");
-			     }
-			}
-		}
-	</script>
-
-
    <script>
       $( document ).ready( function() {
         $( '#jb' ).text( $( '#jb' ).text().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
@@ -286,10 +231,10 @@
       } );
    </script>
    
-   <script type="text/javascript">
+   
+   	<script type="text/javascript">
 
-	// ajax로 nickname 중복확인
-
+		// ajax로 nickname 중복확인
 		function chk(){
 		    var coupon = $("#coupon").val();
 	
@@ -343,14 +288,11 @@
 		          return false;
 			}
 		}
-
 	</script>
 	
 	
     <footer th:replace="fragments/footer :: footerFragment"></footer>
         
 </body>
-
-
 
 </html>
