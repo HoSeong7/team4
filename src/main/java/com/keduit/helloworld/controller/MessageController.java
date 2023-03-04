@@ -65,7 +65,7 @@ public class MessageController {
 		
 		MessageDTO msgDTO;
 		
-		if(boardCommentNum.equals("")){ // 최초전송 이후
+		if(boardCommentNum.equals("")){ //게시판 통해 전송 시
 			Long messageNum  = Long.parseLong(params.get("messageNum").toString()); //쪽지번호
 
 			/** 쪽지 번호, 조회하는 사람 회원번호로 쪽지 상세 조회하기 */
@@ -82,8 +82,7 @@ public class MessageController {
 					.view(0L)
 					.build();
 
-		}else{ // 최초전송시
-
+		}else{ //쪽지함에서 답장 시
 			msgDTO = MessageDTO
 					.builder()
 					.memberGet(Long.parseLong(yourNum))

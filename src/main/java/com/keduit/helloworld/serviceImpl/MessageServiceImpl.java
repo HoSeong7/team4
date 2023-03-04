@@ -1,16 +1,13 @@
 package com.keduit.helloworld.serviceImpl;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.keduit.helloworld.dto.MemberDTO;
 import com.keduit.helloworld.dto.MessageDTO;
 import com.keduit.helloworld.entity.Member;
 import com.keduit.helloworld.entity.Message;
