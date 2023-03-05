@@ -350,30 +350,30 @@
         });
 
 
-            /* 삭제버튼 클릭 */
-            $(document).on("click", ".commentRemoveBtn", function () {
+        /* 삭제버튼 클릭 */
+        $(document).on("click", ".commentRemoveBtn", function () {
 
-                if (!confirm("댓글을 삭제 하시겠습니까?")) {
-                    return;
-                }
+            if (!confirm("댓글을 삭제 하시겠습니까?")) {
+                return;
+            }
 
-                var boardCommentNum = $(this).data("boardcommentnum");
+            var boardCommentNum = $(this).data("boardcommentnum");
 
-                $.ajax({
-                    url: '/comment/' + boardCommentNum,
-                    method: 'delete',
-                    success: function (result) {
-                        console.log("result : " + result);
-                        if (result === 'success') {
-                            alert("뎃글이 삭제되었습니다.");
-                            $(".call").hide();
-                            getComment();
-                            self.location.reload();
-                        }
+            $.ajax({
+                url: '/comment/' + boardCommentNum,
+                method: 'delete',
+                success: function (result) {
+                    console.log("result : " + result);
+                    if (result === 'success') {
+                        alert("뎃글이 삭제되었습니다.");
+                        $(".call").hide();
+                        getComment();
+                        self.location.reload();
                     }
-                });
-
+                }
             });
+
+        });
 
 
         /* 수정 */
@@ -587,6 +587,22 @@
                         $(document).on("click", ".msgregister", function () {
                             var msg = $("#msgContent").val();
                             var msgTitle = $(".msgTitle").val();
+
+                            // 발송 전 제목,본문 공백 및 최대 글자수 체크
+                            if ((msgTitle.trim() == '') || (msgTitle.length > 15)) {
+                                alert("제목이 비어있거나 너무 깁니다.");
+                                $(".msgTitle").val("");
+                                $(".msgTitle").focus();
+                                return false;
+                            } else if ((msg.val() == '') || (msg.length > 300)) {
+                                alert("본문이 비어있거나 너무 깁니다.");
+                                $("#msgContent").val("");
+                                $("#msgContent").focus();
+                                return false;
+                            }
+                            if (!confirm("전송하시겠습니까?")) {
+                                return false;
+                            }
 
                             var msgData = {
                                 'content': msg,

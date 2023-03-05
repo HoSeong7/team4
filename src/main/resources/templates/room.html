@@ -129,7 +129,17 @@
 	}
 	function createRoom() {
 		$("#createRoom").click(function () {
-			console.log('1');
+
+			const roomNameIs = /^[a-zA-Z0-9가-힣]{2,12}$/;
+			var roomNametest = $('#roomName').val();
+			
+			if(!roomNameIs.test(roomNametest)){
+				alert("방 이름은 두글자 이상의 한글 영어 숫자로 만들어져야 합니다.");
+				$('#roomName').val("");
+				$('#roomName').focus();
+				return false;
+			}
+
 			var msg = { roomName: $('#roomName').val() };
 
 			commonAjax('/createRoom', msg, 'post', function (result) {

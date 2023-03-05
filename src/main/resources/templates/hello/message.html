@@ -179,15 +179,19 @@
       function registerBtn() {
          
          // 발송 전 제목,본문 공백 및 최대 글자수 체크
-         if (($("#mustTitle").val() == '') || ($("#mustTitle").val().length > 15)) {
+         if (($("#mustTitle").val().trim() == '') || ($("#mustTitle").val().length > 15)) {
             alert("제목이 비어있거나 너무 깁니다.");
+            $("#mustTitle").val("");
+            $("#mustTitle").focus();
             return false;
          } else if (($("#mustContent").val() == '') || ($("#mustContent").val().length > 300)) {
             alert("본문이 비어있거나 너무 깁니다.");
+            $("#mustContent").val("");
+            $("#mustContent").focus();
             return false;
          } 
          if(!confirm("전송하시겠습니까?")){
-            return;
+            return false;
          }
          
          var rtitle = $(".title-text").val();
