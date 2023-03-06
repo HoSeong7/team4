@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>Chating</title>
 	<style>
-		/* 스크롤바 설정*/
+		/* 스크롤바 설정*/ 
 		.message-box::-webkit-scrollbar {
 			width: 10px;
 		}
@@ -236,6 +236,7 @@
 				} else if (d.type == "message") {
 					if (d.userName == userNickname) {
 						$(".message-box").append('<div class="chat-message mine"><section><i class="fa fa-user"></i></section><span>' + userNickname + '</span><div>' + d.msg + '</div></div>');
+						scrolldown();
 					} else {
 						$(".message-box").append('<div class="chat-message other"><section><i class="fa fa-user"></i></section><span>' + d.userName + '</span><div>' + d.msg + '</div></div>');
 					}
@@ -246,7 +247,6 @@
 					console.warn("unknown type!");
 				}
 			}
-			scrolldown();
 		}
 
 		document.addEventListener("keypress", function (e) {
@@ -292,13 +292,14 @@
 	function scrolldown() {
 		$(".message-box").scrollTop($(".message-box")[0].scrollHeight);
 	}
+	
 	/*]]>*/
 </script>
 
 <body>
 	<div id="chat-room">
 		<div class="backimg">
-			<img src="/img/back.png" alt="뒤로가기" onclick="history.back()">
+			<img src="/img/back.png" alt="뒤로가기" width="50px" onclick="history.back()">
 		</div>
 		<div class="message-box">
 			<h1>[[${roomName}]]</h1>

@@ -28,10 +28,8 @@ public class Tetris{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long tno;
-	
 	@Column
 	private Long memberNum;
-	
 	@Column
 	private Long score;
 	

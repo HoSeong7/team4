@@ -31,7 +31,6 @@ public class TetrisServiceImpl implements TetrisService {
 				.memberNum(memberNum)
 				.score(score)
 				.build();
-		tetrisRepository.deleteDummy();
 		tetrisRepository.save(tetris);
 	}
 

@@ -30,10 +30,10 @@ const BLOCKS = {
         [[1, 0], [2, 0], [1, 1], [1, 2]],
     ],
     elRight: [
-        [[1, 0], [2, 0], [1, 1], [1, 2]],
-        [[0, 0], [0, 1], [1, 1], [2, 1]],
-        [[0, 2], [1, 0], [1, 1], [1, 2]],
-        [[0, 1], [1, 1], [2, 1], [2, 2]],
+        [[0, 2], [0, 1], [1, 1], [2, 1]],
+        [[1, 0], [1, 1], [1, 2], [2, 2]],
+        [[0, 1], [1, 1], [2, 1], [0, 2]],
+        [[1, 0], [0, 0], [1, 1], [1, 2]],
     ]
 }
 
@@ -223,6 +223,8 @@ document.addEventListener("keydown", e => {
 })
 
 restartButton.addEventListener("click", () => {
+
+
     $.ajax({
         url: '/icon/createScore/' + score,
         type: 'POST',
@@ -230,13 +232,14 @@ restartButton.addEventListener("click", () => {
         contentType: "application/json; charset=utf-8",
         dataType: 'text',
         success: function (result) {
-            
+            window.location.reload(); 
         },
         error: function (err) {
             console.log(err);
+            window.location.reload(); 
         }
     });
-    window.location.href = "/icon/tetris";
+    window.location.reload(); 
 });
 
 

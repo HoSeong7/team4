@@ -594,7 +594,7 @@
                                 $(".msgTitle").val("");
                                 $(".msgTitle").focus();
                                 return false;
-                            } else if ((msg.val() == '') || (msg.length > 300)) {
+                            } else if (($("#msgContent").val() == '') || (msg.length > 300)) {
                                 alert("본문이 비어있거나 너무 깁니다.");
                                 $("#msgContent").val("");
                                 $("#msgContent").focus();
